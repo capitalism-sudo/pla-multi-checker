@@ -5,7 +5,7 @@ DumpCrystal = False
 Island = 0
 # eventstyle = 'style = "background:#ffe4c3" |'
 eventstyle = ''
-# Go to root of PyNXBot
+# Go to root of PyNXReader
 import sys
 sys.path.append('../')
 from lookups import PKMString

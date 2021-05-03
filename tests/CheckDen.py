@@ -3,18 +3,21 @@ V6 = [31,31,31,31,31,31]
 S0 = [31,31,31,31,31,00]
 A0 = [31,00,31,31,31,31]
 
+# Desired Nature
+Nature = "Careful"
+
 useFilters = True
 MaxResults = 1000
 doResearch = True
 
-# Go to root of PyNXBot
+# Go to root of PyNXReader
 import signal
 import sys
 import json
 sys.path.append('../')
 
 from lookups import Util
-from nxbot import RaidBot
+from nxreader import RaidReader
 from rng import XOROSHIRO,Raid
 from structure import Den
 
@@ -23,21 +26,21 @@ def signal_handler(signal, frame): #CTRL+C handler
     b.close()
 
 config = json.load(open("../config.json"))
-b = RaidBot(config["IP"])
+r = RaidReader(config["IP"])
 
 signal.signal(signal.SIGINT, signal_handler)
 
 seed = None
 
-for ii in range(RaidBot.DENCOUNT):
+for ii in range(RaidReader.DENCOUNT):
     if ii > 189:
-        den = Den(b.readDen(ii + 32))
+        den = Den(r.readDen(ii + 32))
     elif ii > 99:
-        den = Den(b.readDen(ii + 11))
+        den = Den(r.readDen(ii + 11))
     else:
-        den = Den(b.readDen(ii))
+        den = Den(r.readDen(ii))
     if den.isActive():
-        spawn = den.getSpawn(denID = ii, isSword = b.isPlayingSword)
+        spawn = den.getSpawn(denID = ii, isSword = r.isPlayingSword)
         currShinyLock = 0
         if ii > 189:
             info = f"[CT] denID: {ii-189}"
@@ -61,8 +64,8 @@ for ii in range(RaidBot.DENCOUNT):
             piecedSpawn = spawn
             piecedShinyLock = currShinyLock
         print(info)
-        r = Raid(seed = den.seed(), TID = b.TID, SID = b.SID, flawlessiv = spawn.FlawlessIVs(), shinyLock = currShinyLock, ability = spawn.Ability(), gender = spawn.Gender(), species = spawn.Species(), altform = spawn.AltForm())
-        r.print()
+        raid = Raid(seed = den.seed(), TID = r.TID, SID = r.SID, flawlessiv = spawn.FlawlessIVs(), shinyLock = currShinyLock, ability = spawn.Ability(), gender = spawn.Gender(), species = spawn.Species(), altform = spawn.AltForm())
+        raid.print()
         print()
 
 # Choose RNGable den to calculate frames
@@ -70,16 +73,16 @@ if seed is not None and doResearch:
     print('\nWishing Piece Den Prediction:\n')
     i = 0
     while i < MaxResults:
-        r = Raid(seed, TID = b.TID, SID = b.SID, flawlessiv = piecedSpawn.FlawlessIVs(), shinyLock = piecedShinyLock, ability = piecedSpawn.Ability(), gender = piecedSpawn.Gender(), species = piecedSpawn.Species(), altform = piecedSpawn.AltForm())
+        raid = Raid(seed, TID = b.TID, SID = b.SID, flawlessiv = piecedSpawn.FlawlessIVs(), shinyLock = piecedShinyLock, ability = piecedSpawn.Ability(), gender = piecedSpawn.Gender(), species = piecedSpawn.Species(), altform = piecedSpawn.AltForm())
         seed = XOROSHIRO(seed).next()
         if useFilters:
-            if (r.ShinyType != 'None' or r.IVs == V6 or r.IVs == S0 or r.IVs == A0) and Util.STRINGS.natures[r.Nature] == 'Careful':
+            if (raid.ShinyType != 'None' or raid.IVs == V6 or raid.IVs == S0 or raid.IVs == A0) and Util.STRINGS.natures[raid.Nature] == Nature:
                 print(f"Frame:{i}")
-                r.print()
+                raid.print()
                 print()
         else:
             print(f"Frame:{i}")
-            r.print()
+            raid.print()
             print()
         i += 1
 

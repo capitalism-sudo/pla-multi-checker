@@ -1,6 +1,0 @@
-dependencies:
-  - python=3
-  - pip:
-    - z3-solver
-    - numpy
-    - pyserial

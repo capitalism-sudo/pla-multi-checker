@@ -1,18 +1,18 @@
-# Go to root of PyNXBot
+# Go to root of PyNXReader
 import sys
 import json
 sys.path.append('../')
 
-from nxbot import SWSHBot
+from nxreader import SWSHReader
 
 config = json.load(open("../config.json"))
-b = SWSHBot(config["IP"])
+r = SWSHReader(config["IP"])
 
-print(f"TID: {b.TrainerSave.TID()}")
-print(f"SID: {b.TrainerSave.SID()}")
-print(f"TSV: {b.TrainerSave.TSV()}")
-print(f"Language: {b.TrainerSave.getLangName()}")
-print(f"Money: {b.TrainerSave.Money()}$")
-print(f"Watts: {b.TrainerSave.Watts()}\n")
+print(f"TID: {r.TrainerSave.TID()}")
+print(f"SID: {r.TrainerSave.SID()}")
+print(f"TSV: {r.TrainerSave.TSV()}")
+print(f"Language: {r.TrainerSave.getLangName()}")
+print(f"Money: {r.TrainerSave.Money()}$")
+print(f"Watts: {r.TrainerSave.Watts()}\n")
 
-b.close()
+r.close()

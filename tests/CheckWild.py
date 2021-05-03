@@ -1,16 +1,16 @@
-# Go to root of PyNXBot
+# Go to root of PyNXReader
 import sys
 import json
 sys.path.append('../')
 
 from structure import PK8
-from nxbot import SWSHBot
+from nxreader import SWSHReader
 
 config = json.load(open("../config.json"))
-b = SWSHBot(config["IP"])
+r = SWSHReader(config["IP"])
 
 while True:
-    pk8 = PK8(b.readWild())
+    pk8 = PK8(r.readWild())
     if pk8.isValid() and pk8.ec() != 0:
         print(pk8.toString())
     else:
@@ -18,4 +18,4 @@ while True:
     stop = input("Check again? (y/n): ")
     print()
     if stop == 'n' or stop == 'N':
-        b.close()
+        r.close()

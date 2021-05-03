@@ -1,8 +1,8 @@
-# Go to root of PyNXBot
+# Go to root of PyNXReader
 import sys
 sys.path.append('../')
 from lookups import PKMString
-from nxbot import SWSHBot
+from nxreader import SWSHReader
 from structure import EncounterNest8Archive
 from structure import NestHoleReward8Archive
 

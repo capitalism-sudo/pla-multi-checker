@@ -1,8 +1,8 @@
-# Go to root of PyNXBot
+# Go to root of PyNXReader
 import sys
 sys.path.append('../')
 from lookups import PKMString
-from nxbot import SWSHBot
+from nxreader import SWSHReader
 from structure import NestHoleReward8Archive
 from structure import NestHoleDistributionEncounter8Archive, NestHoleCrystalEncounter8Archive, NestHoleDistributionReward8Archive
 import flatbuffers
@@ -23,31 +23,31 @@ buf = bytearray(open('../resources/bytes/local_bonus','rb').read())
 bonus = NestHoleReward8Archive.GetRootAsNestHoleReward8Archive(buf,0)
 
 if ReadFromConsole:
-	b = SWSHBot(config["IP"])
+	r = SWSHReader(config["IP"])
 	if Island == 0:
-		buf = b.readEventBlock_RaidEncounter(DumpPath)
+		buf = r.readEventBlock_RaidEncounter(DumpPath)
 	elif Island == 1:
-		buf = b.readEventBlock_RaidEncounter_IoA(DumpPath)
+		buf = r.readEventBlock_RaidEncounter_IoA(DumpPath)
 	else:
-		buf = b.readEventBlock_RaidEncounter_CT(DumpPath)
+		buf = r.readEventBlock_RaidEncounter_CT(DumpPath)
 else:
 	buf = bytearray(open(LocalPath + 'normal_encount','rb').read()) if Island == 0 else bytearray(open(LocalPath + f'normal_encount_rigel{Island}','rb').read())
 eventencounter = NestHoleDistributionEncounter8Archive.GetRootAsNestHoleDistributionEncounter8Archive(buf,0x20)
 
 if ReadFromConsole:
-	buf = b.readEventBlock_DropRewards(DumpPath)
+	buf = r.readEventBlock_DropRewards(DumpPath)
 else:
 	buf = bytearray(open(LocalPath + 'drop_rewards','rb').read())
 dropreward = NestHoleDistributionReward8Archive.GetRootAsNestHoleDistributionReward8Archive(buf,0x20)
 
 if ReadFromConsole:
-	buf = b.readEventBlock_BonusRewards(DumpPath)
+	buf = r.readEventBlock_BonusRewards(DumpPath)
 else:
 	buf = bytearray(open(LocalPath + 'bonus_rewards','rb').read())
 bonusreward = NestHoleDistributionReward8Archive.GetRootAsNestHoleDistributionReward8Archive(buf,0x20)
 
 if ReadFromConsole:
-	buf = b.readEventBlock_CrystalEncounter(DumpPath)
+	buf = r.readEventBlock_CrystalEncounter(DumpPath)
 else:
 	buf = bytearray(open(LocalPath + 'dai_encount','rb').read())
 crystalencounter = NestHoleCrystalEncounter8Archive.GetRootAsNestHoleCrystalEncounter8Archive(buf,0x20)
@@ -230,4 +230,4 @@ else:
 # 		print(msg)
 
 if ReadFromConsole:
-	b.close()
+	r.close()

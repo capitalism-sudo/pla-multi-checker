@@ -23,12 +23,12 @@ class SystemLanguage(Enum):
     ZHHANS = 15
     ZHHANT = 16
 
-class NXBot(object):
+class NXReader(object):
     def __init__(self,ip,port = 6000):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.settimeout(1)
         self.s.connect((ip, port))
-        print('Bot Connected')
+        print('Connected')
         self.configure()
         self.moveLeftStick(0,0)
         self.moveRightStick(0,0)
@@ -49,7 +49,7 @@ class NXBot(object):
         self.detach()
         self.s.shutdown(socket.SHUT_RDWR)
         self.s.close()
-        print('Bot Disconnected')
+        print('Disconnected')
         if exitapp:
             sys.exit(0)
 
@@ -107,13 +107,13 @@ class NXBot(object):
     def pause(self,duration):
         sleep(duration)
 
-class SWSHBot(NXBot):
+class SWSHReader(NXReader):
     PK8STOREDSIZE = 0x148
     PK8PARTYSIZE = 0x158
     DENCOUNT = 276
 
     def __init__(self,ip,port = 6000):
-        NXBot.__init__(self,ip,port)
+        NXReader.__init__(self,ip,port)
         from structure import MyStatus8
         self.TrainerSave = MyStatus8(self.readTrainerBlock())
         self.eventoffset = 0
@@ -195,8 +195,8 @@ class SWSHBot(NXBot):
 
     def readDen(self,denID):
         denDataSize = 0x18;
-        if denID > SWSHBot.DENCOUNT + 31:
-            denID = SWSHBot.DENCOUNT + 31
+        if denID > SWSHReader.DENCOUNT + 31:
+            denID = SWSHReader.DENCOUNT + 31
         address = 0x450C8A70 + denID * denDataSize
         return self.read(address,denDataSize)
 
@@ -208,96 +208,3 @@ class SWSHBot(NXBot):
 
     def readBattleStart(self):
         return self.read(0x6B578EDC, 8)
-
-    def increaseResets(self):
-        self.resets += 1
-
-    def quitGame(self,needHome = True):
-        if needHome:
-            self.click("HOME")
-            self.pause(0.8)
-        self.click("X")
-        self.pause(0.2)
-        self.click("X")
-        self.pause(0.4)
-        self.click("A")
-        self.pause(0.2)
-        self.click("A")
-        self.pause(3)
-
-    def enterGame(self):
-        print("\nStarting the game")
-        self.click("A")
-        self.pause(0.2)
-        self.click("A")
-        self.pause(1.3)
-        self.click("A")
-        self.pause(0.2)
-        self.click("A")
-
-    def skipIntroAnimation(self): #luxray = False
-        skip = False
-        self.pause(14.7)
-        while skip is not True:
-            self.pause(0.3)
-            currScreen = Screen(self.readScreenOff())
-            if currScreen.isIntroAnimationSkippable():
-                skip = True
-            else:
-                self.click("A")
-        #self.pause(20.5)
-        #currScreen.isIntroAnimationSkippable()
-        #if luxray:
-            #self.pause(1.3)
-        print("Skip animation")
-        for i in range(10):
-            self.click("A") #A to skip anim
-            self.pause(0.5)
-        #self.pause(8)
-        skipped = False
-        while skipped is not True:
-            currScreen = Screen(self.readOverworldCheck())
-            if currScreen.overworldCheck():
-                skipped = True
-            self.pause(0.5)
-
-    def saveGame(self):
-        print("Saving...")
-        self.click("X")
-        self.pause(1.2)
-        self.click("R")
-        self.pause(1.5)
-        self.click("A")
-        self.pause(4)
-
-    def closeGame(self):
-        c = input("Close the game? (y/n): ")
-        if c == 'y' or c == 'Y':
-            h = input("Need HOME button pressing? (y/n): ")
-            if h == 'y' or h == 'Y':
-                needHome = True
-            else:
-                needHome = False
-            print("Closing game...")
-            self.quitGame(needHome)
-        print()
-        self.close()
-
-    def foundActions(self):
-        print("Found after", self.resets, "resets")
-        print()
-        a = input("Continue searching? (y/n): ")
-        if a != "y" and a != "Y":
-            self.closeGame()
-        else:
-            self.increaseResets()
-            print("Resets:", self.resets)
-
-    def notfoundActions(self,i=0,bot='raid'):
-        if i == 0 and bot == 'raid':
-            print("Research skipped")
-        self.increaseResets()
-        if bot == 'raid':
-            print("Nothing found - Resets:", self.resets)
-        else:
-            print("Wrong Species/Stars - Resets:", self.resets)

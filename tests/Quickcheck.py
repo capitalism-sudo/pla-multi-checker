@@ -1,11 +1,11 @@
-# Go to root of PyNXBot
+# Go to root of PyNXReader
 Path = 'Event/PersonalDump/'
 Island = 0
 
 import sys
 sys.path.append('../')
 from lookups import PKMString
-from nxbot import SWSHBot
+from nxreader import SWSHReader
 from structure import NestHoleReward8Archive
 from structure import NestHoleDistributionEncounter8Archive, NestHoleCrystalEncounter8Archive, NestHoleDistributionReward8Archive
 import flatbuffers
