@@ -1,5 +1,6 @@
 # PyNXReader
  Python Lib for reading information from Pokemon Sword and Shield (and LGPE soon™) as well as sending inputs to the switch (to play with a different controller etc.)
+ 
  This is a fork of PyNXBot by [wwwwwwzx](https://github.com/wwwwwwzx) so credit to them and other who worked on the original project!
 
 ## Warning
