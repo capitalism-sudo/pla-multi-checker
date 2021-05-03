@@ -116,6 +116,7 @@ class SWSHReader(NXReader):
         NXReader.__init__(self,ip,port)
         from structure import MyStatus8
         self.TrainerSave = MyStatus8(self.readTrainerBlock())
+        self.KCoordinates = MyStatus8(self.readKCoordinatesBlock())
         self.eventoffset = 0
         self.resets = 0
         if self.TrainerSave.isPokemonSave():
@@ -148,6 +149,9 @@ class SWSHReader(NXReader):
 
     def readTrainerBlock(self):
         return self.read(0x45068F18, 0x110) + self.read(0x45072DF4, 0x3)
+
+    def readKCoordinatesBlock(self):
+        return self.read(0x4505B3C0, 0x6010)
 
     def readParty(self,slot=1):
         if slot > 6:

@@ -2,6 +2,7 @@ from .PK8 import PK8
 from .WC8 import WC8
 from .Den import Den
 from .MyStatus8 import MyStatus8
+from .KCoordinates import KCoordinates
 from .PersonalInfo import PersonalTable
 from .TextFile import TextFile
 from .Screen import Screen

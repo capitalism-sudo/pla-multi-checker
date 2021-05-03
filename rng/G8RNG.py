@@ -433,6 +433,46 @@ class Raid(FrameGenerator):
                         result.append([seed,-iv_count])
         return result
 
+# Class to calculate info on overworld mons
+# (credit to https://github.com/Manu098vm/Sys-EncounterBot.NET/)
+
+class OverworldRNG:
+
+    @staticmethod
+    def GetShinyPID(tid,sid,pid,typ):
+        return (((tid ^ sid ^ (pid & 0xFFFF) ^ typ) << 16) | (pid & 0xFFFF)) & 0xFFFFFFFF
+
+    @staticmethod
+    def CalculateFromSeed(pk, shiny, flawless, seed):
+        xoro = XOROSHIRO(seed)
+
+        pk.EC = xoro.nextuint()
+
+        pid = xoro.nextuint()
+        if shiny == 3:
+            if pk.getShinyType(((pk.sid<<16) | pk.tid),pid):
+                pid ^= 0x1000_0000
+        elif shiny != 1:
+            if not pk.getShinyType(((pk.sid<<16) | pk.tid),pid):
+                pid = OverworldRNG.GetShinyPID(pk.tid,pk.sid,pid,0)
+        
+        pk.PID = pid
+
+        ivs = [32]*6
+        for i in range(flawless):
+            index = xoro.rand(6)
+            while ivs[index] != 32:
+                index = xoro.rand(6)
+            ivs[index] = 31
+        
+        for i in range(6):
+            if ivs[i] == 32:
+                ivs[i] = xoro.rand(32)
+        pk.ivs = ivs
+
+        return pk
+
+
 def sym_xoroshiro128plus(sym_s0, sym_s1, result):
     sym_r = (sym_s0 + sym_s1) & 0xFFFFFFFFFFFFFFFF  
     condition = (sym_r & 0xFFFFFFFF) == result
