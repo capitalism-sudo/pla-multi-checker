@@ -1,6 +1,6 @@
 # PyNXReader
  Python Lib for reading information from Pokemon Sword and Shield (and LGPE soon™) as well as sending inputs to the switch (to play with a different controller etc.)
- 
+
  This library is more focused on reading information for hunting/overlays/just knowing the info as opposed to botting.
 
  This is a fork of PyNXBot by [wwwwwwzx](https://github.com/wwwwwwzx) so credit to them and other who worked on the original project!
@@ -14,6 +14,7 @@
  * Check Party Pokémon info
  * Check Box Pokémon info
  * Check Save info
+ * Check Overworld Pokémon info
 
 ## Requirements
 * [Python](https://www.python.org/downloads/)
@@ -37,3 +38,4 @@ Use [CaptureSight](https://github.com/zaksabeast/CaptureSight/)/CheckDen script 
 * Kurt for his great app [SysBot.NET](https://github.com/kwsch/SysBot.NET) (many addresses/checks are taken from there)
 * [wwwwwwzx](https://github.com/wwwwwwzx) for creating and working on the original project
 * [Real96](https://github.com/Real96) for working on the original project
+* [Manu098](https://github.com/Manu098vm/) for Sys-EncounterBot (many addresses/checks are taken from there)
