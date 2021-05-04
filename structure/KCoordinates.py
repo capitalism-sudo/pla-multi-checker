@@ -1,6 +1,6 @@
 from structure.ByteStruct import ByteStruct
 from structure.PK8Overworld import PK8
-from rng.G8RNG import OverworldRNG
+from rng import OverworldRNG
 # Class to read Overworld Mons - can probably be improved
 # (credit to https://github.com/Manu098vm/Sys-EncounterBot.NET/)
 
