@@ -36,6 +36,7 @@
 * Use [CaptureSight](https://github.com/zaksabeast/CaptureSight/)/CheckDen script to check your Den id for the Den scripts
 * Scripts labeled "Check<name>.py" will display info on that type of encounter in the console
 * "GUIReader.py" Is the script you need to run if you want GUI reading of Wild/Legendary/Fusion Pokémon
+* "OverworldReader.py" Is the script you need to run if you want GUI reading of Overworld Pokémon
 * The other scripts are for dumping info and can be mostly ignored for the average person
 
 ## Credits:
