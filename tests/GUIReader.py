@@ -28,7 +28,7 @@ class Application(tk.Frame):
         self.type_var = tk.IntVar()
         self.connect_button = tk.Button(self, text="Connect", fg="green", command=self.connect)
         self.connect_button.grid(column=0,row=1)
-        self.current_info_display = tk.Text(self,height=4)
+        self.current_info_display = tk.Text(self,height=5)
         self.current_info_display.grid(column=3, row=2, rowspan=3)
         self.image_display = tk.Label(self)
         self.image_display.grid(column=1, row=2, columnspan=2, rowspan=3)
@@ -80,25 +80,32 @@ class Application(tk.Frame):
             print("Invalid or Not Present")
             self.last_info = ""
             self.image_display.config(image='')
+            self.mark_display.config(image='')
             self.current_info_display.delete(1.0, tk.END)
         if pk8.isValid() and pk8.ec() != 0 and pk8.toString() != self.last_info:
+            info = pk8.toString()
             s1 = pb.SpriteResource('pokemon', pk8.species()).img_data
             if self.type_var.get()-1 == 0:
                 try:
+                    print(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark().lower()}mark.png")
                     s2 = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark().lower()}mark.png").read()
                     im2 = Image.open(io.BytesIO(s2))
                     image2 = ImageTk.PhotoImage(im2)
                     self.image2 = image2
                     self.mark_display.config(image=image2)
-                except:
-                    pass
+                    info += f"Mark: {pk8.mark()}"
+                    print(info)
+                except Exception as e:
+                    print(e)
+            else:
+                self.mark_display.config(image='')
             im = Image.open(io.BytesIO(s1))
             image = ImageTk.PhotoImage(im)
             self.image = image
             self.image_display.config(image=image)
-            self.last_info = pk8.toString()
+            self.last_info = info
             self.current_info_display.delete(1.0, tk.END)
-            self.current_info_display.insert(1.0, pk8.toString())
+            self.current_info_display.insert(1.0, info)
         self.after_token = self.after(1000, self.update)
 
 root = tk.Tk()

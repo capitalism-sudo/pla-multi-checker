@@ -1,9 +1,109 @@
 from structure.ByteStruct import ByteStruct
+import math
 
 class PK8(ByteStruct):
 	STOREDSIZE = 0x148
 	PARTYSIZE = 0x158
 	BLOCKSIZE = 0x50
+	Ribbons = """ChampionKalos,
+        ChampionG3,
+        ChampionSinnoh,
+        BestFriends,
+        Training,
+        BattlerSkillful,
+        BattlerExpert,
+        Effort,
+        Alert,
+        Shock,
+        Downcast,
+        Careless,
+        Relax,
+        Snooze,
+        Smile,
+        Gorgeous,
+        Royal,
+        GorgeousRoyal,
+        Artist,
+        Footprint,
+        Record,
+        Legend,
+        Country,
+        National,
+        Earth,
+        World,
+        Classic,
+        Premier,
+        Event,
+        Birthday,
+        Special,
+        Souvenir,
+        Wishing,
+        ChampionBattle,
+        ChampionRegional,
+        ChampionNational,
+        ChampionWorld,
+        CountMemoryContest,
+        CountMemoryBattle,
+        ChampionG6Hoenn,
+        ContestStar,
+        MasterCoolness,
+        MasterBeauty,
+        MasterCuteness,
+        MasterCleverness,
+        MasterToughness,
+        ChampionAlola,
+        BattleRoyale,
+        BattleTreeGreat,
+        BattleTreeMaster,
+        ChampionGalar,
+        TowerMaster,
+        MasterRank,
+        Lunchtime,
+        Sleepy-Time,
+        Dusk,
+        Dawn,
+        Cloudy,
+        Rainy,
+        Stormy,
+        Snowy,
+        Blizzard,
+        Dry,
+        Sandstorm,
+        Misty,
+        Destiny,
+        Fishing,
+        Curry,
+        Uncommon,
+        Rare,
+        Rowdy,
+        Absent-Minded,
+        Jittery,
+        Excited,
+        Charismatic,
+        Calmness,
+        Intense,
+        Zoned-Out,
+        Joyful,
+        Angry,
+        Smiley,
+        Teary,
+        Upbeat,
+        Peeved,
+        Intellectual,
+        Ferocious,
+        Crafty,
+        Scowling,
+        Kindly,
+        Flustered,
+        Pumped-Up,
+        ZeroEnergy,
+        Prideful,
+        Unsure,
+        Humble,
+        Thorny,
+        Vigor,
+        Slump""".split(""",
+        """)
 
 	def __init__(self,buf):
 		self.data = bytearray(buf[:])
@@ -88,6 +188,32 @@ class PK8(ByteStruct):
 	def ivs(self):
 		iv32 = self.iv32()
 		return [iv32 & 0x1F, (iv32 >> 5) & 0x1F, (iv32 >> 10) & 0x1F, (iv32 >> 20) & 0x1F, (iv32 >> 25) & 0x1F, (iv32 >> 15) & 0x1F]
+
+	def mark(self):
+		# probably bad approach to getting marks but it works for wilds
+		if self.getbyte(0x3A) > 5:
+			marks = ["Lunchtime","SleepyTime","Dusk"]
+			return marks[int(math.log2(self.getbyte(0x3A)))-5]
+		if self.getbyte(0x3B) > 0:
+			marks = ["Dawn","Cloudy","Rainy","Stormy","Snowy","Blizzard","Dry","Sandstorm"]
+			return marks[int(math.log2(self.getbyte(0x3B)))]
+		if self.getbyte(0x40) > 0:
+			marks = ["Misty","Destiny","Fishing","Curry","Uncommon","Rare","Rowdy","AbsentMinded"]
+			return marks[int(math.log2(self.getbyte(0x40)))]
+		if self.getbyte(0x41) > 0:
+			marks = ["Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry"]
+			return marks[int(math.log2(self.getbyte(0x41)))]
+		if self.getbyte(0x42) > 0:
+			marks = ["Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling"]
+			return marks[int(math.log2(self.getbyte(0x42)))]
+		if self.getbyte(0x43) > 0:
+			marks = ["Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny"]
+			return marks[int(math.log2(self.getbyte(0x43)))]
+		if self.getbyte(0x44) > 0:
+			marks = ["Vigor","Slump"]
+			return marks[int(math.log2(self.getbyte(0x44)))]
+		
+		return ""
 
 	def calChecksum(self):
 		chk = 0
