@@ -114,9 +114,9 @@ class SWSHReader(NXReader):
 
     def __init__(self,ip,port = 6000):
         NXReader.__init__(self,ip,port)
-        from structure import MyStatus8
+        from structure import MyStatus8,KCoordinates
         self.TrainerSave = MyStatus8(self.readTrainerBlock())
-        self.KCoordinates = MyStatus8(self.readKCoordinatesBlock())
+        self.KCoordinates = KCoordinates(self.readKCoordinatesBlock())
         self.eventoffset = 0
         self.resets = 0
         if self.TrainerSave.isPokemonSave():
@@ -153,6 +153,9 @@ class SWSHReader(NXReader):
     def readKCoordinatesBlock(self):
         return self.read(0x4505B3C0, 0x6010)
 
+    def readDaycareBlock(self):
+        return self.read(0x2d6fba6a+0x2E5B0BC6, 0x6010)
+
     def readParty(self,slot=1):
         if slot > 6:
             slot = 6
@@ -178,6 +181,9 @@ class SWSHReader(NXReader):
 
     def readLegend(self):
         return self.read(0x886BC348,self.PK8STOREDSIZE)
+
+    def readHorse(self):
+        return self.read(0x450CAE28,self.PK8STOREDSIZE)
 
     def readEventBlock_RaidEncounter(self,path=''):
         return self.read(0x2F9EB300 + self.eventoffset, 0x23D4, path + 'normal_encount')

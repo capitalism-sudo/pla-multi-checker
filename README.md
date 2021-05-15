@@ -8,9 +8,14 @@
 ## Warning
  I won't be liable if your Switch get damaged or banned. Use at your own risk.
 
+## Images
+ ![PyNXReader](./PyNXReader_Screenshot.png)
+
 ## Features
- * Check Dens info
- * Check Wilds info
+ * Check Den info
+ * Check Wild Pokémon info
+ * Check Legendary Pokémon info
+ * Check Calyrex Fusion Pokémon info
  * Check Party Pokémon info
  * Check Box Pokémon info
  * Check Save info
@@ -27,7 +32,10 @@
 * [ldn_mitm](https://github.com/spacemeowx2/ldn_mitm)
 
 ## Usage
-Use [CaptureSight](https://github.com/zaksabeast/CaptureSight/)/CheckDen script to check your Den id
+* Use [CaptureSight](https://github.com/zaksabeast/CaptureSight/)/CheckDen script to check your Den id for the Den scripts
+* Scripts labeled "Check<name>.py" will display info on that type of encounter in the console
+* "GUIReader.py" Is the script you need to run if you want GUI reading of Wild/Legendary/Fusion Pokémon
+* The other scripts are for dumping info and can be mostly ignored for the average person
 
 ## Credits:
 * olliz0r for his great [sys-botbase](https://github.com/olliz0r/sys-botbase) which let open sockets on the Nintendo Switch

@@ -23,7 +23,7 @@ from structure import Den
 
 def signal_handler(signal, frame): #CTRL+C handler
     print("Stop request")
-    b.close()
+    r.close()
 
 config = json.load(open("../config.json"))
 r = RaidReader(config["IP"])
@@ -73,7 +73,7 @@ if seed is not None and doResearch:
     print('\nWishing Piece Den Prediction:\n')
     i = 0
     while i < MaxResults:
-        raid = Raid(seed, TID = b.TID, SID = b.SID, flawlessiv = piecedSpawn.FlawlessIVs(), shinyLock = piecedShinyLock, ability = piecedSpawn.Ability(), gender = piecedSpawn.Gender(), species = piecedSpawn.Species(), altform = piecedSpawn.AltForm())
+        raid = Raid(seed, TID = r.TID, SID = r.SID, flawlessiv = piecedSpawn.FlawlessIVs(), shinyLock = piecedShinyLock, ability = piecedSpawn.Ability(), gender = piecedSpawn.Gender(), species = piecedSpawn.Species(), altform = piecedSpawn.AltForm())
         seed = XOROSHIRO(seed).next()
         if useFilters:
             if (raid.ShinyType != 'None' or raid.IVs == V6 or raid.IVs == S0 or raid.IVs == A0) and Util.STRINGS.natures[raid.Nature] == Nature:
@@ -86,4 +86,4 @@ if seed is not None and doResearch:
             print()
         i += 1
 
-b.close()
+r.close()
