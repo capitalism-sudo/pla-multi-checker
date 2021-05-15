@@ -65,11 +65,11 @@ class Application(tk.Frame):
             for pkm in info:
                 self.displays.append([])
                 self.displays[i].append(tk.Text(self,height=5))
-                self.displays[i][0].grid(column=2+(5 if i%2 else 0), row=2+int((i*2)/2), columnspan=1, rowspan=2)
+                self.displays[i][0].grid(column=2+(5 if i%2 else 0), row=2+int((i*3)/2), columnspan=1, rowspan=2)
                 self.displays[i].append(tk.Label(self))
-                self.displays[i][1].grid(column=0+(5 if i%2 else 0), row=2+int((i*2)/2), columnspan=2, rowspan=2)
+                self.displays[i][1].grid(column=0+(5 if i%2 else 0), row=2+int((i*3)/2), columnspan=2, rowspan=2)
                 self.displays[i].append(tk.Label(self))
-                self.displays[i][2].grid(column=3+(5 if i%2 else 0), row=2+int((i*2)/2), columnspan=2, rowspan=2)
+                self.displays[i][2].grid(column=3+(5 if i%2 else 0), row=2+int((i*3)/2), columnspan=2, rowspan=2)
                 
                 s1 = pb.SpriteResource('pokemon', pkm.species, shiny=pkm.getShinyType((pkm.sid<<16) | pkm.tid, pkm.PID)).img_data
                 try:
