@@ -11,6 +11,7 @@
 ## Images
  ![PyNXReader](./PyNXReader_Screenshot.png)
  ![OverworldReader](./OverworldReader_Screenshot.png)
+ ![DenReader](./DenReader_Screenshot.png)
 
 ## Features
  * Check Den info
