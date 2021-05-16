@@ -79,7 +79,7 @@ class Application(tk.Frame):
             self.current_info_display.delete(1.0, tk.END)
         if pk7b.isValid() and pk7b.ec() != 0 and pk7b.toString() != self.last_info:
             info = pk7b.toString()
-            s1 = pb.SpriteResource('pokemon', pk7b.species(), shiny=pk7b.shinyType).img_data
+            s1 = pb.SpriteResource('pokemon', pk7b.species(), shiny=pk7b.shinyType()).img_data
             im = Image.open(io.BytesIO(s1))
             image = ImageTk.PhotoImage(im)
             self.image = image
