@@ -60,26 +60,26 @@ class Application(tk.Frame):
         read_func = commands[self.type_var.get()-1]
 
         try:
-            pk8 = PK7b(read_func())
+            pk7b = PK7b(read_func())
             error = False
         except Exception as e:
             print(e)
             error = True
         while error:
             try:
-                pk8 = PK7b(read_func())
+                pk7b = PK7b(read_func())
                 error = False
             except:
                 error = True
         
-        if not pk8.isValid() or pk8.ec() == 0:
+        if not pk7b.isValid() or pk7b.ec() == 0:
             print("Invalid or Not Present")
             self.last_info = ""
             self.image_display.config(image='')
             self.current_info_display.delete(1.0, tk.END)
-        if pk8.isValid() and pk8.ec() != 0 and pk8.toString() != self.last_info:
-            info = pk8.toString()
-            s1 = pb.SpriteResource('pokemon', pk8.species()).img_data
+        if pk7b.isValid() and pk7b.ec() != 0 and pk7b.toString() != self.last_info:
+            info = pk7b.toString()
+            s1 = pb.SpriteResource('pokemon', pk7b.species(), shiny=pk7b.shinyType).img_data
             im = Image.open(io.BytesIO(s1))
             image = ImageTk.PhotoImage(im)
             self.image = image
