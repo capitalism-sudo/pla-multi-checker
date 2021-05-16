@@ -240,7 +240,7 @@ class PK8(ByteStruct):
 		with open(f'{filename}.pk8','wb') as fileOut:
 			fileOut.write(self.data)
 
-	def toString(self):
+	def __str__(self):
 		from lookups import Util
 		if self.isValid():
 			shinytype = self.shinyType()

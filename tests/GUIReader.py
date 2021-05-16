@@ -82,9 +82,10 @@ class Application(tk.Frame):
             self.image_display.config(image='')
             self.mark_display.config(image='')
             self.current_info_display.delete(1.0, tk.END)
-        if pk8.isValid() and pk8.ec() != 0 and pk8.toString() != self.last_info:
-            info = pk8.toString()
-            s1 = pb.SpriteResource('pokemon', pk8.species(), shiny=pk8.shinyType).img_data
+        if pk8.isValid() and pk8.ec() != 0 and str(pk8) != self.last_info:
+            info = str(pk8)
+            print(info)
+            s1 = pb.SpriteResource('pokemon', pk8.species(), shiny=pk8.shinyType()).img_data
             if self.type_var.get()-1 == 0:
                 try:
                     print(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark().lower()}mark.png")

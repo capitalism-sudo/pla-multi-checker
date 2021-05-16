@@ -117,7 +117,7 @@ class PK8():
         self.ivs = [32]*6
         self.mark = -1
 
-    def toString(self):
+    def __str__(self):
         from lookups import Util
         shinytype = self.getShinyType((self.sid<<16) | self.tid, self.PID)
         shinyflag = '' if shinytype == 0 else '⋆ ' if shinytype == 1 else '◇ '

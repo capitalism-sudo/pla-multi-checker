@@ -54,7 +54,7 @@ class Application(tk.Frame):
         infocheck = []
         for pkm in pkms:
             info.append(pkm)
-            infocheck.append(pkm.toString())
+            infocheck.append(str(pkm))
         
         if infocheck != self.last_info:
             i = 0
@@ -84,9 +84,9 @@ class Application(tk.Frame):
                 image = ImageTk.PhotoImage(im)
                 self.cache.append(image)
                 self.displays[i][1].config(image=image)
-                self.last_info = pkm.toString()
+                self.last_info = str(pkm)
                 self.displays[i][0].delete(1.0, tk.END)
-                self.displays[i][0].insert(1.0, pkm.toString())
+                self.displays[i][0].insert(1.0, str(pkm))
                 i += 1
             self.last_info = infocheck
         self.after_token = self.after(1000, self.update)

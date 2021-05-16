@@ -83,7 +83,7 @@ class PK7b(ByteStruct):
 		with open(f'{filename}.PK7b','wb') as fileOut:
 			fileOut.write(self.data)
 
-	def toString(self):
+	def __str__(self):
 		from lookups import Util
 		if self.isValid():
 			shinytype = self.shinyType()
