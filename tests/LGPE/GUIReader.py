@@ -24,7 +24,7 @@ class Application(tk.Frame):
         signal.signal(signal.SIGINT, self.signal_handler)
 
     def create_widgets(self):
-        self.master.title("PyNXReader")
+        self.master.title("LGPEReader")
         self.type_var = tk.IntVar()
         self.connect_button = tk.Button(self, text="Connect", fg="green", command=self.connect)
         self.connect_button.grid(column=0,row=1)
