@@ -84,18 +84,18 @@ class Application(tk.Frame):
             self.current_info_display.delete(1.0, tk.END)
         if pk8.isValid() and pk8.ec() != 0 and str(pk8) != self.last_info:
             info = str(pk8)
-            print(info)
+            # print(info)
             s1 = pb.SpriteResource('pokemon', pk8.species(), shiny=pk8.shinyType()).img_data
             if self.type_var.get()-1 == 0:
                 try:
-                    print(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark().lower()}mark.png")
+                    # print(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark().lower()}mark.png")
                     s2 = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark().lower()}mark.png").read()
                     im2 = Image.open(io.BytesIO(s2))
                     image2 = ImageTk.PhotoImage(im2)
                     self.image2 = image2
                     self.mark_display.config(image=image2)
                     info += f"Mark: {pk8.mark()}"
-                    print(info)
+                    # print(info)
                 except Exception as e:
                     print(e)
             else:
