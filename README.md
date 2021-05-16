@@ -34,6 +34,7 @@
 * Internet Connection
 * [sys-botbase](https://github.com/olliz0r/sys-botbase) 1.5
 * [ldn_mitm](https://github.com/spacemeowx2/ldn_mitm)
+* [joycon-sys-botbase](https://github.com/Manu098vm/sys-botbase) If you want to control LGPE
 
 ## Usage
 * Use [CaptureSight](https://github.com/zaksabeast/CaptureSight/)/CheckDen script to check your Den id for the Den scripts
