@@ -98,6 +98,21 @@ class NXReader(object):
     def write(self,address,data):
         self.sendCommand(f'poke 0x{address:X} 0x{data}')
 
+    def read_main(self,address,size,filename = None):
+        self.sendCommand(f'peekMain 0x{address:X} 0x{size:X}')
+        sleep(size/0x8000)
+        buf = self.s.recv(2 * size + 1)
+        buf = binascii.unhexlify(buf[0:-1])
+        if filename is not None:
+            if filename == '':
+                filename = f'dump_heap_0x{address:X}_0x{size:X}.bin'
+            with open(filename,'wb') as fileOut:
+                fileOut.write(buf)
+        return buf
+
+    def write_main(self,address,data):
+        self.sendCommand(f'pokeMain 0x{address:X} 0x{data}')
+
     def getSystemLanguage(self):
         self.sendCommand('getSystemLanguage')
         sleep(0.005)
@@ -218,3 +233,29 @@ class SWSHReader(NXReader):
 
     def readBattleStart(self):
         return self.read(0x6B578EDC, 8)
+
+class LGPEReader(NXReader):
+    PK7bSTOREDSIZE = 260
+    PK7bPARTYSIZE = 260
+    DENCOUNT = 276
+
+    def __init__(self,ip,port = 6000):
+        NXReader.__init__(self,ip,port)
+        from structure import MyStatus7b
+        self.TrainerSave = MyStatus7b(self.readTrainerBlock())
+        print(f"OT: {self.TrainerSave.OT()}    ID: {str(self.TrainerSave.displayID()).zfill(6)}    TID: {str(self.TrainerSave.TID()).zfill(5)}    SID: {str(self.TrainerSave.SID()).zfill(5)}\n")
+        self.TID = self.TrainerSave.TID()
+        self.SID = self.TrainerSave.SID()
+
+    def readBox(self,slot = 1):
+        address = 0x533675B0 + (slot-1)*(self.PK7bSTOREDSIZE+380)
+        return self.read(address,self.PK7bSTOREDSIZE)
+
+    def readTrainerBlock(self):
+        return self.read(0x53582030, 0x168)
+    
+    def readLegend(self):
+        return self.read(0x9A118D68, self.PK7bSTOREDSIZE)
+
+    def readActive(self):
+        return self.read_main(0x163EDC0, self.PK7bSTOREDSIZE)
