@@ -1,5 +1,5 @@
 # PyNXReader
- Python Lib for reading information from Pokemon Sword and Shield (and LGPE soon™) as well as sending inputs to the switch (to play with a different controller etc.)
+ Python Lib for reading information from Pokemon Sword and Shield and LGPE as well as sending inputs to the switch (to play with a different controller etc.)
 
  This library is more focused on reading information for hunting/overlays/just knowing the info as opposed to botting.
 
@@ -22,6 +22,7 @@
  * Check Box Pokémon info
  * Check Save info
  * Check Overworld Pokémon info
+ * Check LGPE Battle/Trade/Gift/Legendary/Active (Summary Screen, etc.) Pokémon info
 
 ## Requirements
 * [Python](https://www.python.org/downloads/)
@@ -36,7 +37,7 @@
 ## Usage
 * Use [CaptureSight](https://github.com/zaksabeast/CaptureSight/)/CheckDen script to check your Den id for the Den scripts
 * Scripts labeled "Check<name>.py" will display info on that type of encounter in the console
-* "GUIReader.py" Is the script you need to run if you want GUI reading of Wild/Legendary/Fusion Pokémon
+* "GUIReader.py" Is the script you need to run if you want GUI reading of Wild/Legendary/Fusion Pokémon for SWSH or Battle/Trade/Gift/Legendary/Active Pokémon for LGPE.
 * "OverworldReader.py" Is the script you need to run if you want GUI reading of Overworld Pokémon
 * The other scripts are for dumping info and can be mostly ignored for the average person
 
