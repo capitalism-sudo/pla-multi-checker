@@ -11,7 +11,7 @@ r = SWSHReader(config["IP"])
 
 while True:
     pk8 = PK8(r.readWild())
-    if pk8.isValid() and pk8.ec() != 0:
+    if pk8.isValid and pk8.ec != 0:
         print(pk8)
     else:
         print("No battle started\n")

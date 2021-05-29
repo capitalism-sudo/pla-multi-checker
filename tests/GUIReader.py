@@ -76,25 +76,25 @@ class Application(tk.Frame):
             except:
                 error = True
         
-        if not pk8.isValid() or pk8.ec() == 0:
+        if not pk8.isValid or pk8.ec == 0:
             print("Invalid or Not Present")
             self.last_info = ""
             self.image_display.config(image='')
             self.mark_display.config(image='')
             self.current_info_display.delete(1.0, tk.END)
-        if pk8.isValid() and pk8.ec() != 0 and str(pk8) != self.last_info:
+        if pk8.isValid and pk8.ec != 0 and str(pk8) != self.last_info:
             info = str(pk8)
             # print(info)
-            s1 = pb.SpriteResource('pokemon', pk8.species(), shiny=pk8.shinyType()).img_data
+            s1 = pb.SpriteResource('pokemon', pk8.species, shiny=pk8.shinyType).img_data
             if self.type_var.get()-1 == 0:
                 try:
-                    # print(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark().lower()}mark.png")
-                    s2 = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark().lower()}mark.png").read()
+                    # print(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark.lower()}mark.png")
+                    s2 = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark.lower()}mark.png").read()
                     im2 = Image.open(io.BytesIO(s2))
                     image2 = ImageTk.PhotoImage(im2)
                     self.image2 = image2
                     self.mark_display.config(image=image2)
-                    info += f"Mark: {pk8.mark()}"
+                    info += f"Mark: {pk8.mark}"
                     # print(info)
                 except Exception as e:
                     print(e)
