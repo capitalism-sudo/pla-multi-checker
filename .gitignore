@@ -133,5 +133,5 @@ resources/structure
 # Mac
 .DS_Store
 
-#Input Tests
-input
+#Other Tests
+other
