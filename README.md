@@ -27,9 +27,11 @@
 
 ## Requirements
 * [Python](https://www.python.org/downloads/)
-	* Install z3-solver and pyserial via [pip](https://pip.pypa.io/en/stable/) if `ImportError` happens.
+	* Install z3-solver, pyserial, pillow, and pokebase via [pip](https://pip.pypa.io/en/stable/) if `ImportError` happens.
 	   `pip install z3-solver` 
 	   `pip install pyserial`
+	   `pip install pillow`
+	   `pip install pokebase`
 * CFW
 * Internet Connection
 * [sys-botbase](https://github.com/olliz0r/sys-botbase) 1.5
