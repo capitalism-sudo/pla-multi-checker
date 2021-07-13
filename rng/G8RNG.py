@@ -437,29 +437,26 @@ class Raid(FrameGenerator):
 # (credit to https://github.com/Manu098vm/Sys-EncounterBot.NET/)
 
 class OverworldRNG:
-
     @staticmethod
-    def GetShinyPID(tid,sid,pid,typ):
+    def getShinyPID(tid,sid,pid,typ):
         return (((tid ^ sid ^ (pid & 0xFFFF) ^ typ) << 16) | (pid & 0xFFFF)) & 0xFFFFFFFF
 
     @staticmethod
-    def CalculateFromSeed(pk, shiny, flawless, seed):
-        xoro = XOROSHIRO(seed)
+    def calculateFromSeed(pkm):
+        xoro = XOROSHIRO(pkm.seed)
 
-        pk.EC = xoro.nextuint()
+        ec = xoro.nextuint()
 
         pid = xoro.nextuint()
-        if shiny == 3:
-            if pk.getShinyType(((pk.sid<<16) | pk.tid),pid):
-                pid ^= 0x1000_0000
-        elif shiny != 1:
-            if not pk.getShinyType(((pk.sid<<16) | pk.tid),pid):
-                pid = OverworldRNG.GetShinyPID(pk.tid,pk.sid,pid,0)
-        
-        pk.PID = pid
+        if pkm.setShininess == 3:
+            if pkm.getShinyType(((pkm.sid<<16) | pkm.tid),pid):
+                pid ^= 0x10000000
+        elif pkm.setShininess != 1:
+            if not pkm.getShinyType(((pkm.sid<<16) | pkm.tid),pid):
+                pid = OverworldRNG.getShinyPID(pkm.tid,pkm.sid,pid,0) 
 
         ivs = [32]*6
-        for i in range(flawless):
+        for i in range(pkm.setIVs):
             index = xoro.rand(6)
             while ivs[index] != 32:
                 index = xoro.rand(6)
@@ -468,9 +465,8 @@ class OverworldRNG:
         for i in range(6):
             if ivs[i] == 32:
                 ivs[i] = xoro.rand(32)
-        pk.ivs = ivs
 
-        return pk
+        return [ec,pid,ivs]
 
 
 def sym_xoroshiro128plus(sym_s0, sym_s1, result):

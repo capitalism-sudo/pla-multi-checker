@@ -1,11 +1,19 @@
-from structure.ByteStruct import ByteStruct
-from structure.PK8Overworld import PK8
-from rng import OverworldRNG
 # Class to read Overworld Mons - can probably be improved
 # (credit to https://github.com/Manu098vm/Sys-EncounterBot.NET/)
 
+from structure.ByteStruct import ByteStruct
+from structure.PK8Overworld import PK8
+
 class KCoordinates(ByteStruct):
     
+    def __init__(self,reader):
+        self.reader = reader
+        self.data = bytearray(reader.readKCoordinatesBlock()[:])
+        self.tid, self.sid = reader.TrainerSave.TID(), reader.TrainerSave.SID()
+    
+    def refresh(self):
+        self.data = bytearray(self.reader.readKCoordinatesBlock()[:])
+        
     def ReadOwPokemonFromBlock(self):
         PK8s = []
         i = 8
@@ -45,12 +53,12 @@ class KCoordinates(ByteStruct):
         i = 0
         
         if target != 0:
-            data = self.r.read(offset, 56)
+            data = self.reader.read(offset, 56)
             species = int.from_bytes(data[2],"little")
             offset += 192
             i += 1
             while (target != 0 and species != 0 and target != species and i < 20):
-                data = self.r.read(offset, 56)
+                data = self.reader.read(offset, 56)
                 species = int.from_bytes(data[:2],"little")
                 offset += 192
                 i += 1
@@ -59,18 +67,5 @@ class KCoordinates(ByteStruct):
             species = int.from_bytes(data[:2],"little")
         
         if data != None and data[20] == 1:
-            pkm = PK8()
-            pkm.species = species
-            pkm.form = data[2]
-            pkm.currentlevel = data[4]
-            pkm.metlevel = data[4]
-            pkm.gender = 0 if data[10] == 1 else 1
-            pkm.nature = data[8]
-            pkm.ability = data[12] - 1
-            pkm.mark = data[22]
-            shinyness = data[6] + 1
-            ivs = data[18]
-            seed = int.from_bytes(data[24:28],"little") & 0xFFFFFFFF
-
-            pkm = OverworldRNG.CalculateFromSeed(pkm, shinyness, ivs, seed)
+            pkm = PK8(data,self.tid,self.sid)
             return pkm

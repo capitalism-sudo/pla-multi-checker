@@ -131,7 +131,7 @@ class SWSHReader(NXReader):
         NXReader.__init__(self,ip,port)
         from structure import MyStatus8,KCoordinates
         self.TrainerSave = MyStatus8(self.readTrainerBlock())
-        self.KCoordinates = KCoordinates(self.readKCoordinatesBlock())
+        self.KCoordinates = KCoordinates(self)
         self.eventoffset = 0
         self.resets = 0
         if self.TrainerSave.isPokemonSave():

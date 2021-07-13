@@ -1,6 +1,9 @@
 # Class to store info on overworld mons in their readable forms
 
-class PK8():
+from structure.ByteStruct import ByteStruct
+from rng import OverworldRNG
+
+class PK8(ByteStruct):
     Ribbons = """ChampionKalos,
         ChampionG3,
         ChampionSinnoh,
@@ -101,29 +104,70 @@ class PK8():
         Slump""".split(""",
         """)
     
-    def __init__(self):
-        self.species = 0
-        self.form = 0
-        self.currentlevel = 0
-        self.met_level = 0
-        self.gender = 0
-        self.ot_name = ""
-        self.tid = 0
-        self.sid = 0
-        self.nature = 0
-        self.ability = 0
-        self.PID = 0
-        self.EC = 0
-        self.ivs = [32]*6
-        self.mark = -1
+    def __init__(self, data, tid, sid):
+        self.data = data
+        self.tid, self.sid = tid, sid
+        self.calculateFromSeed()
+    
+    def calculateFromSeed(self):
+        self.ec, self.pid, self.ivs = OverworldRNG.calculateFromSeed(self)
+
+    @property
+    def species(self):
+        return self.getushort(0)
+    
+    @property
+    def form(self):
+        return self.data[2]
+    
+    @property
+    def level(self):
+        return self.data[4]
+    
+    @property
+    def gender(self):
+        if self.data[10] == 1:
+            return 0
+        elif self.data[10] == 0:
+            return 1
+        else:
+            return 2
+    
+    @property
+    def nature(self):
+        return self.data[8]
+    
+    @property
+    def ability(self):
+        return self.data[12] - 1
+
+    @property
+    def mark(self):
+        return self.data[22]
+    
+    @property
+    def brilliant(self):
+        return self.data[32]
+    
+    @property
+    def setIVs(self):
+        return self.data[18]
+    
+    @property
+    def setShininess(self):
+        return self.data[6] + 1
+    
+    @property
+    def seed(self):
+        return self.getuint(24)
 
     def __str__(self):
         from lookups import Util
-        shinytype = self.getShinyType((self.sid<<16) | self.tid, self.PID)
+        shinytype = self.getShinyType((self.sid<<16) | self.tid, self.pid)
         shinyflag = '' if shinytype == 0 else '⋆ ' if shinytype == 1 else '◇ '
-        msg = f'EC: {self.EC:X}  PID: {self.PID:X}  ' + shinyflag
+        msg = f'EC: {self.ec:X}  PID: {self.pid:X}  ' + shinyflag
         msg += f"{Util.STRINGS.species[self.species]}{('-' + str(self.form)) if self.form > 0 else ''}\n"
-        msg += f"Level {self.currentlevel}\n"
+        msg += f"Level {self.level}\n"
         msg += f"Nature: {Util.STRINGS.natures[self.nature]}  "
         msg += f"Ability: {self.ability if self.ability < 4 else 'H'}  "
         msg += f"Gender: {Util.GenderSymbol[self.gender]}\n"

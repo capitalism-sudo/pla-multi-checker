@@ -11,7 +11,6 @@ sys.path.append('../')
 
 from nxreader import SWSHReader
 from PIL import Image, ImageTk
-from structure import KCoordinates, PK8
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -48,7 +47,7 @@ class Application(tk.Frame):
         sys.exit(0)
     
     def update(self):
-        self.SWSHReader.KCoordinates = KCoordinates(self.SWSHReader.readKCoordinatesBlock())
+        self.SWSHReader.KCoordinates.refresh()
         pkms = self.SWSHReader.KCoordinates.ReadOwPokemonFromBlock()
         info = []
         infocheck = []
@@ -71,7 +70,7 @@ class Application(tk.Frame):
                 self.displays[i].append(tk.Label(self))
                 self.displays[i][2].grid(column=3+(5 if i%2 else 0), row=2+int((i*3)/2), columnspan=2, rowspan=2)
                 
-                s1 = pb.SpriteResource('pokemon', pkm.species, shiny=pkm.getShinyType((pkm.sid<<16) | pkm.tid, pkm.PID)).img_data
+                s1 = pb.SpriteResource('pokemon', pkm.species, shiny=pkm.getShinyType((pkm.sid<<16) | pkm.tid, pkm.pid)).img_data
                 try:
                     s2 = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{pkm.Ribbons[pkm.mark].lower() if pkm.mark != 255 else ''}mark.png").read()
                     im2 = Image.open(io.BytesIO(s2))

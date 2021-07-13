@@ -8,7 +8,6 @@ import signal
 sys.path.append('../')
 
 from nxreader import SWSHReader
-from structure import KCoordinates
 
 # Connect to Switch
 config = json.load(open("../config.json"))
@@ -20,12 +19,10 @@ def signal_handler(signal, frame): #CTRL+C handler
 
 signal.signal(signal.SIGINT, signal_handler)
 
-# Give the KCoords class access to the switch
-r.KCoordinates.r = r
 last_info = []
 while True:
     # Refresh KCoords block
-    r.KCoordinates = KCoordinates(r.readKCoordinatesBlock())
+    r.KCoordinates.refresh()
     pkms = r.KCoordinates.ReadOwPokemonFromBlock()
     info = []
     for pkm in pkms:
