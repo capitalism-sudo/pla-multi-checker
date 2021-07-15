@@ -30,8 +30,6 @@ class NXReader(object):
         self.s.connect((ip, port))
         print('Connected')
         self.configure()
-        self.moveLeftStick(0,0)
-        self.moveRightStick(0,0)
 
     def configure(self):
         self.sendCommand('configure echoCommands 0')
