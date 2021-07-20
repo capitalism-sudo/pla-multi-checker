@@ -53,7 +53,7 @@ class Application(tk.Frame):
         infocheck = []
         for pkm in pkms:
             info.append(pkm)
-            infocheck.append(str(pkm))
+            infocheck.append(pkm.ec)
         
         if infocheck != self.last_info:
             i = 0
