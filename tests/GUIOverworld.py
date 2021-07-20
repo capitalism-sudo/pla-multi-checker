@@ -5,12 +5,26 @@ import sys
 import urllib
 import tkinter as tk
 import pokebase as pb
+from functools import lru_cache
 
 # Go to root of PyNXReader
 sys.path.append('../')
 
 from nxreader import SWSHReader
+from structure import PK8Overworld
 from PIL import Image, ImageTk
+
+@lru_cache(maxsize=32)
+def get_mark(mark):
+    image_bytes = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{PK8Overworld.Ribbons[mark].lower() if mark != 255 else ''}mark.png").read()
+    im = Image.open(io.BytesIO(image_bytes))
+    return ImageTk.PhotoImage(im)
+
+@lru_cache(maxsize=32)
+def get_pokemon(species,shiny):
+    image_bytes = pb.SpriteResource('pokemon', species, shiny=shiny).img_data
+    im = Image.open(io.BytesIO(image_bytes))
+    return ImageTk.PhotoImage(im)
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -70,19 +84,16 @@ class Application(tk.Frame):
                 self.displays[i].append(tk.Label(self))
                 self.displays[i][2].grid(column=3+(5 if i%2 else 0), row=2+int((i*3)/2), columnspan=2, rowspan=2)
                 
-                s1 = pb.SpriteResource('pokemon', pkm.species, shiny=pkm.getShinyType((pkm.sid<<16) | pkm.tid, pkm.pid)).img_data
                 try:
-                    s2 = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{pkm.Ribbons[pkm.mark].lower() if pkm.mark != 255 else ''}mark.png").read()
-                    im2 = Image.open(io.BytesIO(s2))
-                    image2 = ImageTk.PhotoImage(im2)
-                    self.cache.append(image2)
-                    self.displays[i][2].config(image=image2)
+                    mark_image = get_mark(pkm.mark)
+                    self.cache.append(mark_image)
+                    self.displays[i][2].config(image=mark_image)
                 except Exception as e:
                     pass
-                im = Image.open(io.BytesIO(s1))
-                image = ImageTk.PhotoImage(im)
-                self.cache.append(image)
-                self.displays[i][1].config(image=image)
+
+                pokemon_image = get_pokemon(pkm.species, pkm.getShinyType(((pkm.sid<<16) | pkm.tid), pkm.pid))
+                self.cache.append(pokemon_image)
+                self.displays[i][1].config(image=pokemon_image)
                 self.last_info = str(pkm)
                 self.displays[i][0].delete(1.0, tk.END)
                 self.displays[i][0].insert(1.0, str(pkm))
