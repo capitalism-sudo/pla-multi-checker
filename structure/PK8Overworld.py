@@ -117,7 +117,7 @@ class PK8(ByteStruct):
         return self.getushort(0)
     
     @property
-    def form(self):
+    def altForm(self):
         return self.data[2]
     
     @property
@@ -166,7 +166,7 @@ class PK8(ByteStruct):
         shinytype = self.getShinyType((self.sid<<16) | self.tid, self.pid)
         shinyflag = '' if shinytype == 0 else '⋆ ' if shinytype == 1 else '◇ '
         msg = f'EC: {self.ec:X}  PID: {self.pid:X}  ' + shinyflag
-        msg += f"{Util.STRINGS.species[self.species]}{('-' + str(self.form)) if self.form > 0 else ''}\n"
+        msg += f"{Util.STRINGS.species[self.species]}{('-' + str(self.altForm)) if self.altForm > 0 else ''}\n"
         msg += f"Level {self.level}\n"
         msg += f"Nature: {Util.STRINGS.natures[self.nature]}  "
         msg += f"Ability: {self.ability if self.ability < 4 else 'H'}  "
