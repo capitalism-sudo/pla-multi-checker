@@ -11,12 +11,12 @@ from functools import lru_cache
 sys.path.append('../')
 
 from nxreader import SWSHReader
-from structure import PK8Overworld
+from structure import PK8
 from PIL import Image, ImageTk
 
 @lru_cache(maxsize=32)
 def get_mark(mark):
-    image_bytes = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{PK8Overworld.Ribbons[mark].lower() if mark != 255 else ''}mark.png").read()
+    image_bytes = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{PK8.Ribbons[mark].lower() if mark != 255 else ''}mark.png").read()
     im = Image.open(io.BytesIO(image_bytes))
     return ImageTk.PhotoImage(im)
 
