@@ -126,12 +126,13 @@ class PK8(ByteStruct):
     
     @property
     def gender(self):
-        if self.data[10] == 1:
-            return 0
-        elif self.data[10] == 0:
-            return 1
-        else:
-            return 2
+        # if self.data[10] == 1:
+        #     return 0
+        # elif self.data[10] == 0:
+        #     return 1
+        # else:
+        #     return 2
+        return self.data[10]
     
     @property
     def nature(self):
@@ -170,7 +171,7 @@ class PK8(ByteStruct):
         msg += f"Level {self.level}\n"
         msg += f"Nature: {Util.STRINGS.natures[self.nature]}  "
         msg += f"Ability: {self.ability if self.ability < 4 else 'H'}  "
-        msg += f"Gender: {Util.GenderSymbol[self.gender]}\n"
+        msg += f"Gender: {Util.GenderSymbol[self.gender-1]}\n"
         msg += f"IVs: {self.ivs}\n"
         msg += f"Mark: {self.Ribbons[self.mark] if self.mark != 255 else ''}\n"
         return msg
