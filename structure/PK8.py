@@ -219,22 +219,22 @@ class PK8(ByteStruct):
 	def mark(self):
 		# probably bad approach to getting marks but it works for wilds
 		if self.getbyte(0x3A) > 5:
-			marks = ["Lunchtime","SleepyTime","Dusk"]
+			marks = ["Lunchtime","Sleepy-Time","Dusk"]
 			return marks[int(math.log2(self.getbyte(0x3A)))-5]
 		if self.getbyte(0x3B) > 0:
 			marks = ["Dawn","Cloudy","Rainy","Stormy","Snowy","Blizzard","Dry","Sandstorm"]
 			return marks[int(math.log2(self.getbyte(0x3B)))]
 		if self.getbyte(0x40) > 0:
-			marks = ["Misty","Destiny","Fishing","Curry","Uncommon","Rare","Rowdy","AbsentMinded"]
+			marks = ["Misty","Destiny","Fishing","Curry","Uncommon","Rare","Rowdy","Absent-Minded"]
 			return marks[int(math.log2(self.getbyte(0x40)))]
 		if self.getbyte(0x41) > 0:
-			marks = ["Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry"]
+			marks = ["Jittery","Excited","Charismatic","Calmness","Intense","Zoned-Out","Joyful","Angry"]
 			return marks[int(math.log2(self.getbyte(0x41)))]
 		if self.getbyte(0x42) > 0:
 			marks = ["Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling"]
 			return marks[int(math.log2(self.getbyte(0x42)))]
 		if self.getbyte(0x43) > 0:
-			marks = ["Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny"]
+			marks = ["Kindly","Flustered","Pumped-Up","ZeroEnergy","Prideful","Unsure","Humble","Thorny"]
 			return marks[int(math.log2(self.getbyte(0x43)))]
 		if self.getbyte(0x44) > 0:
 			marks = ["Vigor","Slump"]
