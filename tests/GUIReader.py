@@ -90,7 +90,7 @@ class Application(tk.Frame):
                 try:
                     # print(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark.lower()}mark.png")
                     s2 = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{pk8.mark.lower()}mark.png").read()
-                    im2 = Image.open(io.BytesIO(s2))
+                    im2 = Image.open(io.BytesIO(s2)).convert('RGBA')
                     image2 = ImageTk.PhotoImage(im2)
                     self.image2 = image2
                     self.mark_display.config(image=image2)
@@ -100,7 +100,7 @@ class Application(tk.Frame):
                     print(e)
             else:
                 self.mark_display.config(image='')
-            im = Image.open(io.BytesIO(s1))
+            im = Image.open(io.BytesIO(s1)).convert('RGBA')
             image = ImageTk.PhotoImage(im)
             self.image = image
             self.image_display.config(image=image)

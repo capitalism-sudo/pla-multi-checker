@@ -80,7 +80,7 @@ class Application(tk.Frame):
         if pk7b.isValid and pk7b.ec != 0 and str(pk7b) != self.last_info:
             info = str(pk7b)
             s1 = pb.SpriteResource('pokemon', pk7b.species, shiny=pk7b.shinyType).img_data
-            im = Image.open(io.BytesIO(s1))
+            im = Image.open(io.BytesIO(s1)).convert('RGBA')
             image = ImageTk.PhotoImage(im)
             self.image = image
             self.image_display.config(image=image)

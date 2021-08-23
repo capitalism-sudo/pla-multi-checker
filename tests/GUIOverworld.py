@@ -17,13 +17,13 @@ from PIL import Image, ImageTk
 @lru_cache(maxsize=32)
 def get_mark(mark):
     image_bytes = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{PK8.Ribbons[mark].lower() if mark != 255 else ''}mark.png").read()
-    im = Image.open(io.BytesIO(image_bytes))
+    im = Image.open(io.BytesIO(image_bytes)).convert('RGBA')
     return ImageTk.PhotoImage(im)
 
 @lru_cache(maxsize=32)
 def get_pokemon(species,shiny):
     image_bytes = pb.SpriteResource('pokemon', species, shiny=shiny).img_data
-    im = Image.open(io.BytesIO(image_bytes))
+    im = Image.open(io.BytesIO(image_bytes)).convert('RGBA')
     return ImageTk.PhotoImage(im)
 
 class Application(tk.Frame):

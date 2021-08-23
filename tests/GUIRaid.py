@@ -115,7 +115,7 @@ class Application(tk.Frame):
                 rshiny = Raid(seed = shiny_seed, TID = self.RaidReader.TID, SID = self.RaidReader.SID, flawlessiv = spawn.FlawlessIVs(), shinyLock = currShinyLock, ability = spawn.Ability(), gender = spawn.Gender(), species = spawn.Species(), altform = spawn.AltForm())
                 self.last_info = info
                 s1 = pb.SpriteResource('pokemon', spawn.Species(), shiny=r.ShinyType != "None").img_data
-                im = Image.open(io.BytesIO(s1))
+                im = Image.open(io.BytesIO(s1)).convert('RGBA')
                 image = ImageTk.PhotoImage(im)
                 self.image = image
                 self.image_display.config(image=image)
