@@ -174,6 +174,7 @@ class PK8(ByteStruct):
         msg += f"Gender: {Util.GenderSymbol[self.gender-1]}\n"
         msg += f"IVs: {self.ivs}\n"
         msg += f"Mark: {self.Ribbons[self.mark] if self.mark != 255 else ''}\n"
+        msg += f"{'Brilliant!' if self.brilliant else ''}\n"
         return msg
         
     @staticmethod
