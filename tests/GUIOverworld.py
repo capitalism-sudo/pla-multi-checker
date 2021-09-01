@@ -78,7 +78,7 @@ class Application(tk.Frame):
             self.displays = []
             for pkm in info:
                 self.displays.append([])
-                self.displays[i].append(tk.Text(self,height=6))
+                self.displays[i].append(tk.Text(self,height=6,width=45))
                 self.displays[i][0].grid(column=2+(5 if i%2 else 0), row=2+int((i*3)/2), columnspan=1, rowspan=2)
                 self.displays[i].append(tk.Label(self))
                 self.displays[i][1].grid(column=0+(5 if i%2 else 0), row=2+int((i*3)/2), columnspan=2, rowspan=2)
