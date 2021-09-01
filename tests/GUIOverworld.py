@@ -18,6 +18,7 @@ from PIL import Image, ImageTk
 def get_mark(mark):
     image_bytes = urllib.request.urlopen(f"https://www.serebii.net/swordshield/ribbons/{PK8.Ribbons[mark].lower() if mark != 255 else ''}mark.png").read()
     im = Image.open(io.BytesIO(image_bytes)).convert('RGBA')
+    im.thumbnail((100,100), Image.ANTIALIAS)
     return ImageTk.PhotoImage(im)
 
 @lru_cache(maxsize=32)
