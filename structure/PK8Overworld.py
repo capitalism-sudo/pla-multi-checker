@@ -159,12 +159,16 @@ class PK8(ByteStruct):
         return self.data[6] + 1
     
     @property
+    def shinyType(self):
+        return self.getShinyType((self.sid<<16) | self.tid, self.pid)
+
+    @property
     def seed(self):
         return self.getuint(24)
 
     def __str__(self):
         from lookups import Util
-        shinytype = self.getShinyType((self.sid<<16) | self.tid, self.pid)
+        shinytype = self.shinyType
         shinyflag = '' if shinytype == 0 else '⋆ ' if shinytype == 1 else '◇ '
         msg = f'EC: {self.ec:X}  PID: {self.pid:X}  ' + shinyflag
         msg += f"{Util.STRINGS.species[self.species]}{('-' + str(self.altForm)) if self.altForm > 0 else ''}\n"

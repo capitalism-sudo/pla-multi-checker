@@ -92,7 +92,7 @@ class Application(tk.Frame):
                 except Exception as e:
                     pass
 
-                pokemon_image = get_pokemon(pkm.species, pkm.getShinyType(((pkm.sid<<16) | pkm.tid), pkm.pid))
+                pokemon_image = get_pokemon(pkm.species, pkm.shinyType)
                 self.cache.append(pokemon_image)
                 self.displays[i][1].config(image=pokemon_image)
                 self.last_info = str(pkm)
