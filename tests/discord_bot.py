@@ -147,7 +147,7 @@ class Bot(commands.Bot):
                     # check if pkm matches our definied filter
                     if pkm_filter(pkm):
                         # if so, format to strings
-                        title, description = pkm_format(pkm)
+                        title, description = pkm_format(pkm, ctx)
                         # create discord embed object with the color specified
                         embed=discord.Embed(color=embed_color)
                         # add pkm strings as a field
