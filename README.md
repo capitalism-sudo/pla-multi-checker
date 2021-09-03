@@ -39,10 +39,11 @@
 * [ldn_mitm](https://github.com/spacemeowx2/ldn_mitm)
 
 ## Usage
+* The scripts to run are contained in the ./scripts/ folder
 * Use [CaptureSight](https://github.com/zaksabeast/CaptureSight/)/CheckDen script to check your Den id for the Den scripts
 * Scripts labeled "Check'name'.py" will display info on that type of encounter in the console
 * "GUIReader.py" Is the script you need to run if you want GUI reading of Wild/Legendary/Fusion Pokémon for SWSH or Battle/Trade/Gift/Legendary/Active Pokémon for LGPE.
-* "OverworldReader.py" Is the script you need to run if you want GUI reading of Overworld Pokémon
+* "GUIOverworld.py" Is the script you need to run if you want GUI reading of Overworld Pokémon
 * The other scripts are for dumping info and can be mostly ignored for the average person
 
 ## Credits:
