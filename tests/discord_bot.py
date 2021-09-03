@@ -31,7 +31,7 @@ bot_prefix = "$"
 # function that determines whether or not to send a pkm to your discord channel
 def pkm_filter(pkm):
     # if pkm is shiny
-    if pkm.shinytype != 0:
+    if pkm.shinyType != 0:
         return True
     # or if it has rare mark (internal id 69)
     if pkm.mark == 69:
@@ -61,7 +61,7 @@ def pkm_format(pkm, context):
     # Nature string (Jolly,Adamant,Timid,etc.)
     nature_string = Util.STRINGS.natures[pkm.nature]
     #  /⋆/◇
-    shiny_string = '' if pkm.shinytype == 0 else '⋆ ' if pkm.shinytype == 1 else '◇ '
+    shiny_string = '' if pkm.shinyType == 0 else '⋆ ' if pkm.shinyType == 1 else '◇ '
     # Species-Form Number (Articuno-1 for GCuno)
     species_string = Util.STRINGS.species[pkm.species] + (('-' + str(pkm.altForm)) if pkm.altForm > 0 else '')
 
