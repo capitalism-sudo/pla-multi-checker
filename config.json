@@ -1,3 +1,13 @@
 {
-    "IP": "192.168.0.106"
+    "IP": "",
+    "EventNotificationChannelIdForShiny": "",
+    "EventNotificationChannelIdForBrilliant": "",
+    "EventNotificationChannelIdForMark": "",
+    "EventNotificationChannelIdForRareMark": "",
+    "NotificationChannelForInfo": "",
+    "TextNotificationChannelIdForShiny": "",
+    "TextNotificationChannelIdForBrilliant": "",
+    "TextNotificationChannelIdForMark": "",
+    "TextNotificationChannelIdForRareMark": "",
+    "EnableDebugLogging": "False"
 }
