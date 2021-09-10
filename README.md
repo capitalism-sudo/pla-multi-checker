@@ -85,6 +85,8 @@ In order to run the bot do the following:
 * Feature: Make changing the formatting on the event cards easy for non-technical users.
 * Feature: Full SysDVR overlay support
 * Feature: Dynamax Adventure reading
+* Feature: Gift Pokemon reading
+* Feature: Egg reading
 * Feature: Dex Rec Reading
 * Feature: (not likely) On the fly catch rate calculator
 * Feature: (minor) KO Counter Reading
