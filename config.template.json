@@ -1,6 +1,7 @@
 {
+    "DiscordBotPrefix": "$",
     "DiscordToken": "",
-    "EnableDebugLogging": "",
+    "EnableDebugLogging": "False",
     "EventNotificationChannelIdForShiny": "",
     "EventNotificationChannelIdForBrilliant": "",
     "EventNotificationChannelIdForMark": "",

@@ -33,19 +33,13 @@ class Channels(Enum):
     TextNotificationChannelIdForRareMark = 9
 
 class OverworldDiscordBot(commands.Bot):
-    def __init__(self):
-        # config to refactor out later
-        # prefix for bot commands
-        bot_prefix = "$"
-        # set up commands.Bot with specified prefix
-        super().__init__(command_prefix=bot_prefix)
-
-        # default values for variables as to not throw errors
+    def __init__(self, config_json):
+        # Default values for variables as to not throw errors.
         self.thread = None
         self.thread_running = True
         self.reader = None
-        self.config = None
-        self.is_configured = False
+        self.config = config_json
+        super().__init__(command_prefix=self.config["DiscordBotPrefix"])
 
         # function to run when the bot is "ready"
         @self.event
@@ -59,10 +53,6 @@ class OverworldDiscordBot(commands.Bot):
         # function to run whenever the start command is called
         @self.command()
         async def start(ctx):
-            if not self.is_configured:
-                message = "Unable to start bot due to missing configuration! Exiting."
-                await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
-                return
             # create reader object
             try:
                 self.reader = SWSHReader(self.config["IP"])
@@ -96,10 +86,6 @@ class OverworldDiscordBot(commands.Bot):
             await self.close()
             message = "Overworld Discord Bot has stopped."
             await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
-
-    def configure(self, cfg_json):
-        self.config = cfg_json
-        self.is_configured = True
 
     async def send_discord_event(self, embed, file, channel_id):
         channel = self.get_channel(int(channel_id))
