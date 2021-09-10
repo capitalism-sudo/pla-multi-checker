@@ -36,11 +36,11 @@
 * CFW
 * Internet Connection
 * [sys-botbase](https://github.com/olliz0r/sys-botbase)
-* [joycon-sys-botbase](https://github.com/Manu098vm/sys-botbase) For LGPE
+* [joycon-sys-botbase](https://github.com/Manu098vm/sys-botbase) For LGPE (you can only use one sys-botbase at a time)
 * [ldn_mitm](https://github.com/spacemeowx2/ldn_mitm)
 
 ## Usage
-* The scripts to run are contained in the ./scripts/ folder
+* The scripts to run are contained in the ./tests/ folder
 * Use [CaptureSight](https://github.com/zaksabeast/CaptureSight/)/CheckDen script to check your Den id for the Den scripts
 * Scripts labeled "Check'name'.py" will display info on that type of encounter in the console
 * "GUIReader.py" Is the script you need to run if you want GUI reading of Wild/Legendary/Fusion Pokémon for SWSH or Battle/Trade/Gift/Legendary/Active Pokémon for LGPE.
@@ -48,7 +48,7 @@
 * The other scripts are for dumping info and can be mostly ignored for the average person
 
 ### Usage: Overworld Scanner Discord Bot
-Prerequisite of a discord bot account and a discord server with all the mark ids as emojis.
+Prerequisite of a discord bot account and a discord server.
 
 In order to run the bot do the following:
 1. Copy *config.template.json* to *config.json*
