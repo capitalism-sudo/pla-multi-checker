@@ -68,10 +68,12 @@ In order to run the bot do the following:
 * [JSB](https://github.com/jsb-pokemon) for a lot of work on the discord bot!
 
 ## Possible Future Improvements
-* Expand discord bot readme section to include a comprehensive guide
+### PRs and help with these is always appreciated
 * Cleanup: Set embed_color via config file.
 * Cleanup: Set bot_prefix via config file.
 * Cleanup: Migrate non-class utility functions to a utility class.
+* Documentation: Expand discord bot readme section to include a comprehensive guide
+* Documentation: Full detailed guides on using tools
 * Feature: Update the configuration and reload it via discord command
 * Feature: Bot command to install emoji pack in a discord server
 * Feature: Add a filtering class to enable complex filters instead of a set of flags
@@ -79,3 +81,9 @@ In order to run the bot do the following:
 * Feature: Use the bot "activity" to update how many overworld pokemon have been scanned
 * Feature: include watchers to ping alongside filters. Is this useful for a bot attached to a single switch?
 * Feature: Make changing the formatting on the event cards easy for non-technical users.
+* Feature: Full SysDVR overlay support
+* Feature: Dynamax Adventure reading
+* Feature: Dex Rec Reading
+* Feature: (not likely) On the fly catch rate calculator
+* Feature: (minor) KO Counter Reading
+* Upgrade: Change GUI to something like PyQT
