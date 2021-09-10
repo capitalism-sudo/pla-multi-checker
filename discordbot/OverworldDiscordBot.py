@@ -51,8 +51,8 @@ class OverworldDiscordBot(commands.Bot):
         @self.event
         async def on_ready():
             # tell user in console that the bot is ready
-            _message = "Overworld Discord Bot has started."
-            await self.send_discord_msg(_message, Channels.NotificationChannelForInfo)
+            message = "Overworld Discord Bot has started."
+            await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
             # change bot presence to "Watching some ram for shinies"
             await self.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="some ram for shinies"))
 
@@ -60,8 +60,8 @@ class OverworldDiscordBot(commands.Bot):
         @self.command()
         async def start(ctx):
             if not self.is_configured:
-                _message = "Unable to start bot due to missing configuration! Exiting."
-                await self.send_discord_msg(_message, Channels.NotificationChannelForInfo)
+                message = "Unable to start bot due to missing configuration! Exiting."
+                await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
                 return
             # create reader object
             try:
@@ -70,8 +70,8 @@ class OverworldDiscordBot(commands.Bot):
                 self.thread = Thread(target=self.reader_func,args=(ctx,))
                 self.thread.start()
             except socket.timeout:
-                _message = "Unable to connect to IP {}. Check that the Switch is available.".format(self.config["IP"])
-                await self.send_discord_msg(_message, Channels.NotificationChannelForInfo)
+                message = "Unable to connect to IP {}. Check that the Switch is available.".format(self.config["IP"])
+                await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
 
         # function to run whenever the ping command is called
         @self.command()
@@ -83,8 +83,8 @@ class OverworldDiscordBot(commands.Bot):
         @self.command()
         async def stop(ctx):
             # tell user in console that we are now stopping
-            _message = "Overworld Discord Bot is stopping."
-            await self.send_discord_msg(_message, Channels.NotificationChannelForInfo)
+            message = "Overworld Discord Bot is stopping."
+            await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
             # if reader was started then close it
             if self.reader != None:
                 self.reader.close()
@@ -94,8 +94,8 @@ class OverworldDiscordBot(commands.Bot):
             sleep(2)
             # close discord bot
             await self.close()
-            _message = "Overworld Discord Bot has stopped."
-            await self.send_discord_msg(_message, Channels.NotificationChannelForInfo)
+            message = "Overworld Discord Bot has stopped."
+            await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
 
     def configure(self, cfg_json):
         self.config = cfg_json
@@ -106,27 +106,27 @@ class OverworldDiscordBot(commands.Bot):
         await channel.send(embed=embed,file=file)
 
     async def send_discord_msg(self, message, destination=Channels.NoChannel):
-        _channel_id = None
+        channel_id = None
         if destination == Channels.NotificationChannelForInfo:
-            _channel_id = self.config["NotificationChannelForInfo"]
+            channel_id = self.config["NotificationChannelForInfo"]
         elif destination == Channels.EventNotificationChannelIdForShiny:
-            _channel_id = self.config["EventNotificationChannelIdForShiny"]
+            channel_id = self.config["EventNotificationChannelIdForShiny"]
         elif destination == Channels.EventNotificationChannelIdForBrilliant:
-            _channel_id = self.config["EventNotificationChannelIdForBrilliant"]
+            channel_id = self.config["EventNotificationChannelIdForBrilliant"]
         elif destination == Channels.EventNotificationChannelIdForMark:
-            _channel_id = self.config["EventNotificationChannelIdForMark"]
+            channel_id = self.config["EventNotificationChannelIdForMark"]
         elif destination == Channels.EventNotificationChannelIdForRareMark:
-            _channel_id = self.config["EventNotificationChannelIdForRareMark"]
+            channel_id = self.config["EventNotificationChannelIdForRareMark"]
         elif destination == Channels.TextNotificationChannelIdForShiny:
-            _channel_id = self.config["TextNotificationChannelIdForShiny"]
+            channel_id = self.config["TextNotificationChannelIdForShiny"]
         elif destination == Channels.TextNotificationChannelIdForBrilliant:
-            _channel_id = self.config["TextNotificationChannelIdForBrilliant"]
+            channel_id = self.config["TextNotificationChannelIdForBrilliant"]
         elif destination == Channels.TextNotificationChannelIdForMark:
-            _channel_id = self.config["TextNotificationChannelIdForMark"]
+            channel_id = self.config["TextNotificationChannelIdForMark"]
         elif destination == Channels.TextNotificationChannelIdForRareMark:
-            _channel_id = self.config["TextNotificationChannelIdForRareMark"]
-        if _channel_id:
-            channel = self.get_channel(int(_channel_id))
+            channel_id = self.config["TextNotificationChannelIdForRareMark"]
+        if channel_id:
+            channel = self.get_channel(int(channel_id))
             print("{}: {}".format(channel.name, message))
             await channel.send(message)
         else:
@@ -158,47 +158,47 @@ class OverworldDiscordBot(commands.Bot):
                 # for each pkm check for filter
                 for pkm in pkms:
                     # Determine if the pokemon info should be an event notification, and where it routes to. Send text notifications inline.
-                    _channels_to_notify = []
+                    channels_to_notify = []
                     if is_pkm_shiny(pkm):
-                        _event_channel_id = self.config["EventNotificationChannelIdForShiny"]
-                        if len(_event_channel_id) > 0:
-                            _channels_to_notify.append(_event_channel_id)
-                        _text_channel_id = self.config["TextNotificationChannelIdForShiny"]
-                        if len(_text_channel_id) > 0:
-                            _message = "Shiny {} detected!".format(get_pkm_species_string(pkm))
-                            asyncio.run_coroutine_threadsafe(self.send_discord_msg(_message, Channels.TextNotificationChannelIdForShiny),self.loop)
+                        eventchannel_id = self.config["EventNotificationChannelIdForShiny"]
+                        if len(eventchannel_id) > 0:
+                           channels_to_notify.append(eventchannel_id)
+                        textchannel_id = self.config["TextNotificationChannelIdForShiny"]
+                        if len(textchannel_id) > 0:
+                            message = "Shiny {} detected!".format(get_pkm_species_string(pkm))
+                            asyncio.run_coroutine_threadsafe(self.send_discord_msg(message, Channels.TextNotificationChannelIdForShiny),self.loop)
                     if is_pkm_brilliant(pkm):
-                        _event_channel_id = self.config["EventNotificationChannelIdForBrilliant"]
-                        if len(_event_channel_id) > 0:
-                            _channels_to_notify.append(_event_channel_id)
-                        _text_channel_id = self.config["TextNotificationChannelIdForBrilliant"]
-                        if len(_text_channel_id) > 0:
-                            _message = "Brilliant {} detected!".format(get_pkm_species_string(pkm))
-                            asyncio.run_coroutine_threadsafe(self.send_discord_msg(_message, Channels.TextNotificationChannelIdForBrilliant),self.loop)
+                        eventchannel_id = self.config["EventNotificationChannelIdForBrilliant"]
+                        if len(eventchannel_id) > 0:
+                           channels_to_notify.append(eventchannel_id)
+                        textchannel_id = self.config["TextNotificationChannelIdForBrilliant"]
+                        if len(textchannel_id) > 0:
+                            message = "Brilliant {} detected!".format(get_pkm_species_string(pkm))
+                            asyncio.run_coroutine_threadsafe(self.send_discord_msg(message, Channels.TextNotificationChannelIdForBrilliant),self.loop)
                     if is_pkm_rare(pkm):
-                        _event_channel_id = self.config["EventNotificationChannelIdForRareMark"]
-                        if len(_event_channel_id) > 0:
-                            _channels_to_notify.append(_event_channel_id)
-                        _text_channel_id = self.config["TextNotificationChannelIdForRareMark"]
-                        if len(_text_channel_id) > 0:
-                            _message = "Rare Mark {} detected!".format(get_pkm_species_string(pkm))
-                            asyncio.run_coroutine_threadsafe(self.send_discord_msg(_message, Channels.TextNotificationChannelIdForRareMark),self.loop)
+                        eventchannel_id = self.config["EventNotificationChannelIdForRareMark"]
+                        if len(eventchannel_id) > 0:
+                           channels_to_notify.append(eventchannel_id)
+                        textchannel_id = self.config["TextNotificationChannelIdForRareMark"]
+                        if len(textchannel_id) > 0:
+                            message = "Rare Mark {} detected!".format(get_pkm_species_string(pkm))
+                            asyncio.run_coroutine_threadsafe(self.send_discord_msg(message, Channels.TextNotificationChannelIdForRareMark),self.loop)
                     if is_pkm_marked(pkm):
-                        _event_channel_id = self.config["EventNotificationChannelIdForMark"]
-                        if len(_event_channel_id) > 0:
-                            _channels_to_notify.append(_event_channel_id)
-                        _text_channel_id = self.config["TextNotificationChannelIdForMark"]
-                        if len(_text_channel_id) > 0:
-                            _message = "{} Mark {} detected!".format(get_pkm_mark_string(pkm), get_pkm_species_string(pkm))
-                            asyncio.run_coroutine_threadsafe(self.send_discord_msg(_message, Channels.TextNotificationChannelIdForMark),self.loop)
+                        eventchannel_id = self.config["EventNotificationChannelIdForMark"]
+                        if len(eventchannel_id) > 0:
+                           channels_to_notify.append(eventchannel_id)
+                        textchannel_id = self.config["TextNotificationChannelIdForMark"]
+                        if len(textchannel_id) > 0:
+                            message = "{} Mark {} detected!".format(get_pkm_mark_string(pkm), get_pkm_species_string(pkm))
+                            asyncio.run_coroutine_threadsafe(self.send_discord_msg(message, Channels.TextNotificationChannelIdForMark),self.loop)
                     
                     # Remove duplicate channel IDs from the list.
-                    _channels_to_notify = list(set(_channels_to_notify))
-                    if _channels_to_notify and strtobool(self.config["EnableDebugLogging"]):
-                        print("DEBUG: Channels to notify are: {}".format(_channels_to_notify))
+                    channels_to_notify = list(set(channels_to_notify))
+                    if channels_to_notify and strtobool(self.config["EnableDebugLogging"]):
+                        print("DEBUG: Channels to notify are: {}".format(channels_to_notify))
 
                     # If we are notifying at least one channel ...
-                    if _channels_to_notify:
+                    if channels_to_notify:
                         # if so, format to strings
                         title, description = pkm_format(pkm, ctx)
                         # create discord embed object with the color specified
@@ -216,11 +216,11 @@ class OverworldDiscordBot(commands.Bot):
                         
                         # send a message in channel start was called with the infomation of the pokemon
                         # asyncio.run_coroutine_threadsafe(ctx.send(embed=embed,file=file),self.loop)
-                        for channel_id in _channels_to_notify:
+                        for channel_id in channels_to_notify:
                             asyncio.run_coroutine_threadsafe(self.send_discord_event(embed, file, channel_id),self.loop)
                 # print a line to show that new pokemon have just been read
-                _message = "{} Pokemon Observed".format(len(pkms))
-                asyncio.run_coroutine_threadsafe(self.send_discord_msg(_message, Channels.NotificationChannelForInfo),self.loop)
+                message = "{} Pokemon Observed".format(len(pkms))
+                asyncio.run_coroutine_threadsafe(self.send_discord_msg(message, Channels.NotificationChannelForInfo),self.loop)
             # give the thread a break
             self.reader.pause(0.3)
 
