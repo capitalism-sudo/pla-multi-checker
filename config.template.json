@@ -1,0 +1,14 @@
+{
+    "DiscordToken": "",
+    "EnableDebugLogging": "",
+    "EventNotificationChannelIdForShiny": "",
+    "EventNotificationChannelIdForBrilliant": "",
+    "EventNotificationChannelIdForMark": "",
+    "EventNotificationChannelIdForRareMark": "",
+    "IP": "",
+    "NotificationChannelForInfo": "",
+    "TextNotificationChannelIdForShiny": "",
+    "TextNotificationChannelIdForBrilliant": "",
+    "TextNotificationChannelIdForMark": "",
+    "TextNotificationChannelIdForRareMark": ""
+}

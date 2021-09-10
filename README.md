@@ -66,6 +66,7 @@ The bot can be run once *config.json* is filled in, by running *tests/OverworldD
 * Expand discord bot readme section to include a comprehensive guide
 * Cleanup: Set embed_color via config file.
 * Cleanup: Set bot_prefix via config file.
+* Cleanup: Migrate non-class utility functions to a utility class.
 * Feature: Update the configuration and reload it via discord command
 * Feature: Bot command to install emoji pack in a discord server
 * Feature: Add a filtering class to enable complex filters instead of a set of flags
