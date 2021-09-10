@@ -46,10 +46,14 @@
 * "GUIOverworld.py" Is the script you need to run if you want GUI reading of Overworld Pokémon
 * The other scripts are for dumping info and can be mostly ignored for the average person
 
-### Usage: sOverworld Scanner Discord Bot
+### Usage: Overworld Scanner Discord Bot
 Prerequisite of a discord bot account and a discord server with all the mark ids as emojis.
 
-The bot can be run once *config.json* is filled in, by running *tests/OverworldDiscordBot.py*
+In order to run the bot do the following:
+1. Copy *config.template.json* to *config.json*
+1. Fill out *config.json* with appropriate values.
+1. Execute *tests/OverworldDiscordBot.py*
+1. From the discord server, run the *$start* command to start the bot's main scanner thread.
 
 ## Credits:
 * olliz0r for his great [sys-botbase](https://github.com/olliz0r/sys-botbase) which let open sockets on the Nintendo Switch
@@ -71,4 +75,6 @@ The bot can be run once *config.json* is filled in, by running *tests/OverworldD
 * Feature: Bot command to install emoji pack in a discord server
 * Feature: Add a filtering class to enable complex filters instead of a set of flags
 * Feature: Save statistics and display aggregate stats. Examples include: pokemon encounters, mark #s, shiny #s, etc.
+* Feature: Use the bot "activity" to update how many overworld pokemon have been scanned
 * Feature: include watchers to ping alongside filters. Is this useful for a bot attached to a single switch?
+* Feature: Make changing the formatting on the event cards easy for non-technical users.
