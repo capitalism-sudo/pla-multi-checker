@@ -1,13 +1,14 @@
 {
-    "IP": "",
-    "EventNotificationChannelIdForShiny": "",
-    "EventNotificationChannelIdForBrilliant": "",
+    "DiscordToken": "ODgzNzg4MTc1MjgwMDc4OTAw.YTPB4A.VlygRJeEkzCV8mUpBt6U8EiNAzg",
+    "EnableDebugLogging": "False",
+    "EventNotificationChannelIdForShiny": "884610291487342622",
+    "EventNotificationChannelIdForBrilliant": "884610733931909240",
     "EventNotificationChannelIdForMark": "",
-    "EventNotificationChannelIdForRareMark": "",
-    "NotificationChannelForInfo": "",
-    "TextNotificationChannelIdForShiny": "",
-    "TextNotificationChannelIdForBrilliant": "",
+    "EventNotificationChannelIdForRareMark": "884610365089017886",
+    "IP": "192.168.86.250",
+    "NotificationChannelForInfo": "883789388289568818",
+    "TextNotificationChannelIdForShiny": "883789388289568818",
+    "TextNotificationChannelIdForBrilliant": "883789388289568818",
     "TextNotificationChannelIdForMark": "",
-    "TextNotificationChannelIdForRareMark": "",
-    "EnableDebugLogging": "False"
+    "TextNotificationChannelIdForRareMark": "883789388289568818"
 }

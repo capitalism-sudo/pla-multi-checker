@@ -2,14 +2,13 @@
 
 import asyncio
 import io
-import json
 import socket
 import sys
+from distutils.util import strtobool
+from enum import Enum
 from functools import lru_cache
 from threading import Thread
 from time import sleep
-from enum import Enum
-from distutils.util import strtobool
 
 import discord
 import pokebase as pb
@@ -20,7 +19,6 @@ from PIL import Image
 sys.path.append('../')
 from lookups import Util
 from nxreader import SWSHReader
-# from . import Channels
 
 class Channels(Enum):
     NoChannel = 0
@@ -105,7 +103,7 @@ class OverworldDiscordBot(commands.Bot):
 
     async def send_discord_event(self, embed, file, channel_id):
         channel = self.get_channel(int(channel_id))
-        asyncio.run_coroutine_threadsafe(channel.send(embed=embed,file=file),self.loop)
+        await channel.send(embed=embed,file=file)
 
     async def send_discord_msg(self, message, destination=Channels.NoChannel):
         _channel_id = None
@@ -233,7 +231,7 @@ def is_pkm_brilliant(pkm):
     return pkm.brilliant
 
 def is_pkm_marked(pkm):
-    return pkm.mark > 52 and pkm.mark < 98 and pkm.mark != 69
+    return pkm.mark != 255 and pkm.mark != 69
 
 def is_pkm_rare(pkm):
     return pkm.mark == 69
