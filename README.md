@@ -51,9 +51,9 @@ Prerequisite of a discord bot account and a discord server with all the mark ids
 
 In order to run the bot do the following:
 1. Copy *config.template.json* to *config.json*
-1. Fill out *config.json* with appropriate values.
-1. Execute *tests/OverworldDiscordBot.py*
-1. From the discord server, run the *$start* command to start the bot's main scanner thread.
+2. Fill out *config.json* with appropriate values.
+3. Execute *tests/OverworldDiscordBot.py*
+4. From the discord server, run the *$start* command to start the bot's main scanner thread.
 
 ## Credits:
 * olliz0r for his great [sys-botbase](https://github.com/olliz0r/sys-botbase) which let open sockets on the Nintendo Switch
@@ -65,6 +65,7 @@ In order to run the bot do the following:
 * [wwwwwwzx](https://github.com/wwwwwwzx) for creating and working on the original project
 * [Real96](https://github.com/Real96) for working on the original project
 * [Manu098](https://github.com/Manu098vm/) for Sys-EncounterBot (many addresses/checks are taken from there)
+* [JSB](https://github.com/jsb-pokemon) for a lot of work on the discord bot!
 
 ## Possible Future Improvements
 * Expand discord bot readme section to include a comprehensive guide
