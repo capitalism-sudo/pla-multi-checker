@@ -70,7 +70,7 @@ class OverworldDiscordBot(commands.Bot):
                 self.thread = Thread(target=self.reader_func,args=(ctx,))
                 self.thread.start()
             except socket.timeout:
-                message = "Unable to connect to IP {}. Check that the Switch is available.".format(self.config["IP"])
+                message = f"Unable to connect to IP {self.config['IP']}. Check that the Switch is available."
                 await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
 
         # function to run whenever the ping command is called
@@ -127,10 +127,10 @@ class OverworldDiscordBot(commands.Bot):
             channel_id = self.config["TextNotificationChannelIdForRareMark"]
         if channel_id:
             channel = self.get_channel(int(channel_id))
-            print("{}: {}".format(channel.name, message))
+            print(f"{channel.name}: {message}")
             await channel.send(message)
         else:
-            print("LocalOnly: {}".format(message))
+            print(f"LocalOnly: {message}")
 
     # function to be run in the new thread after start is called
     def reader_func(self,ctx):
@@ -147,7 +147,7 @@ class OverworldDiscordBot(commands.Bot):
             try:
                 self.reader.KCoordinates.refresh()
             except Exception:
-                print("No connection to Switch at IP {}. Check that the Switch is available.".format(self.config["IP"]))
+                print(f"No connection to Switch at IP {self.config['IP']}. Check that the Switch is available.")
                 break
             # read pokemon
             pkms = self.reader.KCoordinates.ReadOwPokemonFromBlock()
@@ -165,7 +165,7 @@ class OverworldDiscordBot(commands.Bot):
                            channels_to_notify.append(eventchannel_id)
                         textchannel_id = self.config["TextNotificationChannelIdForShiny"]
                         if len(textchannel_id) > 0:
-                            message = "Shiny {} detected!".format(get_pkm_species_string(pkm))
+                            message = f"Shiny {get_pkm_species_string(pkm)} detected!"
                             asyncio.run_coroutine_threadsafe(self.send_discord_msg(message, Channels.TextNotificationChannelIdForShiny),self.loop)
                     if is_pkm_brilliant(pkm):
                         eventchannel_id = self.config["EventNotificationChannelIdForBrilliant"]
@@ -173,7 +173,7 @@ class OverworldDiscordBot(commands.Bot):
                            channels_to_notify.append(eventchannel_id)
                         textchannel_id = self.config["TextNotificationChannelIdForBrilliant"]
                         if len(textchannel_id) > 0:
-                            message = "Brilliant {} detected!".format(get_pkm_species_string(pkm))
+                            message = f"Brilliant {get_pkm_species_string(pkm)} detected!"
                             asyncio.run_coroutine_threadsafe(self.send_discord_msg(message, Channels.TextNotificationChannelIdForBrilliant),self.loop)
                     if is_pkm_rare(pkm):
                         eventchannel_id = self.config["EventNotificationChannelIdForRareMark"]
@@ -181,7 +181,7 @@ class OverworldDiscordBot(commands.Bot):
                            channels_to_notify.append(eventchannel_id)
                         textchannel_id = self.config["TextNotificationChannelIdForRareMark"]
                         if len(textchannel_id) > 0:
-                            message = "Rare Mark {} detected!".format(get_pkm_species_string(pkm))
+                            message = f"Rare Mark {get_pkm_species_string(pkm)} detected!"
                             asyncio.run_coroutine_threadsafe(self.send_discord_msg(message, Channels.TextNotificationChannelIdForRareMark),self.loop)
                     if is_pkm_marked(pkm):
                         eventchannel_id = self.config["EventNotificationChannelIdForMark"]
@@ -189,13 +189,13 @@ class OverworldDiscordBot(commands.Bot):
                            channels_to_notify.append(eventchannel_id)
                         textchannel_id = self.config["TextNotificationChannelIdForMark"]
                         if len(textchannel_id) > 0:
-                            message = "{} Mark {} detected!".format(get_pkm_mark_string(pkm), get_pkm_species_string(pkm))
+                            message = f"{get_pkm_mark_string(pkm)} Mark {get_pkm_species_string(pkm)} detected!"
                             asyncio.run_coroutine_threadsafe(self.send_discord_msg(message, Channels.TextNotificationChannelIdForMark),self.loop)
                     
                     # Remove duplicate channel IDs from the list.
                     channels_to_notify = list(set(channels_to_notify))
                     if channels_to_notify and strtobool(self.config["EnableDebugLogging"]):
-                        print("DEBUG: Channels to notify are: {}".format(channels_to_notify))
+                        print(f"DEBUG: Channels to notify are: {channels_to_notify}")
 
                     # If we are notifying at least one channel ...
                     if channels_to_notify:
@@ -219,7 +219,7 @@ class OverworldDiscordBot(commands.Bot):
                         for channel_id in channels_to_notify:
                             asyncio.run_coroutine_threadsafe(self.send_discord_event(embed, file, channel_id),self.loop)
                 # print a line to show that new pokemon have just been read
-                message = "{} Pokemon Observed".format(len(pkms))
+                message = f"{len(pkms)} Pokemon Observed"
                 asyncio.run_coroutine_threadsafe(self.send_discord_msg(message, Channels.NotificationChannelForInfo),self.loop)
             # give the thread a break
             self.reader.pause(0.3)
