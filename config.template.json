@@ -1,0 +1,15 @@
+{
+    "DiscordBotPrefix": "$",
+    "DiscordToken": "",
+    "EnableDebugLogging": "False",
+    "EventNotificationChannelIdForShiny": "",
+    "EventNotificationChannelIdForBrilliant": "",
+    "EventNotificationChannelIdForMark": "",
+    "EventNotificationChannelIdForRareMark": "",
+    "IP": "",
+    "NotificationChannelForInfo": "",
+    "TextNotificationChannelIdForShiny": "",
+    "TextNotificationChannelIdForBrilliant": "",
+    "TextNotificationChannelIdForMark": "",
+    "TextNotificationChannelIdForRareMark": ""
+}
