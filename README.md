@@ -75,12 +75,12 @@ In order to run the bot do the following:
 
 ## Possible Future Improvements
 ### PRs and help with these is always appreciated
+### Discord
 - [ ] Cleanup: Set embed_color via config file.
 - [x] Cleanup: Set bot_prefix via config file.
 - [ ] Cleanup: Migrate non-class utility functions to a utility class.
 - [ ] Cleanup: Have shutdown/start commands edit the same message to avoid spamming chat
 - [ ] Documentation: Expand discord bot readme section to include a comprehensive guide
-- [ ] Documentation: Full detailed guides on using tools
 - [ ] Feature: Discord help command
 - [ ] Feature: Update the configuration and reload it via discord command
 - [x] Feature: Bot command to install emoji pack in a discord server
@@ -89,7 +89,14 @@ In order to run the bot do the following:
 - [ ] Feature: Use the bot "activity" to update how many overworld pokemon have been scanned
 - [ ] Feature: include watchers to ping alongside filters. Is this useful for a bot attached to a single switch?
 - [ ] Feature: Make changing the formatting on the event cards easy for non-technical users.
-- [ ] Feature: Full SysDVR overlay support
+### SysDVR
+- [ ] Feature: Introduce SysDVR Support
+- [ ] Feature: Screenshot and Video Functionality
+- [ ] Feature: Overlay that can read various things
+- [ ] Feature: Make overlay fancy (pcalc inspiration?)
+- [ ] Feature: Keyboard and input support?
+### Other
+- [ ] Documentation: Full detailed guides on using tools
 - [ ] Feature: Dynamax Adventure reading
 - [ ] Feature: Gift Pokemon reading
 - [ ] Feature: Egg reading
