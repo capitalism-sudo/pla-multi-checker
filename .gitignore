@@ -1,6 +1,9 @@
 # Project files to exclude.
 config.json
 
+# WIP
+sysdvr/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
