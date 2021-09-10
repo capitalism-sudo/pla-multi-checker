@@ -1,20 +1,21 @@
 # Needs a discord bot account and a server with all the mark ids as emojis.
 
 import asyncio
+import discord
 import io
+import platform
+import pokebase as pb
 import socket
 import sys
+from discord.ext import commands
+from discord.utils import get
 from distutils.util import strtobool
 from enum import Enum
 from functools import lru_cache
+from PIL import Image
 from threading import Thread
 from time import sleep
 
-import discord
-import pokebase as pb
-from discord.ext import commands
-from discord.utils import get
-from PIL import Image
 
 sys.path.append('../')
 from lookups import Util
@@ -34,6 +35,9 @@ class Channels(Enum):
 
 class OverworldDiscordBot(commands.Bot):
     def __init__(self, config_json):
+        # we do this to avoid "RuntimeError: Event loop is closed" on shutdown
+        if platform.system() == 'Windows':
+	        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
         # Default values for variables as to not throw errors.
         self.thread = None
         self.thread_running = True
@@ -45,7 +49,7 @@ class OverworldDiscordBot(commands.Bot):
         @self.event
         async def on_ready():
             # tell user in console that the bot is ready
-            message = "Overworld Discord Bot has started."
+            message = "Discord Bot has started."
             await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
             # change bot presence to "Watching some ram for shinies"
             await self.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="some ram for shinies"))
@@ -59,6 +63,8 @@ class OverworldDiscordBot(commands.Bot):
                 # create and start a thread for reading from the switch
                 self.thread = Thread(target=self.reader_func,args=(ctx,))
                 self.thread.start()
+                message = "Reader has started."
+                await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
             except socket.timeout:
                 message = f"Unable to connect to IP {self.config['IP']}. Check that the Switch is available."
                 await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
@@ -69,23 +75,40 @@ class OverworldDiscordBot(commands.Bot):
             # say the bots latency in discord channel
             await ctx.send(f'Pong! {round(self.latency, 3)}')
         
-        # function to run whenever stop command is called, stops reader and discord bot
+        # function to run whenever shutdown command is called, stops reader and discord bot
         @self.command()
-        async def stop(ctx):
-            # tell user in console that we are now stopping
-            message = "Overworld Discord Bot is stopping."
+        async def shutdown(ctx,):
+            message = "Discord Bot is shutting down..."
             await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
-            # if reader was started then close it
-            if self.reader != None:
-                self.reader.close()
-            # tell reader thread that we are done
-            self.thread_running = False
+            # stop reader
+            await stop(ctx)
             # wait for thread to catch up
             sleep(2)
             # close discord bot
             await self.close()
-            message = "Overworld Discord Bot has stopped."
+
+        # function to run whenever stop command is called, stops reader but keeps discord bot alive
+        @self.command()
+        async def stop(ctx):
+            # tell user in console that we are now stopping
+            message = "Reader is stopping..."
             await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
+            # if reader was started then close it
+            if self.reader != None:
+                self.reader.close(False)
+            # tell reader thread that we are done
+            self.thread_running = False
+            message = "Reader has stopped."
+            await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
+
+        # function to run whenever restart command is called, restarts reader but keeps discord bot alive
+        @self.command()
+        async def restart(ctx):
+            # tell user in console that we are now restarting
+            message = "Reader is restarting..."
+            await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
+            await stop(ctx)
+            await start(ctx)
 
     async def send_discord_event(self, embed, file, channel_id):
         channel = self.get_channel(int(channel_id))
@@ -128,12 +151,16 @@ class OverworldDiscordBot(commands.Bot):
         while True:
             # check if we are supposed to be running
             if not self.thread_running:
-                exit()
+                break
             # refresh KCoords block
             try:
                 self.reader.KCoordinates.refresh()
+            # if an exception happened the connection to the switch has likely been severed
             except Exception:
-                print(f"No connection to Switch at IP {self.config['IP']}. Check that the Switch is available.")
+                # if we are supposed to be running then log that a disconnect happened
+                if self.thread_running:
+                    self.thread_running = False
+                    print(f"No connection to Switch at IP {self.config['IP']}. Check that the Switch is available.")
                 break
             # read pokemon
             pkms = self.reader.KCoordinates.ReadOwPokemonFromBlock()
