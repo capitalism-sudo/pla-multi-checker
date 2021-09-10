@@ -27,11 +27,12 @@
 
 ## Requirements
 * [Python](https://www.python.org/downloads/)
-	* Install z3-solver, pyserial, pillow, and pokebase via [pip](https://pip.pypa.io/en/stable/) if `ImportError` happens.
+	* Install z3-solver, pyserial, pillow, pokebase, and discord via [pip](https://pip.pypa.io/en/stable/) if `ImportError` happens.
 	   `pip install z3-solver` 
 	   `pip install pyserial`
 	   `pip install pillow`
 	   `pip install pokebase`
+	   `pip install discord`
 * CFW
 * Internet Connection
 * [sys-botbase](https://github.com/olliz0r/sys-botbase)
@@ -53,7 +54,12 @@ In order to run the bot do the following:
 1. Copy *config.template.json* to *config.json*
 2. Fill out *config.json* with appropriate values.
 3. Execute *tests/OverworldDiscordBot.py*
-4. From the discord server, run the *$start* command to start the bot's main scanner thread.
+4. From the discord server, run the *$download_emoji* command, download the marks zip, and add them to your server.
+5. After the marks are added, you can run the *$start* command to start the bots scanner thread.
+* $start is used to start the scanner thread
+* $stop is used to close the scanner thread
+* $restart is used to close then re open the scanner thread
+* $shutdown is used to close the scanner thread and the discord bot
 
 ## Credits:
 * olliz0r for his great [sys-botbase](https://github.com/olliz0r/sys-botbase) which let open sockets on the Nintendo Switch
@@ -77,7 +83,7 @@ In order to run the bot do the following:
 - [ ] Documentation: Full detailed guides on using tools
 - [ ] Feature: Discord help command
 - [ ] Feature: Update the configuration and reload it via discord command
-- [ ] Feature: Bot command to install emoji pack in a discord server
+- [x] Feature: Bot command to install emoji pack in a discord server
 - [ ] Feature: Add a filtering class to enable complex filters instead of a set of flags
 - [ ] Feature: Save statistics and display aggregate stats. Examples include: pokemon encounters, mark #s, shiny #s, etc.
 - [ ] Feature: Use the bot "activity" to update how many overworld pokemon have been scanned

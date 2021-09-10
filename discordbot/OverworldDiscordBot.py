@@ -109,10 +109,19 @@ class OverworldDiscordBot(commands.Bot):
             await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
             await stop(ctx)
             await start(ctx)
+        
+        # function to run whenever download_emoji command is called, adds all mark emojis to the current server
+        @self.command()
+        async def download_emoji(ctx):
+            # color for the line on the side of the embed, 0xfad1ff is pink
+            embed_color = 0xfad1ff
+            embed=discord.Embed(color=embed_color)
+            embed.add_field(name = "Download Emojis", value = "Download the mark zip attached and drag and drop them into your emojis", inline=False)
+            await self.send_discord_event(embed, discord.File("../resources/marks.zip"), ctx.channel.id)
 
     async def send_discord_event(self, embed, file, channel_id):
         channel = self.get_channel(int(channel_id))
-        await channel.send(embed=embed,file=file)
+        return await channel.send(embed=embed,file=file)
 
     async def send_discord_msg(self, message, destination=Channels.NoChannel):
         channel_id = None
@@ -137,7 +146,7 @@ class OverworldDiscordBot(commands.Bot):
         if channel_id:
             channel = self.get_channel(int(channel_id))
             print(f"{channel.name}: {message}")
-            await channel.send(message)
+            return await channel.send(message)
         else:
             print(f"LocalOnly: {message}")
 
