@@ -1,5 +1,3 @@
-# Needs a discord bot account and a server with all the mark ids as emojis.
-
 import asyncio
 import discord
 import io
@@ -40,7 +38,7 @@ class OverworldDiscordBot(commands.Bot):
 	        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
         # Default values for variables as to not throw errors.
         self.thread = None
-        self.thread_running = True
+        self.thread_running = False
         self.reader = None
         self.config = config_json
         super().__init__(command_prefix=self.config["DiscordBotPrefix"])
@@ -61,6 +59,7 @@ class OverworldDiscordBot(commands.Bot):
             try:
                 self.reader = SWSHReader(self.config["IP"])
                 # create and start a thread for reading from the switch
+                self.thread_running = True
                 self.thread = Thread(target=self.reader_func,args=(ctx,))
                 self.thread.start()
                 message = "Reader has started."
