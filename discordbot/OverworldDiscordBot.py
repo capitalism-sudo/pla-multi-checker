@@ -1,5 +1,6 @@
 import asyncio
 import discord
+import itertools
 import io
 import os.path
 import platform
@@ -61,6 +62,9 @@ class Statistics:
 
     def __str__(self):
         newline = '\n'
+        sorted_pokemon = dict(sorted(self.pokemon.items(), key=lambda item: item[1]))
+        first_ten = dict(itertools.islice(sorted_pokemon.items(), 10))
+        
         return f"""Time Running: {round(self.run_time,2)}s
         Shiny Count: {self.shiny_count} {self.percent(self.shiny_count)}%
         Brilliant Count: {self.brilliant_count} {self.percent(self.brilliant_count)}%
@@ -69,7 +73,7 @@ class Statistics:
         Personality Mark Count: {self.personality_mark_count} {self.percent(self.personality_mark_count)}%
         Time Mark Count: {self.time_mark_count} {self.percent(self.time_mark_count)}%
         Weather Mark Count: {self.weather_mark_count} {self.percent(self.weather_mark_count)}%
-        {newline.join([(f'{Util.STRINGS.species[index]} {self.pokemon[index]} {self.percent(self.pokemon[index])}%') for index in self.pokemon])}
+        {newline.join([(f'{Util.STRINGS.species[index]} {self.pokemon[index]} {self.percent(self.pokemon[index])}%') for index in first_ten])}
         Total Encounters: {self.total_count}
         """.replace("        ","")
     
@@ -229,6 +233,13 @@ class OverworldDiscordBot(commands.Bot):
             embed.add_field(name = "Statistics", value = str(self.stats), inline = False)
             await self.send_discord_event(embed, None, ctx.channel.id)
         
+        # function to run whenever save_stats command is called, saves current stats
+        @self.command()
+        async def save_stats(ctx):
+            self.stats.save()
+            message = "Stats Saved."
+            await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
+        
         # function to run whenever list_stats command is called, lists all .encounter files
         @self.command()
         async def list_stats(ctx):
@@ -249,6 +260,7 @@ class OverworldDiscordBot(commands.Bot):
                 return
             await self.send_discord_msg("Loading stats...", Channels.NotificationChannelForInfo)
             self.stats = Statistics()
+            self.stats.save_file_name = filename.split(".encounters")[0]
             with open(os.path.join(os.path.dirname(__file__),f"../tests/{filename}"), "rb") as backup:
                 i = 0
                 while i < os.path.getsize(os.path.join(os.path.dirname(__file__),f'../tests/{filename}')):
