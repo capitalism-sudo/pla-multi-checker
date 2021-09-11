@@ -4,6 +4,9 @@ config.json
 # WIP
 sysdvr/
 
+# Encounter logging
+*.encounters
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -139,5 +142,5 @@ resources/structure
 # Mac
 .DS_Store
 
-#Other Tests
+# Other Tests
 other
