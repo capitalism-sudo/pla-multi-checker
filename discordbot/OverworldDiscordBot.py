@@ -82,7 +82,7 @@ class Statistics:
             f.write(self.encounter_cache)
         self.encounter_cache = b''
 
-    def add_pkm(self, pkm):
+    def add_pkm(self, pkm, save = True):
         self.total_count += 1
         if self.is_pkm_shiny(pkm):
             self.shiny_count += 1
@@ -103,9 +103,10 @@ class Statistics:
             self.pokemon[pkm.species] += 1
         else:
             self.pokemon[pkm.species] = 1
-        self.encounter_cache += bytes(pkm.data)
-        if len(self.encounter_cache) >= 56*100:
-            self.save()
+        if save:
+            self.encounter_cache += bytes(pkm.data)
+            if len(self.encounter_cache) >= 56*100:
+                self.save()
     
     @staticmethod
     def is_pkm_shiny(pkm):
@@ -263,9 +264,10 @@ class OverworldDiscordBot(commands.Bot):
             self.stats.save_file_name = filename.split(".encounters")[0]
             with open(os.path.join(os.path.dirname(__file__),f"../tests/{filename}"), "rb") as backup:
                 i = 0
-                while i < os.path.getsize(os.path.join(os.path.dirname(__file__),f'../tests/{filename}')):
-                    pkm = PK8(list(backup.read(56)),self.reader.TrainerSave.TID(), self.reader.TrainerSave.SID())
-                    self.stats.add_pkm(pkm)
+                total = os.path.getsize(os.path.join(os.path.dirname(__file__),f'../tests/{filename}'))
+                while i < total:
+                    pkm = PK8(list(backup.read(56)),0,0)
+                    self.stats.add_pkm(pkm,False)
                     i += 56
             await self.send_discord_msg("Stats Loaded.", Channels.NotificationChannelForInfo)
 
