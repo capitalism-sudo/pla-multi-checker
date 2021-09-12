@@ -89,6 +89,10 @@ In order to run the bot do the following:
 - [ ] Feature: Use the bot "activity" to update how many overworld pokemon have been scanned
 - [ ] Feature: include watchers to ping alongside filters. Is this useful for a bot attached to a single switch?
 - [ ] Feature: Make changing the formatting on the event cards easy for non-technical users.
+- [ ] Feature: Discord bot/mode for eggs
+- [ ] Feature: Discord bot/mode for lgpe
+- [ ] Feature: Discord bot/mode for other read things
+- [ ] Feature: Command to combine all .encounters files for statistics
 ### SysDVR
 - [ ] Feature: Introduce SysDVR Support
 - [ ] Feature: Screenshot and Video Functionality
@@ -99,7 +103,8 @@ In order to run the bot do the following:
 - [ ] Documentation: Full detailed guides on using tools
 - [ ] Feature: Dynamax Adventure reading
 - [ ] Feature: Gift Pokemon reading
-- [ ] Feature: Egg reading
+- [x] Feature: Egg reading
+- [ ] Feature: GUI for Egg reading
 - [ ] Feature: Dex Rec Reading
 - [ ] Feature: (not likely) On the fly catch rate calculator
 - [ ] Feature: (minor) KO Counter Reading
