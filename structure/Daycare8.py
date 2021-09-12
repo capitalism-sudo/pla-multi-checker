@@ -22,7 +22,10 @@ class Daycare8(ByteStruct):
         self.internal_egg = None
     
     def refresh(self):
-        self.data = bytearray(self.reader.readDaycare()[:])
+        try:
+            self.data = bytearray(self.reader.readDaycare()[:])
+        except:
+            pass
         
     def present(self,daycare,slot):
         return self.data[self.DAYCARE_SIZE*daycare + self.STRUCT_SIZE * (slot-1)]

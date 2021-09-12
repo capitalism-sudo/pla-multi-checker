@@ -201,7 +201,7 @@ class Egg:
         self.EC = r.nextuint()
 
         self.txor = tid ^ sid
-        self.ShinyType = False
+        self.ShinyType = 0
         reroll = 6 if Male.language != Female.language else 0
         self.ShinyCharm = shinycharm
         if shinycharm:
@@ -211,7 +211,7 @@ class Egg:
             self.PID = r.nextuint()
             self.XOR = (self.PID >> 16) ^ (self.PID & 0xFFFF) ^ self.txor
             if self.XOR < 16:
-                self.ShinyType = 'Star' if self.XOR else 'Square'
+                self.ShinyType = 1 if self.XOR else 2
                 break
 
         self.ball = base.ball

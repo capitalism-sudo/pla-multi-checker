@@ -167,7 +167,7 @@ class SWSHReader(NXReader):
         return self.read(0x4505B3C0, 0x6010)
 
     def readDaycare(self):
-        return self.read(0x4511F708, 0x1000)
+        return self.read(0x4511F708, 0x2000)
 
     def readParty(self,slot=1):
         if slot > 6:
