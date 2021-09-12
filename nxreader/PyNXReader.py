@@ -166,8 +166,8 @@ class SWSHReader(NXReader):
     def readKCoordinatesBlock(self):
         return self.read(0x4505B3C0, 0x6010)
 
-    def readDaycareBlock(self):
-        return self.read(0x2d6fba6a+0x2E5B0BC6, 0x6010)
+    def readDaycare(self):
+        return self.read(0x4511F708, 0x1000)
 
     def readParty(self,slot=1):
         if slot > 6:

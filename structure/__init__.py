@@ -4,6 +4,7 @@ from .WC8 import WC8
 from .Den import Den
 from .MyStatus8 import MyStatus8
 from .KCoordinates import KCoordinates
+from .Daycare8 import Daycare8
 from .MyStatus7b import MyStatus7b
 from .MyStatus8 import MyStatus8
 from .PersonalInfo import PersonalTable
