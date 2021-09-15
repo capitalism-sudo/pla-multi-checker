@@ -139,6 +139,7 @@ class Egg:
         self.forme = parentpi.BaseSpeciesForm()
         childpi = Util.PT.getFormeEntry(self.species,self.forme)
         self.GenderRatio = childpi.Gender()
+        self.RandomGender = False
         if self.GenderRatio == 255:
             self.Gender = 2
         elif self.GenderRatio == 254:
