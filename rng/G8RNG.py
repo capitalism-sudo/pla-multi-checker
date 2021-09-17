@@ -279,7 +279,7 @@ class Egg:
             self.PID = r.nextuint()
             self.XOR = (self.PID >> 16) ^ (self.PID & 0xFFFF) ^ self.txor
             if self.XOR < 16:
-                self.ShinyType = 'Star' if self.XOR else 'Square'
+                self.ShinyType = 1 if self.XOR else 2
                 break
 
         if self.RandBall:
