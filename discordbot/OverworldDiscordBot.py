@@ -62,7 +62,7 @@ class Statistics:
 
     def __str__(self):
         newline = '\n'
-        sorted_pokemon = dict(sorted(self.pokemon.items(), key=lambda item: item[1]))
+        sorted_pokemon = dict(sorted(self.pokemon.items(), key=lambda item: item[1], reverse=True))
         first_ten = dict(itertools.islice(sorted_pokemon.items(), 10))
         
         return f"""Time Running: {round(self.run_time,2)}s
