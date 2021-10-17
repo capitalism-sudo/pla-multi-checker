@@ -200,8 +200,10 @@ class OverworldDiscordBot(commands.Bot):
             message = "Reader is stopping..."
             await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
             # if reader was started then close it
-            if self.reader != None:
+            try:
                 self.reader.close(False)
+            except:
+                print("Failure to close the reader as it is already closed. Ignoring.")
             # tell reader thread that we are done
             self.thread_running = False
             message = "Reader has stopped."
@@ -314,8 +316,11 @@ class OverworldDiscordBot(commands.Bot):
             if not self.thread_running:
                 break
             # refresh KCoords block
+            pkms = None
             try:
                 self.reader.KCoordinates.refresh()
+                # read pokemon
+                pkms = self.reader.KCoordinates.ReadOwPokemonFromBlock()
             # if an exception happened the connection to the switch has likely been severed
             except Exception:
                 # if we are supposed to be running then log that a disconnect happened
@@ -323,8 +328,6 @@ class OverworldDiscordBot(commands.Bot):
                     self.thread_running = False
                     print(f"No connection to Switch at IP {self.config['IP']}. Check that the Switch is available.")
                 break
-            # read pokemon
-            pkms = self.reader.KCoordinates.ReadOwPokemonFromBlock()
             # check if the read pokemon are different
             if len(pkms) > 0 and [pkm.ec for pkm in pkms] != last_check:
                 # for each pkm check for filter
