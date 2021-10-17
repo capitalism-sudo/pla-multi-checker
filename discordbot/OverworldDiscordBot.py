@@ -2,6 +2,7 @@ import asyncio
 import discord
 import itertools
 import io
+import json
 import os.path
 import platform
 import pokebase as pb
@@ -34,6 +35,21 @@ class Channels(Enum):
     TextNotificationChannelIdForBrilliant = 7
     TextNotificationChannelIdForMark = 8
     TextNotificationChannelIdForRareMark = 9
+
+class Config:
+    def __init__(self, path):
+        self.json = json.load(open(path))
+        self.path = path
+    
+    def save(self):
+        json.dump(self.json, open(self.path,"w"), indent=4)
+    
+    def __getitem__(self,key):
+        return self.json[key]
+    
+    def __setitem__(self,key,value):
+        self.json[key] = value
+        self.save()
 
 class Statistics:
     def __init__(self):
@@ -137,7 +153,7 @@ class Statistics:
         return pkm.mark == 69
 
 class OverworldDiscordBot(commands.Bot):
-    def __init__(self, config_json):
+    def __init__(self, config_path):
         # we do this to avoid "RuntimeError: Event loop is closed" on shutdown
         if platform.system() == 'Windows':
 	        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -145,7 +161,7 @@ class OverworldDiscordBot(commands.Bot):
         self.thread = None
         self.thread_running = False
         self.reader = None
-        self.config = config_json
+        self.config = Config(config_path)
         self.stats = Statistics()
         super().__init__(command_prefix=self.config["DiscordBotPrefix"])
 
@@ -157,6 +173,17 @@ class OverworldDiscordBot(commands.Bot):
             await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
             # change bot presence to "Watching some ram for shinies"
             await self.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="some ram for shinies"))
+
+        # function to run whenever the configure command is called
+        @self.command()
+        async def configure(ctx, key, value):
+            try:
+                self.config[key] = value
+                message = f"Config[\"{key}\"] = \"{value}\""
+                await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
+            except Exception as e:
+                message = f"Unable to set value, ```{e}```"
+                await self.send_discord_msg(message, Channels.NotificationChannelForInfo)
 
         # function to run whenever the start command is called
         @self.command()
@@ -298,7 +325,7 @@ class OverworldDiscordBot(commands.Bot):
         elif destination == Channels.TextNotificationChannelIdForRareMark:
             channel_id = self.config["TextNotificationChannelIdForRareMark"]
         if channel_id:
-            channel = self.get_channel(int(channel_id))
+            channel = self.get_channel(int(channel_id.replace("<#","").replace(">","")))
             print(f"{channel.name}: {message}")
             return await channel.send(message)
         else:
