@@ -428,38 +428,149 @@ class Raid(FrameGenerator):
 # Class to calculate info on overworld mons
 # (credit to https://github.com/Manu098vm/Sys-EncounterBot.NET/)
 
+class OverworldState:
+    natures = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
+    
+    def __init__(self):
+        self.advance = 0
+        self.full_seed = 0
+        self.fixed_seed = 0
+        self.is_static = True
+        self.mark = None
+        self.brilliant_rand = 1000
+        self.slot_rand = 100
+        self.level = 0
+        self.nature = 0
+        self.ability = 0
+        self.ec = 0
+        self.pid = 0
+        self.xor = 0
+        self.ivs = [32]*6
+        
+    def __str__(self):
+        if self.is_static:
+            return f"{self.advance} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {self.ability} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
+        else:
+            return f"{self.advance} {self.level} {self.slot_rand} {self.ec:08X} {self.pid:08X} {self.natures[self.nature]} {self.ability} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
+
 class OverworldRNG:
+    personality_marks = ["Rowdy","AbsentMinded","Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry","Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling","Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny","Vigor","Slump"]
+    
+    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,min_level=0,max_level=0,diff_held_item=False):
+        self.rng = XOROSHIRO(seed & 0xFFFFFFFFFFFFFFFF, seed >> 64)
+        self.advance = 0
+        self.tid = tid
+        self.sid = sid
+        self.shiny_charm = shiny_charm
+        self.mark_charm = mark_charm
+        self.weather_active = weather_active
+        self.is_fishing = is_fishing
+        self.is_static = is_static
+        self.min_level = min_level
+        self.max_level = max_level
+        self.diff_held_item = diff_held_item
+    
+    @property
+    def tsv(self):
+        return self.tid ^ self.sid
+        
+    def generate(self):
+        state = OverworldState()
+        state.full_seed = self.rng.state()
+        state.advance = self.advance
+        state.is_static = self.is_static
+        
+        go = XOROSHIRO(*self.rng.seed.copy())
+        if self.is_static:
+            go.rand(100)
+        else:
+            go.rand()
+            go.rand(100)
+            go.rand(100)
+            state.slot_rand = go.rand(100)
+            if self.min_level != self.max_level:
+                state.level = self.min_level + go.rand(self.max_level-self.min_level+1)
+            else:
+                state.level = self.min_level
+            state.mark = OverworldRNG.rand_mark(go,self.weather_active,self.is_fishing,self.mark_charm)
+            state.brilliant_rand = go.rand(1000)
+        
+        for roll in range(3 if self.shiny_charm else 1):
+            mock_pid = go.nextuint()
+            shiny = (((mock_pid >> 16) ^ (mock_pid & 0xFFFF)) ^ self.tsv) < 16
+            if shiny:
+                break
+        
+        go.rand(2) 
+        state.nature = go.rand(25)
+        state.ability = 0 if go.rand(2) == 1 else 1
+        if self.diff_held_item:
+            go.rand(100)
+            
+        state.fixed_seed = go.nextuint()
+        
+        state.ec, state.pid, state.ivs = OverworldRNG.calculate_fixed(state.fixed_seed,self.tsv,shiny,0)
+        state.xor = (((state.pid >> 16) ^ (state.pid & 0xFFFF)) ^ self.tsv)
+        
+        if self.is_static:
+            state.mark = OverworldRNG.rand_mark(go,self.weather_active,self.is_fishing,self.mark_charm)
+        
+        self.rng.next()
+        self.advance += 1
+        return state
+    
     @staticmethod
-    def getShinyPID(tid,sid,pid,typ):
-        return (((tid ^ sid ^ (pid & 0xFFFF) ^ typ) << 16) | (pid & 0xFFFF)) & 0xFFFFFFFF
-
-    @staticmethod
-    def calculateFromSeed(pkm):
-        xoro = XOROSHIRO(pkm.seed)
-
-        ec = xoro.nextuint()
-
-        pid = xoro.nextuint()
-        if pkm.setShininess == 3:
-            if pkm.getShinyType(((pkm.sid<<16) | pkm.tid),pid):
+    def calculate_fixed(fixed_seed,tsv,shiny,forced_ivs):
+        rng = XOROSHIRO(fixed_seed)
+        ec = rng.nextuint()
+        pid = rng.nextuint()
+        if not shiny:
+            if (((pid >> 16) ^ (pid & 0xFFFF)) ^ tsv) < 16:
                 pid ^= 0x10000000
-        elif pkm.setShininess != 1:
-            if not pkm.getShinyType(((pkm.sid<<16) | pkm.tid),pid):
-                pid = OverworldRNG.getShinyPID(pkm.tid,pkm.sid,pid,0) 
+        else:
+            if not (((pid >> 16) ^ (pid & 0xFFFF)) ^ tsv) < 16:
+                pid = (((tsv ^ (pid & 0xFFFF)) << 16) | (pid & 0xFFFF)) & 0xFFFFFFFF
 
         ivs = [32]*6
-        for i in range(pkm.setIVs):
-            index = xoro.rand(6)
+        for i in range(forced_ivs):
+            index = rng.rand(6)
             while ivs[index] != 32:
-                index = xoro.rand(6)
+                index = rng.rand(6)
             ivs[index] = 31
-        
         for i in range(6):
             if ivs[i] == 32:
-                ivs[i] = xoro.rand(32)
+                ivs[i] = rng.rand(32)
 
         return [ec,pid,ivs]
+    
+    @staticmethod
+    def rand_mark(go,weather_active,is_fishing,mark_charm):
+        for roll in range(3 if mark_charm else 1):
+            rare_rand = go.rand(1000)
+            personality_rand = go.rand(100)
+            uncommon_rand = go.rand(50)
+            weather_rand = go.rand(50)
+            time_rand = go.rand(50)
+            fish_rand = go.rand(25)
+            
+            if rare_rand == 0:
+                return "Rare"
+            if personality_rand == 0:
+                return OverworldRNG.personality_marks[go.rand(len(OverworldRNG.personality_marks))]
+            if uncommon_rand == 0:
+                return "Uncommon"
+            if weather_rand == 0:
+                if weather_active:
+                    return "Weather"
+            if time_rand == 0:
+                return "Time"
+            if fish_rand == 0:
+                if is_fishing:
+                    return "Fishing"
 
+    @staticmethod
+    def calculateFromPKM(pkm):
+        return OverworldRNG.calculate_fixed(pkm.seed,pkm.tid ^ pkm.sid,pkm.setShininess != 1,pkm.setIVs)
 
 def sym_xoroshiro128plus(sym_s0, sym_s1, result):
     sym_r = (sym_s0 + sym_s1) & 0xFFFFFFFFFFFFFFFF  

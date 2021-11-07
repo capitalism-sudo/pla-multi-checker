@@ -110,7 +110,7 @@ class PK8(ByteStruct):
         self.calculateFromSeed()
     
     def calculateFromSeed(self):
-        self.ec, self.pid, self.ivs = OverworldRNG.calculateFromSeed(self)
+        self.ec, self.pid, self.ivs = OverworldRNG.calculateFromPKM(self)
 
     @property
     def species(self):

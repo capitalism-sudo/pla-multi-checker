@@ -26,7 +26,7 @@ while True:
     pkms = r.KCoordinates.ReadOwPokemonFromBlock()
     info = []
     for pkm in pkms:
-        info.append(str(pkm))
+        info.append(hex(pkm.seed) + " " + str(pkm))
     if info != last_info:
         last_info = info
         for pkm in info:
