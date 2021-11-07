@@ -451,7 +451,7 @@ class OverworldState:
         if self.is_static:
             return f"{self.advance} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {self.ability} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
         else:
-            return f"{self.advance} {self.level} {self.slot_rand} {self.ec:08X} {self.pid:08X} {self.natures[self.nature]} {self.ability} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
+            return f"{self.advance} {self.level} {self.slot_rand} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {self.ability} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
 
 class OverworldRNG:
     personality_marks = ["Rowdy","AbsentMinded","Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry","Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling","Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny","Vigor","Slump"]

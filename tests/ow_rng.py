@@ -22,6 +22,8 @@ diff_held_item = True
 
 # filter for target
 def gen_filter(state):
+    if state.xor >= 16:
+        return False
     return True
 
 config = json.load(open("../config.json"))
