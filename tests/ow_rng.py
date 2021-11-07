@@ -20,6 +20,10 @@ min_level = 60
 max_level = 65
 diff_held_item = True
 
+# filter for target
+def gen_filter(state):
+    return True
+
 config = json.load(open("../config.json"))
 r = SWSHReader(config["IP"])
 
@@ -32,9 +36,6 @@ rng = XOROSHIRO(int.from_bytes(r.read(0x4C2AAC18,8),"little"),int.from_bytes(r.r
 predict = OverworldRNG(rng.state(),r.TID,r.SID,shiny_charm,mark_charm,weather_active,is_fishing,is_static,min_level,max_level,diff_held_item)
 advances = 0
 
-# filter for target
-def gen_filter(state):
-    return True
 result = predict.generate()
 while not gen_filter(result):
     result = predict.generate()
