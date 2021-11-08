@@ -570,7 +570,6 @@ class OverworldRNG:
 
     @staticmethod
     def calculateFromPKM(pkm):
-        print(pkm.setShininess)
         return OverworldRNG.calculate_fixed(pkm.seed,pkm.tid ^ pkm.sid,pkm.setShininess != 3,pkm.setIVs)
 
 def sym_xoroshiro128plus(sym_s0, sym_s1, result):
