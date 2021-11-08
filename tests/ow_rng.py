@@ -15,16 +15,16 @@ shiny_charm = True
 mark_charm = True
 weather_active = True
 is_fishing = False
-is_static = False
+is_static = True
 min_level = 60
-max_level = 65
-diff_held_item = True
+max_level = 60
+diff_held_item = False
 
 # filter for target
 def gen_filter(state):
-    if state.xor >= 16:
-        return False
-    return True
+    if state.xor < 16:
+        return True
+    return False
 
 config = json.load(open("../config.json"))
 r = SWSHReader(config["IP"])
