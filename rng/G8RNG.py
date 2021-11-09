@@ -474,6 +474,11 @@ class OverworldRNG:
     def tsv(self):
         return self.tid ^ self.sid
         
+    def advance_fast(self,advances):
+        self.advance += advances
+        for _ in range(advances):
+            self.rng.next()
+
     def generate(self):
         state = OverworldState()
         state.full_seed = self.rng.state()
