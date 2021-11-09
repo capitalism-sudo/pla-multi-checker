@@ -71,7 +71,7 @@ class Application(tk.Frame):
         self.max_advance_var.grid(column=5,row=8)
 
     def generate(self):
-        self.predict = OverworldRNG(self.initial,self.SWSHReader.TID,self.SWSHReader.SID,int(self.shiny_charm_var.get()),int(self.mark_charm_var.get()),int(self.weather_active_var.get()),int(self.is_fishing_var.get()),int(self.is_static_var.get()),int(self.min_level_var.get()),int(self.max_level_var.get()),int(self.diff_held_item_var.get()))
+        self.predict = OverworldRNG(self.rng.state(),self.SWSHReader.TID,self.SWSHReader.SID,int(self.shiny_charm_var.get()),int(self.mark_charm_var.get()),int(self.weather_active_var.get()),int(self.is_fishing_var.get()),int(self.is_static_var.get()),int(self.min_level_var.get()),int(self.max_level_var.get()),int(self.diff_held_item_var.get()))
         shiny_filter = int(self.shiny_filter.get())
         star_filter = int(self.star_filter.get())
         has_mark_filter = int(self.has_mark_filter.get())
@@ -82,7 +82,7 @@ class Application(tk.Frame):
         min_slot = int(self.min_slot_var.get())
         max_slot = int(self.max_slot_var.get())
         advances = self.advances
-        self.predict.advance_fast(advances)
+        self.predict.advances += advances
         for _ in range(int(self.max_advance_var.get())+1):
             state = self.predict.generate()
             if state.advance < self.advances:
