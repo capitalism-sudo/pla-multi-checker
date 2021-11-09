@@ -82,7 +82,7 @@ class Application(tk.Frame):
         min_slot = int(self.min_slot_var.get())
         max_slot = int(self.max_slot_var.get())
         advances = self.advances
-        self.predict.advances += advances
+        self.predict.advance += advances
         for _ in range(int(self.max_advance_var.get())+1):
             state = self.predict.generate()
             if state.advance < self.advances:
