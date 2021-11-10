@@ -3,6 +3,7 @@ import signal
 import sys
 import tkinter as tk
 from tkinter import ttk
+from tables import locations,diff_held_items
 
 # Go to root of PyNXReader
 sys.path.append('../')
@@ -69,6 +70,45 @@ class Application(tk.Frame):
         tk.Label(self,text="+").grid(column=4,row=8)
         self.max_advance_var = tk.Spinbox(self, value=99999, from_= 0, to = 99999999, width = 20)
         self.max_advance_var.grid(column=5,row=8)
+        self.autofill = tk.Button(self,text="Autofill",command=self.autofill_info)
+        self.autofill.grid(column=7,row=1)
+        self.location = ttk.Combobox(self,values=[n for n in locations],width=40)
+        self.location.bind('<<ComboboxSelected>>',self.populate_weather)
+        self.location.grid(column=7,row=2)
+        self.weather = ttk.Combobox(self,values=[],width=40)
+        self.weather.grid(column=7,row=3)
+        self.weather.bind('<<ComboboxSelected>>',self.populate_species)
+        self.species = ttk.Combobox(self,values=[],width=40)
+        self.species.grid(column=7,row=4)
+    
+    def populate_weather(self,event):
+        self.weather['values'] = [w for w in locations[self.location.get()]]
+    
+    def populate_species(self,event):
+        self.species['values'] = [s for s in locations[self.location.get()][self.weather.get()][1]]
+    
+    def autofill_info(self):
+        location = self.location.get()
+        weather = self.weather.get()
+        species = self.species.get()
+        self.is_static_var.set(0)
+        self.slot_filter.set(1)
+        if weather != "All Weather":
+            self.weather_active_var.set(1)
+        if diff_held_items[species]:
+            self.diff_held_item_var.set(1)
+        else:
+            self.diff_held_item_var.set(0)
+        min_level,max_level = locations[location][weather][0]
+        self.min_level_var.delete(0,"end")
+        self.min_level_var.insert(0,min_level)
+        self.max_level_var.delete(0,"end")
+        self.max_level_var.insert(0,max_level)
+        min_slot,max_slot = locations[location][weather][1][species]
+        self.min_slot_var.delete(0,"end")
+        self.min_slot_var.insert(0,min_slot)
+        self.max_slot_var.delete(0,"end")
+        self.max_slot_var.insert(0,max_slot)
 
     def generate(self):
         self.predict = OverworldRNG(self.rng.state(),self.SWSHReader.TID,self.SWSHReader.SID,int(self.shiny_charm_var.get()),int(self.mark_charm_var.get()),int(self.weather_active_var.get()),int(self.is_fishing_var.get()),int(self.is_static_var.get()),int(self.min_level_var.get()),int(self.max_level_var.get()),int(self.diff_held_item_var.get()))
