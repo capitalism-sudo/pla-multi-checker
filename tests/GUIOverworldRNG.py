@@ -95,6 +95,8 @@ class Application(tk.Frame):
         self.slot_filter.set(1)
         if weather != "All Weather":
             self.weather_active_var.set(1)
+        if weather == "Normal Weather":
+            self.weather_active_var.set(0)
         if diff_held_items[species]:
             self.diff_held_item_var.set(1)
         else:
