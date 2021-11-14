@@ -450,7 +450,7 @@ class Filter:
         return True
     
     def compare_fixed(self,state):
-        if self.shininess == 0 and self.state.xor == 0:
+        if self.shininess == 0 and state.xor == 0:
             return False
         return self.compare_ivs(state)
     
