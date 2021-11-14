@@ -1,1 +1,1 @@
-from .G8RNG import XOROSHIRO,Raid,Egg,OverworldRNG
+from .G8RNG import XOROSHIRO,Raid,Egg,OverworldRNG,Filter

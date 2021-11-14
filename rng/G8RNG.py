@@ -428,6 +428,48 @@ class Raid(FrameGenerator):
 # Class to calculate info on overworld mons
 # (credit to https://github.com/Manu098vm/Sys-EncounterBot.NET/)
 
+class Filter:
+    nature_list = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
+    shiny_list = ["Star","Square","Star/Square"]
+
+    def __init__(self,iv_min=None,iv_max=None,abilities=None,shininess=None,slot_min=None,slot_max=None,natures=None,marks=None):
+        self.iv_min = iv_min
+        self.iv_max = iv_max
+        self.abilities = abilities
+        self.shininess = Filter.shiny_list.index(shininess) if shininess != None else None
+        self.slot_min = slot_min
+        self.slot_max = slot_max
+        self.natures = [Filter.nature_list.index(nature) for nature in natures] if natures != None else None
+        self.marks = marks
+    
+    def compare_ivs(self,state):
+        if self.iv_min != None:
+            for i in range(6):
+                if not self.iv_min[0] <= state.ivs[i] <= self.iv_max:
+                    return False
+        return True
+    
+    def compare_fixed(self,state):
+        if self.shininess == 0 and self.state.xor == 0:
+            return False
+        return self.compare_ivs(state)
+    
+    def compare_slot(self,state):
+        return self.slot_min <= state.slot_rand <= self.slot_max if self.slot_min != None else True
+    
+    def compare_mark(self,state):
+        return state.mark in self.marks if self.marks != None else True
+    
+    def compare_shiny(self,shiny):
+        return shiny if self.shininess != None else True
+    
+    def compare_ability(self,state):
+        return state.ability in self.abilities if self.abilities != None else True
+    
+    def compare_nature(self,state):
+        return state.nature in self.natures if self.natures != None else True
+        
+
 class OverworldState:
     natures = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
     
@@ -456,7 +498,7 @@ class OverworldState:
 class OverworldRNG:
     personality_marks = ["Rowdy","AbsentMinded","Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry","Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling","Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny","Vigor","Slump"]
     
-    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,min_level=0,max_level=0,diff_held_item=False):
+    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter()):
         self.rng = XOROSHIRO(seed & 0xFFFFFFFFFFFFFFFF, seed >> 64)
         self.advance = 0
         self.tid = tid
@@ -469,6 +511,7 @@ class OverworldRNG:
         self.min_level = min_level
         self.max_level = max_level
         self.diff_held_item = diff_held_item
+        self.filter = filter
     
     @property
     def tsv(self):
@@ -493,11 +536,19 @@ class OverworldRNG:
             go.rand(100)
             go.rand(100)
             state.slot_rand = go.rand(100)
+            if not self.filter.compare_slot(state):
+                self.rng.next()
+                self.advance += 1
+                return
             if self.min_level != self.max_level:
                 state.level = self.min_level + go.rand(self.max_level-self.min_level+1)
             else:
                 state.level = self.min_level
             state.mark = OverworldRNG.rand_mark(go,self.weather_active,self.is_fishing,self.mark_charm)
+            if not self.filter.compare_mark(state):
+                self.rng.next()
+                self.advance += 1
+                return
             state.brilliant_rand = go.rand(1000)
         
         for roll in range(3 if self.shiny_charm else 1):
@@ -505,10 +556,21 @@ class OverworldRNG:
             shiny = (((mock_pid >> 16) ^ (mock_pid & 0xFFFF)) ^ self.tsv) < 16
             if shiny:
                 break
-        
+        if not self.filter.compare_shiny(shiny):
+            self.rng.next()
+            self.advance += 1
+            return
         go.rand(2) 
         state.nature = go.rand(25)
+        if not self.filter.compare_nature(state):
+            self.rng.next()
+            self.advance += 1
+            return
         state.ability = 0 if go.rand(2) == 1 else 1
+        if not self.filter.compare_ability(state):
+            self.rng.next()
+            self.advance += 1
+            return
         if self.diff_held_item:
             go.rand(100)
             
@@ -516,6 +578,10 @@ class OverworldRNG:
         
         state.ec, state.pid, state.ivs = OverworldRNG.calculate_fixed(state.fixed_seed,self.tsv,shiny,0)
         state.xor = (((state.pid >> 16) ^ (state.pid & 0xFFFF)) ^ self.tsv)
+        if not self.filter.compare_fixed(state):
+            self.rng.next()
+            self.advance += 1
+            return
         
         if self.is_static:
             state.mark = OverworldRNG.rand_mark(go,self.weather_active,self.is_fishing,self.mark_charm)

@@ -9,7 +9,7 @@ from tables import locations,diff_held_items
 sys.path.append('../')
 
 from nxreader import SWSHReader
-from rng import XOROSHIRO,OverworldRNG
+from rng import XOROSHIRO,OverworldRNG,Filter
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -47,10 +47,10 @@ class Application(tk.Frame):
         self.min_level_var.grid(column=1,row=8)
         self.max_level_var.grid(column=2,row=8)
         tk.Label(self,text="Filter").grid(column=3,row=1,columnspan=3)
-        self.shiny_filter = tk.IntVar()
-        tk.Checkbutton(self, text="Shiny", variable=self.shiny_filter).grid(column=3,row=2,columnspan=3)
-        self.star_filter = tk.IntVar()
-        tk.Checkbutton(self, text="Star", variable=self.star_filter).grid(column=3,row=3,columnspan=3)
+        tk.Label(self,text="Shininess").grid(column=3,row=2,columnspan=3)
+        self.shiny_filter = ttk.Combobox(self, values=["Any","Star","Square","Star/Square"])
+        self.shiny_filter.grid(column=3,row=3,columnspan=3)
+        self.shiny_filter.set("Any")
         self.has_mark_filter = tk.IntVar()
         tk.Checkbutton(self, text="Has Mark", variable=self.has_mark_filter).grid(column=3,row=4,columnspan=3)
         self.rare_mark_filter = tk.IntVar()
@@ -113,41 +113,31 @@ class Application(tk.Frame):
         self.max_slot_var.insert(0,max_slot)
 
     def generate(self):
-        self.predict = OverworldRNG(self.rng.state(),self.SWSHReader.TID,self.SWSHReader.SID,int(self.shiny_charm_var.get()),int(self.mark_charm_var.get()),int(self.weather_active_var.get()),int(self.is_fishing_var.get()),int(self.is_static_var.get()),int(self.min_level_var.get()),int(self.max_level_var.get()),int(self.diff_held_item_var.get()))
-        shiny_filter = int(self.shiny_filter.get())
-        star_filter = int(self.star_filter.get())
-        has_mark_filter = int(self.has_mark_filter.get())
-        rare_mark_filter = int(self.rare_mark_filter.get())
-        specific_mark_filter = int(self.specific_mark_filter.get())
-        specific_mark = self.specific_mark.get()
-        slot_filter = int(self.slot_filter.get())
-        min_slot = int(self.min_slot_var.get())
-        max_slot = int(self.max_slot_var.get())
+        mark_filter = None
+        # TODO: fix gui ew and full Filter functionality
+        if int(self.has_mark_filter.get()):
+            mark_filter = ["Rare","Uncommon","Time","Weather","Fishing"]+OverworldRNG.personality_marks
+        if int(self.rare_mark_filter.get()):
+            mark_filter = ["Rare"]
+        if int(self.specific_mark_filter.get()):
+            mark_filter = [self.specific_mark.get()]
+        min_slot = max_slot = None
+        if int(self.slot_filter.get()):
+            min_slot = int(self.min_slot_var.get())
+            max_slot = int(self.max_slot_var.get())
+        filter = Filter(
+            shininess=self.shiny_filter.get() if self.shiny_filter.get() != "Any" else None,
+            marks=mark_filter,
+            slot_min=min_slot,
+            slot_max=max_slot,
+            )
+        self.predict = OverworldRNG(self.rng.state(),self.SWSHReader.TID,self.SWSHReader.SID,int(self.shiny_charm_var.get()),int(self.mark_charm_var.get()),int(self.weather_active_var.get()),int(self.is_fishing_var.get()),int(self.is_static_var.get()),int(self.min_level_var.get()),int(self.max_level_var.get()),int(self.diff_held_item_var.get()),filter)
         advances = self.advances
         self.predict.advance += advances
         for _ in range(int(self.max_advance_var.get())+1):
             state = self.predict.generate()
-            if state.advance < self.advances:
-                continue
-            if shiny_filter:
-                if not state.xor < 16:
-                    continue
-            if star_filter:
-                if not 0 < state.xor < 16:
-                    continue
-            if has_mark_filter:
-                if state.mark == None:
-                    continue
-            if rare_mark_filter:
-                if state.mark != "Rare":
-                    continue
-            if specific_mark_filter:
-                if state.mark != specific_mark:
-                    continue
-            if slot_filter:
-                if not min_slot <= state.slot_rand <= max_slot:
-                    continue
-            print(state)
+            if state:
+                print(state)
 
     def connect(self):
         print("Connecting to: ", self.config["IP"])
