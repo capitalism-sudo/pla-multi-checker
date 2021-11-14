@@ -93,6 +93,9 @@ class NXReader(object):
                 fileOut.write(buf)
         return buf
 
+    def read_int(self,address,size,filename = None):
+        return int.from_bytes(self.read(address,size,filename),'little')
+
     def write(self,address,data):
         self.sendCommand(f'poke 0x{address:X} 0x{data}')
 
@@ -107,9 +110,32 @@ class NXReader(object):
             with open(filename,'wb') as fileOut:
                 fileOut.write(buf)
         return buf
+    
+    def read_main_int(self,address,size,filename = None):
+        return int.from_bytes(self.read_main(address,size,filename),'little')
 
     def write_main(self,address,data):
         self.sendCommand(f'pokeMain 0x{address:X} 0x{data}')
+
+    def read_pointer(self,pointer,size,filename = None):
+        jumps = pointer.replace("[","").replace("main","").split("]")
+        self.sendCommand(f'pointerPeek 0x{size:X} 0x{" 0x".join(jump.replace("+","") for jump in jumps)}')
+        sleep(size/0x8000)
+        buf = self.s.recv(2 * size + 1)
+        buf = binascii.unhexlify(buf[0:-1])
+        if filename is not None:
+            if filename == '':
+                filename = f'dump_heap_{pointer}_0x{size:X}.bin'
+            with open(filename,'wb') as fileOut:
+                fileOut.write(buf)
+        return buf
+    
+    def read_pointer_int(self,pointer,size,filename = None):
+        return int.from_bytes(self.read_pointer(pointer,size,filename = None),'little')
+    
+    def write_pointer(self,pointer,data):
+        jumps = pointer.replace("[","").replace("main","").split("]")
+        self.sendCommand(f'pointerPoke 0x{data} 0x{" 0x".join(jump.replace("+","") for jump in jumps)}')
 
     def getSystemLanguage(self):
         self.sendCommand('getSystemLanguage')
