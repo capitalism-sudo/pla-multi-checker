@@ -533,7 +533,8 @@ class OverworldRNG:
         if self.is_static:
             go.rand(100)
         else:
-            go.rand()
+            if not self.is_fishing:
+                go.rand()
             go.rand(100)
             go.rand(100)
             state.slot_rand = go.rand(100)
