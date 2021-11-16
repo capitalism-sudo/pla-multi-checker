@@ -546,7 +546,7 @@ class OverworldRNG:
             else:
                 state.level = self.min_level
             state.mark = OverworldRNG.rand_mark(go,self.weather_active,self.is_fishing,self.mark_charm)
-            if not self.filter.compare_mark(state):
+            if not self.double_mark_gen and not self.filter.compare_mark(state):
                 self.rng.next()
                 self.advance += 1
                 return
