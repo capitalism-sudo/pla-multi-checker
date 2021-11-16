@@ -498,7 +498,7 @@ class OverworldState:
 class OverworldRNG:
     personality_marks = ["Rowdy","AbsentMinded","Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry","Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling","Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny","Vigor","Slump"]
     
-    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter()):
+    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter(),double_mark_gen=False):
         self.rng = XOROSHIRO(seed & 0xFFFFFFFFFFFFFFFF, seed >> 64)
         self.advance = 0
         self.tid = tid
@@ -508,6 +508,7 @@ class OverworldRNG:
         self.weather_active = weather_active
         self.is_fishing = is_fishing
         self.is_static = is_static
+        self.double_mark_gen = double_mark_gen
         self.min_level = min_level
         self.max_level = max_level
         self.diff_held_item = diff_held_item
@@ -583,8 +584,12 @@ class OverworldRNG:
             self.advance += 1
             return
         
-        if self.is_static:
+        if self.is_static or self.double_mark_gen:
             state.mark = OverworldRNG.rand_mark(go,self.weather_active,self.is_fishing,self.mark_charm)
+            if not self.filter.compare_mark(state):
+                self.rng.next()
+                self.advance += 1
+                return
         
         self.rng.next()
         self.advance += 1

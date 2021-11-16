@@ -35,10 +35,12 @@ class Application(tk.Frame):
         self.is_static_var = tk.IntVar()
         self.is_fishing_var = tk.IntVar()
         self.diff_held_item_var = tk.IntVar()
+        self.double_mark_gen_var = tk.IntVar()
         tk.Checkbutton(self, text="Shiny Charm", variable=self.shiny_charm_var).grid(column=0,row=2,columnspan=3)
         tk.Checkbutton(self, text="Mark Charm", variable=self.mark_charm_var).grid(column=0,row=3,columnspan=3)
         tk.Checkbutton(self, text="Weather Active", variable=self.weather_active_var).grid(column=0,row=4,columnspan=3)
-        tk.Checkbutton(self, text="Is Static", variable=self.is_static_var).grid(column=0,row=5,columnspan=3)
+        tk.Checkbutton(self, text="Is Static", variable=self.is_static_var).grid(column=0,row=5,columnspan=1)
+        tk.Checkbutton(self, text="Double Mark Gen", variable=self.double_mark_gen_var).grid(column=1,row=5,columnspan=2)
         tk.Checkbutton(self, text="Is Fishing", variable=self.is_fishing_var).grid(column=0,row=6,columnspan=3)
         tk.Checkbutton(self, text="Rand Held Item", variable=self.diff_held_item_var).grid(column=0,row=7,columnspan=3)
         tk.Label(self, text="Level:").grid(column=0,row=8)
@@ -131,7 +133,21 @@ class Application(tk.Frame):
             slot_min=min_slot,
             slot_max=max_slot,
             )
-        self.predict = OverworldRNG(self.rng.state(),self.SWSHReader.TID,self.SWSHReader.SID,int(self.shiny_charm_var.get()),int(self.mark_charm_var.get()),int(self.weather_active_var.get()),int(self.is_fishing_var.get()),int(self.is_static_var.get()),int(self.min_level_var.get()),int(self.max_level_var.get()),int(self.diff_held_item_var.get()),filter)
+        self.predict = OverworldRNG(
+            seed = self.rng.state(),
+            tid = self.SWSHReader.TID,
+            sid = self.SWSHReader.SID,
+            shiny_charm = int(self.shiny_charm_var.get()),
+            mark_charm = int(self.mark_charm_var.get()),
+            weather_active = int(self.weather_active_var.get()),
+            is_fishing = int(self.is_fishing_var.get()),
+            is_static = int(self.is_static_var.get()),
+            min_level = int(self.min_level_var.get()),
+            max_level = int(self.max_level_var.get()),
+            diff_held_item = int(self.diff_held_item_var.get()),
+            double_mark_gen = int(self.double_mark_gen_var.get()),
+            filter = filter,
+            )
         advances = self.advances
         self.predict.advance += advances
         for _ in range(int(self.max_advance_var.get())+1):

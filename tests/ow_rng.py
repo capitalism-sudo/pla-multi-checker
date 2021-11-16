@@ -19,6 +19,7 @@ is_static = True
 min_level = 60
 max_level = 60
 diff_held_item = False
+double_mark_gen = False
 
 # filter for target
 def gen_filter(state):
@@ -35,7 +36,20 @@ def signal_handler(signal, frame): #CTRL+C handler
 
 signal.signal(signal.SIGINT, signal_handler)
 rng = XOROSHIRO(int.from_bytes(r.read(0x4C2AAC18,8),"little"),int.from_bytes(r.read(0x4C2AAC18+8,8),"little"))
-predict = OverworldRNG(rng.state(),r.TID,r.SID,shiny_charm,mark_charm,weather_active,is_fishing,is_static,min_level,max_level,diff_held_item)
+predict = OverworldRNG(
+    seed = rng.state(),
+    tid = r.TID,
+    sid = r.SID,
+    shiny_charm = shiny_charm,
+    mark_charm = mark_charm,
+    weather_active = weather_active,
+    is_fishing = is_fishing,
+    is_static = is_static,
+    min_level = min_level,
+    max_level = max_level,
+    diff_held_item = diff_held_item,
+    double_mark_gen = double_mark_gen,
+    )
 advances = 0
 
 result = predict.generate()
