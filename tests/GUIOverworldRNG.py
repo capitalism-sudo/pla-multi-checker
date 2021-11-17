@@ -82,6 +82,8 @@ class Application(tk.Frame):
         self.weather.bind('<<ComboboxSelected>>',self.populate_species)
         self.species = ttk.Combobox(self,values=[],width=40)
         self.species.grid(column=7,row=4)
+        self.initial_display = tk.Entry(self,width=40)
+        self.initial_display.grid(column=7,row=8)
     
     def populate_weather(self,event):
         self.weather['values'] = [w for w in locations[self.location.get()]]
@@ -160,6 +162,8 @@ class Application(tk.Frame):
         self.SWSHReader = SWSHReader(self.config["IP"])
         self.rng = XOROSHIRO(int.from_bytes(self.SWSHReader.read(0x4C2AAC18,8),"little"),int.from_bytes(self.SWSHReader.read(0x4C2AAC18+8,8),"little"))
         self.initial = self.rng.state()
+        self.initial_display.delete(0,"end")
+        self.initial_display.insert(0,hex(self.initial))
         self.advances = 0
         self.update()
 

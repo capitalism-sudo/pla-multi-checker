@@ -445,7 +445,7 @@ class Filter:
     def compare_ivs(self,state):
         if self.iv_min != None:
             for i in range(6):
-                if not self.iv_min[0] <= state.ivs[i] <= self.iv_max:
+                if not self.iv_min[i] <= state.ivs[i] <= self.iv_max[i]:
                     return False
         return True
     
