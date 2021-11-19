@@ -498,7 +498,7 @@ class OverworldState:
 class OverworldRNG:
     personality_marks = ["Rowdy","AbsentMinded","Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry","Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling","Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny","Vigor","Slump"]
     
-    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter(),double_mark_gen=False):
+    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,min_level=0,max_level=0,is_legendary=False,diff_held_item=False,filter=Filter(),double_mark_gen=False):
         self.rng = XOROSHIRO(seed & 0xFFFFFFFFFFFFFFFF, seed >> 64)
         self.advance = 0
         self.tid = tid
@@ -511,6 +511,7 @@ class OverworldRNG:
         self.double_mark_gen = double_mark_gen
         self.min_level = min_level
         self.max_level = max_level
+        self.is_legendary = is_legendary
         self.diff_held_item = diff_held_item
         self.filter = filter
     
@@ -568,17 +569,19 @@ class OverworldRNG:
             self.rng.next()
             self.advance += 1
             return
-        state.ability = 0 if go.rand(2) == 1 else 1
+        if not self.is_legendary:
+            state.ability = 0 if go.rand(2) == 1 else 1
+        else:
+            state.ability = 0
         if not self.filter.compare_ability(state):
             self.rng.next()
             self.advance += 1
             return
         if self.diff_held_item:
             go.rand(100)
-            
         state.fixed_seed = go.nextuint()
         
-        state.ec, state.pid, state.ivs = OverworldRNG.calculate_fixed(state.fixed_seed,self.tsv,shiny,0)
+        state.ec, state.pid, state.ivs = OverworldRNG.calculate_fixed(state.fixed_seed,self.tsv,shiny,3 if self.is_legendary else 0)
         state.xor = (((state.pid >> 16) ^ (state.pid & 0xFFFF)) ^ self.tsv)
         if not self.filter.compare_fixed(state):
             self.rng.next()

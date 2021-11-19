@@ -18,6 +18,7 @@ is_fishing = False
 is_static = True
 min_level = 60
 max_level = 60
+is_legendary = False
 diff_held_item = False
 double_mark_gen = False
 
@@ -47,6 +48,7 @@ predict = OverworldRNG(
     is_static = is_static,
     min_level = min_level,
     max_level = max_level,
+    is_legendary = is_legendary,
     diff_held_item = diff_held_item,
     double_mark_gen = double_mark_gen,
     )
