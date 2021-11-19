@@ -498,7 +498,7 @@ class OverworldState:
 class OverworldRNG:
     personality_marks = ["Rowdy","AbsentMinded","Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry","Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling","Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny","Vigor","Slump"]
     
-    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,min_level=0,max_level=0,is_legendary=False,diff_held_item=False,filter=Filter(),double_mark_gen=False):
+    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,is_legendary=False,is_shiny_locked=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter(),double_mark_gen=False):
         self.rng = XOROSHIRO(seed & 0xFFFFFFFFFFFFFFFF, seed >> 64)
         self.advance = 0
         self.tid = tid
@@ -508,10 +508,11 @@ class OverworldRNG:
         self.weather_active = weather_active
         self.is_fishing = is_fishing
         self.is_static = is_static
+        self.is_legendary = is_legendary
+        self.is_shiny_locked = is_shiny_locked
         self.double_mark_gen = double_mark_gen
         self.min_level = min_level
         self.max_level = max_level
-        self.is_legendary = is_legendary
         self.diff_held_item = diff_held_item
         self.filter = filter
     
@@ -554,11 +555,14 @@ class OverworldRNG:
                 return
             state.brilliant_rand = go.rand(1000)
         
-        for roll in range(3 if self.shiny_charm else 1):
-            mock_pid = go.nextuint()
-            shiny = (((mock_pid >> 16) ^ (mock_pid & 0xFFFF)) ^ self.tsv) < 16
-            if shiny:
-                break
+        if not self.is_shiny_locked:
+            for roll in range(3 if self.shiny_charm else 1):
+                mock_pid = go.nextuint()
+                shiny = (((mock_pid >> 16) ^ (mock_pid & 0xFFFF)) ^ self.tsv) < 16
+                if shiny:
+                    break
+        else:
+            shiny = False
         if not self.filter.compare_shiny(shiny):
             self.rng.next()
             self.advance += 1
