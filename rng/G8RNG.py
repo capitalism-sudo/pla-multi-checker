@@ -74,11 +74,53 @@ class XOROSHIRO(object):
         models = get_models(solver)
         return [ model[start_s0].as_long() for model in models ]
 
+class XorShift:
+    def __init__(self, state0, state1):
+        self.s0 = state0
+        self.s1 = state1
+
+    def seed(self):
+        return self.s0, self.s1
+    
+    def state(self):
+        return (self.s0 << 32) | self.s1
+
+    def next(self):
+        t = self.s0 & 0xFFFFFFFF
+        s = self.s1 >> 32
+
+        t ^= (t << 11) & 0xFFFFFFFF
+        t ^= t >> 8
+        t ^= s ^ (s >> 19)
+
+        self.s0 = ((self.s1 & 0xFFFFFFFF) << 32) | (self.s0 >> 32)
+        self.s1 = t << 32 | (self.s1 >> 32)
+
+        return ((t % 0xFFFFFFFF) + 0x80000000) & 0xFFFFFFFF
+    
+    def __str__(self):
+        return f"S[0]: {self.s0:016X}  S[1]: {self.s1:016X}"
+
+
+class BDSPStationaryGenerator:
+    def __init__(self, s0, s1):
+        self.rng = XorShift(s0, s1)
+        self.advance = 0
+
+    def generate(self):
+        go = XorShift(*self.rng.state())
+        id_rand = go.next()
+        shiny_rand = go.next()
+        self.advance += 1
+        return self.advance-1, (id_rand & 0xFFF0 ^ id_rand >> 0x10 ^ shiny_rand >> 0x10 ^ shiny_rand & 0xFFF0) < 0x10
+
+
 class FrameGenerator(object):
     def print(self):
         from lookups import Util
         print(f"Seed: {self.seed:016X}    ShinyType: {self.ShinyType}    EC: {self.EC:08X}    PID: {self.PID:08X}")
         print(f"Ability: {self.Ability}    Gender: {Util.GenderSymbol[self.Gender]}    Nature: {Util.STRINGS.natures[self.Nature]}    IVs: {self.IVs}")
+
 
 class Egg:
     EVERSTONE = 229
