@@ -3,7 +3,6 @@ config.json
 
 # WIP
 sysdvr/
-gui/
 
 # Encounter logging
 *.encounters
