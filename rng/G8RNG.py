@@ -74,7 +74,7 @@ class XOROSHIRO(object):
         models = get_models(solver)
         return [ model[start_s0].as_long() for model in models ]
 
-class XorShift:
+class Xorshift:
     def __init__(self, state0, state1):
         self.s0 = state0
         self.s1 = state1
@@ -104,11 +104,11 @@ class XorShift:
 
 class BDSPStationaryGenerator:
     def __init__(self, s0, s1):
-        self.rng = XorShift(s0, s1)
+        self.rng = Xorshift(s0, s1)
         self.advance = 0
 
     def generate(self):
-        go = XorShift(*self.rng.seed())
+        go = Xorshift(*self.rng.seed())
         id_rand = go.next()
         shiny_rand = go.next()
         self.advance += 1

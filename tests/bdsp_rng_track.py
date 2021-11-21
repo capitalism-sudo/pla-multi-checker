@@ -7,7 +7,7 @@ sys.path.append('../')
 
 # no BDSPReader yet
 from nxreader import NXReader
-from rng import XorShift,BDSPStationaryGenerator
+from rng import Xorshift,BDSPStationaryGenerator
 
 rng_pointer = "[main+4F8CCD0]"
 
@@ -21,7 +21,7 @@ def signal_handler(signal, frame): #CTRL+C handler
 signal.signal(signal.SIGINT, signal_handler)
 
 initial = r.read_pointer(rng_pointer, 16)
-track = XorShift(int.from_bytes(initial[:8], "little"), int.from_bytes(initial[8:], "little"))
+track = Xorshift(int.from_bytes(initial[:8], "little"), int.from_bytes(initial[8:], "little"))
 predict = BDSPStationaryGenerator(*track.seed())
 shiny = False
 while not shiny:
@@ -40,7 +40,7 @@ while True:
                 shiny = False
                 while not shiny:
                     target, shiny = predict.generate()
-            go = XorShift(*track.seed())
+            go = Xorshift(*track.seed())
             curr_id = go.next()
             curr_shiny = go.next()
 

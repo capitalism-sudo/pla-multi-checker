@@ -1,1 +1,1 @@
-from .G8RNG import XOROSHIRO,XorShift,Raid,Egg,BDSPStationaryGenerator,OverworldRNG,OverworldState,Filter
+from .G8RNG import XOROSHIRO,Xorshift,Raid,Egg,BDSPStationaryGenerator,OverworldRNG,OverworldState,Filter
