@@ -29,7 +29,7 @@ while not shiny:
 advances = 0
 
 while True:
-    state = r.read_pointer(rng_pointer, 16)
+    state = int.from_bytes(r.read_pointer(rng_pointer, 16), "little")
 
     while state != track.state():
         track.next()
