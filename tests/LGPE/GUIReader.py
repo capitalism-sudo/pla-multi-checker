@@ -12,6 +12,8 @@ sys.path.append('../../')
 from nxreader import LGPEReader
 from PIL import Image, ImageTk
 from structure import PK7b
+from gui import setup_styles
+from tkinter import ttk
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -24,20 +26,20 @@ class Application(tk.Frame):
         signal.signal(signal.SIGINT, self.signal_handler)
 
     def create_widgets(self):
+        setup_styles()
         self.master.title("LGPEReader")
         self.type_var = tk.IntVar()
-        self.connect_button = tk.Button(self, text="Connect", fg="green", command=self.connect)
+        self.connect_button = ttk.Button(self, text="Connect", style="Connect.TButton", command=self.connect)
         self.connect_button.grid(column=0,row=1)
         self.current_info_display = tk.Text(self,height=5)
         self.current_info_display.grid(column=3, row=2, rowspan=2)
         self.image_display = tk.Label(self)
         self.image_display.grid(column=1, row=2, columnspan=2, rowspan=3)
-        self.battle_choice = tk.Radiobutton(self, text="Battle/Trade/Gift/Active", variable=self.type_var, value=1)
-        self.legend_choice = tk.Radiobutton(self, text="Legend", variable=self.type_var, value=2)
+        self.battle_choice = ttk.Radiobutton(self, text="Battle/Trade/Gift/Active", variable=self.type_var, value=1)
+        self.legend_choice = ttk.Radiobutton(self, text="Legend", variable=self.type_var, value=2)
         self.battle_choice.grid(column=0, row=2, columnspan=1, rowspan=1)
         self.legend_choice.grid(column=0, row=3, columnspan=1, rowspan=1)
-        self.battle_choice.select()
-        self.quit = tk.Button(self, text="Disconnect", fg="red", command=self.disconnect)
+        self.quit = ttk.Button(self, text="Disconnect", style="Disconnect.TButton", command=self.disconnect)
         self.quit.grid(column=1,row=1)
 
     def connect(self):

@@ -12,6 +12,8 @@ sys.path.append('../')
 from nxreader import SWSHReader
 from PIL import Image, ImageTk
 from structure import PK8
+from gui import setup_styles
+from tkinter import ttk
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -24,9 +26,10 @@ class Application(tk.Frame):
         signal.signal(signal.SIGINT, self.signal_handler)
 
     def create_widgets(self):
+        setup_styles()
         self.master.title("SWSHReader")
         self.type_var = tk.IntVar()
-        self.connect_button = tk.Button(self, text="Connect", fg="green", command=self.connect)
+        self.connect_button = ttk.Button(self, text="Connect", style="Connect.TButton", command=self.connect)
         self.connect_button.grid(column=0,row=1)
         self.current_info_display = tk.Text(self,height=5)
         self.current_info_display.grid(column=3, row=2, rowspan=3)
@@ -34,14 +37,13 @@ class Application(tk.Frame):
         self.image_display.grid(column=1, row=2, columnspan=2, rowspan=3)
         self.mark_display = tk.Label(self)
         self.mark_display.grid(column=4, row=2, columnspan=2, rowspan=3)
-        self.wild_choice = tk.Radiobutton(self, text="Wild", variable=self.type_var, value=1)
-        self.legend_choice = tk.Radiobutton(self, text="Legend", variable=self.type_var, value=2)
-        self.horse_choice = tk.Radiobutton(self, text="Horse", variable=self.type_var, value=3)
+        self.wild_choice = ttk.Radiobutton(self, text="Wild", variable=self.type_var, value=1)
+        self.legend_choice = ttk.Radiobutton(self, text="Legend", variable=self.type_var, value=2)
+        self.horse_choice = ttk.Radiobutton(self, text="Horse", variable=self.type_var, value=3)
         self.wild_choice.grid(column=0, row=2, columnspan=1, rowspan=1)
         self.legend_choice.grid(column=0, row=3, columnspan=1, rowspan=1)
         self.horse_choice.grid(column=0, row=4, columnspan=1, rowspan=1)
-        self.wild_choice.select()
-        self.quit = tk.Button(self, text="Disconnect", fg="red", command=self.disconnect)
+        self.quit = ttk.Button(self, text="Disconnect", style="Disconnect.TButton", command=self.disconnect)
         self.quit.grid(column=1,row=1)
 
     def connect(self):

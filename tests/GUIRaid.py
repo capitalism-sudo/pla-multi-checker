@@ -2,7 +2,6 @@ import io
 import json
 import signal
 import sys
-import urllib
 import tkinter as tk
 import pokebase as pb
 
@@ -14,6 +13,8 @@ from nxreader import RaidReader
 from PIL import Image, ImageTk
 from rng import XOROSHIRO,Raid
 from structure import Den
+from gui import setup_styles
+from tkinter import ttk
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -26,9 +27,10 @@ class Application(tk.Frame):
         signal.signal(signal.SIGINT, self.signal_handler)
 
     def create_widgets(self):
+        setup_styles()
         self.master.title("Den Reader")
         self.type_var = tk.IntVar()
-        self.connect_button = tk.Button(self, text="Connect", fg="green", command=self.connect)
+        self.connect_button = ttk.Button(self, text="Connect", style="Connect.TButton", command=self.connect)
         self.connect_button.grid(column=0,row=1)
         self.den_input = tk.Entry(self)
         self.den_input.insert(10,"0")
@@ -39,14 +41,13 @@ class Application(tk.Frame):
         self.next_info_display.grid(column=3, row=5)
         self.image_display = tk.Label(self)
         self.image_display.grid(column=1, row=2, columnspan=2, rowspan=3)
-        self.galar_choice = tk.Radiobutton(self, text="Galar", variable=self.type_var, value=1)
-        self.ioa_choice = tk.Radiobutton(self, text="IOA", variable=self.type_var, value=2)
-        self.ct_choice = tk.Radiobutton(self, text="CT", variable=self.type_var, value=3)
+        self.galar_choice = ttk.Radiobutton(self, text="Galar", variable=self.type_var, value=1)
+        self.ioa_choice = ttk.Radiobutton(self, text="IOA", variable=self.type_var, value=2)
+        self.ct_choice = ttk.Radiobutton(self, text="CT", variable=self.type_var, value=3)
         self.galar_choice.grid(column=0, row=2, columnspan=1, rowspan=1)
         self.ioa_choice.grid(column=0, row=3, columnspan=1, rowspan=1)
         self.ct_choice.grid(column=0, row=4, columnspan=1, rowspan=1)
-        self.galar_choice.select()
-        self.quit = tk.Button(self, text="Disconnect", fg="red", command=self.disconnect)
+        self.quit = ttk.Button(self, text="Disconnect", style="Disconnect.TButton", command=self.disconnect)
         self.quit.grid(column=1,row=1)
 
     def connect(self):

@@ -10,7 +10,7 @@ sys.path.append('../')
 
 from nxreader import SWSHReader
 from rng import XOROSHIRO,OverworldRNG,Filter
-from gui import ChecklistCombobox
+from gui import ChecklistCombobox,setup_styles
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -23,8 +23,7 @@ class Application(tk.Frame):
         signal.signal(signal.SIGINT, self.signal_handler)
 
     def create_widgets(self):
-        ttk.Style().configure("Connect.TButton", foreground="green")
-        ttk.Style().configure("Disconnect.TButton", foreground="red")
+        setup_styles()
         self.master.title("Overworld RNG")
         self.connect_button = ttk.Button(self, text="Connect", style="Connect.TButton", command=self.connect)
         self.connect_button.grid(column=0,row=1)
