@@ -77,7 +77,7 @@ class ChecklistCombobox(ttk.Combobox):
               ChecklistCombobox.canvas                 tk.Canvas
                  ChecklistCombobox.checkbutton_frame   tk.Frame
                     ChecklistCombobox.checkbuttons     list with length = len(values)
-                       ttk.Checkbutton
+                       tk.Checkbutton
     
     Any of these widgets can be accessed by the user by simply calling them. For
     example, to change the height of all the checkbuttons, you can do,
@@ -469,7 +469,7 @@ class ChecklistCombobox(ttk.Combobox):
         else:
             # Create new checkbuttons if we need to
             for i in range(len(self.checkbuttons),len(self.values)):
-                self.checkbuttons.append(ttk.Checkbutton())
+                self.checkbuttons.append(tk.Checkbutton())
                 self.checkbuttons[-1]._w = '%s%s' % (self.checkbutton_frame,self.checkbuttons[-1])
                 self.tk.eval('checkbutton %s' % (self.checkbuttons[-1]))
                 self.variables.append(tk.IntVar())
