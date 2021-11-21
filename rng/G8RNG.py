@@ -108,7 +108,7 @@ class BDSPStationaryGenerator:
         self.advance = 0
 
     def generate(self):
-        go = XorShift(*self.rng.state())
+        go = XorShift(*self.rng.seed())
         id_rand = go.next()
         shiny_rand = go.next()
         self.advance += 1

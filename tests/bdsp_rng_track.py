@@ -50,3 +50,4 @@ while True:
             print(f"Target: {target}")
             print(f"In: {target-advances}")
             print()
+    r.pause(0.1)
