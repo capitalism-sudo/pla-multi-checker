@@ -111,6 +111,7 @@ class BDSPStationaryGenerator:
         go = Xorshift(*self.rng.seed())
         id_rand = go.next()
         shiny_rand = go.next()
+        self.rng.next()
         self.advance += 1
         return self.advance-1, (id_rand & 0xFFF0 ^ id_rand >> 0x10 ^ shiny_rand >> 0x10 ^ shiny_rand & 0xFFF0) < 0x10
 
