@@ -14,6 +14,7 @@ from nxreader import SWSHReader
 from structure import PK8
 from PIL import Image, ImageTk
 from gui import setup_styles
+from tkinter import ttk
 
 @lru_cache(maxsize=32)
 def get_mark(mark):
@@ -42,10 +43,10 @@ class Application(tk.Frame):
     def create_widgets(self):
         setup_styles()
         self.master.title("Overworld Reader")
-        self.connect_button = tk.Button(self, text="Connect", style="Connect.TButton", command=self.connect)
+        self.connect_button = ttk.Button(self, text="Connect", style="Connect.TButton", command=self.connect)
         self.connect_button.grid(column=0,row=1)
         self.displays = []
-        self.quit = tk.Button(self, text="Disconnect", style="Disconnect.TButton", command=self.disconnect)
+        self.quit = ttk.Button(self, text="Disconnect", style="Disconnect.TButton", command=self.disconnect)
         self.quit.grid(column=1,row=1)
 
     def connect(self):
