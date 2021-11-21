@@ -9,7 +9,7 @@ sys.path.append('../')
 from nxreader import NXReader
 from rng import Xorshift,BDSPStationaryGenerator
 
-rng_pointer = "[main+4F8CCD0]"
+rng_pointer = "[main+4F8CC+5+5+5]"
 
 config = json.load(open("../config.json"))
 r = NXReader(config["IP"])
@@ -27,6 +27,16 @@ shiny = False
 while not shiny:
     target, shiny = predict.generate()
 advances = 0
+go = Xorshift(*track.seed())
+print(go)
+curr_id = go.next()
+curr_shiny = go.next()
+
+print(f"Advance: {advances}")
+print(f"ID: {curr_id:08X} - Shiny: {curr_shiny:08X}")
+print(f"Target: {target}")
+print(f"In: {target-advances}")
+print()
 
 while True:
     state = int.from_bytes(r.read_pointer(rng_pointer, 16), "little")
@@ -41,13 +51,13 @@ while True:
                 while not shiny:
                     target, shiny = predict.generate()
             go = Xorshift(*track.seed())
+            print(go)
             curr_id = go.next()
             curr_shiny = go.next()
 
             print(f"Advance: {advances}")
-            print(go)
             print(f"ID: {curr_id:08X} - Shiny: {curr_shiny:08X}")
             print(f"Target: {target}")
             print(f"In: {target-advances}")
             print()
-    r.pause(0.1)
+    r.pause(0.2)
