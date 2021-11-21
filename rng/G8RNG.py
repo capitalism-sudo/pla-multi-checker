@@ -83,7 +83,7 @@ class Xorshift:
         return self.s0, self.s1
     
     def state(self):
-        return (self.s0 << 32) | self.s1
+        return (self.s1 << 32) | self.s0
 
     def next(self):
         t = self.s0 & 0xFFFFFFFF
