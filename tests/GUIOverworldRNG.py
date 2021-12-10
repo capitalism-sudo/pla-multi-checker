@@ -1,7 +1,9 @@
 import json
 import signal
 import sys
+import time
 import tkinter as tk
+import threading
 from tkinter import ttk
 from tables import locations,diff_held_items
 
@@ -19,6 +21,9 @@ class Application(tk.Frame):
         self.master = master
         self.pack()
         self.advances = 0
+        self.current_gen = 0
+        self.generating = False
+        self.tracking = False
         self.create_widgets()
         signal.signal(signal.SIGINT, self.signal_handler)
 
@@ -29,8 +34,8 @@ class Application(tk.Frame):
         self.connect_button.grid(column=0,row=1)
         self.quit = ttk.Button(self, text="Disconnect", style="Disconnect.TButton", command=self.disconnect)
         self.quit.grid(column=1,row=1)
-        self.generate = ttk.Button(self, text="Generate", command=self.generate,width=20)
-        self.generate.grid(column=2,row=1,columnspan=2)
+        self.generate_button = ttk.Button(self, text="Generate", command=self.generate,width=20)
+        self.generate_button.grid(column=2,row=1,columnspan=2)
         self.shiny_charm_var = tk.IntVar()
         self.mark_charm_var = tk.IntVar()
         self.weather_active_var = tk.IntVar()
@@ -94,6 +99,8 @@ class Application(tk.Frame):
         ttk.Label(self,text="Init:").grid(column=8,row=10)
         self.initial_display = ttk.Entry(self,width=40)
         self.initial_display.grid(column=9,row=10)
+        self.progress = ttk.Progressbar(self, orient=tk.HORIZONTAL, length=500, mode='determinate')
+        self.progress.grid(column=0,row=11,columnspan=10)
     
     def populate_weather(self,event):
         self.weather['values'] = [w for w in locations[self.location.get()]]
@@ -163,10 +170,12 @@ class Application(tk.Frame):
             )
         advances = self.advances
         self.predict.advance += advances
-        for _ in range(int(self.max_advance_var.get())+1):
-            state = self.predict.generate()
-            if state:
-                print(state)
+        self.generating = True
+        self.generating_thread=threading.Thread(target=self.generating_work)
+        self.generating_thread.daemon = True
+        self.generating_thread.start()
+        self.generate_button['text'] = "Stop Generating"
+        self.generate_button['command'] = self.stop_generating_work
 
     def connect(self):
         print("Connecting to: ", self.config["IP"])
@@ -176,26 +185,64 @@ class Application(tk.Frame):
         self.initial_display.delete(0,"end")
         self.initial_display.insert(0,hex(self.initial))
         self.advances = 0
-        self.update()
+        self.advances_track['text'] = str(self.advances)
+        self.start_tracking_thread()
 
     def disconnect(self):
         print("Disconnecting")
-        self.after_cancel(self.after_token)
+        self.tracking = False
         self.SWSHReader.close(False)
         self.SWSHReader = None
     
     def signal_handler(self, signal, frame):
+        self.tracking = False
+        self.generating = False
         self.disconnect()
         sys.exit(0)
     
-    def update(self):
-        read = int.from_bytes(self.SWSHReader.read(0x4C2AAC18,16),"little")
-        while self.rng.state() != read:
-            self.rng.next()
-            self.advances += 1
-            if self.rng.state() == read:
-                self.advances_track['text'] = str(self.advances)
-        self.after_token = self.after(100, self.update)
+    def start_tracking_thread(self):
+        self.tracking = True
+        self.tracking_thread=threading.Thread(target=self.tracking_work)
+        self.tracking_thread.daemon = True
+        self.tracking_thread.start()
+    
+    def tracking_work(self):
+        while self.tracking:
+            read = int.from_bytes(self.SWSHReader.read(0x4C2AAC18,16),"little")
+            while self.rng.state() != read:
+                if not self.tracking:
+                    return
+                self.rng.next()
+                self.advances += 1
+                if self.rng.state() == read:
+                    self.advances_track['text'] = str(self.advances)
+            time.sleep(0.1)
+    
+    def generating_work(self):
+        self.progress_thread=threading.Thread(target=self.progress_work)
+        self.progress_thread.daemon = True
+        self.progress_thread.start()
+        for self.current_gen in range(int(self.max_advance_var.get())+1):
+            if not self.generating:
+                break
+            state = self.predict.generate()
+            if state:
+                print(state)
+        self.stop_generating_work()
+    
+    def progress_work(self):
+        # seperate thread to not slow down generating_work
+        max = int(self.max_advance_var.get())+1
+        add = 1/max*100
+        self.progress['value'] = 0
+        while self.generating:
+            self.progress['value'] = add*self.current_gen
+        self.progress['value'] = 100
+    
+    def stop_generating_work(self):
+        self.generating = False
+        self.generate_button['text'] = "Generate"
+        self.generate_button['command'] = self.generate
 
 root = tk.Tk()
 app = Application(master=root)

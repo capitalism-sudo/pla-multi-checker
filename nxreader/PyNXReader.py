@@ -159,11 +159,11 @@ class SWSHReader(NXReader):
         self.eventoffset = 0
         self.resets = 0
         if self.TrainerSave.isPokemonSave():
-            print(f"Game: {self.TrainerSave.GameVersion()}    OT: {self.TrainerSave.OT()}    ID: {self.TrainerSave.displayID()}\n")
             self.isPlayingSword = self.TrainerSave.isSword()
             self.getEventOffset(self.getSystemLanguage())
             self.TID = self.TrainerSave.TID()
             self.SID = self.TrainerSave.SID()
+            print(f"Game: {self.TrainerSave.GameVersion()}    OT: {self.TrainerSave.OT()}    IDs: {self.TrainerSave.displayID()}|{self.TID:05d}/{self.SID:05d}\n")
     
     def getEventOffset(self, language = SystemLanguage.ENUS):
         if language == SystemLanguage.ZHCN or language == SystemLanguage.ZHHANS:
