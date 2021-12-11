@@ -5,7 +5,6 @@ import time
 import tkinter as tk
 import threading
 from tkinter import ttk
-from tables import locations,diff_held_items
 
 # Go to root of PyNXReader
 sys.path.append('../')
@@ -18,6 +17,8 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.config = json.load(open("../config.json"))
+        self.locations = json.load(open("SWSH_Encounter_Slots.json"))
+        self.held_items = json.load(open("SWSH_Held_Items.json"))
         self.master = master
         self.pack()
         self.advances = 0
@@ -85,31 +86,58 @@ class Application(tk.Frame):
         self.max_advance_var.grid(column=6,row=10,columnspan=2)
         self.autofill = ttk.Button(self,text="Auto Fill Encounter Info",command=self.autofill_info)
         self.autofill.grid(column=9,row=1)
-        ttk.Label(self,text="Location:").grid(column=8,row=2)
-        self.location = ttk.Combobox(self,values=[n for n in locations],width=40,state='readonly')
+        ttk.Label(self,text="Game:").grid(column=8,row=2)
+        self.game = ttk.Combobox(self,values=["Sword", "Shield"],width=40,state='readonly')
+        self.game.bind('<<ComboboxSelected>>',self.reset_slots)
+        self.game.grid(column=9,row=2)
+        ttk.Label(self,text="Encounter Type:").grid(column=8,row=3)
+        self.type = ttk.Combobox(self,values=["Symbol", "Hidden"],width=40,state='readonly')
+        self.type.bind('<<ComboboxSelected>>',self.populate_location)
+        self.type.grid(column=9,row=3)
+        ttk.Label(self,text="Location:").grid(column=8,row=4)
+        self.location = ttk.Combobox(self,values=[],width=40,state='readonly')
         self.location.bind('<<ComboboxSelected>>',self.populate_weather)
-        self.location.grid(column=9,row=2)
-        ttk.Label(self,text="Weather:").grid(column=8,row=3)
+        self.location.grid(column=9,row=4)
+        ttk.Label(self,text="Weather/Type:").grid(column=8,row=5)
         self.weather = ttk.Combobox(self,values=[],width=40,state='readonly')
-        self.weather.grid(column=9,row=3)
-        ttk.Label(self,text="Species:").grid(column=8,row=4)
+        self.weather.grid(column=9,row=5)
+        ttk.Label(self,text="Species:").grid(column=8,row=6)
         self.weather.bind('<<ComboboxSelected>>',self.populate_species)
         self.species = ttk.Combobox(self,values=[],width=40,state='readonly')
-        self.species.grid(column=9,row=4)
+        self.species.grid(column=9,row=6)
         ttk.Label(self,text="Init:").grid(column=8,row=10)
         self.initial_display = ttk.Entry(self,width=40)
         self.initial_display.grid(column=9,row=10)
         self.progress = ttk.Progressbar(self, orient=tk.HORIZONTAL, length=500, mode='determinate')
         self.progress.grid(column=0,row=11,columnspan=10)
     
+    def reset_slots(self,event):
+        self.location['values'] = []
+        self.weather['values'] = []
+        self.species['values'] = []
+        self.location.set("")
+        self.weather.set("")
+        self.species.set("")
+
+    def populate_location(self,event):
+        self.location['values'] = [l for l in self.locations[self.game.get()][self.type.get()]]
+        self.weather['values'] = []
+        self.species['values'] = []
+        self.location.set("")
+        self.weather.set("")
+        self.species.set("")
+
     def populate_weather(self,event):
-        self.weather['values'] = [w for w in locations[self.location.get()]]
+        self.weather['values'] = [w for w in self.locations[self.game.get()][self.type.get()][self.location.get()]]
+        self.species['values'] = []
+        self.weather.set("")
+        self.species.set("")
     
     def populate_species(self,event):
-        self.species['values'] = [s for s in locations[self.location.get()][self.weather.get()][1]]
+        self.species['values'] = [s for s in self.locations[self.game.get()][self.type.get()][self.location.get()][self.weather.get()][1]]
+        self.species.set("")
     
     def autofill_info(self):
-        location = self.location.get()
         weather = self.weather.get()
         species = self.species.get()
         self.is_static_var.set(0)
@@ -118,16 +146,16 @@ class Application(tk.Frame):
             self.weather_active_var.set(1)
         if weather == "Normal Weather":
             self.weather_active_var.set(0)
-        if diff_held_items[species]:
+        if self.held_items[species]:
             self.diff_held_item_var.set(1)
         else:
             self.diff_held_item_var.set(0)
-        min_level,max_level = locations[location][weather][0]
+        min_level,max_level = self.locations[self.game.get()][self.type.get()][self.location.get()][weather][0]
         self.min_level_var.delete(0,"end")
         self.min_level_var.insert(0,min_level)
         self.max_level_var.delete(0,"end")
         self.max_level_var.insert(0,max_level)
-        min_slot,max_slot = locations[location][weather][1][species]
+        min_slot,max_slot = self.locations[self.game.get()][self.type.get()][self.location.get()][weather][1][species]
         self.min_slot_var.delete(0,"end")
         self.min_slot_var.insert(0,min_slot)
         self.max_slot_var.delete(0,"end")
