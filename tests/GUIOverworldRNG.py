@@ -142,7 +142,7 @@ class Application(tk.Frame):
         species = self.species.get()
         self.is_static_var.set(0)
         self.slot_filter.set(1)
-        if weather != "All Weather":
+        if weather != "All Weather" and weather != "Fishing" and weather != "Shaking Trees":
             self.weather_active_var.set(1)
         if weather == "Normal Weather":
             self.weather_active_var.set(0)
