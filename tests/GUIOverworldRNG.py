@@ -146,6 +146,8 @@ class Application(tk.Frame):
             self.weather_active_var.set(1)
         if weather == "Normal Weather":
             self.weather_active_var.set(0)
+        if weather == "Fishing":
+            self.is_fishing_var.set(1)
         if self.held_items[species]:
             self.diff_held_item_var.set(1)
         else:
