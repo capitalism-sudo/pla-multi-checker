@@ -56,11 +56,17 @@ class Application(tk.Frame):
         ttk.Checkbutton(self, text="Rand Held Item", variable=self.diff_held_item_var).grid(column=0,row=5,columnspan=2)
         ttk.Checkbutton(self, text="Double Mark Gen", variable=self.double_mark_gen_var).grid(column=2,row=5,columnspan=2)
         ttk.Checkbutton(self, text="Is Shiny Locked", variable=self.is_shiny_locked_var).grid(column=0,row=6,columnspan=4)
-        ttk.Label(self, text="Level:").grid(column=0,row=10)
+        ttk.Label(self, text="EM Count:").grid(column=0,row=10)
+        self.em_count_var = tk.Spinbox(self, from_= 0, to = 100, width = 5)
+        self.em_count_var.grid(column=1,row=10)
+        ttk.Label(self, text="KOs:").grid(column=2,row=10)
+        self.kos_var = tk.Spinbox(self, from_= 0, to = 500, width = 5)
+        self.kos_var.grid(column=3,row=10)
+        ttk.Label(self, text="Level:").grid(column=0,row=11)
         self.min_level_var = tk.Spinbox(self, from_= 1, to = 100, width = 5)
         self.max_level_var = tk.Spinbox(self, from_= 1, to = 100, width = 5)
-        self.min_level_var.grid(column=1,row=10)
-        self.max_level_var.grid(column=2,row=10)
+        self.min_level_var.grid(column=1,row=11)
+        self.max_level_var.grid(column=2,row=11)
         ttk.Label(self,text="Filter").grid(column=5,row=1,columnspan=3)
         ttk.Label(self,text="Shininess").grid(column=4,row=2,columnspan=1)
         self.shiny_filter = ttk.Combobox(self,state='readonly',values=["Any","Star","Square","Star/Square"])
@@ -80,16 +86,16 @@ class Application(tk.Frame):
         self.min_slot_var.grid(column=6,row=6)
         self.max_slot_var.grid(column=7,row=6)
         self.adv_label = ttk.Label(self,text="Adv:")
-        self.adv_label.grid(column=3,row=10)
+        self.adv_label.grid(column=3,row=11)
         self.adv_label.bind('<Double-Button-1>', self.toggle_min_advances)
         self.advances_track = ttk.Label(self,text="0")
-        self.advances_track.grid(column=4,row=10)
+        self.advances_track.grid(column=4,row=11)
         self.min_advance_var = tk.Spinbox(self, value=0, from_= 0, to = 99999999, width = 20)
-        self.min_advance_var.grid(column=4,row=10)
+        self.min_advance_var.grid(column=4,row=11)
         self.min_advance_var.grid_remove()
-        ttk.Label(self,text="+").grid(column=5,row=10)
+        ttk.Label(self,text="+").grid(column=5,row=11)
         self.max_advance_var = tk.Spinbox(self, value=99999, from_= 0, to = 99999999, width = 20)
-        self.max_advance_var.grid(column=6,row=10,columnspan=2)
+        self.max_advance_var.grid(column=6,row=11,columnspan=2)
         self.autofill = ttk.Button(self,text="Auto Fill Encounter Info",command=self.autofill_info)
         self.autofill.grid(column=9,row=1)
         ttk.Label(self,text="Game:").grid(column=8,row=2)
@@ -111,11 +117,11 @@ class Application(tk.Frame):
         self.weather.bind('<<ComboboxSelected>>',self.populate_species)
         self.species = ttk.Combobox(self,values=[],width=40,state='readonly')
         self.species.grid(column=9,row=6)
-        ttk.Label(self,text="Init:").grid(column=8,row=10)
+        ttk.Label(self,text="Init:").grid(column=8,row=11)
         self.initial_display = ttk.Entry(self,width=40)
-        self.initial_display.grid(column=9,row=10)
+        self.initial_display.grid(column=9,row=11)
         self.progress = ttk.Progressbar(self, orient=tk.HORIZONTAL, length=500, mode='determinate')
-        self.progress.grid(column=0,row=11,columnspan=10)
+        self.progress.grid(column=0,row=12,columnspan=10)
     
     def toggle_min_advances(self,event):
         if not self.min_shown:
@@ -196,10 +202,10 @@ class Application(tk.Frame):
             shininess=self.shiny_filter.get() if self.shiny_filter.get() != "Any" else None,
             marks=mark_filter,
             slot_min=min_slot,
-            slot_max=max_slot,
+            slot_max=max_slot
             )
         self.predict = OverworldRNG(
-            seed = self.rng.state(),
+            seed = self.initial if self.min_shown else self.rng.state(),
             tid = self.SWSHReader.TID,
             sid = self.SWSHReader.SID,
             shiny_charm = int(self.shiny_charm_var.get()),
@@ -213,10 +219,14 @@ class Application(tk.Frame):
             max_level = int(self.max_level_var.get()),
             diff_held_item = int(self.diff_held_item_var.get()),
             double_mark_gen = int(self.double_mark_gen_var.get()),
+            egg_move_count = int(self.em_count_var.get()),
+            kos = int(self.kos_var.get()),
             filter = filter,
             )
-        advances = int(self.min_advance_var.get()) if self.min_shown else self.advances 
-        self.predict.advance += advances
+        if self.min_shown:
+            self.predict.advance_fast(int(self.min_advance_var.get()))
+        else:
+            self.predict.advance += self.advances
         self.generating = True
         self.generating_thread=threading.Thread(target=self.generating_work)
         self.generating_thread.daemon = True

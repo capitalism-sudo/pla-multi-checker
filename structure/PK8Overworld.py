@@ -126,12 +126,6 @@ class PK8(ByteStruct):
     
     @property
     def gender(self):
-        # if self.data[10] == 1:
-        #     return 0
-        # elif self.data[10] == 0:
-        #     return 1
-        # else:
-        #     return 2
         return self.data[10]
     
     @property

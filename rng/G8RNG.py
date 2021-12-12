@@ -1,6 +1,5 @@
 import z3
-import sys,os
-from enum import Enum
+
 
 class XOROSHIRO(object):
     ulongmask = 2 ** 64 - 1
@@ -475,7 +474,7 @@ class Filter:
     nature_list = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
     shiny_list = ["Star","Square","Star/Square"]
 
-    def __init__(self,iv_min=None,iv_max=None,abilities=None,shininess=None,slot_min=None,slot_max=None,natures=None,marks=None):
+    def __init__(self,iv_min=None,iv_max=None,abilities=None,shininess=None,slot_min=None,slot_max=None,natures=None,marks=None,brilliant=None):
         self.iv_min = iv_min
         self.iv_max = iv_max
         self.abilities = abilities
@@ -484,6 +483,7 @@ class Filter:
         self.slot_max = slot_max
         self.natures = [Filter.nature_list.index(nature) for nature in natures] if natures != None else None
         self.marks = marks
+        self.brilliant = brilliant
     
     def compare_ivs(self,state):
         if self.iv_min != None:
@@ -491,6 +491,9 @@ class Filter:
                 if not self.iv_min[i] <= state.ivs[i] <= self.iv_max[i]:
                     return False
         return True
+    
+    def compare_brilliant(self,state):
+        return state.brilliant or not self.brilliant
     
     def compare_fixed(self,state):
         if self.shininess == 0 and state.xor == 0:
@@ -515,14 +518,15 @@ class Filter:
 
 class OverworldState:
     natures = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
-    
+    genders = ['♂','♀','-']
+
     def __init__(self):
         self.advance = 0
         self.full_seed = 0
         self.fixed_seed = 0
         self.is_static = True
         self.mark = None
-        self.brilliant_rand = 1000
+        self.brilliant = False
         self.slot_rand = 100
         self.level = 0
         self.nature = 0
@@ -531,17 +535,18 @@ class OverworldState:
         self.pid = 0
         self.xor = 0
         self.ivs = [32]*6
+        self.gender = 2
         
     def __str__(self):
         if self.is_static:
-            return f"{self.advance} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {self.ability} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
+            return f"{self.advance} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {self.ability} {self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
         else:
-            return f"{self.advance} {self.level} {self.slot_rand} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {self.ability} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
+            return f"{self.advance} {self.level} {self.slot_rand} {'Brilliant! ' if self.brilliant else ''}{self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {self.ability} {self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
 
 class OverworldRNG:
     personality_marks = ["Rowdy","AbsentMinded","Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry","Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling","Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny","Vigor","Slump"]
     
-    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,is_legendary=False,is_shiny_locked=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter(),double_mark_gen=False):
+    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,is_legendary=False,is_shiny_locked=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter(),double_mark_gen=False,egg_move_count=0,kos=0):
         self.rng = XOROSHIRO(seed & 0xFFFFFFFFFFFFFFFF, seed >> 64)
         self.advance = 0
         self.tid = tid
@@ -557,6 +562,8 @@ class OverworldRNG:
         self.min_level = min_level
         self.max_level = max_level
         self.diff_held_item = diff_held_item
+        self.egg_move_count = egg_move_count
+        self.brilliant_thresh,self.brilliant_rolls = OverworldRNG.calculate_brilliant_info(kos)
         self.filter = filter
     
     @property
@@ -597,9 +604,15 @@ class OverworldRNG:
                 self.advance += 1
                 return
             state.brilliant_rand = go.rand(1000)
+            if state.brilliant_rand < self.brilliant_thresh:
+                state.brilliant = True
+            if not self.filter.compare_brilliant(state):
+                self.rng.next()
+                self.advance += 1
+                return
         
         if not self.is_shiny_locked:
-            for roll in range(3 if self.shiny_charm else 1):
+            for roll in range((3 if self.shiny_charm else 1) + (self.brilliant_rolls if state.brilliant else 0)):
                 mock_pid = go.nextuint()
                 shiny = (((mock_pid >> 16) ^ (mock_pid & 0xFFFF)) ^ self.tsv) < 16
                 if shiny:
@@ -610,7 +623,7 @@ class OverworldRNG:
             self.rng.next()
             self.advance += 1
             return
-        go.rand(2) 
+        go.rand(2)
         state.nature = go.rand(25)
         if not self.filter.compare_nature(state):
             self.rng.next()
@@ -626,9 +639,15 @@ class OverworldRNG:
             return
         if self.diff_held_item:
             go.rand(100)
+
+        brilliant_ivs = 0
+        if state.brilliant:
+            brilliant_ivs = go.rand(2)|2
+            go.rand(self.egg_move_count)
+
         state.fixed_seed = go.nextuint()
         
-        state.ec, state.pid, state.ivs = OverworldRNG.calculate_fixed(state.fixed_seed,self.tsv,shiny,3 if self.is_legendary else 0)
+        state.ec, state.pid, state.ivs = OverworldRNG.calculate_fixed(state.fixed_seed,self.tsv,shiny,3 if self.is_legendary else brilliant_ivs)
         state.xor = (((state.pid >> 16) ^ (state.pid & 0xFFFF)) ^ self.tsv)
         if not self.filter.compare_fixed(state):
             self.rng.next()
@@ -646,6 +665,24 @@ class OverworldRNG:
         self.advance += 1
         return state
     
+    @staticmethod
+    def calculate_brilliant_info(kos):
+        if kos >= 500:
+            return 30,6
+        if kos >= 300:
+            return 30,5
+        if kos >= 200:
+            return 30,4
+        if kos >= 100:
+            return 30,3
+        if kos >= 50:
+            return 25,2
+        if kos >= 20:
+            return 20,1
+        if kos >= 1:
+            return 15,1
+        return 0,0
+
     @staticmethod
     def calculate_fixed(fixed_seed,tsv,shiny,forced_ivs):
         rng = XOROSHIRO(fixed_seed)
