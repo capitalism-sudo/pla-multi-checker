@@ -25,6 +25,7 @@ class Application(tk.Frame):
         self.current_gen = 0
         self.generating = False
         self.tracking = False
+        self.min_shown = False
         self.create_widgets()
         signal.signal(signal.SIGINT, self.signal_handler)
 
@@ -78,9 +79,14 @@ class Application(tk.Frame):
         self.max_slot_var = tk.Spinbox(self, from_= 0, to = 99, width = 5)
         self.min_slot_var.grid(column=6,row=6)
         self.max_slot_var.grid(column=7,row=6)
-        ttk.Label(self,text="Adv:").grid(column=3,row=10)
+        self.adv_label = ttk.Label(self,text="Adv:")
+        self.adv_label.grid(column=3,row=10)
+        self.adv_label.bind('<Double-Button-1>', self.toggle_min_advances)
         self.advances_track = ttk.Label(self,text="0")
         self.advances_track.grid(column=4,row=10)
+        self.min_advance_var = tk.Spinbox(self, value=0, from_= 0, to = 99999999, width = 20)
+        self.min_advance_var.grid(column=4,row=10)
+        self.min_advance_var.grid_remove()
         ttk.Label(self,text="+").grid(column=5,row=10)
         self.max_advance_var = tk.Spinbox(self, value=99999, from_= 0, to = 99999999, width = 20)
         self.max_advance_var.grid(column=6,row=10,columnspan=2)
@@ -111,6 +117,17 @@ class Application(tk.Frame):
         self.progress = ttk.Progressbar(self, orient=tk.HORIZONTAL, length=500, mode='determinate')
         self.progress.grid(column=0,row=11,columnspan=10)
     
+    def toggle_min_advances(self,event):
+        if not self.min_shown:
+            self.advances_track.grid_remove()
+            self.min_advance_var.grid()
+            self.min_shown = True
+            self.min_advance_var['value'] = self.advances
+        else:
+            self.advances_track.grid()
+            self.min_advance_var.grid_remove()
+            self.min_shown = False
+
     def reset_slots(self,event):
         self.location['values'] = []
         self.weather['values'] = []
@@ -198,7 +215,7 @@ class Application(tk.Frame):
             double_mark_gen = int(self.double_mark_gen_var.get()),
             filter = filter,
             )
-        advances = self.advances
+        advances = int(self.min_advance_var.get()) if self.min_shown else self.advances 
         self.predict.advance += advances
         self.generating = True
         self.generating_thread=threading.Thread(target=self.generating_work)
