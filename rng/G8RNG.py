@@ -643,7 +643,8 @@ class OverworldRNG:
         brilliant_ivs = 0
         if state.brilliant:
             brilliant_ivs = go.rand(2)|2
-            go.rand(self.egg_move_count)
+            if self.egg_move_count > 1:
+                go.rand(self.egg_move_count)
 
         state.fixed_seed = go.nextuint()
         
