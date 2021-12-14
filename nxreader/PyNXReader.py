@@ -3,7 +3,6 @@ import socket
 import binascii
 from time import sleep
 from enum import Enum
-from structure import Screen
 
 class SystemLanguage(Enum):
     JA = 0
@@ -157,7 +156,6 @@ class SWSHReader(NXReader):
         self.TrainerSave = MyStatus8(self.readTrainerBlock())
         self.KCoordinates = KCoordinates(self)
         self.eventoffset = 0
-        self.resets = 0
         if self.TrainerSave.isPokemonSave():
             self.isPlayingSword = self.TrainerSave.isSword()
             self.getEventOffset(self.getSystemLanguage())
@@ -243,7 +241,7 @@ class SWSHReader(NXReader):
         return self.read(0x2FA17B78 + self.eventoffset, 0x23D4, path + 'normal_encount_rigel2')
 
     def readDen(self,denID):
-        denDataSize = 0x18;
+        denDataSize = 0x18
         if denID > SWSHReader.DENCOUNT + 31:
             denID = SWSHReader.DENCOUNT + 31
         address = 0x450C8A70 + denID * denDataSize
@@ -257,6 +255,10 @@ class SWSHReader(NXReader):
 
     def readBattleStart(self):
         return self.read(0x6B578EDC, 8)
+
+    def readRNG(self):
+        return self.read(0x4C2AAC18,16)
+
 
 class LGPEReader(NXReader):
     PK7bSTOREDSIZE = 260
@@ -283,3 +285,30 @@ class LGPEReader(NXReader):
 
     def readActive(self):
         return self.read_main(0x163EDC0, self.PK7bSTOREDSIZE)
+
+
+class BDSPReader(NXReader):
+    PK8bSTOREDSIZE = 0x148
+
+    def __init__(self,ip,port = 6000):
+        NXReader.__init__(self,ip,port)
+        from structure import MyStatus8b
+        self.TrainerSave = MyStatus8b(self.readTrainerBlock())
+        print(f"TID: {self.TrainerSave.TID()}    SID: {self.TrainerSave.SID()}    ID: {self.TrainerSave.displayID()}\n")
+        self.TID = self.TrainerSave.TID()
+        self.SID = self.TrainerSave.SID()
+
+    def readBox(self,box,slot):
+        pass
+
+    def readTrainerBlock(self):
+        return self.read_pointer("[[[[[[main+4E60170]+18]+C0]+28]+B8]]+E8", 8)
+    
+    def readDaycare(self):
+        return self.read_pointer("[[[[[[main+4E60170]+18]+C0]+28]+B8]]+458", 17)
+    
+    def readWild(self):
+        pass
+
+    def readRNG(self):
+        return self.read_pointer("[main+4F8CCD0]",16)
