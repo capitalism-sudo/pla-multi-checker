@@ -1,6 +1,6 @@
 from structure.ByteStruct import ByteStruct
 
-class MyStatusBDSP(ByteStruct):
+class MyStatus8b(ByteStruct):
 	def TID(self):
 		return self.getushort(0x0)
 

@@ -363,7 +363,7 @@ class Application(tk.Frame):
             iv_max=iv_max
             )
         self.predict = OverworldRNG(
-            seed = self.initial if self.min_shown else self.rng.state(),
+            seed = self.initial if self.min_shown else self.rng.state,
             tid = self.SWSHReader.TID,
             sid = self.SWSHReader.SID,
             shiny_charm = int(self.shiny_charm_var.get()),
@@ -395,8 +395,9 @@ class Application(tk.Frame):
     def connect(self):
         print("Connecting to: ", self.config["IP"])
         self.SWSHReader = SWSHReader(self.config["IP"])
-        self.rng = XOROSHIRO(int.from_bytes(self.SWSHReader.read(0x4C2AAC18,8),"little"),int.from_bytes(self.SWSHReader.read(0x4C2AAC18+8,8),"little"))
-        self.initial = self.rng.state()
+        seed = self.SWSHReader.readRNG()
+        self.rng = XOROSHIRO(int.from_bytes(seed[0:8],"little"),int.from_bytes(seed[8:16],"little"))
+        self.initial = self.rng.state
         self.initial_display.delete(0,"end")
         self.initial_display.insert(0,hex(self.initial))
         self.advances = 0
@@ -423,13 +424,13 @@ class Application(tk.Frame):
     
     def tracking_work(self):
         while self.tracking:
-            read = int.from_bytes(self.SWSHReader.read(0x4C2AAC18,16),"little")
-            while self.rng.state() != read:
+            read = int.from_bytes(self.SWSHReader.readRNG(),"little")
+            while self.rng.state != read:
                 if not self.tracking:
                     return
                 self.rng.next()
                 self.advances += 1
-                if self.rng.state() == read:
+                if self.rng.state == read:
                     self.advances_track['text'] = str(self.advances) + " +"
             time.sleep(0.1)
     

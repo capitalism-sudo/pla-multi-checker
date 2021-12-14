@@ -1,12 +1,11 @@
 from structure.ByteStruct import ByteStruct
 
-class BDSPEgg(ByteStruct):
+class Daycare8b(ByteStruct):
     SIZE = 0x10
     def __init__(self,buf):
-        self.data = bytearray(BDSPEgg.SIZE)
-        self.data[:] = buf
+        self.data = bytearray(buf[:])
 
-    def flag(self):
+    def present(self):
         return self.getbyte(0x0)
 
     def seed(self):

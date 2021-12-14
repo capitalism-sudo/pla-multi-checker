@@ -3,6 +3,7 @@ from .PK7b import PK7b
 from .WC8 import WC8
 from .Den import Den
 from .MyStatus8 import MyStatus8
+from .MyStatus8b import MyStatus8b
 from .KCoordinates import KCoordinates
 from .Daycare8 import Daycare8
 from .MyStatus7b import MyStatus7b
@@ -31,5 +32,4 @@ from .NestHoleReward8 import NestHoleReward8
 from .NestHoleReward8Table import NestHoleReward8Table
 from .NestHoleReward8Archive import NestHoleReward8Archive
 
-from .BDSPEgg import BDSPEgg
-from .MyStatusBDSP import MyStatusBDSP
+from .Daycare8b import Daycare8b

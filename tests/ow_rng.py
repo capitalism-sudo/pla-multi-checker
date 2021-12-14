@@ -38,9 +38,10 @@ def signal_handler(signal, frame): #CTRL+C handler
     r.close()
 
 signal.signal(signal.SIGINT, signal_handler)
-rng = XOROSHIRO(int.from_bytes(r.read(0x4C2AAC18,8),"little"),int.from_bytes(r.read(0x4C2AAC18+8,8),"little"))
+seed = r.readRNG()
+rng = XOROSHIRO(int.from_bytes(seed[0:8],"little"),int.from_bytes(seed[8:16],"little"))
 predict = OverworldRNG(
-    seed = rng.state(),
+    seed = rng.state,
     tid = r.TID,
     sid = r.SID,
     shiny_charm = shiny_charm,
@@ -59,21 +60,21 @@ predict = OverworldRNG(
     )
 advances = 0
 
-print(f"Advance {advances}, State {rng.state():016X}")
+print(f"Advance {advances}, State {rng.state:016X}")
 result = predict.generate()
 while not result:
     result = predict.generate()
 print(result)
 while True:
-    read = int.from_bytes(r.read(0x4C2AAC18,16),"little")
-    while rng.state() != read:
+    read = int.from_bytes(r.readRNG(),"little")
+    while rng.state != read:
         rng.next()
         advances += 1
-        if rng.state() == read:
+        if rng.state == read:
             if advances >= predict.advance:
                 result = None
                 result = predict.generate()
                 while not result or advances >= predict.advance:
                     result = predict.generate()
-            print(f"Advance {advances}, State {rng.state():016X}")
+            print(f"Advance {advances}, State {rng.state:016X}")
             print(result)
