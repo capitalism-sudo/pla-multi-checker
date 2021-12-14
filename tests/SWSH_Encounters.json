@@ -537,7 +537,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Sandstorm}, // Diggersby in the Rolling Fields": {
+        "Sandstorm": {
           "Diggersby": {
             "Level": 26,
             "Ability": -1,
@@ -5649,7 +5649,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Snowstorm}, // Abomasnow on the Hammerlocke Hills": {
+        "Snowstorm": {
           "Abomasnow": {
             "Level": 41,
             "Ability": -1,
@@ -42826,7 +42826,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Sandstorm}, // Diggersby in the Rolling Fields": {
+        "Sandstorm": {
           "Diggersby": {
             "Level": 26,
             "Ability": -1,
@@ -47938,7 +47938,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Snowstorm}, // Abomasnow on the Hammerlocke Hills": {
+        "Snowstorm": {
           "Abomasnow": {
             "Level": 41,
             "Ability": -1,
