@@ -19,7 +19,6 @@ max_level = 60
 is_legendary = False
 is_shiny_locked = False
 diff_held_item = False
-double_mark_gen = False
 em_count = 3
 kos = 500
 
@@ -54,7 +53,6 @@ predict = OverworldRNG(
     min_level = min_level,
     max_level = max_level,
     diff_held_item = diff_held_item,
-    double_mark_gen = double_mark_gen,
     egg_move_count = em_count,
     kos = kos,
     filter = filter

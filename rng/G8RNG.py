@@ -527,6 +527,7 @@ class OverworldState:
         self.is_static = True
         self.mark = None
         self.brilliant = False
+        self.hide_ability = False
         self.slot_rand = 100
         self.level = 0
         self.nature = 0
@@ -541,12 +542,12 @@ class OverworldState:
         if self.is_static:
             return f"{self.advance} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {self.ability} {self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
         else:
-            return f"{self.advance} {self.level} {self.slot_rand} {'Brilliant! ' if self.brilliant else ''}{self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {self.ability} {self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
+            return f"{self.advance} {self.level} {self.slot_rand} {'Brilliant! ' if self.brilliant else ''}{self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {str(self.ability)+' ' if not self.hide_ability else ''}{self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
 
 class OverworldRNG:
     personality_marks = ["Rowdy","AbsentMinded","Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry","Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling","Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny","Vigor","Slump"]
     
-    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,is_legendary=False,is_shiny_locked=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter(),double_mark_gen=False,egg_move_count=0,kos=0):
+    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,forced_ability=False,flawless_ivs=0,is_shiny_locked=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter(),egg_move_count=0,kos=0):
         self.rng = XOROSHIRO(seed & 0xFFFFFFFFFFFFFFFF, seed >> 64)
         self.advance = 0
         self.tid = tid
@@ -556,9 +557,9 @@ class OverworldRNG:
         self.weather_active = weather_active
         self.is_fishing = is_fishing
         self.is_static = is_static
-        self.is_legendary = is_legendary
+        self.forced_ability = forced_ability
+        self.flawless_ivs = flawless_ivs
         self.is_shiny_locked = is_shiny_locked
-        self.double_mark_gen = double_mark_gen
         self.min_level = min_level
         self.max_level = max_level
         self.diff_held_item = diff_held_item
@@ -576,10 +577,17 @@ class OverworldRNG:
             self.rng.next()
 
     def generate(self):
+        state = self.generate_filter()
+        self.rng.next()
+        self.advance += 1
+        return state
+
+    def generate_filter(self):
         state = OverworldState()
         state.full_seed = self.rng.state()
         state.advance = self.advance
         state.is_static = self.is_static
+        state.hide_ability = self.forced_ability
         
         go = XOROSHIRO(*self.rng.seed.copy())
         if self.is_static:
@@ -591,24 +599,16 @@ class OverworldRNG:
             go.rand(100)
             state.slot_rand = go.rand(100)
             if not self.filter.compare_slot(state):
-                self.rng.next()
-                self.advance += 1
                 return
             if self.min_level != self.max_level:
                 state.level = self.min_level + go.rand(self.max_level-self.min_level+1)
             else:
                 state.level = self.min_level
             state.mark = OverworldRNG.rand_mark(go,self.weather_active,self.is_fishing,self.mark_charm)
-            if not self.double_mark_gen and not self.filter.compare_mark(state):
-                self.rng.next()
-                self.advance += 1
-                return
             state.brilliant_rand = go.rand(1000)
             if state.brilliant_rand < self.brilliant_thresh:
                 state.brilliant = True
             if not self.filter.compare_brilliant(state):
-                self.rng.next()
-                self.advance += 1
                 return
         
         if not self.is_shiny_locked:
@@ -620,24 +620,18 @@ class OverworldRNG:
         else:
             shiny = False
         if not self.filter.compare_shiny(shiny):
-            self.rng.next()
-            self.advance += 1
             return
         go.rand(2)
         state.nature = go.rand(25)
         if not self.filter.compare_nature(state):
-            self.rng.next()
-            self.advance += 1
             return
-        if not self.is_legendary:
+        if not self.forced_ability:
             state.ability = 0 if go.rand(2) == 1 else 1
         else:
             state.ability = 0
         if not self.filter.compare_ability(state):
-            self.rng.next()
-            self.advance += 1
             return
-        if self.diff_held_item:
+        if not self.is_static and self.diff_held_item:
             go.rand(100)
 
         brilliant_ivs = 0
@@ -648,22 +642,15 @@ class OverworldRNG:
 
         state.fixed_seed = go.nextuint()
         
-        state.ec, state.pid, state.ivs = OverworldRNG.calculate_fixed(state.fixed_seed,self.tsv,shiny,3 if self.is_legendary else brilliant_ivs)
+        state.ec, state.pid, state.ivs = OverworldRNG.calculate_fixed(state.fixed_seed,self.tsv,shiny,self.flawless_ivs + brilliant_ivs)
         state.xor = (((state.pid >> 16) ^ (state.pid & 0xFFFF)) ^ self.tsv)
         if not self.filter.compare_fixed(state):
-            self.rng.next()
-            self.advance += 1
             return
         
-        if self.is_static or self.double_mark_gen:
-            state.mark = OverworldRNG.rand_mark(go,self.weather_active,self.is_fishing,self.mark_charm)
-            if not self.filter.compare_mark(state):
-                self.rng.next()
-                self.advance += 1
-                return
+        state.mark = OverworldRNG.rand_mark(go,self.weather_active,self.is_fishing,self.mark_charm)
+        if not self.filter.compare_mark(state):
+            return
         
-        self.rng.next()
-        self.advance += 1
         return state
     
     @staticmethod
