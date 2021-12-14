@@ -1,6 +1,52 @@
 import z3
 
 
+class Filter:
+    nature_list = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
+    shiny_list = ["Star","Square","Star/Square"]
+
+    def __init__(self,iv_min=None,iv_max=None,abilities=None,shininess=None,slot_min=None,slot_max=None,natures=None,marks=None,brilliant=None):
+        self.iv_min = iv_min
+        self.iv_max = iv_max
+        self.abilities = abilities
+        self.shininess = Filter.shiny_list.index(shininess) if shininess != None else None
+        self.slot_min = slot_min
+        self.slot_max = slot_max
+        self.natures = [Filter.nature_list.index(nature) for nature in natures] if natures != None else None
+        self.marks = marks
+        self.brilliant = brilliant
+    
+    def compare_ivs(self,state):
+        if self.iv_min != None:
+            for i in range(6):
+                if not self.iv_min[i] <= state.ivs[i] <= self.iv_max[i]:
+                    return False
+        return True
+    
+    def compare_brilliant(self,state):
+        return state.brilliant or not self.brilliant
+    
+    def compare_fixed(self,state):
+        if self.shininess == 0 and state.xor == 0:
+            return False
+        return self.compare_ivs(state)
+    
+    def compare_slot(self,state):
+        return self.slot_min <= state.slot_rand <= self.slot_max if self.slot_min != None else True
+    
+    def compare_mark(self,state):
+        return state.mark in self.marks if self.marks != None else True
+    
+    def compare_shiny(self,shiny):
+        return shiny if self.shininess != None else True
+    
+    def compare_ability(self,state):
+        return state.ability in self.abilities if self.abilities != None else True
+    
+    def compare_nature(self,state):
+        return state.nature in self.natures if self.natures != None else True
+
+
 class XOROSHIRO(object):
     ulongmask = 2 ** 64 - 1
     uintmask = 2 ** 32 - 1
@@ -697,52 +743,6 @@ class Raid(FrameGenerator):
                     if IVs == r.IVs:
                         result.append([seed,-iv_count])
         return result
-
-
-class Filter:
-    nature_list = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
-    shiny_list = ["Star","Square","Star/Square"]
-
-    def __init__(self,iv_min=None,iv_max=None,abilities=None,shininess=None,slot_min=None,slot_max=None,natures=None,marks=None,brilliant=None):
-        self.iv_min = iv_min
-        self.iv_max = iv_max
-        self.abilities = abilities
-        self.shininess = Filter.shiny_list.index(shininess) if shininess != None else None
-        self.slot_min = slot_min
-        self.slot_max = slot_max
-        self.natures = [Filter.nature_list.index(nature) for nature in natures] if natures != None else None
-        self.marks = marks
-        self.brilliant = brilliant
-    
-    def compare_ivs(self,state):
-        if self.iv_min != None:
-            for i in range(6):
-                if not self.iv_min[i] <= state.ivs[i] <= self.iv_max[i]:
-                    return False
-        return True
-    
-    def compare_brilliant(self,state):
-        return state.brilliant or not self.brilliant
-    
-    def compare_fixed(self,state):
-        if self.shininess == 0 and state.xor == 0:
-            return False
-        return self.compare_ivs(state)
-    
-    def compare_slot(self,state):
-        return self.slot_min <= state.slot_rand <= self.slot_max if self.slot_min != None else True
-    
-    def compare_mark(self,state):
-        return state.mark in self.marks if self.marks != None else True
-    
-    def compare_shiny(self,shiny):
-        return shiny if self.shininess != None else True
-    
-    def compare_ability(self,state):
-        return state.ability in self.abilities if self.abilities != None else True
-    
-    def compare_nature(self,state):
-        return state.nature in self.natures if self.natures != None else True
         
 
 class OverworldState:
