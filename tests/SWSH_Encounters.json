@@ -142,7 +142,7 @@
         }
       },
       "Rolling Fields": {
-        "Normal": {
+        "Normal Weather": {
           "Onix": {
             "Level": 26,
             "Ability": -1,
@@ -453,7 +453,7 @@
             "GuaranteedIVs": 0
           },
           "Diggersby": {
-            "Level": 15,
+            "Level": 26,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -536,13 +536,6 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "Sandstorm": {
-          "Diggersby": {
-            "Level": 26,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "East Lake Axewell": {
@@ -615,7 +608,7 @@
             "GuaranteedIVs": 3
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Garbodor": {
             "Level": 36,
             "Ability": -1,
@@ -1074,7 +1067,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Xatu": {
             "Level": 26,
             "Ability": -1,
@@ -1293,7 +1286,7 @@
         }
       },
       "Dappled Grove": {
-        "Normal": {
+        "Normal Weather": {
           "Bewear": {
             "Level": 34,
             "Ability": -1,
@@ -1538,7 +1531,7 @@
         }
       },
       "Watchtower Ruins": {
-        "Normal": {
+        "Normal Weather": {
           "Drifblim": {
             "Level": 34,
             "Ability": -1,
@@ -2010,7 +2003,7 @@
             "GuaranteedIVs": 3
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Golurk": {
             "Level": 40,
             "Ability": -1,
@@ -2219,7 +2212,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Lapras": {
             "Level": 56,
             "Ability": -1,
@@ -2628,6 +2621,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Noivern": {
+            "Level": 50,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Bewear": {
             "Level": 42,
             "Ability": -1,
@@ -2654,7 +2652,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Gyarados": {
             "Level": 56,
             "Ability": -1,
@@ -3132,17 +3130,10 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "Snowstorm ": {
-          "Noivern": {
-            "Level": 50,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Dusty Bowl": {
-        "Normal": {
+        "Normal Weather": {
           "Gyarados": {
             "Level": 56,
             "Ability": -1,
@@ -3602,7 +3593,7 @@
         }
       },
       "Lake of Outrage": {
-        "Normal": {
+        "Normal Weather": {
           "Jellicent": {
             "Level": 46,
             "Ability": -1,
@@ -3932,7 +3923,7 @@
         }
       },
       "Axew's Eye": {
-        "Normal": {
+        "Normal Weather": {
           "Haxorus": {
             "Level": 60,
             "Ability": 0,
@@ -4042,7 +4033,7 @@
         }
       },
       "Giant's Seat": {
-        "Normal": {
+        "Normal Weather": {
           "Steelix": {
             "Level": 50,
             "Ability": -1,
@@ -4321,7 +4312,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Snorlax": {
             "Level": 36,
             "Ability": -1,
@@ -4654,7 +4645,7 @@
         }
       },
       "Stony Wilderness": {
-        "Normal": {
+        "Normal Weather": {
           "Ferrothorn": {
             "Level": 40,
             "Ability": -1,
@@ -5064,7 +5055,7 @@
         }
       },
       "Giant's Mirror": {
-        "Normal": {
+        "Normal Weather": {
           "Gastrodon-1": {
             "Level": 56,
             "Ability": -1,
@@ -5359,7 +5350,7 @@
         }
       },
       "Hammerlocke Hills": {
-        "Normal": {
+        "Normal Weather": {
           "Hawlucha": {
             "Level": 36,
             "Ability": -1,
@@ -5576,6 +5567,16 @@
             "Level": 41,
             "Ability": -1,
             "GuaranteedIVs": 0
+          },
+          "Klinklang": {
+            "Level": 49,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Abomasnow": {
+            "Level": 41,
+            "Ability": -1,
+            "GuaranteedIVs": 0
           }
         },
         "Sandstorm": {
@@ -5637,20 +5638,6 @@
             "GuaranteedIVs": 0
           },
           "Roserade": {
-            "Level": 41,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "Snowstorm ": {
-          "Klinklang": {
-            "Level": 49,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "Snowstorm": {
-          "Abomasnow": {
             "Level": 41,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -5812,6 +5799,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Gengar": {
+            "Level": 60,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Corviknight": {
             "Level": 39,
             "Ability": -1,
@@ -5875,7 +5867,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Gengar": {
             "Level": 60,
             "Ability": -1,
@@ -5980,17 +5972,10 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "Snowstorm ": {
-          "Gengar": {
-            "Level": 60,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Workout Sea": {
-        "Normal": {
+        "Normal Weather": {
           "Wailord": {
             "Level": 80,
             "Ability": -1,
@@ -6198,10 +6183,22 @@
             "Ability": 0,
             "GuaranteedIVs": 3
           }
+        },
+        "All Weather": {
+          "Ditto": {
+            "Level": 50,
+            "Ability": -1,
+            "GuaranteedIVs": 3
+          },
+          "Rotom": {
+            "Level": 50,
+            "Ability": -1,
+            "GuaranteedIVs": 3
+          }
         }
       },
       "Fields of Honor": {
-        "Normal": {
+        "Normal Weather": {
           "Toxapex": {
             "Level": 20,
             "Ability": -1,
@@ -6664,7 +6661,7 @@
             "GuaranteedIVs": 3
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Drednaw": {
             "Level": 20,
             "Ability": -1,
@@ -6826,7 +6823,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Emolga": {
             "Level": 20,
             "Ability": -1,
@@ -7015,7 +7012,7 @@
         }
       },
       "Challenge Beach": {
-        "Normal": {
+        "Normal Weather": {
           "Barraskewda": {
             "Level": 42,
             "Ability": -1,
@@ -7713,7 +7710,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Herdier": {
             "Level": 28,
             "Ability": -1,
@@ -7863,7 +7860,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Rockruff": {
             "Level": 22,
             "Ability": -1,
@@ -7900,7 +7897,7 @@
         }
       },
       "Challenge Road": {
-        "Normal": {
+        "Normal Weather": {
           "Rockruff": {
             "Level": 22,
             "Ability": -1,
@@ -8225,7 +8222,7 @@
             "GuaranteedIVs": 3
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Drednaw": {
             "Level": 30,
             "Ability": -1,
@@ -8329,7 +8326,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Rhyperior": {
             "Level": 50,
             "Ability": -1,
@@ -8444,7 +8441,7 @@
         }
       },
       "Insular Sea": {
-        "Normal": {
+        "Normal Weather": {
           "Exeggutor": {
             "Level": 50,
             "Ability": -1,
@@ -8557,7 +8554,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Lilligant": {
             "Level": 45,
             "Ability": -1,
@@ -8611,7 +8608,7 @@
             "GuaranteedIVs": 3
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Seadra": {
             "Level": 45,
             "Ability": -1,
@@ -8680,7 +8677,7 @@
         }
       },
       "Frostpoint Field": {
-        "Normal": {
+        "Normal Weather": {
           "Articuno-1": {
             "Level": 70,
             "Ability": 0,
@@ -9038,7 +9035,7 @@
         }
       },
       "Giant's Bed": {
-        "Normal": {
+        "Normal Weather": {
           "Articuno-1": {
             "Level": 70,
             "Ability": 0,
@@ -9706,6 +9703,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Polteageist": {
+            "Level": 63,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Froslass": {
             "Level": 65,
             "Ability": -1,
@@ -9865,17 +9867,10 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "Snowstorm ": {
-          "Polteageist": {
-            "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Old Cemetery": {
-        "Normal": {
+        "Normal Weather": {
           "Articuno-1": {
             "Level": 70,
             "Ability": 0,
@@ -9983,6 +9978,11 @@
             "Ability": 0,
             "GuaranteedIVs": 3
           },
+          "Polteageist": {
+            "Level": 63,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Froslass": {
             "Level": 65,
             "Ability": -1,
@@ -10005,17 +10005,10 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "Snowstorm ": {
-          "Polteageist": {
-            "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Snowslide Slope": {
-        "Normal": {
+        "Normal Weather": {
           "Articuno-1": {
             "Level": 70,
             "Ability": 0,
@@ -10348,7 +10341,7 @@
         }
       },
       "Stepping-Stone Sea": {
-        "Normal": {
+        "Normal Weather": {
           "Moltres-1": {
             "Level": 70,
             "Ability": 0,
@@ -10399,7 +10392,7 @@
         }
       },
       "Frigid Sea": {
-        "Normal": {
+        "Normal Weather": {
           "Cobalion": {
             "Level": 70,
             "Ability": 0,
@@ -10734,7 +10727,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Ferrothorn": {
             "Level": 67,
             "Ability": -1,
@@ -10778,7 +10771,7 @@
         }
       },
       "Ballimere Lake": {
-        "Normal": {
+        "Normal Weather": {
           "Keldeo-1": {
             "Level": 65,
             "Ability": 0,
@@ -11386,7 +11379,7 @@
         }
       },
       "Slippery Slope": {
-        "Normal": {
+        "Normal Weather": {
           "Mamoswine": {
             "Level": 65,
             "Ability": -1,
@@ -11590,7 +11583,7 @@
         }
       },
       "Giant's Foot": {
-        "Normal": {
+        "Normal Weather": {
           "Bronzong": {
             "Level": 65,
             "Ability": -1,
@@ -11884,7 +11877,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Frosmoth": {
             "Level": 65,
             "Ability": -1,
@@ -11926,7 +11919,7 @@
         }
       },
       "Tunnel to the Top": {
-        "Normal": {
+        "Normal Weather": {
           "Metang": {
             "Level": 63,
             "Ability": -1,
@@ -12069,7 +12062,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Golurk": {
             "Level": 65,
             "Ability": -1,
@@ -12170,7 +12163,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Hydreigon": {
             "Level": 68,
             "Ability": -1,
@@ -12214,7 +12207,7 @@
         }
       },
       "Dyna Tree Hill": {
-        "Normal": {
+        "Normal Weather": {
           "Greedent": {
             "Level": 68,
             "Ability": -1,
@@ -42431,7 +42424,7 @@
         }
       },
       "Rolling Fields": {
-        "Normal": {
+        "Normal Weather": {
           "Onix": {
             "Level": 26,
             "Ability": -1,
@@ -42742,7 +42735,7 @@
             "GuaranteedIVs": 0
           },
           "Diggersby": {
-            "Level": 15,
+            "Level": 26,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -42825,13 +42818,6 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "Sandstorm": {
-          "Diggersby": {
-            "Level": 26,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "East Lake Axewell": {
@@ -42904,7 +42890,7 @@
             "GuaranteedIVs": 3
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Garbodor": {
             "Level": 36,
             "Ability": -1,
@@ -43363,7 +43349,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Xatu": {
             "Level": 26,
             "Ability": -1,
@@ -43582,7 +43568,7 @@
         }
       },
       "Dappled Grove": {
-        "Normal": {
+        "Normal Weather": {
           "Bewear": {
             "Level": 34,
             "Ability": -1,
@@ -43827,7 +43813,7 @@
         }
       },
       "Watchtower Ruins": {
-        "Normal": {
+        "Normal Weather": {
           "Drifblim": {
             "Level": 34,
             "Ability": -1,
@@ -44299,7 +44285,7 @@
             "GuaranteedIVs": 3
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Golurk": {
             "Level": 40,
             "Ability": -1,
@@ -44508,7 +44494,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Lapras": {
             "Level": 56,
             "Ability": -1,
@@ -44917,6 +44903,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Noivern": {
+            "Level": 50,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Bewear": {
             "Level": 42,
             "Ability": -1,
@@ -44943,7 +44934,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Gyarados": {
             "Level": 56,
             "Ability": -1,
@@ -45421,17 +45412,10 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "Snowstorm ": {
-          "Noivern": {
-            "Level": 50,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Dusty Bowl": {
-        "Normal": {
+        "Normal Weather": {
           "Gyarados": {
             "Level": 56,
             "Ability": -1,
@@ -45891,7 +45875,7 @@
         }
       },
       "Lake of Outrage": {
-        "Normal": {
+        "Normal Weather": {
           "Jellicent": {
             "Level": 46,
             "Ability": -1,
@@ -46221,7 +46205,7 @@
         }
       },
       "Axew's Eye": {
-        "Normal": {
+        "Normal Weather": {
           "Haxorus": {
             "Level": 60,
             "Ability": 0,
@@ -46331,7 +46315,7 @@
         }
       },
       "Giant's Seat": {
-        "Normal": {
+        "Normal Weather": {
           "Steelix": {
             "Level": 50,
             "Ability": -1,
@@ -46610,7 +46594,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Snorlax": {
             "Level": 36,
             "Ability": -1,
@@ -46943,7 +46927,7 @@
         }
       },
       "Stony Wilderness": {
-        "Normal": {
+        "Normal Weather": {
           "Ferrothorn": {
             "Level": 40,
             "Ability": -1,
@@ -47353,7 +47337,7 @@
         }
       },
       "Giant's Mirror": {
-        "Normal": {
+        "Normal Weather": {
           "Gastrodon-1": {
             "Level": 56,
             "Ability": -1,
@@ -47648,7 +47632,7 @@
         }
       },
       "Hammerlocke Hills": {
-        "Normal": {
+        "Normal Weather": {
           "Hawlucha": {
             "Level": 36,
             "Ability": -1,
@@ -47865,6 +47849,16 @@
             "Level": 41,
             "Ability": -1,
             "GuaranteedIVs": 0
+          },
+          "Klinklang": {
+            "Level": 49,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Abomasnow": {
+            "Level": 41,
+            "Ability": -1,
+            "GuaranteedIVs": 0
           }
         },
         "Sandstorm": {
@@ -47926,20 +47920,6 @@
             "GuaranteedIVs": 0
           },
           "Roserade": {
-            "Level": 41,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "Snowstorm ": {
-          "Klinklang": {
-            "Level": 49,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "Snowstorm": {
-          "Abomasnow": {
             "Level": 41,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -48101,6 +48081,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Gengar": {
+            "Level": 60,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Corviknight": {
             "Level": 39,
             "Ability": -1,
@@ -48164,7 +48149,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Gengar": {
             "Level": 60,
             "Ability": -1,
@@ -48269,17 +48254,10 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "Snowstorm ": {
-          "Gengar": {
-            "Level": 60,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Workout Sea": {
-        "Normal": {
+        "Normal Weather": {
           "Wailord": {
             "Level": 80,
             "Ability": -1,
@@ -48487,10 +48465,22 @@
             "Ability": 0,
             "GuaranteedIVs": 3
           }
+        },
+        "All Weather": {
+          "Ditto": {
+            "Level": 50,
+            "Ability": -1,
+            "GuaranteedIVs": 3
+          },
+          "Rotom": {
+            "Level": 50,
+            "Ability": -1,
+            "GuaranteedIVs": 3
+          }
         }
       },
       "Fields of Honor": {
-        "Normal": {
+        "Normal Weather": {
           "Toxapex": {
             "Level": 20,
             "Ability": -1,
@@ -48953,7 +48943,7 @@
             "GuaranteedIVs": 3
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Drednaw": {
             "Level": 20,
             "Ability": -1,
@@ -49115,7 +49105,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Emolga": {
             "Level": 20,
             "Ability": -1,
@@ -49304,7 +49294,7 @@
         }
       },
       "Challenge Beach": {
-        "Normal": {
+        "Normal Weather": {
           "Barraskewda": {
             "Level": 42,
             "Ability": -1,
@@ -49997,7 +49987,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Herdier": {
             "Level": 28,
             "Ability": -1,
@@ -50147,7 +50137,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Rockruff": {
             "Level": 22,
             "Ability": -1,
@@ -50198,7 +50188,7 @@
         }
       },
       "Challenge Road": {
-        "Normal": {
+        "Normal Weather": {
           "Rockruff": {
             "Level": 22,
             "Ability": -1,
@@ -50518,7 +50508,7 @@
             "GuaranteedIVs": 3
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Drednaw": {
             "Level": 30,
             "Ability": -1,
@@ -50622,7 +50612,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Rhyperior": {
             "Level": 50,
             "Ability": -1,
@@ -50737,7 +50727,7 @@
         }
       },
       "Insular Sea": {
-        "Normal": {
+        "Normal Weather": {
           "Exeggutor": {
             "Level": 50,
             "Ability": -1,
@@ -50850,7 +50840,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Lilligant": {
             "Level": 45,
             "Ability": -1,
@@ -50904,7 +50894,7 @@
             "GuaranteedIVs": 3
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Seadra": {
             "Level": 45,
             "Ability": -1,
@@ -50973,7 +50963,7 @@
         }
       },
       "Frostpoint Field": {
-        "Normal": {
+        "Normal Weather": {
           "Articuno-1": {
             "Level": 70,
             "Ability": 0,
@@ -51331,7 +51321,7 @@
         }
       },
       "Giant's Bed": {
-        "Normal": {
+        "Normal Weather": {
           "Articuno-1": {
             "Level": 70,
             "Ability": 0,
@@ -51999,6 +51989,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Polteageist": {
+            "Level": 63,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Froslass": {
             "Level": 65,
             "Ability": -1,
@@ -52158,17 +52153,10 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "Snowstorm ": {
-          "Polteageist": {
-            "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Old Cemetery": {
-        "Normal": {
+        "Normal Weather": {
           "Articuno-1": {
             "Level": 70,
             "Ability": 0,
@@ -52276,6 +52264,11 @@
             "Ability": 0,
             "GuaranteedIVs": 3
           },
+          "Polteageist": {
+            "Level": 63,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Froslass": {
             "Level": 65,
             "Ability": -1,
@@ -52303,17 +52296,10 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "Snowstorm ": {
-          "Polteageist": {
-            "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Snowslide Slope": {
-        "Normal": {
+        "Normal Weather": {
           "Articuno-1": {
             "Level": 70,
             "Ability": 0,
@@ -52641,7 +52627,7 @@
         }
       },
       "Stepping-Stone Sea": {
-        "Normal": {
+        "Normal Weather": {
           "Moltres-1": {
             "Level": 70,
             "Ability": 0,
@@ -52692,7 +52678,7 @@
         }
       },
       "Frigid Sea": {
-        "Normal": {
+        "Normal Weather": {
           "Cobalion": {
             "Level": 70,
             "Ability": 0,
@@ -53062,7 +53048,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Ferrothorn": {
             "Level": 67,
             "Ability": -1,
@@ -53106,7 +53092,7 @@
         }
       },
       "Ballimere Lake": {
-        "Normal": {
+        "Normal Weather": {
           "Keldeo-1": {
             "Level": 65,
             "Ability": 0,
@@ -53714,7 +53700,7 @@
         }
       },
       "Slippery Slope": {
-        "Normal": {
+        "Normal Weather": {
           "Mamoswine": {
             "Level": 65,
             "Ability": -1,
@@ -53918,7 +53904,7 @@
         }
       },
       "Giant's Foot": {
-        "Normal": {
+        "Normal Weather": {
           "Bronzong": {
             "Level": 65,
             "Ability": -1,
@@ -54212,7 +54198,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Frosmoth": {
             "Level": 65,
             "Ability": -1,
@@ -54254,7 +54240,7 @@
         }
       },
       "Tunnel to the Top": {
-        "Normal": {
+        "Normal Weather": {
           "Metang": {
             "Level": 63,
             "Ability": -1,
@@ -54397,7 +54383,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Golurk": {
             "Level": 65,
             "Ability": -1,
@@ -54498,7 +54484,7 @@
             "GuaranteedIVs": 0
           }
         },
-        "Normal": {
+        "Normal Weather": {
           "Tyranitar": {
             "Level": 68,
             "Ability": -1,
@@ -54542,7 +54528,7 @@
         }
       },
       "Dyna Tree Hill": {
-        "Normal": {
+        "Normal Weather": {
           "Greedent": {
             "Level": 68,
             "Ability": -1,
