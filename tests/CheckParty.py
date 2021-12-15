@@ -7,7 +7,7 @@ from structure import PK8
 from nxreader import SWSHReader
 
 config = json.load(open("../config.json"))
-r = SWSHReader(config["IP"])
+r = SWSHReader(config["IP"],usb_connection=config["USB"])
 
 for ii in range(1,7):
     print(f"Slot: {ii}")

@@ -7,7 +7,7 @@ from structure import PK8
 from nxreader import SWSHReader
 
 config = json.load(open("../config.json"))
-r = SWSHReader(config["IP"])
+r = SWSHReader(config["IP"],usb_connection=config["USB"])
 
 while True:
     pk8 = PK8(r.readWild())

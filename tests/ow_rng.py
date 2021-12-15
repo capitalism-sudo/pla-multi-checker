@@ -31,7 +31,7 @@ filter = Filter(
 )
 
 config = json.load(open("../config.json"))
-r = SWSHReader(config["IP"])
+r = SWSHReader(config["IP"],usb_connection=self.config["USB"])
 
 def signal_handler(signal, frame): #CTRL+C handler
     print("Stop request")

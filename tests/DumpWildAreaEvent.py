@@ -23,7 +23,7 @@ buf = bytearray(open('../resources/bytes/local_bonus','rb').read())
 bonus = NestHoleReward8Archive.GetRootAsNestHoleReward8Archive(buf,0)
 
 if ReadFromConsole:
-	r = SWSHReader(config["IP"])
+	r = SWSHReader(config["IP"],usb_connection=config["USB"])
 	if Island == 0:
 		buf = r.readEventBlock_RaidEncounter(DumpPath)
 	elif Island == 1:

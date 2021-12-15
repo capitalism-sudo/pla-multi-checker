@@ -8,7 +8,7 @@ from rng import Xorshift
 from nxreader import BDSPReader
 
 config = json.load(open("../config.json"))
-reader = BDSPReader(config["IP"])
+reader = BDSPReader(config["IP"],usb_connection=config["USB"])
 
 def signal_handler(signal, advances): #CTRL+C handler
     print("Stop request")

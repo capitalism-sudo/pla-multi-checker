@@ -26,7 +26,7 @@ def signal_handler(signal, frame): #CTRL+C handler
     r.close()
 
 config = json.load(open("../config.json"))
-r = RaidReader(config["IP"])
+r = RaidReader(config["IP"],usb_connection=config["USB"])
 
 signal.signal(signal.SIGINT, signal_handler)
 

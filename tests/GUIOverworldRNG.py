@@ -393,8 +393,8 @@ class Application(tk.Frame):
         self.generate_button['command'] = self.stop_generating_work
 
     def connect(self):
-        print("Connecting to: ", self.config["IP"])
-        self.SWSHReader = SWSHReader(self.config["IP"])
+        print("Connecting to: "+(self.config["IP"] if not self.config["USB"] else "USB"))
+        self.SWSHReader = SWSHReader(self.config["IP"],usb_connection=self.config["USB"])
         seed = self.SWSHReader.readRNG()
         self.rng = XOROSHIRO(int.from_bytes(seed[0:8],"little"),int.from_bytes(seed[8:16],"little"))
         self.initial = self.rng.state

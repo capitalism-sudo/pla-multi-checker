@@ -51,8 +51,8 @@ class Application(tk.Frame):
         self.quit.grid(column=1,row=1)
 
     def connect(self):
-        print("Connecting to: ", self.config["IP"])
-        self.RaidReader = RaidReader(self.config["IP"])
+        print("Connecting to: "+(self.config["IP"] if not self.config["USB"] else "USB"))
+        self.RaidReader = RaidReader(self.config["IP"],usb_connection=self.config["USB"])
         self.update()
 
     def disconnect(self):

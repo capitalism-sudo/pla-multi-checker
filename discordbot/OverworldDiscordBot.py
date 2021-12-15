@@ -190,7 +190,7 @@ class OverworldDiscordBot(commands.Bot):
         async def start(ctx):
             # create reader object
             try:
-                self.reader = SWSHReader(self.config["IP"])
+                self.reader = SWSHReader(self.config["IP"],usb_connection=self.config["USB"])
                 # create and start a thread for reading from the switch
                 self.thread_running = True
                 self.thread = Thread(target=self.reader_func,args=(ctx,))
