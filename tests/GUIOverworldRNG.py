@@ -275,9 +275,9 @@ class Application(tk.Frame):
     
     def populate_species(self,event):
         weather = self.weather.get()
-        if weather != "All Weather" and weather != "Fishing" and weather != "Shaking Trees":
+        if not weather in ["All Weather","Fishing","Shaking Trees"]:
             self.weather_active_var.set(1)
-        if weather == "Normal Weather" or weather == "Normal":
+        if weather in ["Normal Weather","Normal"]:
             self.weather_active_var.set(0)
         if weather == "Fishing":
             self.is_fishing_var.set(1)
@@ -316,7 +316,7 @@ class Application(tk.Frame):
             self.flawless_ivs_var['value'] = 0
         else:
             self.flawless_ivs_var['value'] = self.encounters[self.game.get()][self.type.get()][self.location.get()][weather][species]["GuaranteedIVs"]
-        if species == "Keldeo-1":
+        if species in ["Articuno-1","Zapdos-1","Moltres-1","Keldeo-1"]:
             self.is_shiny_locked_var.set(1)
         else:
             self.is_shiny_locked_var.set(0)
