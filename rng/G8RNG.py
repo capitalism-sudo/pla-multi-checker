@@ -5,7 +5,7 @@ class Filter:
     nature_list = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
     shiny_list = ["Star","Square","Star/Square"]
 
-    def __init__(self,iv_min=None,iv_max=None,abilities=None,shininess=None,slot_min=None,slot_max=None,natures=None,marks=None,brilliant=None):
+    def __init__(self,iv_min=None,iv_max=None,abilities=None,shininess=None,slot_min=None,slot_max=None,natures=None,marks=None,brilliant=None,gender=None):
         self.iv_min = iv_min
         self.iv_max = iv_max
         self.abilities = abilities
@@ -15,6 +15,7 @@ class Filter:
         self.natures = [Filter.nature_list.index(nature) for nature in natures] if natures != None else None
         self.marks = marks
         self.brilliant = brilliant
+        self.gender = gender
     
     def compare_ivs(self,state):
         if self.iv_min != None:
@@ -45,6 +46,9 @@ class Filter:
     
     def compare_nature(self,state):
         return state.nature in self.natures if self.natures != None else True
+    
+    def compare_gender(self,state):
+        return not ((not self.gender is None) and self.gender != state.gender)
 
 
 class XOROSHIRO(object):
@@ -198,6 +202,8 @@ class OverworldRNG:
             lead_rand = go.rand(100)
             if self.cute_charm != None and lead_rand <= 65:
                 state.gender = 1 if self.cute_charm == 0 else 0
+                if not self.filter.compare_gender(state):
+                    return
         else:
             if not self.is_fishing:
                 go.rand()
@@ -205,6 +211,8 @@ class OverworldRNG:
             lead_rand = go.rand(100)
             if self.cute_charm != None and lead_rand <= 65:
                 state.gender = 1 if self.cute_charm == 0 else 0
+                if not self.filter.compare_gender(state):
+                    return
             state.slot_rand = go.rand(100)
             if not self.filter.compare_slot(state):
                 return
@@ -231,6 +239,8 @@ class OverworldRNG:
             return
         if state.gender == 2:
             state.gender = 1 if go.rand(2) == 0 else 0
+        if not self.filter.compare_gender(state):
+            return
         state.nature = go.rand(25)
         if not self.filter.compare_nature(state):
             return

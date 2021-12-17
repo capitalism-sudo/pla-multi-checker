@@ -156,12 +156,16 @@ class Application(tk.Frame):
         column += 1
         self.all_mark_button = ttk.Button(self,text="All",width=20//3,command=lambda: self.mark_var.set(["Rare","Uncommon","Weather","Time","Fishing"]+OverworldRNG.personality_marks))
         self.all_mark_button.grid(column=column,row=4,columnspan=1)
+        ttk.Label(self,text="Gender").grid(column=column,row=5)
         self.min_slot_var = tk.Spinbox(self, from_= 0, to = 99, width = 5)
         self.min_slot_var.grid(column=column,row=6)
 
         column += 1
         self.all_mark_button = ttk.Button(self,text="None",width=20//3,command=lambda: self.mark_var.set([]))
         self.all_mark_button.grid(column=column,row=4,columnspan=1)
+        self.gender_filter = ttk.Combobox(self,state='readonly',values=["Any","♂","♀"], width=5)
+        self.gender_filter.grid(column=column,row=5)
+        self.gender_filter.set("Any")
         self.max_slot_var = tk.Spinbox(self, from_= 0, to = 99, width = 5)
         self.max_slot_var.grid(column=column,row=6)
 
@@ -364,6 +368,12 @@ class Application(tk.Frame):
             cc = None
         else:
             cc -= 1
+        
+        gender = int(self.gender_filter.current())
+        if gender == 0:
+            gender = None
+        else:
+            gender -= 1
 
         filter = Filter(
             shininess=self.shiny_filter.get() if self.shiny_filter.get() != "Any" else None,
@@ -372,7 +382,8 @@ class Application(tk.Frame):
             slot_max=max_slot,
             brilliant=self.brilliant_var.get(),
             iv_min=iv_min,
-            iv_max=iv_max
+            iv_max=iv_max,
+            gender=gender
             )
         self.predict = OverworldRNG(
             seed = self.initial if self.min_shown else self.rng.state,
