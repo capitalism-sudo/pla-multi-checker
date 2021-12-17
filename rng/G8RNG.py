@@ -150,7 +150,7 @@ class Xorshift:
 class OverworldRNG:
     personality_marks = ["Rowdy","AbsentMinded","Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry","Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling","Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny","Vigor","Slump"]
     
-    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,forced_ability=False,flawless_ivs=0,is_shiny_locked=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter(),egg_move_count=0,kos=0):
+    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,forced_ability=False,flawless_ivs=0,is_shiny_locked=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter(),egg_move_count=0,kos=0,cute_charm=None):
         self.rng = XOROSHIRO(seed & 0xFFFFFFFFFFFFFFFF, seed >> 64)
         self.advance = 0
         self.tid = tid
@@ -168,6 +168,7 @@ class OverworldRNG:
         self.diff_held_item = diff_held_item
         self.egg_move_count = egg_move_count
         self.brilliant_thresh,self.brilliant_rolls = OverworldRNG.calculate_brilliant_info(kos)
+        self.cute_charm = cute_charm
         self.filter = filter
     
     @property
@@ -194,12 +195,16 @@ class OverworldRNG:
         
         go = XOROSHIRO(*self.rng.seed.copy())
         if self.is_static:
-            go.rand(100)
+            lead_rand = go.rand(100)
+            if self.cute_charm != None and lead_rand <= 65:
+                state.gender = 1 if self.cute_charm == 0 else 0
         else:
             if not self.is_fishing:
                 go.rand()
             go.rand(100)
-            go.rand(100)
+            lead_rand = go.rand(100)
+            if self.cute_charm != None and lead_rand <= 65:
+                state.gender = 1 if self.cute_charm == 0 else 0
             state.slot_rand = go.rand(100)
             if not self.filter.compare_slot(state):
                 return
@@ -224,7 +229,8 @@ class OverworldRNG:
             shiny = False
         if not self.filter.compare_shiny(shiny):
             return
-        go.rand(2)
+        if state.gender == 2:
+            state.gender = 1 if go.rand(2) == 0 else 0
         state.nature = go.rand(25)
         if not self.filter.compare_nature(state):
             return

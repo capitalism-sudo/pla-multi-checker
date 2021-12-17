@@ -95,9 +95,9 @@ class Application(tk.Frame):
         self.is_static = ttk.Checkbutton(self, text="Is Static", variable=self.is_static_var, command=self.toggle_static)
         self.is_static.grid(column=column,row=3,columnspan=2)
         self.forced_ability = ttk.Checkbutton(self, text="Forced Ability", variable=self.forced_ability_var)
-        self.forced_ability.grid(column=column,row=4,columnspan=4)
+        self.forced_ability.grid(column=column,row=4,columnspan=2)
         self.weather_active = ttk.Checkbutton(self, text="Weather Active", variable=self.weather_active_var)
-        self.weather_active.grid(column=column,row=5,columnspan=2)
+        self.weather_active.grid(column=column,row=5,columnspan=1)
         ttk.Label(self, text="EM Count:").grid(column=column,row=6)
         self.is_shiny_locked = ttk.Checkbutton(self, text="Is Shiny Locked", variable=self.is_shiny_locked_var)
         self.is_shiny_locked.grid(column=column,row=7,columnspan=2)
@@ -118,6 +118,7 @@ class Application(tk.Frame):
         self.mark_charm = ttk.Checkbutton(self, text="Mark Charm", variable=self.mark_charm_var)
         self.mark_charm.grid(column=column,row=2,columnspan=2)
         ttk.Label(self,text="Flawless IVs:").grid(column=column,row=3)
+        ttk.Label(self,text="Lead:").grid(column=column,row=4)
         self.is_fishing = ttk.Checkbutton(self, text="Is Fishing", variable=self.is_fishing_var)
         self.is_fishing.grid(column=column,row=5,columnspan=2)
         ttk.Label(self, text="KOs:").grid(column=column,row=6)
@@ -129,6 +130,9 @@ class Application(tk.Frame):
         column += 1
         self.flawless_ivs_var = tk.Spinbox(self, value=0, from_= 0, to = 3, width = 5)
         self.flawless_ivs_var.grid(column=column,row=3)
+        self.cute_charm_var = ttk.Combobox(self,values=["None","CC ♂","CC ♀"],width=10,state='readonly')
+        self.cute_charm_var.grid(column=column,row=4)
+        self.cute_charm_var.current(0)
         self.kos_var = tk.Spinbox(self, from_= 0, to = 500, width = 5)
         self.kos_var.grid(column=column,row=6)
 
@@ -354,6 +358,12 @@ class Application(tk.Frame):
         ]
         if iv_min == [0,0,0,0,0,0] and iv_max == [31,31,31,31,31,31]:
             iv_min = iv_max = None
+        
+        cc = int(self.cute_charm_var.current())
+        if cc == 0:
+            cc = None
+        else:
+            cc -= 1
 
         filter = Filter(
             shininess=self.shiny_filter.get() if self.shiny_filter.get() != "Any" else None,
@@ -381,6 +391,7 @@ class Application(tk.Frame):
             diff_held_item = int(self.diff_held_item_var.get()),
             egg_move_count = int(self.em_count_var.get()),
             kos = int(self.kos_var.get()),
+            cute_charm=cc,
             filter = filter,
             )
         if self.min_shown:
