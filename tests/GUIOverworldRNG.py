@@ -18,7 +18,7 @@ class Application(tk.Frame):
         super().__init__(master)
         self.config = json.load(open("../config.json"))
         self.encounters = json.load(open("SWSH_Encounters.json"))
-        self.held_items = json.load(open("SWSH_Held_Items.json"))
+        self.personal = json.load(open("SWSH_Personal.json"))
         self.master = master
         self.pack()
         self.advances = 0
@@ -293,10 +293,12 @@ class Application(tk.Frame):
         weather = self.weather.get()
         species = self.species.get()
         static = self.type.get() == "Static"
-        if not static and self.held_items[species]:
+        if not static and self.personal[species]["Item"]:
             self.diff_held_item_var.set(1)
         else:
             self.diff_held_item_var.set(0)
+        if not static:
+            self.em_count_var["value"] = len(self.personal[species]["Egg_Moves"])
         min_level = max_level = 0
         if not static:
             min_level,max_level = self.encounters[self.game.get()][self.type.get()][self.location.get()][weather]["Level"]
