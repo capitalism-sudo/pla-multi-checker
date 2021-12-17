@@ -8703,12 +8703,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u201a": {
+          "Nidoran\u2642": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -8750,12 +8750,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u201a": {
+          "Nidoran\u2642": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -8856,12 +8856,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u201a": {
+          "Nidoran\u2642": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -8908,12 +8908,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u201a": {
+          "Nidoran\u2642": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -8960,12 +8960,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u201a": {
+          "Nidoran\u2642": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -9056,7 +9056,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -9240,7 +9240,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -9342,7 +9342,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -9449,7 +9449,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -15250,7 +15250,7 @@
               80,
               89
             ],
-            "Farfetch\u00e2\u20ac\u2122d-1": [
+            "Farfetch\u2019d-1": [
               90,
               94
             ],
@@ -16956,7 +16956,7 @@
               75,
               84
             ],
-            "Farfetch\u00e2\u20ac\u2122d-1": [
+            "Farfetch\u2019d-1": [
               85,
               89
             ],
@@ -28814,11 +28814,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               20
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               21,
               41
             ],
@@ -28854,11 +28854,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               20
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               21,
               41
             ],
@@ -28894,11 +28894,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               20
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               21,
               41
             ],
@@ -28926,11 +28926,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               20
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               21,
               41
             ],
@@ -28966,11 +28966,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               18
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               19,
               37
             ],
@@ -29010,11 +29010,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               20
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               21,
               41
             ],
@@ -29050,11 +29050,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               18
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               19,
               37
             ],
@@ -29094,7 +29094,7 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               99
             ]
@@ -29106,11 +29106,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               16
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               17,
               33
             ],
@@ -29156,11 +29156,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               34
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               35,
               69
             ],
@@ -29188,11 +29188,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               20,
               39
             ],
@@ -29228,11 +29228,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               24
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               25,
               49
             ],
@@ -29264,11 +29264,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               20,
               39
             ],
@@ -29308,11 +29308,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               24
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               25,
               49
             ],
@@ -29352,11 +29352,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               20,
               39
             ],
@@ -29392,11 +29392,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               20,
               39
             ],
@@ -29448,11 +29448,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               21
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               22,
               43
             ],
@@ -40508,11 +40508,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -40536,11 +40536,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -40564,11 +40564,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -40592,11 +40592,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -40624,11 +40624,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -40656,11 +40656,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -40684,11 +40684,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -40724,11 +40724,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -40802,11 +40802,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -40834,11 +40834,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -40870,11 +40870,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -40906,11 +40906,11 @@
               0,
               13
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               14,
               27
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               28,
               41
             ],
@@ -40946,11 +40946,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -40982,11 +40982,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -41018,11 +41018,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -41066,11 +41066,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -50989,12 +50989,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u201a": {
+          "Nidoran\u2642": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51036,12 +51036,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u201a": {
+          "Nidoran\u2642": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51142,12 +51142,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u201a": {
+          "Nidoran\u2642": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51194,12 +51194,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u201a": {
+          "Nidoran\u2642": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51246,12 +51246,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u201a": {
+          "Nidoran\u2642": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51342,7 +51342,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51526,7 +51526,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51628,7 +51628,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51735,7 +51735,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u00e2\u2122\u20ac": {
+          "Nidoran\u2640": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -71519,11 +71519,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               25
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               26,
               51
             ],
@@ -71555,11 +71555,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               25
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               26,
               51
             ],
@@ -71591,11 +71591,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               25
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               26,
               51
             ],
@@ -71619,11 +71619,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               25
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               26,
               51
             ],
@@ -71655,11 +71655,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               23
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               24,
               47
             ],
@@ -71695,11 +71695,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               25
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               26,
               51
             ],
@@ -71731,11 +71731,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               23
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               24,
               47
             ],
@@ -71771,7 +71771,7 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               99
             ]
@@ -71783,11 +71783,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               21
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               22,
               43
             ],
@@ -71829,11 +71829,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               34
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               35,
               69
             ],
@@ -71861,11 +71861,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               20,
               39
             ],
@@ -71901,11 +71901,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               24
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               25,
               49
             ],
@@ -71937,11 +71937,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               20,
               39
             ],
@@ -71981,11 +71981,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               24
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               25,
               49
             ],
@@ -72025,11 +72025,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               20,
               39
             ],
@@ -72065,11 +72065,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               20,
               39
             ],
@@ -72121,11 +72121,11 @@
             65
           ],
           "Slots": {
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               0,
               16
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               17,
               33
             ],
@@ -83509,11 +83509,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -83537,11 +83537,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -83565,11 +83565,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -83593,11 +83593,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -83625,11 +83625,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -83657,11 +83657,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -83685,11 +83685,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -83725,11 +83725,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -83803,11 +83803,11 @@
               0,
               19
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               20,
               39
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               40,
               59
             ],
@@ -83835,11 +83835,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -83871,11 +83871,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -83907,11 +83907,11 @@
               0,
               13
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               14,
               27
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               28,
               41
             ],
@@ -83947,11 +83947,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -83983,11 +83983,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -84019,11 +84019,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],
@@ -84067,11 +84067,11 @@
               0,
               15
             ],
-            "Nidoran\u00e2\u2122\u201a": [
+            "Nidoran\u2642": [
               16,
               31
             ],
-            "Nidoran\u00e2\u2122\u20ac": [
+            "Nidoran\u2640": [
               32,
               47
             ],

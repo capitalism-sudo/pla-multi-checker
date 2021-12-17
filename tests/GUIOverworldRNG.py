@@ -16,9 +16,10 @@ from gui import ChecklistCombobox,setup_styles
 class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
-        self.config = json.load(open("../config.json"))
-        self.encounters = json.load(open("SWSH_Encounters.json"))
-        self.personal = json.load(open("SWSH_Personal.json"))
+        self.config = json.load(open("../config.json", encoding='utf-8'))
+        self.encounters = json.load(open("SWSH_Encounters.json", encoding='utf-8'))
+        self.personal = json.load(open("SWSH_Personal.json", encoding='utf-8'))
+        print(self.encounters["Shield"]["Symbol"]["Old Cemetery"])
         self.master = master
         self.pack()
         self.advances = 0
