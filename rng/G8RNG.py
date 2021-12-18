@@ -785,9 +785,31 @@ class OverworldState:
         
     def __str__(self):
         if self.is_static:
-            return f"{self.advance} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {self.ability} {self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
+            return f"{self.advance} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {str(self.ability)+' ' if not self.hide_ability else ''}{self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
         else:
             return f"{self.advance} {self.level} {self.slot_rand} {'Brilliant! ' if self.brilliant else ''}{self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {str(self.ability)+' ' if not self.hide_ability else ''}{self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
+    
+    @property
+    def headings(self):
+        headings = ["Advance"]
+        if not self.is_static:
+            headings += ["Level","Slot Rand","Aura"]
+        headings += ["EC","PID","Shiny","Nature"]
+        if not self.hide_ability:
+            headings += ["Ability"]
+        headings += ["Gender","IVs","Mark"]
+        return headings
+    
+    @property
+    def row(self):
+        row = [self.advance]
+        if not self.is_static:
+            row += [self.level,self.slot_rand,self.brilliant]
+        row += [f"{self.ec:08X}",f"{self.pid:08X}",'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star'),self.natures[self.nature]]
+        if not self.hide_ability:
+            row += [self.ability]
+        row += [self.genders[self.gender],'/'.join(str(iv) for iv in self.ivs),self.mark]
+        return row
 
 
 def sym_xoroshiro128plus(sym_s0, sym_s1, result):

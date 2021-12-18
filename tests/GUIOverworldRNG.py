@@ -10,8 +10,8 @@ from tkinter import ttk
 sys.path.append('../')
 
 from nxreader import SWSHReader
-from rng import XOROSHIRO,OverworldRNG,Filter
-from gui import ChecklistCombobox,setup_styles
+from rng import XOROSHIRO,OverworldRNG,OverworldState,Filter
+from gui import ChecklistCombobox,DataGridView,setup_styles
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -55,7 +55,11 @@ class Application(tk.Frame):
         ttk.Label(self, text="Level:").grid(column=column,row=7)
         ttk.Label(self,text="Init:").grid(column=column,row=8)
         self.progress = ttk.Progressbar(self, orient=tk.HORIZONTAL, length=500, mode='determinate')
-        self.progress.grid(column=column,row=9,columnspan=15)
+        self.progress.grid(column=column,row=9,columnspan=19)
+        state = OverworldState()
+        state.is_static = False
+        self.data = DataGridView(self,height=10,columns=state.headings)
+        self.data.grid(column=column,row=10,columnspan=25)
 
         column += 1
         self.quit = ttk.Button(self, text="Disconnect", style="Disconnect.TButton", command=self.disconnect, width=15)
@@ -210,6 +214,15 @@ class Application(tk.Frame):
         self.spe_max = tk.Spinbox(self, from_= 0, to = 31, width = 5)
         self.spe_max.grid(column=column,row=7)
         self.spe_max['value'] = 31
+
+        # placeholder to pad width
+        column += 1
+        ttk.Label(self,text=" "*50).grid(column=column,row=1)
+        
+        column += 10
+        scrollbar = ttk.Scrollbar(self, orient=tk.VERTICAL, command=self.data.yview)
+        self.data.configure(yscroll=scrollbar.set)
+        scrollbar.grid(row=10, column=column, sticky='ns')
 
         self.toggle_static()
     
@@ -462,11 +475,19 @@ class Application(tk.Frame):
         self.progress_thread=threading.Thread(target=self.progress_work)
         self.progress_thread.daemon = True
         self.progress_thread.start()
+        first = True
         for self.current_gen in range(int(self.max_advance_var.get())+1):
             if not self.generating:
                 break
             state = self.predict.generate()
             if state:
+                if first:
+                    first = False
+                    self.data.clear()
+                    if not self.data['columns'] == tuple(state.headings):
+                        self.data['columns'] = state.headings
+                        self.data.set_columns()
+                self.data.insert('', tk.END, values=state.row)
                 print(state)
         self.stop_generating_work()
     
