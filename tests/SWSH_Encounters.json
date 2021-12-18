@@ -2,7 +2,7 @@
   "Sword": {
     "Static": {
       "Galar Mine No. 2": {
-        "All Weather": {
+        "Normal Weather": {
           "Stunfisk-1": {
             "Level": 25,
             "Ability": 0,
@@ -21,7 +21,7 @@
         }
       },
       "Slumbering Weald": {
-        "All Weather": {
+        "Normal Weather": {
           "Stunfisk-1": {
             "Level": 48,
             "Ability": -1,
@@ -30,7 +30,7 @@
         }
       },
       "Galar Mine": {
-        "All Weather": {
+        "Normal Weather": {
           "Woobat": {
             "Level": 16,
             "Ability": -1,
@@ -44,7 +44,7 @@
         }
       },
       "Route 2": {
-        "All Weather": {
+        "Normal Weather": {
           "Yamper": {
             "Level": 8,
             "Ability": -1,
@@ -73,7 +73,7 @@
         }
       },
       "Route 4": {
-        "All Weather": {
+        "Normal Weather": {
           "Diglett": {
             "Level": 17,
             "Ability": -1,
@@ -82,7 +82,7 @@
         }
       },
       "Route 5": {
-        "All Weather": {
+        "Normal Weather": {
           "Eldegoss": {
             "Level": 22,
             "Ability": -1,
@@ -91,7 +91,7 @@
         }
       },
       "Route 8": {
-        "All Weather": {
+        "Normal Weather": {
           "Crustle": {
             "Level": 40,
             "Ability": -1,
@@ -133,7 +133,7 @@
         }
       },
       "Turffield": {
-        "All Weather": {
+        "Normal Weather": {
           "Crawdaunt": {
             "Level": 50,
             "Ability": -1,
@@ -160,6 +160,11 @@
           },
           "Dubwool": {
             "Level": 65,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Vespiquen": {
+            "Level": 26,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -453,7 +458,7 @@
             "GuaranteedIVs": 0
           },
           "Diggersby": {
-            "Level": 26,
+            "Level": 15,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -530,8 +535,8 @@
             "GuaranteedIVs": 3
           }
         },
-        "All Weather": {
-          "Vespiquen": {
+        "Sandstorm}, // Diggersby in the Rolling Fields": {
+          "Diggersby": {
             "Level": 26,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -1103,6 +1108,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Lucario": {
+            "Level": 36,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Whiscash": {
             "Level": 46,
             "Ability": -1,
@@ -1273,13 +1283,6 @@
           },
           "Boltund": {
             "Level": 65,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "All Weather": {
-          "Lucario": {
-            "Level": 36,
             "Ability": -1,
             "GuaranteedIVs": 0
           }
@@ -2024,6 +2027,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Kingler": {
+            "Level": 28,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Drednaw": {
             "Level": 65,
             "Ability": -1,
@@ -2122,13 +2130,6 @@
             "Level": 70,
             "Ability": 0,
             "GuaranteedIVs": 3
-          }
-        },
-        "All Weather": {
-          "Kingler": {
-            "Level": 28,
-            "Ability": -1,
-            "GuaranteedIVs": 0
           }
         }
       },
@@ -2618,11 +2619,6 @@
           },
           "Beheeyem": {
             "Level": 42,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Noivern": {
-            "Level": 50,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -3127,6 +3123,13 @@
           },
           "Ferrothorn": {
             "Level": 40,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          }
+        },
+        "Snowstorm ": {
+          "Noivern": {
+            "Level": 50,
             "Ability": -1,
             "GuaranteedIVs": 0
           }
@@ -4044,6 +4047,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Rhydon": {
+            "Level": 46,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Bisharp": {
             "Level": 52,
             "Ability": -1,
@@ -4256,13 +4264,6 @@
             "GuaranteedIVs": 0
           },
           "Musharna": {
-            "Level": 46,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "All Weather": {
-          "Rhydon": {
             "Level": 46,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -5567,16 +5568,6 @@
             "Level": 41,
             "Ability": -1,
             "GuaranteedIVs": 0
-          },
-          "Klinklang": {
-            "Level": 49,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Abomasnow": {
-            "Level": 41,
-            "Ability": -1,
-            "GuaranteedIVs": 0
           }
         },
         "Sandstorm": {
@@ -5638,6 +5629,20 @@
             "GuaranteedIVs": 0
           },
           "Roserade": {
+            "Level": 41,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          }
+        },
+        "Snowstorm ": {
+          "Klinklang": {
+            "Level": 49,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          }
+        },
+        "Snowstorm}, // Abomasnow on the Hammerlocke Hills": {
+          "Abomasnow": {
             "Level": 41,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -5796,11 +5801,6 @@
         "Snowstorm": {
           "Glalie": {
             "Level": 46,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Gengar": {
-            "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -5969,6 +5969,13 @@
           },
           "Coalossal": {
             "Level": 65,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          }
+        },
+        "Snowstorm ": {
+          "Gengar": {
+            "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           }
@@ -6183,18 +6190,6 @@
             "Ability": 0,
             "GuaranteedIVs": 3
           }
-        },
-        "All Weather": {
-          "Ditto": {
-            "Level": 50,
-            "Ability": -1,
-            "GuaranteedIVs": 3
-          },
-          "Rotom": {
-            "Level": 50,
-            "Ability": -1,
-            "GuaranteedIVs": 3
-          }
         }
       },
       "Fields of Honor": {
@@ -6206,6 +6201,11 @@
           },
           "Kingler": {
             "Level": 20,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Comfey": {
+            "Level": 15,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -6378,13 +6378,6 @@
             "Level": 70,
             "Ability": 0,
             "GuaranteedIVs": 3
-          }
-        },
-        "All Weather": {
-          "Comfey": {
-            "Level": 15,
-            "Ability": -1,
-            "GuaranteedIVs": 0
           }
         },
         "Sandstorm": {
@@ -6672,6 +6665,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Rockruff": {
+            "Level": 15,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Quagsire": {
             "Level": 20,
             "Ability": -1,
@@ -6689,6 +6687,11 @@
           },
           "Lickilicky": {
             "Level": 27,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Lopunny": {
+            "Level": 22,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -6723,18 +6726,6 @@
             "Level": 70,
             "Ability": 0,
             "GuaranteedIVs": 3
-          }
-        },
-        "All Weather": {
-          "Rockruff": {
-            "Level": 15,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Lopunny": {
-            "Level": 22,
-            "Ability": -1,
-            "GuaranteedIVs": 0
           }
         }
       },
@@ -6831,6 +6822,11 @@
           },
           "Pikachu": {
             "Level": 22,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Passimian": {
+            "Level": 26,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -7002,19 +6998,17 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "All Weather": {
-          "Passimian": {
-            "Level": 26,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Challenge Beach": {
         "Normal Weather": {
           "Barraskewda": {
             "Level": 42,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Marill": {
+            "Level": 15,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -7382,13 +7376,6 @@
             "GuaranteedIVs": 3
           }
         },
-        "All Weather": {
-          "Marill": {
-            "Level": 15,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
         "Overcast": {
           "Malamar": {
             "Level": 29,
@@ -7716,6 +7703,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Stoutland": {
+            "Level": 42,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Kingler": {
             "Level": 28,
             "Ability": -1,
@@ -7752,13 +7744,6 @@
             "GuaranteedIVs": 0
           },
           "Barraskewda": {
-            "Level": 42,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "All Weather": {
-          "Stoutland": {
             "Level": 42,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -7823,7 +7808,7 @@
         }
       },
       "Brawlers' Cave": {
-        "All Weather": {
+        "Normal Weather": {
           "Poliwrath": {
             "Level": 36,
             "Ability": -1,
@@ -7854,15 +7839,13 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Whiscash": {
-            "Level": 42,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "Normal Weather": {
           "Rockruff": {
             "Level": 22,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Whiscash": {
+            "Level": 42,
             "Ability": -1,
             "GuaranteedIVs": 0
           }
@@ -7900,6 +7883,16 @@
         "Normal Weather": {
           "Rockruff": {
             "Level": 22,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Mienshao": {
+            "Level": 28,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Lycanroc": {
+            "Level": 32,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -7982,18 +7975,6 @@
             "GuaranteedIVs": 0
           }
         },
-        "All Weather": {
-          "Mienshao": {
-            "Level": 28,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Lycanroc": {
-            "Level": 32,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
         "Intense Sun": {
           "Salazzle": {
             "Level": 28,
@@ -8040,7 +8021,7 @@
         }
       },
       "Courageous Cavern": {
-        "All Weather": {
+        "Normal Weather": {
           "Whiscash": {
             "Level": 42,
             "Ability": -1,
@@ -8243,6 +8224,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Rockruff": {
+            "Level": 40,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Moltres-1": {
             "Level": 70,
             "Ability": 0,
@@ -8274,13 +8260,6 @@
             "Level": 70,
             "Ability": 0,
             "GuaranteedIVs": 3
-          }
-        },
-        "All Weather": {
-          "Rockruff": {
-            "Level": 40,
-            "Ability": -1,
-            "GuaranteedIVs": 0
           }
         },
         "Sandstorm": {
@@ -8703,12 +8682,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2642": {
+          "Nidoran\u00e2\u2122\u201a": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -8750,12 +8729,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2642": {
+          "Nidoran\u00e2\u2122\u201a": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -8856,12 +8835,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2642": {
+          "Nidoran\u00e2\u2122\u201a": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -8908,12 +8887,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2642": {
+          "Nidoran\u00e2\u2122\u201a": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -8960,12 +8939,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2642": {
+          "Nidoran\u00e2\u2122\u201a": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -9056,8 +9035,13 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Dubwool": {
+            "Level": 63,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -9071,8 +9055,23 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Eevee": {
+            "Level": 60,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Leafeon": {
+            "Level": 63,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Nidorino": {
             "Level": 63,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Conkeldurr": {
+            "Level": 65,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -9240,7 +9239,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -9342,7 +9341,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -9449,7 +9448,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -9703,11 +9702,6 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Polteageist": {
-            "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
           "Froslass": {
             "Level": 65,
             "Ability": -1,
@@ -9846,24 +9840,9 @@
             "GuaranteedIVs": 0
           }
         },
-        "All Weather": {
-          "Dubwool": {
+        "Snowstorm ": {
+          "Polteageist": {
             "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Eevee": {
-            "Level": 60,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Leafeon": {
-            "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Conkeldurr": {
-            "Level": 65,
             "Ability": -1,
             "GuaranteedIVs": 0
           }
@@ -9978,11 +9957,6 @@
             "Ability": 0,
             "GuaranteedIVs": 3
           },
-          "Polteageist": {
-            "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
           "Froslass": {
             "Level": 65,
             "Ability": -1,
@@ -10000,6 +9974,13 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Polteageist": {
+            "Level": 63,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          }
+        },
+        "Snowstorm ": {
           "Polteageist": {
             "Level": 63,
             "Ability": -1,
@@ -11599,6 +11580,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Conkeldurr": {
+            "Level": 67,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Omanyte": {
             "Level": 63,
             "Ability": -1,
@@ -11843,13 +11829,6 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "All Weather": {
-          "Conkeldurr": {
-            "Level": 67,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Path to the Peak": {
@@ -11882,6 +11861,11 @@
             "Level": 65,
             "Ability": -1,
             "GuaranteedIVs": 0
+          },
+          "Druddigon": {
+            "Level": 65,
+            "Ability": -1,
+            "GuaranteedIVs": 0
           }
         },
         "Intense Sun": {
@@ -11905,13 +11889,6 @@
         },
         "Heavy Fog": {
           "Frosmoth": {
-            "Level": 65,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "All Weather": {
-          "Druddigon": {
             "Level": 65,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -42284,7 +42261,7 @@
   "Shield": {
     "Static": {
       "Galar Mine No. 2": {
-        "All Weather": {
+        "Normal Weather": {
           "Stunfisk-1": {
             "Level": 25,
             "Ability": 0,
@@ -42303,7 +42280,7 @@
         }
       },
       "Slumbering Weald": {
-        "All Weather": {
+        "Normal Weather": {
           "Stunfisk-1": {
             "Level": 48,
             "Ability": -1,
@@ -42312,7 +42289,7 @@
         }
       },
       "Galar Mine": {
-        "All Weather": {
+        "Normal Weather": {
           "Woobat": {
             "Level": 16,
             "Ability": -1,
@@ -42326,7 +42303,7 @@
         }
       },
       "Route 2": {
-        "All Weather": {
+        "Normal Weather": {
           "Yamper": {
             "Level": 8,
             "Ability": -1,
@@ -42355,7 +42332,7 @@
         }
       },
       "Route 4": {
-        "All Weather": {
+        "Normal Weather": {
           "Diglett": {
             "Level": 17,
             "Ability": -1,
@@ -42364,7 +42341,7 @@
         }
       },
       "Route 5": {
-        "All Weather": {
+        "Normal Weather": {
           "Eldegoss": {
             "Level": 22,
             "Ability": -1,
@@ -42373,7 +42350,7 @@
         }
       },
       "Route 8": {
-        "All Weather": {
+        "Normal Weather": {
           "Crustle": {
             "Level": 40,
             "Ability": -1,
@@ -42415,7 +42392,7 @@
         }
       },
       "Turffield": {
-        "All Weather": {
+        "Normal Weather": {
           "Crawdaunt": {
             "Level": 50,
             "Ability": -1,
@@ -42442,6 +42419,11 @@
           },
           "Dubwool": {
             "Level": 65,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Vespiquen": {
+            "Level": 26,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -42735,7 +42717,7 @@
             "GuaranteedIVs": 0
           },
           "Diggersby": {
-            "Level": 26,
+            "Level": 15,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -42812,8 +42794,8 @@
             "GuaranteedIVs": 3
           }
         },
-        "All Weather": {
-          "Vespiquen": {
+        "Sandstorm}, // Diggersby in the Rolling Fields": {
+          "Diggersby": {
             "Level": 26,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -43385,6 +43367,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Lucario": {
+            "Level": 36,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Whiscash": {
             "Level": 46,
             "Ability": -1,
@@ -43555,13 +43542,6 @@
           },
           "Boltund": {
             "Level": 65,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "All Weather": {
-          "Lucario": {
-            "Level": 36,
             "Ability": -1,
             "GuaranteedIVs": 0
           }
@@ -44306,6 +44286,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Kingler": {
+            "Level": 28,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Drednaw": {
             "Level": 65,
             "Ability": -1,
@@ -44404,13 +44389,6 @@
             "Level": 70,
             "Ability": 0,
             "GuaranteedIVs": 3
-          }
-        },
-        "All Weather": {
-          "Kingler": {
-            "Level": 28,
-            "Ability": -1,
-            "GuaranteedIVs": 0
           }
         }
       },
@@ -44900,11 +44878,6 @@
           },
           "Beheeyem": {
             "Level": 42,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Noivern": {
-            "Level": 50,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -45409,6 +45382,13 @@
           },
           "Ferrothorn": {
             "Level": 40,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          }
+        },
+        "Snowstorm ": {
+          "Noivern": {
+            "Level": 50,
             "Ability": -1,
             "GuaranteedIVs": 0
           }
@@ -46326,6 +46306,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Rhydon": {
+            "Level": 46,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Bisharp": {
             "Level": 52,
             "Ability": -1,
@@ -46538,13 +46523,6 @@
             "GuaranteedIVs": 0
           },
           "Musharna": {
-            "Level": 46,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "All Weather": {
-          "Rhydon": {
             "Level": 46,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -47849,16 +47827,6 @@
             "Level": 41,
             "Ability": -1,
             "GuaranteedIVs": 0
-          },
-          "Klinklang": {
-            "Level": 49,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Abomasnow": {
-            "Level": 41,
-            "Ability": -1,
-            "GuaranteedIVs": 0
           }
         },
         "Sandstorm": {
@@ -47920,6 +47888,20 @@
             "GuaranteedIVs": 0
           },
           "Roserade": {
+            "Level": 41,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          }
+        },
+        "Snowstorm ": {
+          "Klinklang": {
+            "Level": 49,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          }
+        },
+        "Snowstorm}, // Abomasnow on the Hammerlocke Hills": {
+          "Abomasnow": {
             "Level": 41,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -48078,11 +48060,6 @@
         "Snowstorm": {
           "Glalie": {
             "Level": 46,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Gengar": {
-            "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -48251,6 +48228,13 @@
           },
           "Coalossal": {
             "Level": 65,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          }
+        },
+        "Snowstorm ": {
+          "Gengar": {
+            "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           }
@@ -48465,18 +48449,6 @@
             "Ability": 0,
             "GuaranteedIVs": 3
           }
-        },
-        "All Weather": {
-          "Ditto": {
-            "Level": 50,
-            "Ability": -1,
-            "GuaranteedIVs": 3
-          },
-          "Rotom": {
-            "Level": 50,
-            "Ability": -1,
-            "GuaranteedIVs": 3
-          }
         }
       },
       "Fields of Honor": {
@@ -48488,6 +48460,11 @@
           },
           "Kingler": {
             "Level": 20,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Comfey": {
+            "Level": 15,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -48660,13 +48637,6 @@
             "Level": 70,
             "Ability": 0,
             "GuaranteedIVs": 3
-          }
-        },
-        "All Weather": {
-          "Comfey": {
-            "Level": 15,
-            "Ability": -1,
-            "GuaranteedIVs": 0
           }
         },
         "Sandstorm": {
@@ -48954,6 +48924,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Rockruff": {
+            "Level": 15,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Quagsire": {
             "Level": 20,
             "Ability": -1,
@@ -48971,6 +48946,11 @@
           },
           "Lickilicky": {
             "Level": 27,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Lopunny": {
+            "Level": 22,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -49005,18 +48985,6 @@
             "Level": 70,
             "Ability": 0,
             "GuaranteedIVs": 3
-          }
-        },
-        "All Weather": {
-          "Rockruff": {
-            "Level": 15,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Lopunny": {
-            "Level": 22,
-            "Ability": -1,
-            "GuaranteedIVs": 0
           }
         }
       },
@@ -49113,6 +49081,11 @@
           },
           "Pikachu": {
             "Level": 22,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Oranguru": {
+            "Level": 26,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -49284,19 +49257,17 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "All Weather": {
-          "Oranguru": {
-            "Level": 26,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Challenge Beach": {
         "Normal Weather": {
           "Barraskewda": {
             "Level": 42,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Marill": {
+            "Level": 15,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -49664,13 +49635,6 @@
             "GuaranteedIVs": 3
           }
         },
-        "All Weather": {
-          "Marill": {
-            "Level": 15,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
         "Overcast": {
           "Malamar": {
             "Level": 29,
@@ -49993,6 +49957,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Stoutland": {
+            "Level": 42,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Kingler": {
             "Level": 28,
             "Ability": -1,
@@ -50029,13 +49998,6 @@
             "GuaranteedIVs": 0
           },
           "Barraskewda": {
-            "Level": 42,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "All Weather": {
-          "Stoutland": {
             "Level": 42,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -50100,7 +50062,7 @@
         }
       },
       "Brawlers' Cave": {
-        "All Weather": {
+        "Normal Weather": {
           "Poliwrath": {
             "Level": 36,
             "Ability": -1,
@@ -50131,15 +50093,13 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Whiscash": {
-            "Level": 42,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "Normal Weather": {
           "Rockruff": {
             "Level": 22,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Whiscash": {
+            "Level": 42,
             "Ability": -1,
             "GuaranteedIVs": 0
           }
@@ -50191,6 +50151,16 @@
         "Normal Weather": {
           "Rockruff": {
             "Level": 22,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Mienshao": {
+            "Level": 28,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Lycanroc": {
+            "Level": 32,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -50311,22 +50281,10 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "All Weather": {
-          "Mienshao": {
-            "Level": 28,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Lycanroc": {
-            "Level": 32,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Courageous Cavern": {
-        "All Weather": {
+        "Normal Weather": {
           "Whiscash": {
             "Level": 42,
             "Ability": -1,
@@ -50529,6 +50487,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Rockruff": {
+            "Level": 40,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Moltres-1": {
             "Level": 70,
             "Ability": 0,
@@ -50560,13 +50523,6 @@
             "Level": 70,
             "Ability": 0,
             "GuaranteedIVs": 3
-          }
-        },
-        "All Weather": {
-          "Rockruff": {
-            "Level": 40,
-            "Ability": -1,
-            "GuaranteedIVs": 0
           }
         },
         "Sandstorm": {
@@ -50989,12 +50945,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2642": {
+          "Nidoran\u00e2\u2122\u201a": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51036,12 +50992,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2642": {
+          "Nidoran\u00e2\u2122\u201a": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51142,12 +51098,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2642": {
+          "Nidoran\u00e2\u2122\u201a": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51194,12 +51150,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2642": {
+          "Nidoran\u00e2\u2122\u201a": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51246,12 +51202,12 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2642": {
+          "Nidoran\u00e2\u2122\u201a": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51342,8 +51298,13 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Dubwool": {
+            "Level": 63,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -51357,8 +51318,23 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Eevee": {
+            "Level": 60,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Leafeon": {
+            "Level": 63,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Nidorino": {
             "Level": 63,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
+          "Conkeldurr": {
+            "Level": 65,
             "Ability": -1,
             "GuaranteedIVs": 0
           },
@@ -51526,7 +51502,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51628,7 +51604,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51735,7 +51711,7 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Nidoran\u2640": {
+          "Nidoran\u00e2\u2122\u20ac": {
             "Level": 60,
             "Ability": -1,
             "GuaranteedIVs": 0
@@ -51989,11 +51965,6 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
-          "Polteageist": {
-            "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
           "Froslass": {
             "Level": 65,
             "Ability": -1,
@@ -52132,24 +52103,9 @@
             "GuaranteedIVs": 0
           }
         },
-        "All Weather": {
-          "Dubwool": {
+        "Snowstorm ": {
+          "Polteageist": {
             "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Eevee": {
-            "Level": 60,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Leafeon": {
-            "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
-          "Conkeldurr": {
-            "Level": 65,
             "Ability": -1,
             "GuaranteedIVs": 0
           }
@@ -52264,11 +52220,6 @@
             "Ability": 0,
             "GuaranteedIVs": 3
           },
-          "Polteageist": {
-            "Level": 63,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          },
           "Froslass": {
             "Level": 65,
             "Ability": -1,
@@ -52293,6 +52244,13 @@
           },
           "Rapidash-1": {
             "Level": 67,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          }
+        },
+        "Snowstorm ": {
+          "Polteageist": {
+            "Level": 63,
             "Ability": -1,
             "GuaranteedIVs": 0
           }
@@ -53920,6 +53878,11 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           },
+          "Conkeldurr": {
+            "Level": 67,
+            "Ability": -1,
+            "GuaranteedIVs": 0
+          },
           "Kabuto": {
             "Level": 63,
             "Ability": -1,
@@ -54164,13 +54127,6 @@
             "Ability": -1,
             "GuaranteedIVs": 0
           }
-        },
-        "All Weather": {
-          "Conkeldurr": {
-            "Level": 67,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
         }
       },
       "Path to the Peak": {
@@ -54203,6 +54159,11 @@
             "Level": 65,
             "Ability": -1,
             "GuaranteedIVs": 0
+          },
+          "Druddigon": {
+            "Level": 65,
+            "Ability": -1,
+            "GuaranteedIVs": 0
           }
         },
         "Intense Sun": {
@@ -54226,13 +54187,6 @@
         },
         "Heavy Fog": {
           "Frosmoth": {
-            "Level": 65,
-            "Ability": -1,
-            "GuaranteedIVs": 0
-          }
-        },
-        "All Weather": {
-          "Druddigon": {
             "Level": 65,
             "Ability": -1,
             "GuaranteedIVs": 0
