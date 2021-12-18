@@ -54,8 +54,8 @@ class Application(tk.Frame):
         ttk.Label(self,text="Species:").grid(column=column,row=6)
         ttk.Label(self, text="Level:").grid(column=column,row=7)
         ttk.Label(self,text="Init:").grid(column=column,row=8)
-        self.progress = ttk.Progressbar(self, orient=tk.HORIZONTAL, length=500, mode='determinate')
-        self.progress.grid(column=column,row=9,columnspan=19)
+        self.progress = ttk.Progressbar(self, orient=tk.HORIZONTAL, length=1000, mode='determinate')
+        self.progress.grid(column=column,row=9,columnspan=25)
         state = OverworldState()
         state.is_static = False
         self.data = DataGridView(self,height=10,columns=state.headings)
