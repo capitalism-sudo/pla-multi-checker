@@ -343,9 +343,6 @@ class Application(tk.Frame):
             self.is_shiny_locked_var.set(1)
         else:
             self.is_shiny_locked_var.set(0)
-        # should probably have an option in generator but birds are unaffected by mark charm
-        if species in ["Articuno-1","Zapdos-1","Moltres-1"]:
-            self.mark_charm_var.set(0)
         self.toggle_static()
 
     def generate(self):
