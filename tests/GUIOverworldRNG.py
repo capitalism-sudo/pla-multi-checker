@@ -58,7 +58,8 @@ class Application(tk.Frame):
         self.progress.grid(column=column,row=9,columnspan=25)
         state = OverworldState()
         state.is_static = False
-        self.data = DataGridView(self,height=10,columns=state.headings)
+        headings = state.headings
+        self.data = DataGridView(self,height=10,columns=headings[0],sizes=headings[1])
         self.data.grid(column=column,row=10,columnspan=25)
 
         column += 1
@@ -214,6 +215,28 @@ class Application(tk.Frame):
         self.spe_max = tk.Spinbox(self, from_= 0, to = 31, width = 5)
         self.spe_max.grid(column=column,row=7)
         self.spe_max['value'] = 31
+
+        column += 1
+        ttk.Label(self,text="Height:").grid(column=column,row=2)
+        ttk.Label(self,text="Weight:").grid(column=column,row=3)
+
+        column += 1
+        self.height_min = tk.Spinbox(self, from_ = 0, to = 255, width = 8)
+        self.height_min.grid(column=column,row=2)
+        self.weight_min = tk.Spinbox(self, from_ = 0, to = 255, width = 8)
+        self.weight_min.grid(column=column,row=3)
+
+        column += 1
+        ttk.Label(self,text="~").grid(column=column,row=2)
+        ttk.Label(self,text="~").grid(column=column,row=3)
+
+        column += 1
+        self.height_max = tk.Spinbox(self, from_ = 0, to = 255, width = 8)
+        self.height_max.grid(column=column,row=2)
+        self.weight_max = tk.Spinbox(self, from_ = 0, to = 255, width = 8)
+        self.weight_max.grid(column=column,row=3)
+        self.height_max['value'] = 255
+        self.weight_max['value'] = 255
 
         # placeholder to pad width
         column += 1
@@ -396,7 +419,11 @@ class Application(tk.Frame):
             brilliant=self.brilliant_var.get(),
             iv_min=iv_min,
             iv_max=iv_max,
-            gender=gender
+            gender=gender,
+            weight_min=int(self.weight_min.get()),
+            weight_max=int(self.weight_max.get()),
+            height_min=int(self.height_min.get()),
+            height_max=int(self.height_max.get())
             )
         self.predict = OverworldRNG(
             seed = self.initial if self.min_shown else self.rng.state,
@@ -484,8 +511,10 @@ class Application(tk.Frame):
                 if first:
                     first = False
                     self.data.clear()
-                    if not self.data['columns'] == tuple(state.headings):
-                        self.data['columns'] = state.headings
+                    if not self.data['columns'] == tuple(state.headings[0]):
+                        headings = state.headings
+                        self.data['columns'] = headings[0]
+                        self.data.sizes = headings[1]
                         self.data.set_columns()
                 self.data.insert('', tk.END, values=state.row)
                 print(state)

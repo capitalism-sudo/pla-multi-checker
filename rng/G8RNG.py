@@ -5,7 +5,7 @@ class Filter:
     nature_list = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
     shiny_list = ["Star","Square","Star/Square"]
 
-    def __init__(self,iv_min=None,iv_max=None,abilities=None,shininess=None,slot_min=None,slot_max=None,natures=None,marks=None,brilliant=None,gender=None):
+    def __init__(self,iv_min=None,iv_max=None,abilities=None,shininess=None,slot_min=None,slot_max=None,natures=None,marks=None,brilliant=None,gender=None,height_min=None,height_max=None,weight_min=None,weight_max=None):
         self.iv_min = iv_min
         self.iv_max = iv_max
         self.abilities = abilities
@@ -16,6 +16,10 @@ class Filter:
         self.marks = marks
         self.brilliant = brilliant
         self.gender = gender
+        self.height_min = height_min
+        self.height_max = height_max
+        self.weight_min = weight_min
+        self.weight_max = weight_max
     
     def compare_ivs(self,state):
         if self.iv_min != None:
@@ -30,6 +34,10 @@ class Filter:
     def compare_fixed(self,state):
         if self.shininess == 0 and state.xor == 0:
             return False
+            
+        if not self.weight_min == None and not (self.weight_min <= state.weight <= self.weight_max and self.height_min <= state.height <= self.height_max):
+            return False
+            
         return self.compare_ivs(state)
     
     def compare_slot(self,state):
@@ -123,6 +131,7 @@ class XOROSHIRO(object):
         
         models = get_models(solver)
         return [ model[start_s0].as_long() for model in models ]
+
 
 class Xorshift:
     def __init__(self, state0, state1, state2, state3):
@@ -261,7 +270,7 @@ class OverworldRNG:
 
         state.fixed_seed = go.nextuint()
         
-        state.ec, state.pid, state.ivs = OverworldRNG.calculate_fixed(state.fixed_seed,self.tsv,shiny,self.flawless_ivs + brilliant_ivs)
+        state.ec, state.pid, state.ivs, state.height, state.weight = OverworldRNG.calculate_fixed(state.fixed_seed,self.tsv,shiny,self.flawless_ivs + brilliant_ivs)
         state.xor = (((state.pid >> 16) ^ (state.pid & 0xFFFF)) ^ self.tsv)
         if not self.filter.compare_fixed(state):
             return
@@ -312,7 +321,10 @@ class OverworldRNG:
             if ivs[i] == 32:
                 ivs[i] = rng.rand(32)
 
-        return [ec,pid,ivs]
+        height = rng.rand(0x81) + rng.rand(0x80)
+        weight = rng.rand(0x81) + rng.rand(0x80)
+
+        return [ec,pid,ivs,height,weight]
     
     @staticmethod
     def rand_mark(go,weather_active,is_fishing,mark_charm):
@@ -341,7 +353,7 @@ class OverworldRNG:
 
     @staticmethod
     def calculateFromPKM(pkm):
-        return OverworldRNG.calculate_fixed(pkm.seed,pkm.tid ^ pkm.sid,pkm.setShininess != 3,pkm.setIVs)
+        return OverworldRNG.calculate_fixed(pkm.seed,pkm.tid ^ pkm.sid,pkm.setShininess != 3,pkm.setIVs)[:3]
 
 
 class BDSPStationaryGenerator:
@@ -782,23 +794,30 @@ class OverworldState:
         self.xor = 0
         self.ivs = [32]*6
         self.gender = 2
+        self.height = -1
+        self.weight = -1
         
     def __str__(self):
         if self.is_static:
-            return f"{self.advance} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {str(self.ability)+' ' if not self.hide_ability else ''}{self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
+            return f"{self.advance} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {str(self.ability)+' ' if not self.hide_ability else ''}{self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark} {self.height}/{self.weight}"
         else:
-            return f"{self.advance} {self.level} {self.slot_rand} {'Brilliant! ' if self.brilliant else ''}{self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {str(self.ability)+' ' if not self.hide_ability else ''}{self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark}"
+            return f"{self.advance} {self.level} {self.slot_rand} {'Brilliant! ' if self.brilliant else ''}{self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {str(self.ability)+' ' if not self.hide_ability else ''}{self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark} {self.height}/{self.weight}"
     
     @property
     def headings(self):
+        sizes = [100]
         headings = ["Advance"]
         if not self.is_static:
             headings += ["Level","Slot Rand","Aura"]
+            sizes += [80,80,80]
         headings += ["EC","PID","Shiny","Nature"]
+        sizes += [100,100,60,60]
         if not self.hide_ability:
             headings += ["Ability"]
-        headings += ["Gender","IVs","Mark"]
-        return headings
+            sizes += [60]
+        headings += ["Gender","IVs","Mark","Height","Weight"]
+        sizes += [60,100,60,60,60]
+        return [headings,sizes]
     
     @property
     def row(self):
@@ -808,7 +827,7 @@ class OverworldState:
         row += [f"{self.ec:08X}",f"{self.pid:08X}",'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star'),self.natures[self.nature]]
         if not self.hide_ability:
             row += [self.ability]
-        row += [self.genders[self.gender],'/'.join(str(iv) for iv in self.ivs),self.mark]
+        row += [self.genders[self.gender],'/'.join(str(iv) for iv in self.ivs),self.mark,self.height,self.weight]
         return row
 
 
