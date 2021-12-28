@@ -21,17 +21,23 @@ rng = Xorshift(int.from_bytes(state[0:4],"little"), int.from_bytes(state[4:8],"l
 seed = rng.seed
 advances = 0
 print("Initial Seed")
+print(f"S[01]: {rng.seed[0]:08X}{rng.seed[1]:08X}\tS[23]: {rng.seed[2]:08X}{rng.seed[3]:08X}")
 print(f"S[0]: {seed[0]:08X}\tS[1]: {seed[1]:08X}\nS[2]: {seed[2]:08X}\tS[3]: {seed[3]:08X}")
 print()
 print(f"Advances: {advances}\n")
 
 while True:
     state = int.from_bytes(reader.readRNG(),"little")
+    change = 0
     while rng.state != state:
         rng.next()
-        advances += 1
+        change += 1
         if rng.state == state:
+            advances += change
             print("Current Seed")
+            print(f"S[01]: {rng.seed[0]:08X}{rng.seed[1]:08X}\tS[23]: {rng.seed[2]:08X}{rng.seed[3]:08X}")
             print(f"S[0]: {rng.seed[0]:08X}\tS[1]: {rng.seed[1]:08X}\nS[2]: {rng.seed[2]:08X}\tS[3]: {rng.seed[3]:08X}")
             print()
-            print(f"Advances: {advances}\n")
+            print(f"Advances: {advances}")
+            print(f"\t+ {change}\n")
+    reader.pause(1.018)
