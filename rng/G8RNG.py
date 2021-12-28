@@ -359,7 +359,7 @@ class OverworldRNG:
 class BDSPStationaryGenerator:
     # TODO: filter/state usage
     def __init__(self,seed=0,tid=0,sid=0,flawless_ivs=0):
-        self.rng = Xorshift(seed >> 96, (seed >> 64) & 0xFFFFFFFF, (seed >> 32) & 0xFFFFFFFF)
+        self.rng = Xorshift(seed >> 96, (seed >> 64) & 0xFFFFFFFF, (seed >> 32) & 0xFFFFFFFF, seed & 0xFFFFFFFF)
         self.tid = tid
         self.sid = sid
         self.flawless_ivs = flawless_ivs
@@ -407,8 +407,8 @@ class BDSPStationaryGenerator:
 
 class BDSPIDGenerator:
     # TODO: filter/state usage
-    def __init__(self,seed=0):
-        self.rng = Xorshift(seed >> 96, (seed >> 64) & 0xFFFFFFFF, (seed >> 32) & 0xFFFFFFFF)
+    def __init__(self,seed):
+        self.rng = Xorshift(*seed)
     
     def generate(self):
         # main rng call because there is only 1 used

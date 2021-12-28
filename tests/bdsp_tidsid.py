@@ -4,7 +4,7 @@ import sys
 import json
 sys.path.append('../')
 
-from rng import Xorshift
+from rng import Xorshift,BDSPIDGenerator
 from nxreader import BDSPReader
 
 config = json.load(open("../config.json"))
@@ -16,22 +16,21 @@ def signal_handler(signal, advances): #CTRL+C handler
 
 signal.signal(signal.SIGINT, signal_handler)
 
+# list of g8tids to filter for
+filter = [
+123456,
+654321,
+777000,
+]
+
+
 state = reader.readRNG()
 rng = Xorshift(int.from_bytes(state[0:4],"little"), int.from_bytes(state[4:8],"little"), int.from_bytes(state[8:12],"little"), int.from_bytes(state[12:16],"little"))
 seed = rng.seed
-advances = 0
 print("Initial Seed")
 print(f"S[0]: {seed[0]:08X}\tS[1]: {seed[1]:08X}\nS[2]: {seed[2]:08X}\tS[3]: {seed[3]:08X}")
-print()
-print(f"Advances: {advances}\n")
-
-while True:
-    state = int.from_bytes(reader.readRNG(),"little")
-    while rng.state != state:
-        rng.next()
-        advances += 1
-        if rng.state == state:
-            print("Current Seed")
-            print(f"S[0]: {rng.seed[0]:08X}\tS[1]: {rng.seed[1]:08X}\nS[2]: {rng.seed[2]:08X}\tS[3]: {rng.seed[3]:08X}")
-            print()
-            print(f"Advances: {advances}\n")
+gen = BDSPIDGenerator(seed)
+for adv in range(500):
+    sidtid,tid,sid,g8tid,tsv = gen.generate()
+    if g8tid in filter:
+        print(f"{adv} {g8tid:06d} {sidtid:08X} {tid:05d}/{sid:05d} {tsv:04d}")

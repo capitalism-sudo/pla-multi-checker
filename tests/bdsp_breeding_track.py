@@ -18,7 +18,7 @@ def signal_handler(signal, advances): #CTRL+C handler
 signal.signal(signal.SIGINT, signal_handler)
 
 state = reader.readRNG()
-rng = Xorshift(state >> 96, (state >> 64) & 0xFFFFFFFF, (state >> 32) & 0xFFFFFFFF, state & 0xFFFFFFFF)
+rng = Xorshift(int.from_bytes(state[0:4],"little"), int.from_bytes(state[4:8],"little"), int.from_bytes(state[8:12],"little"), int.from_bytes(state[12:16],"little"))
 seed = rng.seed
 advances = 0
 print("Initial Seed")
@@ -33,7 +33,7 @@ egg_steps = daycare.steps()
 print(f"Is egg ready? {egg_ready}\nEgg Seed: {egg_seed:08X}\nSteps for next egg: {180 - egg_steps}\n\n")
 
 while True:
-    state = reader.readRNG()
+    state = int.from_bytes(reader.readRNG(),"little")
     daycare = Daycare8b(reader.readDaycare())
     egg_ready = "Yes" if daycare.present() else "No"
     egg_seed = daycare.seed()

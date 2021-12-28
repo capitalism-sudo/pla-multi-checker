@@ -364,13 +364,13 @@ class BDSPReader(NXReader):
         pass
 
     def readTrainerBlock(self):
-        return self.read_pointer("[[[[[[main+4E60170]+18]+C0]+28]+B8]]+E8", 8)
+        return self.read_pointer("[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+E8", 8)
     
     def readDaycare(self):
-        return self.read_pointer("[[[[[[main+4E60170]+18]+C0]+28]+B8]]+458", 17)
+        return self.read_pointer("[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+458", 17)
     
     def readWild(self):
         pass
 
     def readRNG(self):
-        return self.read_pointer("[main+4F8CCD0]",16)
+        return self.read_pointer("[main+4FB2050]",16)
