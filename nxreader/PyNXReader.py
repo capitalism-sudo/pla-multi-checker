@@ -374,3 +374,6 @@ class BDSPReader(NXReader):
 
     def readRNG(self):
         return self.read_pointer("[main+4FB2050]",16)
+    
+    def readGroupSeed(self,index):
+        return self.read_pointer(f"[[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+348]+{((index * 0x38) + 0x40):X}",8) 

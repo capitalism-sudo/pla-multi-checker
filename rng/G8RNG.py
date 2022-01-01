@@ -160,6 +160,59 @@ class Xorshift:
         return f"S[0]: {self.seed[0]:08X}  S[1]: {self.seed[1]:08X}  S[2]: {self.seed[2]:08X}  S[3]: {self.seed[3]:08X}"
 
 
+class LCRNG:
+    # template
+    mult = 0x0
+    add = 0x0
+    reversed = False
+    size = 32
+
+    def __init__(self, seed):
+        # lazy way of generating bit mask
+        self.mask = (2 << (self.size - 1)) - 1
+        # reverse if needed
+        if self.reversed:
+            self.mult, self.add = self.reverse()
+        self.seed = seed
+
+    def reverse(self):
+        # extended euclids algorithm thing to get your reverse mult
+        def find_reverse_mult(mult, limit): 
+            if mult == 0:
+                return 0,1
+            x1,y1 = find_reverse_mult(limit%mult, mult)
+            x = y1 - (limit//mult) * x1
+            y = x1
+            
+            return x,y
+
+        # simple way to find the reverse add, this effectively subtracts the normal add after being multiplied by the reverse_mult
+        def find_reverse_add(add,reverse_mult):
+            return ((-add * reverse_mult) & self.mask)
+
+        reverse_mult, _ = find_reverse_mult(self.mult, self.mask + 1)
+        reverse_mult &= self.mask
+        reverse_add = find_reverse_add(self.add, reverse_mult)
+
+        return reverse_mult, reverse_add
+
+    def next(self):
+        self.seed = (self.seed * self.mult + self.add) & self.mask
+        return self.seed
+
+    def nextHigh(self, size = 16):
+        # get highest bits of size
+        return self.next() >> (self.size-size)
+
+    def nextFloat(self, size = 16):
+        # divide by max + 1 to get a float
+        return self.nextHigh(size) / (2<<size)
+
+    def advance(self, advances):
+        for _ in range(advances):
+            self.next()
+
+
 class OverworldRNG:
     personality_marks = ["Rowdy","AbsentMinded","Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry","Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling","Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny","Vigor","Slump"]
     
