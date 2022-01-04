@@ -26,6 +26,15 @@ print(f"S[0]: {seed[0]:08X}\tS[1]: {seed[1]:08X}\nS[2]: {seed[2]:08X}\tS[3]: {se
 print()
 print(f"Advances: {advances}\n")
 
+target = input("Target Frame? (enter for None): ")
+mod = None
+
+if target != '':
+    target = int(target)
+    mod = int(input("Modulo: "))
+else: 
+    target = None
+
 while True:
     state = int.from_bytes(reader.readRNG(),"little")
     change = 0
@@ -40,4 +49,6 @@ while True:
             print()
             print(f"Advances: {advances}")
             print(f"\t+ {change}\n")
-    reader.pause(1.018)
+            if target is not None:
+                print(f"{target-advances} to target, {(target-advances)%mod} away from a multiple of mod") 
+    reader.pause(0.3)
