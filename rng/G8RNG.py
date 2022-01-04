@@ -156,6 +156,10 @@ class Xorshift:
     def rand(self,mod=0x100000000):
         return self.next() % mod
     
+    def randrange_float(self,min,max):
+        t = (self.rand() & 0x7fffff) / 8388607.0
+        return t * min + (1.0 - t) * max
+    
     def __str__(self):
         return f"S[0]: {self.seed[0]:08X}  S[1]: {self.seed[1]:08X}  S[2]: {self.seed[2]:08X}  S[3]: {self.seed[3]:08X}"
 
