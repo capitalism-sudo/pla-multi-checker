@@ -372,6 +372,9 @@ class BDSPReader(NXReader):
     def readWild(self):
         return self.read_pointer("[[[[[[[[[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+7E8]+58]+28]+10]+20]+20]+18]+20",self.PK8bSTOREDSIZE)
 
+    def readParty(self,index):
+        return self.read_pointer(f"[[[[[[[[[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+7F0]+10]+{(0x20+8*index):X}]+20]+18]+20",self.PK8bSTOREDSIZE)
+
     def readRNG(self):
         return self.read_pointer("[main+4FB2050]",16)
     
