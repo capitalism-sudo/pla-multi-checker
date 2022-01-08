@@ -18,7 +18,7 @@ def signal_handler(signal, advances): #CTRL+C handler
 signal.signal(signal.SIGINT, signal_handler)
 
 while True:
-    pk8 = PK8(reader.readParty(1))
+    pk8 = PK8(reader.readParty(0))
     if pk8.isValid and pk8.ec != 0:
         print(pk8)
     else:

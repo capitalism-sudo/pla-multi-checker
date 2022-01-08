@@ -23,6 +23,7 @@ advances = 0
 print("Initial Seed")
 print(f"S[01]: {rng.seed[0]:08X}{rng.seed[1]:08X}\tS[23]: {rng.seed[2]:08X}{rng.seed[3]:08X}")
 print(f"S[0]: {seed[0]:08X}\tS[1]: {seed[1]:08X}\nS[2]: {seed[2]:08X}\tS[3]: {seed[3]:08X}")
+print(f"{rng.seed[0]:08X}\n{rng.seed[1]:08X}\n{rng.seed[2]:08X}\n{rng.seed[3]:08X}")
 print()
 print(f"Advances: {advances}\n")
 

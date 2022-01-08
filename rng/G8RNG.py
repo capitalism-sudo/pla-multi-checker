@@ -160,11 +160,11 @@ class Xorshift:
         t ^= t << 22 & 0xFFFFFFFF
         self.seed = [t] + self.seed[0:3]
     
-    def rand(self,max=0xFFFFFFFF,min=None):
+    def rand(self,max=0x7FFFFFFF,min=None):
         if min is None:
             min = 0
-            if max == 0xFFFFFFFF:
-                min = 0x80000000
+            if max == 0x7FFFFFFF:
+                min = -0x7FFFFFFF - 1
         return (self.next() % (max-min)) + min
     
     def randrange_float(self,min,max):
