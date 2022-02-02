@@ -2,7 +2,7 @@
 import signal
 import sys
 import json
-sys.path.append('../')
+sys.path.append('../../')
 
 from rng import LCRNG
 from nxreader import BDSPReader
@@ -12,7 +12,7 @@ class ARNG64(LCRNG):
     add = 1
     size = 64
 
-config = json.load(open("../config.json"))
+config = json.load(open("../../config.json"))
 reader = BDSPReader(config["IP"],usb_connection=config["USB"])
 
 def signal_handler(signal, advances): #CTRL+C handler

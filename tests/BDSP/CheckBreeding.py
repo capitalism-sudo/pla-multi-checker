@@ -2,13 +2,13 @@
 import signal
 import sys
 import json
-sys.path.append('../')
+sys.path.append('../../')
 
 from rng import Xorshift
 from nxreader import BDSPReader
 from structure import Daycare8b
 
-config = json.load(open("../config.json"))
+config = json.load(open("../../config.json"))
 reader = BDSPReader(config["IP"],usb_connection=config["USB"])
 
 def signal_handler(signal, advances): #CTRL+C handler
