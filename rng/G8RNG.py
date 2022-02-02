@@ -81,6 +81,15 @@ class XOROSHIRO(object):
         s1 ^= s0
         self.seed = [XOROSHIRO.rotl(s0, 24) ^ s1 ^ ((s1 << 16) & XOROSHIRO.ulongmask), XOROSHIRO.rotl(s1, 37)]
         return result
+    
+    def previous(self):
+        s0, s1 = self.seed
+        s1 = XOROSHIRO.rotl(s1, 27)
+        s0 = (s0 ^ s1 ^ (s1 << 16)) & XOROSHIRO.ulongmask
+        s0 = XOROSHIRO.rotl(s0, 40)
+        s1 ^= s0
+        self.seed = [s0,s1]
+        return (s0 + s1) & XOROSHIRO.ulongmask
 
     def nextuint(self):
         return self.next() & XOROSHIRO.uintmask
@@ -123,6 +132,34 @@ class XOROSHIRO(object):
 
         # Blank call
         sym_s0, sym_s1 = sym_xoroshiro128plusadvance(sym_s0, sym_s1)
+
+        # PID call
+        result = pid
+        sym_s0, sym_s1, condition = sym_xoroshiro128plus(sym_s0, sym_s1, result)
+        solver.add(condition)
+        
+        models = get_models(solver)
+        return [ model[start_s0].as_long() for model in models ]
+
+    @staticmethod
+    def find_seeds_arceus(ec,pid,rolls):
+        solver = z3.Solver()
+        start_s0 = z3.BitVecs('start_s0', 64)[0]
+
+        sym_s0 = start_s0
+        sym_s1 = 0x82A2B175229D6A5B
+
+        # EC call
+        result = ec
+        sym_s0, sym_s1, condition = sym_xoroshiro128plus(sym_s0, sym_s1, result)
+        solver.add(condition)
+
+        # SIDTID call
+        sym_s0, sym_s1 = sym_xoroshiro128plusadvance(sym_s0, sym_s1)
+
+        # Initial PID rolls
+        for _ in range(rolls-1):
+            sym_s0, sym_s1, condition = sym_xoroshiro128plus(sym_s0, sym_s1, result)
 
         # PID call
         result = pid

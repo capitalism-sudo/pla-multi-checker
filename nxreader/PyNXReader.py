@@ -155,6 +155,20 @@ class NXReader(object):
     def read_int(self,address,size,filename = None):
         return int.from_bytes(self.read(address,size,filename),'little')
 
+    def read_absolute(self,address,size,filename = None):
+        self.sendCommand(f'peekAbsolute 0x{address:X} 0x{size:X}')
+        sleep(size/0x8000)
+        buf = self.recv(size)
+        if filename is not None:
+            if filename == '':
+                filename = f'dump_heap_0x{address:X}_0x{size:X}.bin'
+            with open(filename,'wb') as fileOut:
+                fileOut.write(buf)
+        return buf
+        
+    def read_absolute_int(self,address,size,filename = None):
+        return int.from_bytes(self.read_absolute(address,size,filename),'little')
+
     def write(self,address,data):
         self.sendCommand(f'poke 0x{address:X} 0x{data}')
 
@@ -351,6 +365,7 @@ class LGPEReader(NXReader):
 
 class BDSPReader(NXReader):
     PK8bSTOREDSIZE = 0x148
+    PK8bPARTYSIZE = 0x158
 
     def __init__(self, ip = None, port = 6000, usb_connection = False):
         NXReader.__init__(self,ip=ip,port=port,usb_connection=usb_connection)
@@ -369,11 +384,11 @@ class BDSPReader(NXReader):
     def readDaycare(self):
         return self.read_pointer("[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+458", 17)
     
-    def readWild(self):
-        return self.read_pointer("[[[[[[[[[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+7E8]+58]+28]+10]+20]+20]+18]+20",self.PK8bSTOREDSIZE)
+    def readWild(self,index=0):
+        return self.read_pointer(f"[[[[[[[[[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+7E8]+58]+28]+10]+{(0x20+8*index):X}]+20]+18]+20",self.PK8bPARTYSIZE)
 
     def readParty(self,index):
-        return self.read_pointer(f"[[[[[[[[[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+7F0]+10]+{(0x20+8*index):X}]+20]+18]+20",self.PK8bSTOREDSIZE)
+        return self.read_pointer(f"[[[[[[[[[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+7F0]+10]+{(0x20+8*index):X}]+20]+18]+20",self.PK8bPARTYSIZE)
 
     def readRNG(self):
         return self.read_pointer("[main+4FB2050]",16)

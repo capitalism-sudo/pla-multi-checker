@@ -187,6 +187,10 @@ class PK8(ByteStruct):
 		return self.getushort(0x78)
 
 	@property
+	def stat_hp_current(self):
+		return self.getushort(0x8A)
+
+	@property
 	def iv32(self):
 		return self.getuint(0x8C)
 
