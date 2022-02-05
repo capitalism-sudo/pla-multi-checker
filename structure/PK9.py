@@ -1,5 +1,5 @@
 from structure.ByteStruct import ByteStruct
-class PK9(ByteStruct):
+class PA8(ByteStruct):
     STOREDSIZE = 360
     BLOCKSIZE = 88
 
@@ -103,7 +103,7 @@ class PK9(ByteStruct):
 
     def calChecksum(self):
         chk = 0
-        for i in range(8,PK9.STOREDSIZE,2):
+        for i in range(8,PA8.STOREDSIZE,2):
             chk += self.getushort(i)
             chk &= 0xFFFF
         return chk
@@ -125,7 +125,7 @@ class PK9(ByteStruct):
         return 'None' if self.shinyType == 0 else 'Star' if self.shinyType == 1 else 'Square'
 
     def save(self,filename):
-        with open(f'{filename}.pk9','wb') as fileOut:
+        with open(f'{filename}.pa8','wb') as fileOut:
             fileOut.write(self.data)
 
     def __str__(self):
@@ -160,7 +160,7 @@ class PK9(ByteStruct):
         self.__shuffle__(sv)
     
     def __cryptPKM__(self,seed):
-        self.__crypt__(seed, 8, PK9.STOREDSIZE)
+        self.__crypt__(seed, 8, PA8.STOREDSIZE)
 
     def __crypt__(self, seed, start, end):
         i = start
@@ -175,8 +175,8 @@ class PK9(ByteStruct):
         idx = 4 * sv
         sdata = bytearray(self.data[:])
         for block in range(4):
-            ofs = PK9.BLOCKPOSITION[idx + block]
-            self.data[8 + PK9.BLOCKSIZE * block : 8 + PK9.BLOCKSIZE * (block + 1)] = sdata[8 + PK9.BLOCKSIZE * ofs : 8 + PK9.BLOCKSIZE * (ofs + 1)]
+            ofs = PA8.BLOCKPOSITION[idx + block]
+            self.data[8 + PA8.BLOCKSIZE * block : 8 + PA8.BLOCKSIZE * (block + 1)] = sdata[8 + PA8.BLOCKSIZE * ofs : 8 + PA8.BLOCKSIZE * (ofs + 1)]
 
     def refreshChecksum(self):
         self.setushort(0x6, self.calChecksum())
@@ -186,7 +186,7 @@ class PK9(ByteStruct):
         seed = self.ec
         sv = (seed >> 13) & 0x1F
 
-        self.__shuffle__(PK9.blockPositionInvert[sv])
+        self.__shuffle__(PA8.blockPositionInvert[sv])
         self.__cryptPKM__(seed)
         return self.data
 
