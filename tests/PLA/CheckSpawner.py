@@ -47,7 +47,7 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
 
 def read_wild_rng(spawner_id,rolls,guaranteed_ivs):
     spawner_seed = reader.read_pointer_int(f"main+4267ee0]+330]+" \
-                                           f"{0x90+spawner_id*0x80:X}",8)
+                                           f"{0x90+spawner_id*0x40:X}",8)
     wild_seed = (spawner_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
     main_rng = XOROSHIRO(wild_seed)
     for adv in range(40960):
