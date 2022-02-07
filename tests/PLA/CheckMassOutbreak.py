@@ -63,8 +63,8 @@ def read_mass_outbreak_rng(group_id,rolls):
             main_rng = XOROSHIRO(group_seed)
         rng = XOROSHIRO(group_seed)
         for respawn in range(1,9):
-            generator_seed = main_rng.next()
-            main_rng.next() # spawner 1's seed, unused
+            generator_seed = rng.next()
+            rng.next() # spawner 1's seed, unused
             rng = XOROSHIRO(rng.next())
             fixed_rng = XOROSHIRO(generator_seed)
             fixed_rng.next()
