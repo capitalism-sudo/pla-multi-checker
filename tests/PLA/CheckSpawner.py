@@ -45,12 +45,10 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     nature = rng.rand(25)
     return ec,pid,ivs,ability,gender,nature,shiny
 
-def read_wild_rng(spawner_id,rolls,guaranteed_ivs):
-    spawner_seed = reader.read_pointer_int(f"main+4267ee0]+330]+" \
-                                           f"{0x90+spawner_id*0x40:X}",8)
-    wild_seed = (spawner_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
-    main_rng = XOROSHIRO(wild_seed)
-    for adv in range(40960):
+def read_wild_rng(group_id,rolls,guaranteed_ivs):
+    group_seed = reader.read_pointer_int(f"main+4267ee0]+330]+{0x70+group_id*0x440+0x408:X}",8)
+    main_rng = XOROSHIRO(group_seed)
+    for adv in range(1,40960):
         rng = XOROSHIRO(*main_rng.seed.copy())
         spawner_seed = rng.next()
         rng = XOROSHIRO(spawner_seed)
@@ -63,17 +61,17 @@ def read_wild_rng(spawner_id,rolls,guaranteed_ivs):
         main_rng.next()
         main_rng.next()
         main_rng = XOROSHIRO(main_rng.next())
-    return adv,wild_seed,fixed_seed,ec,pid,ivs,ability,gender,nature,shiny
+    return adv,group_seed,fixed_seed,ec,pid,ivs,ability,gender,nature,shiny
 
 
 if __name__ == "__main__":
     rolls = int(input("Shiny Rolls For Species: "))
     guaranteed_ivs = 3 if input("Alpha? (y/n): ").lower() == "y" else 0
-    spawner_id = int(input("Spawner ID: "))
+    group_id = int(input("Group ID: "))
     
-    adv,wild_seed,fixed_seed,ec,pid,ivs,ability,gender,nature,shiny = \
-        read_wild_rng(spawner_id,rolls,guaranteed_ivs)
-    if wild_seed == (-0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF:
+    adv,group_seed,fixed_seed,ec,pid,ivs,ability,gender,nature,shiny = \
+        read_wild_rng(group_id,rolls,guaranteed_ivs)
+    if group_seed == 0:
         print("Spawner is not active")
     else:
         print(f"Closest Shiny: {adv}")

@@ -46,26 +46,26 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     return ec,pid,ivs,ability,gender,nature,shiny
 
 def read_mass_outbreak_rng(group_id,rolls):
-    group_seed = reader.read_pointer_int(f"main+4267ee0]+330]+{0x70+group_id*0x440+0x408:X}",8)
+    generator_seed = reader.read_pointer_int(f"main+4267ee0]+330]+{0x70+group_id*0x440+0x20:X}",8)
+    group_seed = (generator_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
     main_rng = XOROSHIRO(group_seed)
     for advance in range(100):
-        if advance != 0:
-            for init_spawn in range(4):
-                generator_seed = main_rng.next()
-                main_rng.next() # spawner 1's seed, unused
-                fixed_rng = XOROSHIRO(generator_seed)
-                fixed_rng.next()
-                fixed_seed = fixed_rng.next()
-                ec,pid,ivs,ability,gender,nature,shiny = generate_from_seed(fixed_seed,rolls)
-                if shiny:
-                    print(f"{generator_seed:X} Advance {advance} Init Spawn {init_spawn} EC: {ec:08X} PID: {pid:08X} {'/'.join(str(iv) for iv in ivs)}")
-            group_seed = main_rng.next()
-            main_rng = XOROSHIRO(group_seed)
-        rng = XOROSHIRO(group_seed)
+        for init_spawn in range(4):
+            generator_seed = main_rng.next()
+            main_rng.next() # spawner 1's seed, unused
+            fixed_rng = XOROSHIRO(generator_seed)
+            fixed_rng.next()
+            fixed_seed = fixed_rng.next()
+            ec,pid,ivs,ability,gender,nature,shiny = generate_from_seed(fixed_seed,rolls)
+            if shiny:
+                print(f"{generator_seed:X} Advance {advance} Init Spawn {init_spawn} EC: {ec:08X} PID: {pid:08X} {'/'.join(str(iv) for iv in ivs)}")
+        group_seed = main_rng.next()
+        main_rng = XOROSHIRO(group_seed)
+        respawn_rng = XOROSHIRO(group_seed)
         for respawn in range(1,9):
-            generator_seed = rng.next()
-            rng.next() # spawner 1's seed, unused
-            rng = XOROSHIRO(rng.next())
+            generator_seed = respawn_rng.next()
+            respawn_rng.next() # spawner 1's seed, unused
+            respawn_rng = XOROSHIRO(respawn_rng.next())
             fixed_rng = XOROSHIRO(generator_seed)
             fixed_rng.next()
             fixed_seed = fixed_rng.next()
@@ -76,6 +76,6 @@ def read_mass_outbreak_rng(group_id,rolls):
 
 if __name__ == "__main__":
     rolls = int(input("Shiny Rolls For Species: "))
-    group_id = int(int(input("Spawner ID: "))//17)
+    group_id = int(input("Group ID: "))
     
     read_mass_outbreak_rng(group_id,rolls)
