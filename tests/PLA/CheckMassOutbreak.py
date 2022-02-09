@@ -46,7 +46,7 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     return ec,pid,ivs,ability,gender,nature,shiny
 
 def read_mass_outbreak_rng(group_id,rolls):
-    generator_seed = reader.read_pointer_int(f"main+4267ee0]+330]+{0x70+group_id*0x440+0x20:X}",8)
+    generator_seed = reader.read_pointer_int(f"main+4268ee0]+330]+{0x70+group_id*0x440+0x20:X}",8)
     group_seed = (generator_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
     main_rng = XOROSHIRO(group_seed)
     for advance in range(100):

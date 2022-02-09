@@ -46,7 +46,7 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     return ec,pid,ivs,ability,gender,nature,shiny
 
 def read_wild_rng(group_id,rolls,guaranteed_ivs):
-    group_seed = reader.read_pointer_int(f"main+4267ee0]+330]+{0x70+group_id*0x440+0x408:X}",8)
+    group_seed = reader.read_pointer_int(f"main+4268ee0]+330]+{0x70+group_id*0x440+0x408:X}",8)
     main_rng = XOROSHIRO(group_seed)
     for adv in range(1,40960):
         rng = XOROSHIRO(*main_rng.seed.copy())
