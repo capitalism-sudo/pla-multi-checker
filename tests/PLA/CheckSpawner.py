@@ -45,18 +45,20 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     nature = rng.rand(25)
     return ec,pid,ivs,ability,gender,nature,shiny
 
-def read_wild_rng(group_id,rolls,guaranteed_ivs):
+def read_wild_rng(group_id,rolls,guaranteed_ivs,encounter_slot_sum,encounter_slot_range):
     group_seed = reader.read_pointer_int(f"main+4268ee0]+330]+{0x70+group_id*0x440+0x408:X}",8)
     main_rng = XOROSHIRO(group_seed)
-    for adv in range(1,40960):
+    adv = -1
+    while True:
+        adv += 1
         rng = XOROSHIRO(*main_rng.seed.copy())
         spawner_seed = rng.next()
         rng = XOROSHIRO(spawner_seed)
-        rng.next()
+        encounter_slot = (rng.next()/(2**64))*encounter_slot_sum
         fixed_seed = rng.next()
         ec,pid,ivs,ability,gender,nature,shiny = \
             generate_from_seed(fixed_seed,rolls,guaranteed_ivs)
-        if shiny:
+        if shiny and encounter_slot_range[0] <= encounter_slot <= encounter_slot_range[1]:
             break
         main_rng.next()
         main_rng.next()
@@ -68,9 +70,13 @@ if __name__ == "__main__":
     rolls = int(input("Shiny Rolls For Species: "))
     guaranteed_ivs = 3 if input("Alpha? (y/n): ").lower() == "y" else 0
     group_id = int(input("Group ID: "))
+    encounter_slot_sum = int(input("Encounter Slot Sum (0 for no filter): "))
+    encounter_slot_range = (0,0)
+    if encounter_slot_sum:
+        encounter_slot_range = [int(s) for s in input("Encounter Slot Filter Range (ex. 100-102): ").split("-")]
     
     adv,group_seed,fixed_seed,ec,pid,ivs,ability,gender,nature,shiny = \
-        read_wild_rng(group_id,rolls,guaranteed_ivs)
+        read_wild_rng(group_id,rolls,guaranteed_ivs,encounter_slot_sum,encounter_slot_range)
     if group_seed == 0:
         print("Spawner is not active")
     else:
