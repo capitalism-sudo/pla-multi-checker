@@ -1606,3 +1606,224 @@ Dynite Ore
 Carrot Seeds
 Ability Patch
 Reins of Unity
+Time Balm
+Space Balm
+Mysterious Balm
+Linking Cord
+Hometwon Muffin
+Apricorn
+Jubilife Muffin
+Aux Powerguard
+Dire Hit
+Choice Dumpling
+Twice-Spiced Radish
+Swap Snack
+Caster Fern
+Seed of Mastery
+Poké Ball
+
+Eternal Ice
+Uxie's Claw
+Azelf's Fang
+Mespirit's Plume
+Tumblestone
+Celestica Flute
+Remedy
+Fine Remedy
+Dazzling Honey
+Hearty Grains
+Plump Beans
+Springy Mushroom
+Crunchy Salt
+Wood
+King's Leaf
+Marsh Balm
+Poké Ball Recipe
+Great Ball Recipe
+Ultra Ball Recipe
+Feather Ball Recipe
+Pokéshi Doll Recipe
+
+Smoke Bomb Recipe
+Scatter Bang Recipe
+Sticky Glob Recipe
+Star Piece Recipe
+Mushroom Cake Recipe
+Bugwort Recipe
+Honey Cake Recipe
+Grain Cake Recipe
+Bean Cake Recipe
+Salt Cake Recipe
+Potion Recipe
+Super Potion Recipe
+Hyper Potion Recipe
+Max Potion Recipe
+Full Restore Recipe
+Remedy Recipe
+Fine Remedy Recipe
+Superb Remedy Recipe
+Old Gateau Recipe
+Jubilife Muffin Recipe
+Full Heal Recipe
+Revive Recipe
+Max Revive Recipe
+Max Ether Recipe
+Max Elixir Recipe
+Stealth Spray Recipe
+
+Aux Power Recipe
+Aux Guard Recipe
+Dire Hit Recipe
+Aux Evasion Recipe
+Aux Powerguard Recipe
+Forest Balm
+Iron Chunk
+
+Black Tumblestone
+Sky TumbleStone
+
+Ball of Mud
+
+Pop Pod
+Sootfoot Root
+Spoiled Apricorn
+Snowball
+Sticky Glob
+Black Augurite
+Peat Block
+Stealth Spray
+Medicinal Leek
+Vivichoke
+Pep-Up Plant
+
+
+Tempting Charm B
+Tempting Charm P
+Swordcap
+Iron Barktongue
+Doppel Bonnets
+Dire Shroom
+Sand Radish
+Tempting Charm T
+Tempting Charm Y
+Candy Truffle
+Cake-Lure Base
+Poké Ball
+Great Ball
+Ultra Ball
+Feather Ball
+
+
+Scatter Bang
+Smoke Bomb
+
+
+Pokéshi Doll
+Volcano Balm
+Mountain Balm
+Snow Balm
+Honey Cake Recipe
+Grain Cake Recipe
+Bean Cake Recipe
+Mushroom Cake Recipe
+Salt Cake Recipe
+Swap Snack Recipe
+Choice Dumpling Recipe
+Twice-Spiced Radish Recipe
+Survival Charm R
+Survival Charm B
+Survival Charm P
+Survival Charm T
+Survival Charm Y
+Torn Journal
+Warding Charm R
+Warding Charm B
+Warding Charm P
+Warding Charm T
+Warding Charm Y
+Wall Fragment
+Basculegion Food
+Old Journal
+Wing Ball
+Jet Ball
+Heavy Ball
+Leaden Ball
+Gigaton Ball
+Wing Ball Recipe
+Jet Ball Recipe
+Heavy Ball Recipe
+Hopo Berry
+Superb Remedy
+Aux Power
+Aux Guard
+Aux Evasion
+Grit Dust
+Grit Gravel
+Grit Pebble
+Grit Rock
+Secret Medicine
+Tempting Charm R
+Lost Satchel
+Lost Satchel
+Lost Satchel
+Lost Satchel
+Lost Satchel
+
+Origin Ball
+
+
+
+
+Origin Ore
+Adamant Crystal
+Lustrous Globe
+Griseous Core
+Blank Plate
+
+Crafting Kit
+Leaden Ball Recipe
+Gigaton Ball Recipe
+Strange Ball
+Pokédex
+Old Verse 1
+Old Verse 2
+Old Verse 3
+Old Verse 4
+
+Old Verse 5
+Old Verse 6
+Old Verse 7
+Old Verse 8
+Old Verse 9
+Old Verse 10
+Old Verse 11
+Old Verse 12
+Old Verse 13
+Old Verse 14
+Old Verse 15
+Old Verse 16
+Old Verse 17
+Old Verse 18
+Old Verse 19
+Old Verse 20
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Legend Plate

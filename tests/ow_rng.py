@@ -3,12 +3,10 @@ import signal
 import sys
 import json
 
-from z3.z3 import TupleSort
-
 sys.path.append('../')
 
 from nxreader import SWSHReader
-from rng import XOROSHIRO,OverworldRNG
+from rng import XOROSHIRO,OverworldRNG,Filter
 
 
 shiny_charm = True
@@ -21,25 +19,29 @@ max_level = 60
 is_legendary = False
 is_shiny_locked = False
 diff_held_item = False
-double_mark_gen = False
+em_count = 3
+kos = 500
 
-# filter for target
-def gen_filter(state):
-    if state.xor < 16:
-        return True
-    return False
+filter = Filter(
+    iv_min = [31,31,31,31,31,31],
+    iv_max = [31,31,31,31,31,31],
+    slot_min = 0,
+    slot_max = 24,
+    brilliant = True
+)
 
 config = json.load(open("../config.json"))
-r = SWSHReader(config["IP"])
+r = SWSHReader(config["IP"],usb_connection=config["USB"])
 
 def signal_handler(signal, frame): #CTRL+C handler
     print("Stop request")
     r.close()
 
 signal.signal(signal.SIGINT, signal_handler)
-rng = XOROSHIRO(int.from_bytes(r.read(0x4C2AAC18,8),"little"),int.from_bytes(r.read(0x4C2AAC18+8,8),"little"))
+seed = r.readRNG()
+rng = XOROSHIRO(int.from_bytes(seed[0:8],"little"),int.from_bytes(seed[8:16],"little"))
 predict = OverworldRNG(
-    seed = rng.state(),
+    seed = rng.state,
     tid = r.TID,
     sid = r.SID,
     shiny_charm = shiny_charm,
@@ -52,24 +54,27 @@ predict = OverworldRNG(
     min_level = min_level,
     max_level = max_level,
     diff_held_item = diff_held_item,
-    double_mark_gen = double_mark_gen,
+    egg_move_count = em_count,
+    kos = kos,
+    filter = filter
     )
 advances = 0
 
+print(f"Advance {advances}, State {rng.state:016X}")
 result = predict.generate()
-while not gen_filter(result):
+while not result:
     result = predict.generate()
-print(f"Advance {advances}, State {rng.state():016X}")
 print(result)
 while True:
-    read = int.from_bytes(r.read(0x4C2AAC18,16),"little")
-    while rng.state() != read:
+    read = int.from_bytes(r.readRNG(),"little")
+    while rng.state != read:
         rng.next()
         advances += 1
-        if rng.state() == read:
+        if rng.state == read:
             if advances >= predict.advance:
+                result = None
                 result = predict.generate()
-                while not gen_filter(result) or advances >= predict.advance:
+                while not result or advances >= predict.advance:
                     result = predict.generate()
-            print(f"Advance {advances}, State {rng.state():016X}")
+            print(f"Advance {advances}, State {rng.state:016X}")
             print(result)

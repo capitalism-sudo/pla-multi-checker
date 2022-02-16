@@ -11,7 +11,7 @@ from nxreader import SWSHReader
 
 # Connect to Switch
 config = json.load(open("../config.json"))
-r = SWSHReader(config["IP"])
+r = SWSHReader(config["IP"],usb_connection=config["USB"])
 
 def signal_handler(signal, frame): #CTRL+C handler
     print("Stop request")

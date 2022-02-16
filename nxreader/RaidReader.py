@@ -2,8 +2,10 @@ from nxreader import SWSHReader
 from structure import Den
 
 class RaidReader(SWSHReader):
-    def __init__(self,ip,port = 6000):
-        SWSHReader.__init__(self,ip,port)
+    def __init__(self,ip,port = 6000, usb_connection = False):
+        if ip == None and not usb_connection:
+            raise Exception("No IP Configured and usb_connection = False")
+        SWSHReader.__init__(self,ip,port,usb_connection=usb_connection)
         from structure import EncounterNest8Archive, NestHoleDistributionEncounter8Archive
         buf = bytearray(open('../resources/bytes/local_raid','rb').read())
         Den.LOCALTABLE = EncounterNest8Archive.GetRootAsEncounterNest8Archive(buf,0)

@@ -27,9 +27,10 @@
 
 ## Requirements
 * [Python](https://www.python.org/downloads/)
-	* Install z3-solver, pyserial, pillow, pokebase, numpy, and discord via [pip](https://pip.pypa.io/en/stable/) if `ImportError` happens.
+	* Install z3-solver, pyserial, pyusb, pillow, pokebase, numpy, and discord via [pip](https://pip.pypa.io/en/stable/) if `ImportError` happens.
 	   `pip install z3-solver` 
 	   `pip install pyserial`
+	   `pip install pyusb`
 	   `pip install pillow`
 	   `pip install pokebase`
 	   `pip install numpy`

@@ -7,7 +7,7 @@ import json
 DumpPath = 'Event/PersonalDump/'
 config = json.load(open("../config.json"))
 
-r = SWSHReader(config["IP"])
+r = SWSHReader(config["IP"],usb_connection=config["USB"])
 
 print("Dumping bonus_rewards...")
 r.readEventBlock_BonusRewards(DumpPath)

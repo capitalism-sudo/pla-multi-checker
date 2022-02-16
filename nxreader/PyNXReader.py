@@ -1,9 +1,11 @@
 import sys
 import socket
+import struct
+import usb.core
+import usb.util
 import binascii
 from time import sleep
 from enum import Enum
-from structure import Screen
 
 class SystemLanguage(Enum):
     JA = 0
@@ -24,10 +26,29 @@ class SystemLanguage(Enum):
     ZHHANT = 16
 
 class NXReader(object):
-    def __init__(self,ip,port = 6000):
-        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s.settimeout(1)
-        self.s.connect((ip, port))
+    def __init__(self, ip = None, port = 6000, usb_connection = False):
+        if ip == None and not usb_connection:
+            raise Exception("No IP Configured and usb_connection = False")
+        self.usb_connection = usb_connection
+        if not self.usb_connection:
+            self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.s.settimeout(1)
+            self.s.connect((ip, port))
+        else:
+            try:
+                self.global_dev = None
+                self.global_out = None
+                self.global_in = None
+                self.global_dev = usb.core.find(idVendor=0x057E, idProduct=0x3000)
+                if self.global_dev is not None:
+                    self.global_dev.set_configuration()
+                    intf = self.global_dev.get_active_configuration()[(0,0)]
+                    self.global_out = usb.util.find_descriptor(intf,custom_match=lambda e:usb.util.endpoint_direction(e.bEndpointAddress)==usb.util.ENDPOINT_OUT)
+                    self.global_in = usb.util.find_descriptor(intf,custom_match=lambda e:usb.util.endpoint_direction(e.bEndpointAddress)==usb.util.ENDPOINT_IN)
+            except Exception:
+                usb.core.find(idVendor=0x057E, idProduct=0x3000).reset()
+            if self.global_dev is None:
+                raise Exception("No USB Found")
         print('Connected')
         self.configure()
 
@@ -35,18 +56,57 @@ class NXReader(object):
         self.sendCommand('configure echoCommands 0')
 
     def sendCommand(self,content):
-        content += '\r\n' #important for the parser on the switch side
-        self.s.sendall(content.encode())
+        if not self.usb_connection:
+            content += '\r\n' #important for the parser on the switch side
+            self.s.sendall(content.encode())
+        else:
+            self.global_out.write(struct.pack("<I", (len(content)+2)))
+            self.global_out.write(content)
+    
+    def recv(self,size,force=None,timeout=0):
+        if force == None:
+            size = 2 * size + 1
+        else:
+            size = force
+        if not self.usb_connection:
+            if force: 
+                return int(self.s.recv(size)[0:-1])
+            return binascii.unhexlify(self.s.recv(size)[0:-1])
+        else:
+            size = int(struct.unpack("<L", self.global_in.read(4, timeout=timeout).tobytes())[0])
+            if size > 4080:
+                x = self.global_in.read(size, timeout=timeout).tobytes()
+                y = self.global_in.read(size, timeout=timeout).tobytes()
+                data = x+y
+            else:
+                data = self.global_in.read(size, timeout=timeout).tobytes()
+
+            if force:
+                return int.from_bytes(data,byteorder="little")
+            return data
 
     def detach(self):
         self.sendCommand('detachController')
 
+    def clear_reads(self):
+        try:
+            size = int(struct.unpack("<L", self.global_in.read(4, timeout=5).tobytes())[0])
+            x = self.global_in.read(size, timeout=5).tobytes()
+            y = self.global_in.read(size, timeout=5).tobytes()
+        except Exception as e:
+            print(e)
+
     def close(self,exitapp = True):
         print("Exiting...")
         self.pause(0.5)
-        self.detach()
-        self.s.shutdown(socket.SHUT_RDWR)
-        self.s.close()
+        if not self.usb_connection:
+            self.s.shutdown(socket.SHUT_RDWR)
+            self.s.close()
+        else:
+            # clean up any remaining reads
+            self.clear_reads()
+            self.detach()
+            self.global_dev.reset()
         print('Disconnected')
         if exitapp:
             sys.exit(0)
@@ -84,8 +144,7 @@ class NXReader(object):
     def read(self,address,size,filename = None):
         self.sendCommand(f'peek 0x{address:X} 0x{size:X}')
         sleep(size/0x8000)
-        buf = self.s.recv(2 * size + 1)
-        buf = binascii.unhexlify(buf[0:-1])
+        buf = self.recv(size)
         if filename is not None:
             if filename == '':
                 filename = f'dump_heap_0x{address:X}_0x{size:X}.bin'
@@ -96,14 +155,27 @@ class NXReader(object):
     def read_int(self,address,size,filename = None):
         return int.from_bytes(self.read(address,size,filename),'little')
 
+    def read_absolute(self,address,size,filename = None):
+        self.sendCommand(f'peekAbsolute 0x{address:X} 0x{size:X}')
+        sleep(size/0x8000)
+        buf = self.recv(size)
+        if filename is not None:
+            if filename == '':
+                filename = f'dump_heap_0x{address:X}_0x{size:X}.bin'
+            with open(filename,'wb') as fileOut:
+                fileOut.write(buf)
+        return buf
+        
+    def read_absolute_int(self,address,size,filename = None):
+        return int.from_bytes(self.read_absolute(address,size,filename),'little')
+
     def write(self,address,data):
         self.sendCommand(f'poke 0x{address:X} 0x{data}')
 
     def read_main(self,address,size,filename = None):
         self.sendCommand(f'peekMain 0x{address:X} 0x{size:X}')
         sleep(size/0x8000)
-        buf = self.s.recv(2 * size + 1)
-        buf = binascii.unhexlify(buf[0:-1])
+        buf = self.recv(size)
         if filename is not None:
             if filename == '':
                 filename = f'dump_heap_0x{address:X}_0x{size:X}.bin'
@@ -121,8 +193,7 @@ class NXReader(object):
         jumps = pointer.replace("[","").replace("main","").split("]")
         self.sendCommand(f'pointerPeek 0x{size:X} 0x{" 0x".join(jump.replace("+","") for jump in jumps)}')
         sleep(size/0x8000)
-        buf = self.s.recv(2 * size + 1)
-        buf = binascii.unhexlify(buf[0:-1])
+        buf = self.recv(size)
         if filename is not None:
             if filename == '':
                 filename = f'dump_heap_{pointer}_0x{size:X}.bin'
@@ -140,8 +211,8 @@ class NXReader(object):
     def getSystemLanguage(self):
         self.sendCommand('getSystemLanguage')
         sleep(0.005)
-        buf = self.s.recv(4)
-        return SystemLanguage(int(buf[0:-1]))
+        lang = self.recv(0,force=5)
+        return SystemLanguage(lang)
 
     def pause(self,duration):
         sleep(duration)
@@ -151,19 +222,20 @@ class SWSHReader(NXReader):
     PK8PARTYSIZE = 0x158
     DENCOUNT = 276
 
-    def __init__(self,ip,port = 6000):
-        NXReader.__init__(self,ip,port)
+    def __init__(self, ip = None, port = 6000, usb_connection = False):
+        if ip == None and not usb_connection:
+            raise Exception("No IP Configured and usb_connection = False")
+        NXReader.__init__(self,ip=ip,port=port,usb_connection=usb_connection)
         from structure import MyStatus8,KCoordinates
         self.TrainerSave = MyStatus8(self.readTrainerBlock())
         self.KCoordinates = KCoordinates(self)
         self.eventoffset = 0
-        self.resets = 0
         if self.TrainerSave.isPokemonSave():
-            print(f"Game: {self.TrainerSave.GameVersion()}    OT: {self.TrainerSave.OT()}    ID: {self.TrainerSave.displayID()}\n")
             self.isPlayingSword = self.TrainerSave.isSword()
             self.getEventOffset(self.getSystemLanguage())
             self.TID = self.TrainerSave.TID()
             self.SID = self.TrainerSave.SID()
+            print(f"Game: {self.TrainerSave.GameVersion()}    OT: {self.TrainerSave.OT()}    IDs: {self.TrainerSave.displayID()}|{self.TID:05d}/{self.SID:05d}\n")
     
     def getEventOffset(self, language = SystemLanguage.ENUS):
         if language == SystemLanguage.ZHCN or language == SystemLanguage.ZHHANS:
@@ -243,7 +315,7 @@ class SWSHReader(NXReader):
         return self.read(0x2FA17B78 + self.eventoffset, 0x23D4, path + 'normal_encount_rigel2')
 
     def readDen(self,denID):
-        denDataSize = 0x18;
+        denDataSize = 0x18
         if denID > SWSHReader.DENCOUNT + 31:
             denID = SWSHReader.DENCOUNT + 31
         address = 0x450C8A70 + denID * denDataSize
@@ -258,13 +330,19 @@ class SWSHReader(NXReader):
     def readBattleStart(self):
         return self.read(0x6B578EDC, 8)
 
+    def readRNG(self):
+        return self.read(0x4C2AAC18,16)
+
+
 class LGPEReader(NXReader):
     PK7bSTOREDSIZE = 260
     PK7bPARTYSIZE = 260
     DENCOUNT = 276
 
-    def __init__(self,ip,port = 6000):
-        NXReader.__init__(self,ip,port)
+    def __init__(self, ip = None, port = 6000, usb_connection = False):
+        if ip == None and not usb_connection:
+            raise Exception("No IP Configured and usb_connection = False")
+        NXReader.__init__(self,ip=ip,port=port,usb_connection=usb_connection)
         from structure import MyStatus7b
         self.TrainerSave = MyStatus7b(self.readTrainerBlock())
         print(f"OT: {self.TrainerSave.OT()}    ID: {str(self.TrainerSave.displayID()).zfill(6)}    TID: {str(self.TrainerSave.TID()).zfill(5)}    SID: {str(self.TrainerSave.SID()).zfill(5)}\n")
@@ -283,3 +361,37 @@ class LGPEReader(NXReader):
 
     def readActive(self):
         return self.read_main(0x163EDC0, self.PK7bSTOREDSIZE)
+
+
+class BDSPReader(NXReader):
+    PK8bSTOREDSIZE = 0x148
+    PK8bPARTYSIZE = 0x158
+
+    def __init__(self, ip = None, port = 6000, usb_connection = False):
+        NXReader.__init__(self,ip=ip,port=port,usb_connection=usb_connection)
+        from structure import MyStatus8b
+        self.TrainerSave = MyStatus8b(self.readTrainerBlock())
+        print(f"TID: {self.TrainerSave.TID()}    SID: {self.TrainerSave.SID()}    ID: {self.TrainerSave.displayID()}\n")
+        self.TID = self.TrainerSave.TID()
+        self.SID = self.TrainerSave.SID()
+
+    def readBox(self,box,slot):
+        pass
+
+    def readTrainerBlock(self):
+        return self.read_pointer("[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+E8", 8)
+    
+    def readDaycare(self):
+        return self.read_pointer("[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+458", 17)
+    
+    def readWild(self,index=0):
+        return self.read_pointer(f"[[[[[[[[[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+7E8]+58]+28]+10]+{(0x20+8*index):X}]+20]+18]+20",self.PK8bPARTYSIZE)
+
+    def readParty(self,index):
+        return self.read_pointer(f"[[[[[[[[[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+7F0]+10]+{(0x20+8*index):X}]+20]+18]+20",self.PK8bPARTYSIZE)
+
+    def readRNG(self):
+        return self.read_pointer("[main+4FB2050]",16)
+    
+    def readGroupSeed(self,index):
+        return self.read_pointer(f"[[[[[[[main+4E853F0]+18]+C0]+28]+B8]]+348]+{((index * 0x38) + 0x40):X}",8) 
