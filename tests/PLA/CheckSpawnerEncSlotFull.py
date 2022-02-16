@@ -3,15 +3,18 @@ import signal
 import sys
 import json
 import requests
+import colorama
 sys.path.append('../../')
 
 from nxreader import NXReader
 from rng import XOROSHIRO
 from lookups import Util
+from colorama import Fore, Back, Style
 
 
 config = json.load(open("../../config.json"))
 reader = NXReader(config["IP"],usb_connection=config["USB"])
+colorama.init()
 
 WEATHER = {
     1:"None",
@@ -226,7 +229,10 @@ if __name__ == "__main__":
             print("No seed found")
             print()
         else:
-            print(f"Closest Shiny: {adv}")
+            if adv < 100:
+                print(f"Closest Shiny: " + Fore.GREEN + f"{adv}" + Style.RESET_ALL)
+            else:
+                print(f"Closest Shiny: " + Fore.RED + f"{adv}" + Style.RESET_ALL)
             print(f"Seed: {fixed_seed:X}")
             print("Group Seed: ", hex(group_seed))
             print(f"EC: {ec:X} PID: {pid:X}")
