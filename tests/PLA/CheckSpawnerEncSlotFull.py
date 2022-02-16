@@ -175,7 +175,7 @@ if __name__ == "__main__":
 
     print("List of Group IDs that share the same spawn table:")
     print()
-    print(grouplist)
+    print(*grouplist,sep=", ")
     print()
     
     for keys in encmap:
@@ -189,9 +189,6 @@ if __name__ == "__main__":
     encsum = 0
     for sum in spawns:
         encsum += spawns[sum]
-
-    print("Encounter Sum: ",encsum)
-    print()
     
     print("Possible Pokemon At For this Time and Weather: ")
     f = 1
@@ -215,9 +212,6 @@ if __name__ == "__main__":
             break
         else:
             encmin += spawns[i]
-
-    print("Enc min: ",encmin)
-    print("Enc Max: ",encmax)
 
     rolls = int(input("Shiny Rolls for Species:\n"))
 
