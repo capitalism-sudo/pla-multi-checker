@@ -70,7 +70,7 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
 def read_wild_rng(group_id,rolls,guaranteed_ivs,encsum,encmin,encmax):
     group_seed = reader.read_pointer_int(f"main+4268ee0]+330]+{0x70+group_id*0x440+0x408:X}",8)
     main_rng = XOROSHIRO(group_seed)
-    for adv in range(1,40960):
+    for adv in range(1,501):
         rng = XOROSHIRO(*main_rng.seed.copy())
         spawner_seed = rng.next()
         rng = XOROSHIRO(spawner_seed)
@@ -225,8 +225,8 @@ if __name__ == "__main__":
         if group_seed == 0:
             print("Spawner is not active")
             print()
-        elif adv == 40959:
-            print("No seed found")
+        elif adv == 500:
+            print("Nothing shiny with that encounter slot within 500 advances.")
             print()
         else:
             if adv < 100:
