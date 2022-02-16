@@ -91,12 +91,23 @@ def get_spawns_by_category(spawntable):
                 if "All Weather" in keys:
                     print(keys)
                     return spawntable[keys]
+                else:
+                    for weathers in WEATHER:
+                        print(f"{weathers}) {WEATHER[weathers]}")
+                    encwea = int(input("Weather: "))
+                    encsum = "Any Time/" + WEATHER[encwea]
+                    print()
+                    print("Searching ",encsum)
+                    print()
+                    return(spawntable[encsum])
             elif "All Weather" in keys:
                 for times in TIME:
                     print(f"{times}) {TIME[times]}")
                 enctime = int(input("Time of Day: "))
                 encsum = TIME[enctime] + "/All Weather"
-                print(encsum)
+                print()
+                print("Searching ",encsum)
+                print()
                 return(spawntable[encsum])
             else:
                 for times in TIME:
@@ -106,28 +117,29 @@ def get_spawns_by_category(spawntable):
                     print(f"{weathers}) {WEATHER[weathers]}")
                 encwea = int(input("Weather: "))
                 encsum = TIME[enctime] + "/" + WEATHER[encwea]
-                print(encsum)
+                print()
+                print("Searching ",encsum)
+                print()
                 return(spawntable[encsum])
             
 
 
 if __name__ == "__main__":
-#    rolls = int(input("Shiny Rolls For Species: "))
-#    guaranteed_ivs = 3 if input("Alpha? (y/n): ").lower() == "y" else 0
-#    group_id = int(input("Group ID: "))
 
     rolls = 5
     guaranteed_ivs = 0
     group_ids = [218,219,220,221,222,109,110,113,115,116]
 
     print("This script was created by CappyCapital using information provided by Lincoln and Santacrab420. Reach out on the /r/pokemonrng discord for more information.")
+    print()
+    print()
 
     maps = {
             1:"obsidianfieldlands",
             2:"crimsonmirelands",
             3:"cobaltcoastlands",
             4:"coronethighlands",
-            5:"iceLands"
+            5:"alabastericelands"
             }
 
     playermap = input("Enter your map number: \n" \
@@ -149,11 +161,23 @@ if __name__ == "__main__":
     spawnmap = json.load(spawnmap)
     encmap = json.load(encmap)
 
-    group_id = int(input("Enter Group ID:"))
+    print()
+    group_id = int(input(f"Enter Group ID:\n"))
+    print()
 
     i = spawnmap[str(group_id)]['name']
     spawntable = {}
+    grouplist = []
 
+    for keys in spawnmap:
+        if spawnmap[keys]['name'] == i:
+            grouplist.append(str(keys))
+
+    print("List of Group IDs that share the same spawn table:")
+    print()
+    print(grouplist)
+    print()
+    
     for keys in encmap:
         if i == keys:
             spawntable = encmap[i]
@@ -167,14 +191,16 @@ if __name__ == "__main__":
         encsum += spawns[sum]
 
     print("Encounter Sum: ",encsum)
-
     print()
+    
     print("Possible Pokemon At For this Time and Weather: ")
     f = 1
     for pokes in spawns:
         print(f"{f}) {pokes}")
         f+=1
 
+    print()
+    
     userpoke = int(input("Enter Species (use the number):"))
     userpoke -= 1
 
@@ -195,20 +221,21 @@ if __name__ == "__main__":
 
     rolls = int(input("Shiny Rolls for Species:\n"))
 
-    print(f"checking Group {group_id}: ")
-    adv,group_seed,fixed_seed,ec,pid,ivs,ability,gender,nature,shiny = \
-        read_wild_rng(group_id,rolls,guaranteed_ivs,encsum,encmin,encmax)
-    if group_seed == 0:
-        print("Spawner is not active")
-        print()
-    elif adv == 40959:
-        print("No seed found")
-        print()
-    else:
-        print(f"Closest Shiny: {adv}")
-        print(f"Seed: {fixed_seed:X}")
-        print("Group Seed: ", hex(group_seed))
-        print(f"EC: {ec:X} PID: {pid:X}")
-        print(f"Nature: {Util.STRINGS.natures[nature]} Ability: {ability}")
-        print(ivs)
-        print()
+    for groups in grouplist:
+        print(f"checking Group {groups}: ")
+        adv,group_seed,fixed_seed,ec,pid,ivs,ability,gender,nature,shiny = \
+            read_wild_rng(int(groups),rolls,guaranteed_ivs,encsum,encmin,encmax)
+        if group_seed == 0:
+            print("Spawner is not active")
+            print()
+        elif adv == 40959:
+            print("No seed found")
+            print()
+        else:
+            print(f"Closest Shiny: {adv}")
+            print(f"Seed: {fixed_seed:X}")
+            print("Group Seed: ", hex(group_seed))
+            print(f"EC: {ec:X} PID: {pid:X}")
+            print(f"Nature: {Util.STRINGS.natures[nature]} Ability: {ability}")
+            print(ivs)
+            print()
