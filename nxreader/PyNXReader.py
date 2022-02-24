@@ -172,6 +172,17 @@ class NXReader(object):
     def write(self,address,data):
         self.sendCommand(f'poke 0x{address:X} 0x{data}')
 
+    def write_int(self,address,data,size):
+        data = f"{int.from_bytes(int.to_bytes(data,size,'big'),'little'):X}".zfill(size*2)
+        self.write(address,data)
+
+    def write_absolute(self,address,data):
+        self.sendCommand(f'pokeAbsolute 0x{address:X} 0x{data}')
+
+    def write_absolute_int(self,address,data,size):
+        data = f"{int.from_bytes(int.to_bytes(data,size,'big'),'little'):X}".zfill(size*2)
+        self.write_absolute(address,data)
+
     def read_main(self,address,size,filename = None):
         self.sendCommand(f'peekMain 0x{address:X} 0x{size:X}')
         sleep(size/0x8000)
@@ -185,6 +196,10 @@ class NXReader(object):
     
     def read_main_int(self,address,size,filename = None):
         return int.from_bytes(self.read_main(address,size,filename),'little')
+
+    def write_main_int(self,address,data,size):
+        data = f"{int.from_bytes(int.to_bytes(data,size,'big'),'little'):X}".zfill(size*2)
+        self.write_main(address,data)
 
     def write_main(self,address,data):
         self.sendCommand(f'pokeMain 0x{address:X} 0x{data}')
@@ -204,6 +219,10 @@ class NXReader(object):
     def read_pointer_int(self,pointer,size,filename = None):
         return int.from_bytes(self.read_pointer(pointer,size,filename = None),'little')
     
+    def write_pointer_int(self,pointer,data,size):
+        data = f"{int.from_bytes(int.to_bytes(data,size,'big'),'little'):X}".zfill(size*2)
+        self.write_pointer(pointer,data)
+
     def write_pointer(self,pointer,data):
         jumps = pointer.replace("[","").replace("main","").split("]")
         self.sendCommand(f'pointerPoke 0x{data} 0x{" 0x".join(jump.replace("+","") for jump in jumps)}')

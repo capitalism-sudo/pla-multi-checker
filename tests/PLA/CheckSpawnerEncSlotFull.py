@@ -34,6 +34,10 @@ TIME = {
     4:"Night"
 }
 
+alphabet = ['a','b','c','d','e','f','g','h','i','j',
+          'k','l','m','n','o','p','q','r','s','t',
+          'u','v','w','x','y','z','!','?']
+
 def signal_handler(signal, advances): #CTRL+C handler
     print("Stop request")
     reader.close()
@@ -70,7 +74,7 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
 def read_wild_rng(group_id,rolls,guaranteed_ivs,encsum,encmin,encmax):
     group_seed = reader.read_pointer_int(f"main+4268ee0]+330]+{0x70+group_id*0x440+0x408:X}",8)
     main_rng = XOROSHIRO(group_seed)
-    for adv in range(1,501):
+    for adv in range(1,35001):
         rng = XOROSHIRO(*main_rng.seed.copy())
         spawner_seed = rng.next()
         rng = XOROSHIRO(spawner_seed)
@@ -126,6 +130,31 @@ def get_spawns_by_category(spawntable):
                 return(spawntable[encsum])
             
 
+def getunownenc(spawns,alpha):
+
+    encmin = []
+    encmax = []
+
+    mini = 0
+    maxi = 0
+    
+    for spawn in spawns:
+        if "Alpha" in spawn and alpha == 2:
+            print("Spawn: ", spawn)
+            maxi = mini + spawns[spawn]
+            encmax.append(maxi)
+            encmin.append(mini)
+            mini += spawns[spawn]
+        elif "Alpha" not in spawn and alpha == 1:
+            print("Spawn: ", spawn)
+            maxi = mini + spawns[spawn]
+            encmax.append(maxi)
+            encmin.append(mini)
+            mini += spawns[spawn]
+        else:
+            mini += spawns[spawn]
+
+    return encmin,encmax
 
 if __name__ == "__main__":
 
@@ -201,10 +230,20 @@ if __name__ == "__main__":
 
     print()
     
-    userpoke = int(input("Enter Species (use the number):"))
+    userpoke = int(input(f"Enter Species (use the number):\n" \
+                         "If Unown, use 57 for nonalphas and 58 for all alphas\n"))
     userpoke -= 1
+    unown = 0
 
-    userpoke = list(spawns)[userpoke]
+    print("User Choice: ",userpoke)
+    print()
+
+    if userpoke == 56:
+        unown = 1
+    elif userpoke == 57:
+        unown = 2
+    else:
+        userpoke = list(spawns)[userpoke]
 
     encmin = 0
     encmax = 0
@@ -216,26 +255,64 @@ if __name__ == "__main__":
         else:
             encmin += spawns[i]
 
+    if unown == 1:
+        encmin,encmax = getunownenc(spawns,1)
+    elif unown == 2:
+        encmin,encmax = getunownenc(spawns,2)
+        
+    print("Encmin = ",encmin)
+    print()
+    print("Encmax = ",encmax)
+    print()
+    print("Encsum = ",encsum)
+    print()
+    print()
+    
     rolls = int(input("Shiny Rolls for Species:\n"))
 
-    for groups in grouplist:
-        print(f"checking Group {groups}: ")
-        adv,group_seed,fixed_seed,ec,pid,ivs,ability,gender,nature,shiny = \
-            read_wild_rng(int(groups),rolls,guaranteed_ivs,encsum,encmin,encmax)
-        if group_seed == 0:
-            print("Spawner is not active")
-            print()
-        elif adv == 500:
-            print("Nothing shiny with that encounter slot within 500 advances.")
-            print()
-        else:
-            if adv < 100:
-                print(f"Closest Shiny: " + Fore.GREEN + f"{adv}" + Style.RESET_ALL)
+    if unown == 0:
+        for groups in grouplist:
+            print(f"checking Group {groups}: ")
+            adv,group_seed,fixed_seed,ec,pid,ivs,ability,gender,nature,shiny = \
+                read_wild_rng(int(groups),rolls,guaranteed_ivs,encsum,encmin,encmax)
+            if group_seed == 0:
+                print("Spawner is not active")
+                print()
+            elif adv == 35000:
+                print("Nothing shiny with that encounter slot within 35000 advances.")
+                print()
             else:
-                print(f"Closest Shiny: " + Fore.RED + f"{adv}" + Style.RESET_ALL)
-            print(f"Seed: {fixed_seed:X}")
-            print("Group Seed: ", hex(group_seed))
-            print(f"EC: {ec:X} PID: {pid:X}")
-            print(f"Nature: {Util.STRINGS.natures[nature]} Ability: {ability}")
-            print(ivs)
-            print()
+                if adv < 100:
+                    print(f"Closest Shiny: " + Fore.GREEN + f"{adv}" + Style.RESET_ALL)
+                else:
+                    print(f"Closest Shiny: " + Fore.RED + f"{adv}" + Style.RESET_ALL)
+                print(f"Seed: {fixed_seed:X}")
+                print("Group Seed: ", hex(group_seed))
+                print(f"EC: {ec:X} PID: {pid:X}")
+                print(f"Nature: {Util.STRINGS.natures[nature]} Ability: {ability}")
+                print(ivs)
+                print()
+    elif unown == 1 or unown == 2:
+        for groups in grouplist:
+            print(f"checking Group {groups}: ")
+            for mins,maxs,letter in zip(encmin,encmax,alphabet):
+                adv,group_seed,fixed_seed,ec,pid,ivs,ability,gender,nature,shiny = \
+                    read_wild_rng(int(groups),rolls,guaranteed_ivs,encsum,mins,maxs)
+                if group_seed == 0:
+                    print("Spawner is not active")
+                    print()
+                elif adv == 35000:
+                    print("Nothing shiny with that encounter slot within 35000 advances.")
+                    print()
+                else:
+                    if adv < 100:
+                        print(f"Closest Shiny: " + Fore.GREEN + f"{adv}" + Style.RESET_ALL)
+                    else:
+                        print(f"Closest Shiny: " + Fore.RED + f"{adv}" + Style.RESET_ALL)
+                    print(f"Unown Letter: {upper(letter)}")
+                    print(f"Seed: {fixed_seed:X}")
+                    print("Group Seed: ", hex(group_seed))
+                    print(f"EC: {ec:X} PID: {pid:X}")
+                    print(f"Nature: {Util.STRINGS.natures[nature]} Ability: {ability}")
+                    print(ivs)
+                    print()
