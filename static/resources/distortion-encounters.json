@@ -1,0 +1,276 @@
+{
+  "obsidianfieldlands": [
+    {
+      "species": "Sneasel",
+      "alpha": false,
+      "min": 0,
+      "max": 100
+    },
+    {
+      "species": "Sneasel",
+      "alpha": true,
+      "min": 100,
+      "max": 101
+    },
+    {
+      "species": "Weavile",
+      "alpha": false,
+      "min": 101,
+      "max": 111
+    },
+    {
+      "species": "Weavile",
+      "alpha": true,
+      "min": 111,
+      "max": 112
+    }
+  ],
+  "crimsonmirelands": [
+    {
+      "species": "Porygon",
+      "alpha": false,
+      "min": 0,
+      "max": 100
+    },
+    {
+      "species": "Porygon",
+      "alpha": true,
+      "min": 100,
+      "max": 101
+    },
+    {
+      "species": "Porygon2",
+      "alpha": false,
+      "min": 101,
+      "max": 111
+    },
+    {
+      "species": "Porygon2",
+      "alpha": true,
+      "min": 111,
+      "max": 112
+    },
+    {
+      "species": "Porygon-Z",
+      "alpha": false,
+      "min": 112,
+      "max": 117
+    },
+    {
+      "species": "Porygon-Z",
+      "alpha": true,
+      "min": 117,
+      "max": 118
+    },
+    {
+      "species": "Cyndaquil",
+      "alpha": false,
+      "min": 118,
+      "max": 218
+    },
+    {
+      "species": "Cyndaquil",
+      "alpha": true,
+      "min": 218,
+      "max": 219
+    },
+    {
+      "species": "Quilava",
+      "alpha": false,
+      "min": 219,
+      "max": 269
+    },
+    {
+      "species": "Quilava",
+      "alpha": true,
+      "min": 269,
+      "max": 270
+    },
+    {
+      "species": "Typhlosion",
+      "alpha": false,
+      "min": 270,
+      "max": 275
+    },
+    {
+      "species": "Typhlosion",
+      "alpha": true,
+      "min": 275,
+      "max": 276
+    }
+  ],
+  "cobaltcoastlands": [
+    {
+      "species": "Magnemite",
+      "alpha": false,
+      "min": 0,
+      "max": 100
+    },
+    {
+      "species": "Magnemite",
+      "alpha": true,
+      "min": 100,
+      "max": 101
+    },
+    {
+      "species": "Magneton",
+      "alpha": false,
+      "min": 101,
+      "max": 151
+    },
+    {
+      "species": "Magneton",
+      "alpha": true,
+      "min": 151,
+      "max": 152
+    },
+    {
+      "species": "Magnezone",
+      "alpha": false,
+      "min": 152,
+      "max": 162
+    },
+    {
+      "species": "Magnezone",
+      "alpha": true,
+      "min": 162,
+      "max": 163
+    }
+  ],
+  "coronethighlands": [
+    {
+      "species": "Cranidos",
+      "alpha": false,
+      "min": 0,
+      "max": 100
+    },
+    {
+      "species": "Cranidos",
+      "alpha": true,
+      "min": 100,
+      "max": 101
+    },
+    {
+      "species": "Rampardos",
+      "alpha": false,
+      "min": 101,
+      "max": 111
+    },
+    {
+      "species": "Rampardos",
+      "alpha": true,
+      "min": 111,
+      "max": 112
+    },
+    {
+      "species": "Shieldon",
+      "alpha": false,
+      "min": 112,
+      "max": 212
+    },
+    {
+      "species": "Shieldon",
+      "alpha": true,
+      "min": 212,
+      "max": 213
+    },
+    {
+      "species": "Bastiodon",
+      "alpha": false,
+      "min": 213,
+      "max": 223
+    },
+    {
+      "species": "Bastiodon",
+      "alpha": true,
+      "min": 223,
+      "max": 224
+    },
+    {
+      "species": "Rowlet",
+      "alpha": false,
+      "min": 224,
+      "max": 324
+    },
+    {
+      "species": "Rowlet",
+      "alpha": true,
+      "min": 324,
+      "max": 325
+    },
+    {
+      "species": "Dartrix",
+      "alpha": false,
+      "min": 325,
+      "max": 375
+    },
+    {
+      "species": "Dartrix",
+      "alpha": true,
+      "min": 375,
+      "max": 376
+    },
+    {
+      "species": "Decidueye",
+      "alpha": false,
+      "min": 376,
+      "max": 381
+    },
+    {
+      "species": "Decidueye",
+      "alpha": true,
+      "min": 381,
+      "max": 382
+    }
+  ],
+  "alabastericelands": [
+    {
+      "species": "Scizor",
+      "alpha": false,
+      "min": 0,
+      "max": 100
+    },
+    {
+      "species": "Scizor",
+      "alpha": true,
+      "min": 100,
+      "max": 101
+    },
+    {
+      "species": "Oshawott",
+      "alpha": false,
+      "min": 101,
+      "max": 201
+    },
+    {
+      "species": "Oshawott",
+      "alpha": true,
+      "min": 201,
+      "max": 202
+    },
+    {
+      "species": "Dewott",
+      "alpha": false,
+      "min": 202,
+      "max": 252
+    },
+    {
+      "species": "Dewott",
+      "alpha": true,
+      "min": 252,
+      "max": 253
+    },
+    {
+      "species": "Samurott",
+      "alpha": false,
+      "min": 253,
+      "max": 258
+    },
+    {
+      "species": "Samurott",
+      "alpha": true,
+      "min": 258,
+      "max": 259
+    }
+  ]
+}
