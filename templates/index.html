@@ -30,13 +30,18 @@
             </div>
 
             <div class="pla-control">
+                <label for="distortionShinyFilter">Shiny or Alpha</label>
+                <input type="checkbox" onChange="showFilteredResults()" id="distortionShinyOrAlphaFilter">
+            </div>
+
+            <div class="pla-control">
                 <label for="distortionShinyFilter">Shiny Only</label>
-                <input type="checkbox" id="distortionShinyFilter">
+                <input type="checkbox" onChange="showFilteredResults()" id="distortionShinyFilter">
             </div>
 
             <div class="pla-control">
                 <label for="distortionAlphaFilter">Alpha Only</label>
-                <input type="checkbox" id="distortionAlphaFilter">
+                <input type="checkbox" onChange="showFilteredResults()" id="distortionAlphaFilter">
             </div>
 
             <div class="pla-control">

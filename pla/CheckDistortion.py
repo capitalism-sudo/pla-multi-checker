@@ -146,14 +146,13 @@ def check_filter(shiny_filter, alpha_filter, shiny, alpha):
     
     return True
 
-def check_common_spawn(index, distortion_name):
+def check_not_common_spawn(index, distortion_name):
     return index not in [0,4,8,12,16,20] and distortion_name.lower() != "unknown"
 
-def check_all_distortions(reader, map, rolls, shiny_filter, alpha_filter):
-    return [check_distortion(reader, map, i, rolls, shiny_filter, alpha_filter) for i in range(num_distortions[map])]
+def check_all_distortions(reader, map, rolls):
+    return [check_distortion(reader, map, i, rolls) for i in range(num_distortions[map])]
 
-def check_distortion(reader, map, index, rolls, shiny_filter, alpha_filter):
-    print(f"Checking Group {index}")
+def check_distortion(reader, map, index, rolls):
     distortion_name = get_distortion_location(map, index)
     generator_seed = get_generator_seed(reader, map, index)
     group_id = (generator_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
@@ -169,7 +168,7 @@ def check_distortion(reader, map, index, rolls, shiny_filter, alpha_filter):
         }
     
     else:
-        if check_filter(shiny_filter, alpha_filter, shiny, alpha) and check_common_spawn(index, distortion_name):
+        if check_not_common_spawn(index, distortion_name):
             return  {
                 "index": index,
                 "spawn": True,
@@ -190,5 +189,5 @@ def check_distortion(reader, map, index, rolls, shiny_filter, alpha_filter):
             return {
                 "index": index,
                 "spawn": False,
-                "description": "Filtered"
+                "description": "Common Spawn"
             }

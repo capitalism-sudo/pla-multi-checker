@@ -1,41 +1,57 @@
 const resultTemplate = document.querySelector("[data-pla-results-template]");
 const resultsArea = document.getElementById("distortionResults");
 
+// options
+const mapSelect = document.getElementById("mapSelect");
+const rollsInput = document.getElementById("rolls");
+
+// filters
+const distShinyOrAlphaCheckbox = document.getElementById(
+  "distortionShinyOrAlphaFilter"
+);
+const distShinyCheckbox = document.getElementById("distortionShinyFilter");
+const distAlphaCheckbox = document.getElementById("distortionAlphaFilter");
+
 loadPreferences();
 setupPreferenceSaving();
 
+const results = [];
+
 // Save and load user preferences
 function loadPreferences() {
-  document.getElementById("mapSelect").value =
-    localStorage.getItem("mapSelect") ?? "obsidianfieldlands";
-  document.getElementById("rolls").value = readIntFromStorage("rolls", 1);
-  document.getElementById("distortionAlphaFilter").checked =
-    readBoolFromStorage("distortionAlphaFilter", false);
-  document.getElementById("distortionShinyFilter").checked =
-    readBoolFromStorage("distortionShinyFilter", false);
+  mapSelect.value = localStorage.getItem("mapSelect") ?? "obsidianfieldlands";
+  rollsInput.value = readIntFromStorage("rolls", 1);
+  distAlphaCheckbox.checked = readBoolFromStorage(
+    "distortionAlphaFilter",
+    false
+  );
+  distShinyCheckbox.checked = readBoolFromStorage(
+    "distortionShinyFilter",
+    false
+  );
+  distShinyOrAlphaCheckbox.checked = readBoolFromStorage(
+    "distortionShinyOrAlphaFilter",
+    false
+  );
+  validateFilters();
 }
 
 function setupPreferenceSaving() {
-  document
-    .getElementById("mapSelect")
-    .addEventListener("change", (e) =>
-      localStorage.setItem("mapSelect", e.target.value)
-    );
-  document
-    .getElementById("rolls")
-    .addEventListener("change", (e) =>
-      saveIntToStorage("rolls", e.target.value)
-    );
-  document
-    .getElementById("distortionAlphaFilter")
-    .addEventListener("change", (e) =>
-      saveBoolToStorage("distortionAlphaFilter", e.target.checked)
-    );
-  document
-    .getElementById("distortionShinyFilter")
-    .addEventListener("change", (e) =>
-      saveBoolToStorage("distortionShinyFilter", e.target.checked)
-    );
+  mapSelect.addEventListener("change", (e) =>
+    localStorage.setItem("mapSelect", e.target.value)
+  );
+  rollsInput.addEventListener("change", (e) =>
+    saveIntToStorage("rolls", e.target.value)
+  );
+  distAlphaCheckbox.addEventListener("change", (e) =>
+    saveBoolToStorage("distortionAlphaFilter", e.target.checked)
+  );
+  distShinyCheckbox.addEventListener("change", (e) =>
+    saveBoolToStorage("distortionShinyFilter", e.target.checked)
+  );
+  distShinyOrAlphaCheckbox.addEventListener("change", (e) =>
+    saveBoolToStorage("distortionShinyOrAlpaFilter", e.target.checked)
+  );
 }
 
 function saveIntToStorage(id, value) {
@@ -56,21 +72,51 @@ function readBoolFromStorage(id, defaultValue) {
   return value ? parseInt(value) == 1 : defaultValue;
 }
 
-function getOptions() {
-  let mapSelect = document.getElementById("mapSelect").value;
-  let rolls = document.getElementById("rolls").value;
-  let distortionAlphaFilter = document.getElementById(
-    "distortionAlphaFilter"
-  ).checked;
-  let distortionShinyFilter = document.getElementById(
-    "distortionShinyFilter"
-  ).checked;
+function validateFilters() {
+  let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
+  let shinyFilter = distShinyCheckbox.checked;
+  let alphaFilter = distAlphaCheckbox.checked;
 
-  return { mapSelect, rolls, distortionAlphaFilter, distortionShinyFilter };
+  if (shinyOrAlphaFilter) {
+    shinyFilter = false;
+    alphaFilter = false;
+  }
+
+  if (shinyFilter || alphaFilter) {
+    shinyOrAlphaFilter = false;
+  }
+
+  distShinyOrAlphaCheckbox.checked = shinyOrAlphaFilter;
+  distShinyCheckbox.checked = shinyFilter;
+  distAlphaCheckbox.checked = alphaFilter;
+}
+
+function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter) {
+  if (shinyOrAlphaFilter && !(result.shiny || result.alpha)) {
+    return false;
+  }
+
+  if (shinyFilter && !result.shiny) {
+    return false;
+  }
+
+  if (alphaFilter && !result.alpha) {
+    return false;
+  }
+
+  return true;
+}
+
+function getOptions() {
+  return {
+    map_name: mapSelect.value,
+    rolls: parseInt(rollsInput.value),
+  };
 }
 
 function checkDistortions() {
-  let options = getOptions();
+  const options = getOptions();
+  showFetchingResults();
 
   fetch("/read-distortions", {
     method: "POST",
@@ -78,56 +124,92 @@ function checkDistortions() {
     body: JSON.stringify(options),
   })
     .then((response) => response.json())
-    .then((results) => showResults(results))
+    .then((res) => showResults(res))
     .catch((error) => showError(error));
 }
 
-function showResults({ results }) {
+function showFetchingResults() {
+  results.length = 0;
   resultsArea.innerHTML = "";
-  console.log(results);
-
-  results.forEach((result, index) => {
-    if (!result.spawn) {
-      return;
-    }
-
-    const resultContainer = resultTemplate.content.cloneNode(true);
-    resultContainer.querySelector("[data-pla-results-species]").innerText =
-      result.species;
-    resultContainer.querySelector("[data-pla-results-location]").innerText =
-      result.distortion_name;
-    resultContainer.querySelector("[data-pla-results-shiny]").innerText =
-      result.shiny;
-    resultContainer.querySelector("[data-pla-results-alpha]").innerText =
-      result.alpha;
-    resultContainer.querySelector("[data-pla-results-nature]").innerText =
-      result.nature;
-    resultContainer.querySelector("[data-pla-results-gender]").innerText =
-      result.gender;
-    resultContainer.querySelector("[data-pla-results-ec]").innerText =
-      result.ec;
-    resultContainer.querySelector("[data-pla-results-pid]").innerText =
-      result.pid;
-    resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText =
-      result.ivs[0];
-    resultContainer.querySelector("[data-pla-results-ivs-att]").innerText =
-      result.ivs[1];
-    resultContainer.querySelector("[data-pla-results-ivs-def]").innerText =
-      result.ivs[2];
-    resultContainer.querySelector("[data-pla-results-ivs-spa]").innerText =
-      result.ivs[3];
-    resultContainer.querySelector("[data-pla-results-ivs-spd]").innerText =
-      result.ivs[4];
-    resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
-      result.ivs[5];
-
-    resultsArea.appendChild(resultContainer);
-  });
+  resultsArea.innerText = "Searching distortion results";
 }
+
+const showResults = ({ distortion_spawns }) => {
+  distortion_spawns.forEach((pokemon) => {
+    if (pokemon.spawn) {
+      results.push(pokemon);
+    }
+  });
+  showFilteredResults();
+};
+
+const showFilteredResults = () => {
+  validateFilters();
+
+  let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
+  let shinyFilter = distShinyCheckbox.checked;
+  let alphaFilter = distAlphaCheckbox.checked;
+
+  resultsArea.innerHTML = "";
+
+  filteredResults = results.filter(
+    (result) =>
+      result.spawn &&
+      filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter)
+  );
+
+  if (filteredResults.length > 0) {
+    filteredResults.forEach((result) => {
+      const resultContainer = resultTemplate.content.cloneNode(true);
+      resultContainer.querySelector("[data-pla-results-species]").innerText =
+        result.species;
+      resultContainer.querySelector("[data-pla-results-location]").innerText =
+        result.distortion_name;
+
+      let resultShiny = resultContainer.querySelector(
+        "[data-pla-results-shiny]"
+      );
+      resultShiny.innerText = result.shiny;
+      resultShiny.classList.toggle("pla-result-true", result.shiny);
+      resultShiny.classList.toggle("pla-result-false", !result.shiny);
+
+      let resultAlpha = resultContainer.querySelector(
+        "[data-pla-results-alpha]"
+      );
+      resultAlpha.innerText = result.alpha;
+      resultAlpha.classList.toggle("pla-result-true", result.alpha);
+      resultAlpha.classList.toggle("pla-result-false", !result.alpha);
+
+      resultContainer.querySelector("[data-pla-results-nature]").innerText =
+        result.nature;
+      resultContainer.querySelector("[data-pla-results-gender]").innerText =
+        result.gender;
+      resultContainer.querySelector("[data-pla-results-ec]").innerText =
+        result.ec;
+      resultContainer.querySelector("[data-pla-results-pid]").innerText =
+        result.pid;
+      resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText =
+        result.ivs[0];
+      resultContainer.querySelector("[data-pla-results-ivs-att]").innerText =
+        result.ivs[1];
+      resultContainer.querySelector("[data-pla-results-ivs-def]").innerText =
+        result.ivs[2];
+      resultContainer.querySelector("[data-pla-results-ivs-spa]").innerText =
+        result.ivs[3];
+      resultContainer.querySelector("[data-pla-results-ivs-spd]").innerText =
+        result.ivs[4];
+      resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
+        result.ivs[5];
+
+      resultsArea.appendChild(resultContainer);
+    });
+  } else {
+    resultsArea.innerText = "No results found";
+  }
+};
 
 function showError(error) {
   console.log(error);
-  let resultsArea = document.getElementById("distortionResults");
   resultsArea.textContent = "Error" + JSON.stringify(error, null, 2);
 }
 

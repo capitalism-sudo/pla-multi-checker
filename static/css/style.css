@@ -122,12 +122,10 @@ select {
 }
 
 .pla-action-button {
+  cursor: pointer;
   font-weight: bold;
   border: 2px solid var(--color-accent-2);
-  background: -webkit-linear-gradient(
-    var(--color-accent-1),
-    var(--color-accent-2)
-  );
+  background-color: var(--color-accent-1);
   padding: 0.4rem 0.8rem;
   border-radius: 0.2rem;
 }
@@ -138,7 +136,10 @@ select {
 
 .pla-action-button:active {
   border: 2px solid var(--color-shadow);
-  background-color: var(--color-accent-2);
+  background: -webkit-linear-gradient(
+    var(--color-accent-1),
+    var(--color-accent-2)
+  );
 }
 
 .pla-control {
@@ -235,11 +236,13 @@ select {
 }
 
 .pla-result-true {
+  text-transform: capitalize;
   color: var(--color-accent-1);
   font-weight: bold;
 }
 
 .pla-result-false {
+  text-transform: capitalize;
   color: var(--color-shadow);
 }
 

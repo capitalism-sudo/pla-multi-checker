@@ -22,12 +22,8 @@ def home():
 
 @app.route('/read-distortions', methods=['POST'])
 def read_distortions():
-    results = pla.check_all_distortions(reader, request.json['mapSelect'],
-                                  int(request.json['rolls']),
-                                  request.json['distortionShinyFilter'],
-                                  request.json['distortionAlphaFilter'])
-
-    return { "results": results }
+    results = pla.check_all_distortions(reader, request.json['map_name'], request.json['rolls'])
+    return { "distortion_spawns": results }
 
 @app.route('/create-distortion', methods=['POST'])
 def create_distortion():
