@@ -120,6 +120,12 @@ def read_wild_rng(map_name, index, group_id, rolls):
 def get_generator_seed(reader, map_name, index):
     return reader.read_pointer_int(f"[[[[[[main+428E268]+C0]+1C0]+{distortion_offset[map_name] + index * 0x8:X}]+18]+428]+C8", 8)
 
+def get_distortion_spawns(map_name):
+    return [s['species'] for s in encounters[map_name] if s['alpha'] == False]
+
+def get_distortion_locations(map_name):
+    return [loc for loc in distortion_locations[map_name].values() if loc.lower() != "unknown"]
+
 def get_distortion_location(map_name, index):
     for location in distortion_locations[map_name]:
         if index >= location[0] and index < location[1]:

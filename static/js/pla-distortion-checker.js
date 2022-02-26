@@ -1,9 +1,16 @@
 const resultTemplate = document.querySelector("[data-pla-results-template]");
-const resultsArea = document.getElementById("distortionResults");
+const resultsArea = document.querySelector("[data-pla-results]");
+const mapLocationsArea = document.querySelector("[data-pla-info-locations]");
+const mapSpawnsArea = document.querySelector("[data-pla-info-spawns]");
+const spinnerTemplate = document.querySelector("[data-pla-spinner]");
+
+const resultsSection = document.querySelector(".pla-section-results");
 
 // options
 const mapSelect = document.getElementById("mapSelect");
 const rollsInput = document.getElementById("rolls");
+
+mapSelect.onchange = setMap;
 
 // filters
 const distShinyOrAlphaCheckbox = document.getElementById(
@@ -12,8 +19,13 @@ const distShinyOrAlphaCheckbox = document.getElementById(
 const distShinyCheckbox = document.getElementById("distortionShinyFilter");
 const distAlphaCheckbox = document.getElementById("distortionAlphaFilter");
 
+distShinyOrAlphaCheckbox.onchange = setFilter;
+distShinyCheckbox.onchange = setFilter;
+distAlphaCheckbox.onchange = setFilter;
+
 loadPreferences();
 setupPreferenceSaving();
+setMap();
 
 const results = [];
 
@@ -72,6 +84,23 @@ function readBoolFromStorage(id, defaultValue) {
   return value ? parseInt(value) == 1 : defaultValue;
 }
 
+function setFilter(event) {
+  if (event.target.checked) {
+    if (event.target == distShinyOrAlphaCheckbox) {
+      distShinyCheckbox.checked = false;
+      distAlphaCheckbox.checked = false;
+    }
+    if (event.target == distShinyCheckbox) {
+      distShinyOrAlphaCheckbox.checked = false;
+    }
+    if (event.target == distAlphaCheckbox) {
+      distShinyOrAlphaCheckbox.checked = false;
+    }
+  }
+
+  showFilteredResults();
+}
+
 function validateFilters() {
   let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
   let shinyFilter = distShinyCheckbox.checked;
@@ -114,6 +143,37 @@ function getOptions() {
   };
 }
 
+function setMap() {
+  const options = { map_name: mapSelect.value };
+
+  fetch("/map-info", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(options),
+  })
+    .then((response) => response.json())
+    .then((res) => showMapInfo(res))
+    .catch((error) => {});
+}
+
+function showMapInfo({ locations, spawns }) {
+  mapLocationsArea.innerHTML = "";
+  mapSpawnsArea.innerHTML = "";
+
+  locations.forEach((loc) => {
+    let locListItem = document.createElement("li");
+    locListItem.innerText = loc;
+    mapLocationsArea.appendChild(locListItem);
+  });
+
+  const spawnList = document.createElement("ul");
+  spawns.forEach((spawn) => {
+    let spawnItem = document.createElement("li");
+    spawnItem.innerText = spawn;
+    mapSpawnsArea.appendChild(spawnItem);
+  });
+}
+
 function checkDistortions() {
   const options = getOptions();
   showFetchingResults();
@@ -131,7 +191,9 @@ function checkDistortions() {
 function showFetchingResults() {
   results.length = 0;
   resultsArea.innerHTML = "";
-  resultsArea.innerText = "Searching distortion results";
+  const spinner = spinnerTemplate.content.cloneNode(true);
+  resultsArea.appendChild(spinner);
+  resultsSection.classList.toggle("pla-loading", true);
 }
 
 const showResults = ({ distortion_spawns }) => {
@@ -151,6 +213,7 @@ const showFilteredResults = () => {
   let alphaFilter = distAlphaCheckbox.checked;
 
   resultsArea.innerHTML = "";
+  resultsSection.classList.toggle("pla-loading", false);
 
   filteredResults = results.filter(
     (result) =>
@@ -184,10 +247,12 @@ const showFilteredResults = () => {
         result.nature;
       resultContainer.querySelector("[data-pla-results-gender]").innerText =
         result.gender;
+      resultContainer.querySelector("[data-pla-results-seed]").innerText =
+        result.generator_seed.toString(16);
       resultContainer.querySelector("[data-pla-results-ec]").innerText =
-        result.ec;
+        result.ec.toString(16);
       resultContainer.querySelector("[data-pla-results-pid]").innerText =
-        result.pid;
+        result.pid.toString(16);
       resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText =
         result.ivs[0];
       resultContainer.querySelector("[data-pla-results-ivs-att]").innerText =

@@ -1,2 +1,2 @@
-from .CheckDistortion import check_all_distortions
+from .CheckDistortion import check_all_distortions, get_distortion_locations, get_distortion_spawns
 from .CreateDistortion import create_distortion

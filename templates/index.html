@@ -17,7 +17,7 @@
         <h1 class="pla-heading"><span class="pla-heading-highlight">PLA</span> Distortion Checker</h1>
     </header>
     <main>
-        <section>
+        <section class="pla-section-options">
             <div class="pla-control">
                 <label for="mapSelect">Choose Map</label>
                 <select id="mapSelect">
@@ -27,21 +27,6 @@
                     <option value="coronethighlands">Coronet Highlands</option>
                     <option value="alabastericelands">Alabaster Icelands</option>
                 </select>
-            </div>
-
-            <div class="pla-control">
-                <label for="distortionShinyFilter">Shiny or Alpha</label>
-                <input type="checkbox" onChange="showFilteredResults()" id="distortionShinyOrAlphaFilter">
-            </div>
-
-            <div class="pla-control">
-                <label for="distortionShinyFilter">Shiny Only</label>
-                <input type="checkbox" onChange="showFilteredResults()" id="distortionShinyFilter">
-            </div>
-
-            <div class="pla-control">
-                <label for="distortionAlphaFilter">Alpha Only</label>
-                <input type="checkbox" onChange="showFilteredResults()" id="distortionAlphaFilter">
             </div>
 
             <div class="pla-control">
@@ -55,17 +40,40 @@
                 </select>
             </div>
 
+            <div class="pla-control-checkbox">
+                <label for="distortionShinyFilter">Shiny or Alpha</label>
+                <input type="checkbox" id="distortionShinyOrAlphaFilter">
+            </div>
+
+            <div class="pla-control-checkbox">
+                <label for="distortionShinyFilter">Shiny Only</label>
+                <input type="checkbox" id="distortionShinyFilter">
+            </div>
+
+            <div class="pla-control-checkbox">
+                <label for="distortionAlphaFilter">Alpha Only</label>
+                <input type="checkbox" id="distortionAlphaFilter">
+            </div>
+
             <div class="pla-control-actions">
                 <button class="pla-action-button" onclick="checkDistortions()">Check Distortions</button>
                 <button class="pla-action-button" onclick="createDistortion()">Create Distortion</button>
             </div>
-
-            <div class="pla-control">
-            </div>
         </section>
 
-        <section>
-            <div id="distortionResults" class="pla-results">
+        <section class="pla-section-info">
+            <h3>Distortions</h3>
+            <ul class="pla-info-list" data-pla-info-locations>
+
+            </ul>
+            <h3>Spawns</h3>
+            <ul class="pla-info-list" data-pla-info-spawns>
+
+            </ul>
+        </section>
+
+        <section class="pla-section-results">
+            <div class="pla-results" data-pla-results>
                 Search to begin
             </div>
         </section>
@@ -89,6 +97,7 @@
             </ul>
 
             <ul class="pla-results-ul">
+                <li><span class="pla-results-label">Seed:</span> <span data-pla-results-seed></span></li>
                 <li><span class="pla-results-label">EC:</span> <span data-pla-results-ec></span></li>
                 <li><span class="pla-results-label">PID:</span> <span data-pla-results-pid></span></li>
             </ul>
@@ -104,6 +113,19 @@
                     <li class="pla-results-ivs-spe" data-pla-results-ivs-spe></li>
                 </ul>
             </div>
+        </div>
+    </template>
+
+    <template data-pla-spinner>
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </template>
 

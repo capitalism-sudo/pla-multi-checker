@@ -30,5 +30,11 @@ def create_distortion():
     pla.create_distortion(reader)
     return "Distortion Created"
 
+@app.route('/map-info', methods=['POST'])
+def get_map_info():
+    locations = pla.get_distortion_locations(request.json['map_name'])
+    spawns = pla.get_distortion_spawns(request.json['map_name'])
+    return { "locations": locations, "spawns": spawns }
+
 if __name__ == '__main__':
     app.run(host="localhost", port=5000, debug=True)
