@@ -14,10 +14,10 @@ mapSelect.onchange = setMap;
 
 // filters
 const distShinyOrAlphaCheckbox = document.getElementById(
-  "distortionShinyOrAlphaFilter"
+  "mmoShinyOrAlphaFilter"
 );
-const distShinyCheckbox = document.getElementById("distortionShinyFilter");
-const distAlphaCheckbox = document.getElementById("distortionAlphaFilter");
+const distShinyCheckbox = document.getElementById("mmoShinyFilter");
+const distAlphaCheckbox = document.getElementById("mmoAlphaFilter");
 
 distShinyOrAlphaCheckbox.onchange = setFilter;
 distShinyCheckbox.onchange = setFilter;
@@ -31,18 +31,18 @@ const results = [];
 
 // Save and load user preferences
 function loadPreferences() {
-  mapSelect.value = localStorage.getItem("mapSelect") ?? "obsidianfieldlands";
+  mapSelect.value = localStorage.getItem("mapSelect") ?? "0";
   rollsInput.value = readIntFromStorage("rolls", 1);
   distAlphaCheckbox.checked = readBoolFromStorage(
-    "distortionAlphaFilter",
+    "mmoAlphaFilter",
     false
   );
   distShinyCheckbox.checked = readBoolFromStorage(
-    "distortionShinyFilter",
+    "mmoShinyFilter",
     false
   );
   distShinyOrAlphaCheckbox.checked = readBoolFromStorage(
-    "distortionShinyOrAlphaFilter",
+    "mmoShinyOrAlphaFilter",
     false
   );
   validateFilters();
@@ -56,13 +56,13 @@ function setupPreferenceSaving() {
     saveIntToStorage("rolls", e.target.value)
   );
   distAlphaCheckbox.addEventListener("change", (e) =>
-    saveBoolToStorage("distortionAlphaFilter", e.target.checked)
+    saveBoolToStorage("mmoAlphaFilter", e.target.checked)
   );
   distShinyCheckbox.addEventListener("change", (e) =>
-    saveBoolToStorage("distortionShinyFilter", e.target.checked)
+    saveBoolToStorage("mmoShinyFilter", e.target.checked)
   );
   distShinyOrAlphaCheckbox.addEventListener("change", (e) =>
-    saveBoolToStorage("distortionShinyOrAlpaFilter", e.target.checked)
+    saveBoolToStorage("mmoShinyOrAlpaFilter", e.target.checked)
   );
 }
 
@@ -138,7 +138,7 @@ function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter) {
 
 function getOptions() {
   return {
-    map_name: mapSelect.value,
+	mapname: parseInt(mapSelect.value),
     rolls: parseInt(rollsInput.value),
   };
 }
@@ -146,14 +146,12 @@ function getOptions() {
 function setMap() {
   const options = { map_name: mapSelect.value };
 
-  fetch("/map-info", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(options),
-  })
-    .then((response) => response.json())
-    .then((res) => showMapInfo(res))
-    .catch((error) => {});
+  fetch("/read-maps", {
+	 method: "GET"
+	})
+	  .then((response) => response.json())
+	  .then((res) => showMaps(res))
+	  .catch((error) => showError(error));
 }
 
 function showMapInfo({ locations, spawns }) {
@@ -174,11 +172,11 @@ function showMapInfo({ locations, spawns }) {
   });
 }
 
-function checkDistortions() {
+function checkmmos() {
   const options = getOptions();
   showFetchingResults();
 
-  fetch("/read-distortions", {
+  fetch("/read-mmos", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(options),
@@ -186,6 +184,29 @@ function checkDistortions() {
     .then((response) => response.json())
     .then((res) => showResults(res))
     .catch((error) => showError(error));
+}
+
+function checkmaps(){
+	fetch("/read-maps", {
+	 method: "GET"
+	})
+	  .then((response) => response.json())
+	  .then((res) => showMaps(res))
+	  .catch((error) => showError(error));
+}
+
+function checkonemap(){
+	const options = getOptions();
+	showFetchingResults();
+	
+	fetch("/read-one-map", {
+		method: "POST",
+		headers: { "Content-type": "application/json" },
+		body: JSON.stringify(options),
+	})
+	  .then((response) => response.json())
+	  .then((res) => showMapResults(res))
+	  .catch((error) => showError(error));
 }
 
 function showFetchingResults() {
@@ -196,12 +217,58 @@ function showFetchingResults() {
   resultsSection.classList.toggle("pla-loading", true);
 }
 
-const showResults = ({ distortion_spawns }) => {
-  distortion_spawns.forEach((pokemon) => {
-    if (pokemon.spawn) {
-      results.push(pokemon);
-    }
-  });
+const showMaps = ({maps}) => {
+  mapLocationsArea.innerHTML = "";
+	maps.forEach((location, index) => {
+		if (location != "None") {
+			let locListItem = document.createElement("li");
+			locListItem.innerText = index + " - " + location;
+			mapLocationsArea.appendChild(locListItem);
+		}
+	});
+}
+
+const showMapResults = ({mmo_spawns}) => {
+	console.log(mmo_spawns)
+	for (const [key,value] of Object.entries(mmo_spawns)) {
+		for (const [x, pokemon] of Object.entries(value)) {
+			console.log(x)
+			if(pokemon.spawn) {
+				results.push(pokemon);
+			}
+			else if (x.includes("Bonus")) {
+				for (const [b, bonus] of Object.entries(pokemon)) {
+					console.log(b,bonus)
+					if(bonus.spawn) {
+						results.push(bonus);
+					}
+				}
+			}
+		}
+	};
+	showFilteredResults();
+};
+
+const showResults = ({ mmo_spawns }) => {
+  console.log(mmo_spawns)
+  for (const [key, value] of Object.entries(mmo_spawns)) {
+	  for (const [z, vall] of Object.entries(value)) {
+		  for (const[x, pokemon] of Object.entries(vall)) {
+			  console.log(x)
+			  if(pokemon.spawn) {
+				  results.push(pokemon);
+			  }
+			  else if (x.includes("Bonus")) {
+				  for (const[b, bonus] of Object.entries(pokemon)) {
+					  console.log(b, bonus)
+					  if(bonus.spawn) {
+						  results.push(bonus);
+					  }
+				  }
+			  }
+		  }
+	  }
+  };
   showFilteredResults();
 };
 
@@ -227,7 +294,7 @@ const showFilteredResults = () => {
       resultContainer.querySelector("[data-pla-results-species]").innerText =
         result.species;
       resultContainer.querySelector("[data-pla-results-location]").innerText =
-        result.distortion_name;
+        result.index;
 
       let resultShiny = resultContainer.querySelector(
         "[data-pla-results-shiny]"
@@ -243,6 +310,10 @@ const showFilteredResults = () => {
       resultAlpha.classList.toggle("pla-result-true", result.alpha);
       resultAlpha.classList.toggle("pla-result-false", !result.alpha);
 
+	  resultContainer.querySelector("[data-pla-results-group]").innerText =
+	    result.group;
+	  resultContainer.querySelector("[data-pla-results-mapname]").innerText =
+	    result.mapname;
       resultContainer.querySelector("[data-pla-results-nature]").innerText =
         result.nature;
       resultContainer.querySelector("[data-pla-results-gender]").innerText =
@@ -278,9 +349,3 @@ function showError(error) {
   resultsArea.textContent = "Error" + JSON.stringify(error, null, 2);
 }
 
-function createDistortion() {
-  fetch("/create-distortion", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-  });
-}

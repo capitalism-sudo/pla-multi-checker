@@ -54,11 +54,6 @@
                 <label for="mmoAlphaFilter">Alpha Only</label>
                 <input type="checkbox" id="mmoAlphaFilter">
             </div>
-			
-			
-            <div class="pla-control-actions">
-                <button class="pla-action-button" onclick="checkonemap()">Check Map Index</button>
-            </div>
 
             <div class="pla-control-actions">
                 <button class="pla-action-button" onclick="checkmmos()">Check MMOS</button>

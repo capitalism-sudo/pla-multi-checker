@@ -20,21 +20,20 @@ signal.signal(signal.SIGINT, signal_handler)
 def home():
     return render_template('index.html')
 
-@app.route('/read-distortions', methods=['POST'])
-def read_distortions():
-    results = pla.check_all_distortions(reader, request.json['map_name'], request.json['rolls'])
-    return { "distortion_spawns": results }
+@app.route('/read-mmos', methods=['POST'])
+def read_mmos():
+    results = pla.get_all_map_mmos(reader, request.json['rolls'])
+    return { "mmo_spawns": results }
 
-@app.route('/create-distortion', methods=['POST'])
-def create_distortion():
-    pla.create_distortion(reader)
-    return "Distortion Created"
+@app.route('/read-maps', methods=['GET'])
+def read_maps():
+    results = pla.get_all_map_names(reader)
+    return { "maps": results }
 
-@app.route('/map-info', methods=['POST'])
-def get_map_info():
-    locations = pla.get_distortion_locations(request.json['map_name'])
-    spawns = pla.get_distortion_spawns(request.json['map_name'])
-    return { "locations": locations, "spawns": spawns }
+@app.route('/read-one-map', methods=['POST'])
+def read_one_map():
+   results = pla.get_map_mmos(reader,request.json['mapname'],request.json['rolls'])
+   return { "mmo_spawn": results }
 
 if __name__ == '__main__':
     app.run(host="localhost", port=8100, debug=True)
