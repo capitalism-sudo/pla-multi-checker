@@ -17,6 +17,9 @@ encmap = json.load(open("./static/resources/mmo_es.json"))
 
 with open("./static/resources/text_natures.txt",encoding="utf-8") as text_natures:
     NATURES = text_natures.read().split("\n")
+
+with open("./static/resources/text_species_en.txt",encoding="utf-8") as text_species:
+    SPECIES = text_species.read().split("\n")
     
 def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     rng = XOROSHIRO(seed)
@@ -44,6 +47,7 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
         gender = rng.rand(252) + 1
     nature = rng.rand(25)
     return ec,pid,ivs,ability,gender,nature,shiny
+
 
 def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storage,spawns,true_spawns,encounters,encsum,isbonus=False,isalpha=False):
     """Generate all the pokemon of an outbreak based on a provided aggressive path"""
@@ -446,6 +450,140 @@ def next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,spaw
     else:
         return info
 
+def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques,storage):
+    """Generate all the pokemon of an outbreak based on a provided aggressive path"""
+    # pylint: disable=too-many-locals, too-many-arguments
+    # the generation is unique to each path, no use in splitting this function
+    main_rng = XOROSHIRO(group_seed)
+    for init_spawn in range(1,5):
+        generator_seed = main_rng.next()
+        main_rng.next() # spawner 1's seed, unused
+        fixed_rng = XOROSHIRO(generator_seed)
+        slot = (fixed_rng.next() / (2**64) * 101)
+        alpha = slot >= 100
+        fixed_seed = fixed_rng.next()
+        encryption_constant,pid,ivs,ability,gender,nature,shiny = \
+            generate_from_seed(fixed_seed,rolls,3 if alpha else 0)
+        if not fixed_seed in uniques:
+            uniques.add(fixed_seed)
+            info = {
+                "index":f"Init Spawn {init_spawn}",
+                "spawn":True,
+                "generator_seed":generator_seed,
+                "shiny":shiny,
+                "alpha":alpha,
+                "ec":encryption_constant,
+                "pid":pid,
+                "ivs":ivs,
+                "ability":ability,
+                "nature":NATURES[nature],
+                "gender":gender
+                }
+            #print(info)
+            storage[str(fixed_seed)]=info
+    group_seed = main_rng.next()
+    respawn_rng = XOROSHIRO(group_seed)
+    for step_i,step in enumerate(steps):
+        for pokemon in range(1,step+1):
+            generator_seed = respawn_rng.next()
+            respawn_rng.next() # spawner 1's seed, unused
+            fixed_rng = XOROSHIRO(generator_seed)
+            slot = (fixed_rng.next() / (2**64) * 101)
+            alpha = slot >= 100
+            fixed_seed = fixed_rng.next()
+            encryption_constant,pid,ivs,ability,gender,nature,shiny = \
+                generate_from_seed(fixed_seed,rolls,3 if alpha else 0)
+            if not fixed_seed in uniques:
+                uniques.add(fixed_seed)
+                info = {
+                "index":f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}",
+                "spawn":True,
+                "generator_seed":generator_seed,
+                "shiny":shiny,
+                "alpha":alpha,
+                "ec":encryption_constant,
+                "pid":pid,
+                "ivs":ivs,
+                "ability":ability,
+                "nature":NATURES[nature],
+                "gender":gender
+                }
+               # print(info)
+                storage[str(fixed_seed)]=info
+        respawn_rng = XOROSHIRO(respawn_rng.next())
+
+def get_final_normal(spawns):
+    """Get the final path that will be generated to know when to stop aggressive recursion"""
+    spawns -= 4
+    path = [4] * (spawns // 4)
+    if spawns % 4 != 0:
+        path.append(spawns % 4)
+    return path
+
+
+def aggressive_outbreak_pathfind_normal(group_seed,
+                                 rolls,
+                                 spawns,
+                                 step=0,
+                                 steps=None,
+                                 uniques=None,
+                                 storage=None):
+    """Recursively pathfind to possible shinies for the current outbreak via multi battles"""
+    # pylint: disable=too-many-arguments
+    # can this algo be improved?
+    if steps is None or uniques is None or storage is None:
+        steps = []
+        uniques = set()
+        storage = {}
+    _steps = steps.copy()
+    if step != 0:
+        _steps.append(step)
+    if sum(_steps) + step < spawns - 4:
+        for _step in range(1, min(5, (spawns - 4) - sum(_steps))):
+            if aggressive_outbreak_pathfind_normal(group_seed,
+                                            rolls,
+                                            spawns,
+                                            _step,
+                                            _steps,
+                                            uniques,
+                                            storage) is not None:
+                return storage
+    else:
+        _steps.append(spawns - sum(_steps) - 4)
+        generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,_steps,uniques,storage)
+        if _steps == get_final(spawns):
+            return storage
+    return None
+
+def next_filtered_aggressive_outbreak_pathfind_normal(group_seed,rolls,spawns):
+    """Check the next outbreak advances until an aggressive path to a pokemon that
+       passes poke_filter exists"""
+    main_rng = XOROSHIRO(group_seed)
+    result = []
+    advance = -1
+    
+    while len(result) == 0 and advance < 1:
+        if advance != -1:
+            for _ in range(4*2):
+                main_rng.next()
+            group_seed = main_rng.next()
+            main_rng.reseed(group_seed)
+        advance += 1
+        result = aggressive_outbreak_pathfind_normal(group_seed, rolls, spawns)
+        if result is None:
+            result = []
+    if advance == 0:
+        info = result
+    else:
+        info = {
+            "spawn":False,
+            "description":"Spawner not active"
+            }
+    if advance != 0:
+        return info
+    else:
+        return info
+
 def get_group_seed(reader,group_id,mapcount):
     group_seed = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount+0x44:X}",8)
     return group_seed
@@ -471,6 +609,13 @@ def get_bonus_flag(reader,group_id,maps):
     return True if reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * maps+0x18:X}",1) == 1 else False
 
 
+def get_normal_outbreak_info(reader,group_id):
+        species = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x20 + group_id*0x50:X}",2)
+        group_seed = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x20 + group_id*0x50+0x38:X}",8)
+        max_spawns = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x20 + group_id*0x50+0x40:X}",8)
+
+        return species,group_seed,max_spawns
+                                      
 def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name):
     isbonus = True
     outbreaks = {}
@@ -534,8 +679,10 @@ def get_all_map_mmos(reader,rolls):
     display = {}
     for i in range(0,4):
         map_name = get_map_name(reader,i)
+        print(f"Map {map_name} starting now...")
         result = get_map_mmos(reader,i,rolls)
         display[map_name] = result
+        print(f"Map {map_name} complete!")
 
     #print(display)
     return display
@@ -548,6 +695,34 @@ def get_all_map_names(reader):
         maps.append(map_name)
 
     return maps
+
+def read_normal_outbreaks(reader,rolls):
+    outbreaks = {}
+    rolls = rolls + 13
+    print(f"Rolls: {rolls}")
+    for i in range(0,4):
+        species,group_seed,max_spawns = get_normal_outbreak_info(reader,i)
+        if species != 0:
+            display = next_filtered_aggressive_outbreak_pathfind_normal(group_seed,rolls,max_spawns)
+            for index in display:
+                if index != "index" and index != "description":
+                    display[str(index)]["group"] = i
+                    display[str(index)]["mapname"] = "Normal Outbreak"
+                    display[str(index)]["species"] = SPECIES[species]
+            outbreaks[f"Outbreak {i}"] = display
+
+    return outbreaks
+
+
+def get_all_outbreak_names(reader):
+    outbreaks = []
+    for i in range(0,4):
+        species,_,_ = get_normal_outbreak_info(reader,i)
+        if species != 0:
+            outbreaks.append(SPECIES[species])
+
+    return outbreaks
+
 
 """       
 if __name__ == "__main__":

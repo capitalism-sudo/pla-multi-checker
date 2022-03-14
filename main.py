@@ -28,12 +28,18 @@ def read_mmos():
 @app.route('/read-maps', methods=['GET'])
 def read_maps():
     results = pla.get_all_map_names(reader)
-    return { "maps": results }
+    outbreaks = pla.get_all_outbreak_names(reader)
+    return { "maps": results, "outbreaks": outbreaks }
 
 @app.route('/read-one-map', methods=['POST'])
 def read_one_map():
    results = pla.get_map_mmos(reader,request.json['mapname'],request.json['rolls'])
    return { "mmo_spawn": results }
+
+@app.route('/read-normals', methods=['POST'])
+def read_normals():
+   results = pla.read_normal_outbreaks(reader,request.json['rolls'])
+   return { "normal_spawns": results }
 
 if __name__ == '__main__':
     app.run(host="localhost", port=8100, debug=True)

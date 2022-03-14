@@ -195,6 +195,20 @@ function checkmaps(){
 	  .catch((error) => showError(error));
 }
 
+function checknormals(){
+	const options = getOptions();
+	showFetchingResults();
+	
+	fetch("/read-normals", {
+		method: "POST",
+		headers: { "Content-type": "application/json" },
+		body: JSON.stringify(options),
+	})
+	  .then((response) => response.json())
+	  .then((res) => showNormalResults(res))
+	  .catch((error) => showError(error));
+}
+
 function checkonemap(){
 	const options = getOptions();
 	showFetchingResults();
@@ -217,16 +231,37 @@ function showFetchingResults() {
   resultsSection.classList.toggle("pla-loading", true);
 }
 
-const showMaps = ({maps}) => {
+const showMaps = ({maps,outbreaks}) => {
   mapLocationsArea.innerHTML = "";
+  mapSpawnsArea.innerHTML = "";
 	maps.forEach((location, index) => {
 		if (location != "None") {
-			let locListItem = document.createElement("li");
+			let locListItem = document.createElement("ul");
 			locListItem.innerText = index + " - " + location;
 			mapLocationsArea.appendChild(locListItem);
 		}
 	});
+	
+	outbreaks.forEach((pokemon) => {
+		let spawnItem = document.createElement("ul");
+		spawnItem.innerText = pokemon;
+		mapSpawnsArea.appendChild(spawnItem);
+	});
 }
+
+
+const showNormalResults = ({normal_spawns}) => {
+	console.log(normal_spawns)
+	for (const [key,value] of Object.entries(normal_spawns)) {
+		for (const [x, pokemon] of Object.entries(value)) {
+			console.log(x)
+			if(pokemon.spawn) {
+				results.push(pokemon);
+			}
+		}
+	};
+	showFilteredResults();
+};
 
 const showMapResults = ({mmo_spawn}) => {
 	console.log(mmo_spawn)
