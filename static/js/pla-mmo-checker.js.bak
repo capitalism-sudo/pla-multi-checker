@@ -6,6 +6,8 @@ const spinnerTemplate = document.querySelector("[data-pla-spinner]");
 
 const resultsSection = document.querySelector(".pla-section-results");
 
+const teleportButton = document.getElementById("pla-teleport-button");
+
 // options
 const mapSelect = document.getElementById("mapSelect");
 const rollsInput = document.getElementById("rolls");
@@ -18,10 +20,12 @@ const distShinyOrAlphaCheckbox = document.getElementById(
 );
 const distShinyCheckbox = document.getElementById("mmoShinyFilter");
 const distAlphaCheckbox = document.getElementById("mmoAlphaFilter");
+const mmoSpeciesText = document.getElementById("mmoSpeciesFilter");
 
 distShinyOrAlphaCheckbox.onchange = setFilter;
 distShinyCheckbox.onchange = setFilter;
 distAlphaCheckbox.onchange = setFilter;
+mmoSpeciesText.oninput = setFilter;
 
 loadPreferences();
 setupPreferenceSaving();
@@ -64,6 +68,11 @@ function setupPreferenceSaving() {
   distShinyOrAlphaCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("mmoShinyOrAlpaFilter", e.target.checked)
   );
+}
+
+function updatevalue() {
+	console.log(mmoSpeciesText.value);
+	setFilter;
 }
 
 function saveIntToStorage(id, value) {
@@ -120,7 +129,7 @@ function validateFilters() {
   distAlphaCheckbox.checked = alphaFilter;
 }
 
-function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter) {
+function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter) {
   if (shinyOrAlphaFilter && !(result.shiny || result.alpha)) {
     return false;
   }
@@ -131,6 +140,10 @@ function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter) {
 
   if (alphaFilter && !result.alpha) {
     return false;
+  }
+  
+  if (SpeciesFilter.value.length != 0 && !result.species.toLowerCase().includes(SpeciesFilter.value.toLowerCase())){
+	  return false;
   }
 
   return true;
@@ -195,6 +208,20 @@ function checkmaps(){
 	  .catch((error) => showError(error));
 }
 
+function checknormals(){
+	const options = getOptions();
+	showFetchingResults();
+	
+	fetch("/read-normals", {
+		method: "POST",
+		headers: { "Content-type": "application/json" },
+		body: JSON.stringify(options),
+	})
+	  .then((response) => response.json())
+	  .then((res) => showNormalResults(res))
+	  .catch((error) => showError(error));
+}
+
 function checkonemap(){
 	const options = getOptions();
 	showFetchingResults();
@@ -209,6 +236,20 @@ function checkonemap(){
 	  .catch((error) => showError(error));
 }
 
+function teleportToSpawn(x,y,z) {
+	console.log(x)
+	console.log(y)
+	console.log(z)
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/teleport-to-spawn", true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify({
+		x: x,
+		y: y,
+		z: z
+	}));
+}
+
 function showFetchingResults() {
   results.length = 0;
   resultsArea.innerHTML = "";
@@ -217,20 +258,41 @@ function showFetchingResults() {
   resultsSection.classList.toggle("pla-loading", true);
 }
 
-const showMaps = ({maps}) => {
+const showMaps = ({maps,outbreaks}) => {
   mapLocationsArea.innerHTML = "";
+  mapSpawnsArea.innerHTML = "";
 	maps.forEach((location, index) => {
 		if (location != "None") {
-			let locListItem = document.createElement("li");
+			let locListItem = document.createElement("ul");
 			locListItem.innerText = index + " - " + location;
 			mapLocationsArea.appendChild(locListItem);
 		}
 	});
+	
+	outbreaks.forEach((pokemon) => {
+		let spawnItem = document.createElement("ul");
+		spawnItem.innerText = pokemon;
+		mapSpawnsArea.appendChild(spawnItem);
+	});
 }
 
-const showMapResults = ({mmo_spawns}) => {
-	console.log(mmo_spawns)
-	for (const [key,value] of Object.entries(mmo_spawns)) {
+
+const showNormalResults = ({normal_spawns}) => {
+	console.log(normal_spawns)
+	for (const [key,value] of Object.entries(normal_spawns)) {
+		for (const [x, pokemon] of Object.entries(value)) {
+			console.log(x)
+			if(pokemon.spawn) {
+				results.push(pokemon);
+			}
+		}
+	};
+	showFilteredResults();
+};
+
+const showMapResults = ({mmo_spawn}) => {
+	console.log(mmo_spawn)
+	for (const [key,value] of Object.entries(mmo_spawn)) {
 		for (const [x, pokemon] of Object.entries(value)) {
 			console.log(x)
 			if(pokemon.spawn) {
@@ -272,12 +334,14 @@ const showResults = ({ mmo_spawns }) => {
   showFilteredResults();
 };
 
+
 const showFilteredResults = () => {
   validateFilters();
 
   let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
   let shinyFilter = distShinyCheckbox.checked;
   let alphaFilter = distAlphaCheckbox.checked;
+  let SpeciesFilter = mmoSpeciesFilter;
 
   resultsArea.innerHTML = "";
   resultsSection.classList.toggle("pla-loading", false);
@@ -285,7 +349,7 @@ const showFilteredResults = () => {
   filteredResults = results.filter(
     (result) =>
       result.spawn &&
-      filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter)
+      filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter)
   );
 
   if (filteredResults.length > 0) {
@@ -336,13 +400,23 @@ const showFilteredResults = () => {
         result.ivs[4];
       resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
         result.ivs[5];
+	  
+	  let button = document.createElement("button");
+	  button.innerText = "Teleport to Spawn";
+	  button.onclick = teleportToSpawn(result.x, result.y, result.z);
+	  
+	  console.log(result.x)
+	  console.log(result.y)
+	  console.log(result.z)
 
       resultsArea.appendChild(resultContainer);
+	  
     });
   } else {
     resultsArea.innerText = "No results found";
   }
 };
+
 
 function showError(error) {
   console.log(error);

@@ -41,5 +41,9 @@ def read_normals():
    results = pla.read_normal_outbreaks(reader,request.json['rolls'])
    return { "normal_spawns": results }
 
+@app.route('/teleport-to-spawn', methods=['POST'])
+def teleport():
+   pla.teleport_to_spawn(reader,request.json['x'],request.json['y'],request.json['z'])
+
 if __name__ == '__main__':
     app.run(host="localhost", port=8100, debug=True)

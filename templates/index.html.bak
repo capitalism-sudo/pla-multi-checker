@@ -54,9 +54,22 @@
                 <label for="mmoAlphaFilter">Alpha Only</label>
                 <input type="checkbox" id="mmoAlphaFilter">
             </div>
+			
+			<div class="pla-control">
+				<label for="mmoSpeciesFilter">Species Filter:</label>
+				<input type="text" id="mmoSpeciesFilter">
+			</div>
+			
+            <div class="pla-control-actions">
+                <button class="pla-action-button" onclick="checkonemap()">Check Map Index</button>
+            </div>
 
             <div class="pla-control-actions">
-                <button class="pla-action-button" onclick="checkmmos()">Check MMOS</button>
+                <button class="pla-action-button" onclick="checkmmos()">Check All MMOS</button>
+            </div>
+			
+			<div class="pla-control-actions">
+                <button class="pla-action-button" onclick="checknormals()">Check Normal Outbreaks</button>
             </div>
         </section>
 
@@ -65,6 +78,11 @@
             <ul class="pla-info-list" data-pla-info-locations>
 			
 			</ul>
+			
+			<h3>Normal Outbreaks</h3>
+            <ul class="pla-info-list" data-pla-info-spawns>
+
+            </ul>
 						
             <div class="pla-control-actions">
                 <button class="pla-action-button" onclick="checkmaps()">Refresh Maps</button>
@@ -83,7 +101,7 @@
         <div class="pla-results-item" data-pla-results-template>
             <ul class="pla-results-heading pla-results-ul">
                 <li class="pla-results-species" data-pla-results-species></li>
-                <li>At <span class="pla-results-location" data-pla-results-location></span></li>
+                <li>At <span class="pla-results-mapname" data-pla-results-mapname></span></li>
             </ul>
 
             <ul class="pla-results-ul">
@@ -93,7 +111,7 @@
 
 			<ul class="pla-results-ul">
                 <li><span class="pla-results-label">Group:</span> <span data-pla-results-group></span></li>
-				<li><span class="pla-results-label">Map:</span> <span data-pla-results-mapname></span></li>
+				<li><span class="pla-results-label">Aggro </span> <span data-pla-results-location></span></li>
             </ul>
             <ul class="pla-results-ul">
                 <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
@@ -117,6 +135,10 @@
                     <li class="pla-results-ivs-spe" data-pla-results-ivs-spe></li>
                 </ul>
             </div>
+			
+			<div class="pla-results-teleport">
+				<button class="pla-teleport-button">Teleport To Spawn</button>
+			</div>
         </div>
     </template>
 

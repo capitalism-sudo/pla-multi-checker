@@ -652,11 +652,15 @@ def get_map_mmos(reader,mapcount,rolls):
     for i in range(0,16):
         enctable,_ = get_encounter_table(reader,i,mapcount,True)
         bonus_flag = False if enctable == None else True
+        x_coords,y_coords,z_coords = read_group_coordinates(reader,i,mapcount)
         display = read_mass_outbreak_rng(reader,i,rolls,mapcount,False)
         for index in display:
             if index != "index" and index != "description":
                 display[str(index)]["group"] = i
                 display[str(index)]["mapname"] = map_name
+                display[str(index)]["x"] = x_coords
+                display[str(index)]["y"] = y_coords
+                display[str(index)]["z"] = z_coords
         if bonus_flag:
             true_spawns = get_max_spawns(reader,i,mapcount,False)
             #print(f"True_spawns = {true_spawns}")
@@ -668,6 +672,10 @@ def get_map_mmos(reader,mapcount,rolls):
             #print(f"Paths: {bonus_seed}")
             #print(f"Path length: {len(bonus_seed)}")
             result = read_bonus_pathinfo(reader,bonus_seed,i,mapcount,rolls,group_seed,map_name)
+            for index in result:
+                result[str(index)]["x"] = x_coords
+                result[str(index)]["y"] = y_coords
+                result[str(index)]["z"] = z_coords
             print(f"Group {i} Bonus Complete!")
         #print(f"Display: {display}")
         outbreaks[f"{i} " + f"{bonus_flag}"] = display
@@ -724,6 +732,22 @@ def get_all_outbreak_names(reader):
             outbreaks.append(SPECIES[species])
 
     return outbreaks
+
+def read_group_coordinates(reader,group_id,mapcount):
+
+    x_coord = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount - 0x14:X}",4)
+    y_coord = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount - 0x10:X}",4)
+    z_coord = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount - 0x0c:X}",4)
+
+    print(f"X: {x_coord} Y: {y_coord} Z: {z_coord}")
+
+    return x_coord,y_coord,z_coord
+
+def teleport_to_spawn(reader,x,y,z):
+    PLAYER_PTR = f"[[[[[[main+42F18E8]+88]+90]+1F0]+18]+80]+90"
+
+    position_bytes = struct.pack('fff',x,y,z)
+    reader.write_pointer(PLAYER_PTR,f"{int.from_bytes(position_bytes,'big'):024X}")
 
 
 """       

@@ -6,6 +6,8 @@ const spinnerTemplate = document.querySelector("[data-pla-spinner]");
 
 const resultsSection = document.querySelector(".pla-section-results");
 
+const teleportButton = document.getElementById("pla-teleport-button");
+
 // options
 const mapSelect = document.getElementById("mapSelect");
 const rollsInput = document.getElementById("rolls");
@@ -234,6 +236,20 @@ function checkonemap(){
 	  .catch((error) => showError(error));
 }
 
+function teleportToSpawn(x,y,z) {
+	console.log(x)
+	console.log(y)
+	console.log(z)
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/teleport-to-spawn", true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify({
+		x: x,
+		y: y,
+		z: z
+	}));
+}
+
 function showFetchingResults() {
   results.length = 0;
   resultsArea.innerHTML = "";
@@ -318,6 +334,7 @@ const showResults = ({ mmo_spawns }) => {
   showFilteredResults();
 };
 
+
 const showFilteredResults = () => {
   validateFilters();
 
@@ -383,13 +400,24 @@ const showFilteredResults = () => {
         result.ivs[4];
       resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
         result.ivs[5];
+	  
+	  let button = document.createElement("button");
+	  button.innerText = "Teleport to Spawn";
+	  button.onclick = teleportToSpawn(result.x, result.y, result.z);
+	  
+	  console.log(result.x)
+	  console.log(result.y)
+	  console.log(result.z)
 
+      teleportButton.appendChild(button);
       resultsArea.appendChild(resultContainer);
+	  
     });
   } else {
     resultsArea.innerText = "No results found";
   }
 };
+
 
 function showError(error) {
   console.log(error);
