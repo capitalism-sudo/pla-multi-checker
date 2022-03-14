@@ -1,6 +1,6 @@
-# PLA Distortion Checker
+# PLA MMO Checker
 
-Flask application that displays information about Space-Time Distortions
+Flask application that displays information about MMOs from Jubilife Village
 
 All important code was created by [capitalism-sudo](https://github.com/capitalism-sudo) (distortion script) and [Lincoln-LM](https://github.com/Lincoln-LM) (PyNXReader, PLA-Live-Map). This is a thin gui on their work.
 
@@ -16,7 +16,8 @@ Performance may be better (fewer disconnects) if you have [ldn_mitm](https://git
 3. Edit the ``IP`` field to contain your switch's IP
 4. Run main.py ``python3 ./main.py``
 5. Open ``http://localhost:8100/`` in your browser
-6. Select the map and options
+6. Select a map index with your desired map, or choose "check all MMOs" to read all MMOs from town.
+7. There are filter options to limit your output.
 
 ## Warning
 I won't be liable if your Switch get damaged or banned. Use at your own risk.
