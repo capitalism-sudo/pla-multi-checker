@@ -18,10 +18,12 @@ const distShinyOrAlphaCheckbox = document.getElementById(
 );
 const distShinyCheckbox = document.getElementById("mmoShinyFilter");
 const distAlphaCheckbox = document.getElementById("mmoAlphaFilter");
+const mmoSpeciesText = document.getElementById("mmoSpeciesFilter");
 
 distShinyOrAlphaCheckbox.onchange = setFilter;
 distShinyCheckbox.onchange = setFilter;
 distAlphaCheckbox.onchange = setFilter;
+mmoSpeciesText.oninput = setFilter;
 
 loadPreferences();
 setupPreferenceSaving();
@@ -64,6 +66,11 @@ function setupPreferenceSaving() {
   distShinyOrAlphaCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("mmoShinyOrAlpaFilter", e.target.checked)
   );
+}
+
+function updatevalue() {
+	console.log(mmoSpeciesText.value);
+	setFilter;
 }
 
 function saveIntToStorage(id, value) {
@@ -120,7 +127,7 @@ function validateFilters() {
   distAlphaCheckbox.checked = alphaFilter;
 }
 
-function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter) {
+function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter) {
   if (shinyOrAlphaFilter && !(result.shiny || result.alpha)) {
     return false;
   }
@@ -131,6 +138,10 @@ function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter) {
 
   if (alphaFilter && !result.alpha) {
     return false;
+  }
+  
+  if (SpeciesFilter.value.length != 0 && !result.species.toLowerCase().includes(SpeciesFilter.value.toLowerCase())){
+	  return false;
   }
 
   return true;
@@ -313,6 +324,7 @@ const showFilteredResults = () => {
   let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
   let shinyFilter = distShinyCheckbox.checked;
   let alphaFilter = distAlphaCheckbox.checked;
+  let SpeciesFilter = mmoSpeciesFilter;
 
   resultsArea.innerHTML = "";
   resultsSection.classList.toggle("pla-loading", false);
@@ -320,7 +332,7 @@ const showFilteredResults = () => {
   filteredResults = results.filter(
     (result) =>
       result.spawn &&
-      filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter)
+      filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter)
   );
 
   if (filteredResults.length > 0) {

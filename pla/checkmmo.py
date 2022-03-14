@@ -259,6 +259,7 @@ def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,bonus_flag):
     if species != 0:
         if species == 201:
             rolls = 19
+        print(f"Species Group: {SPECIES[species]}")
         group_seed = get_group_seed(reader,group_id,mapcount)
         max_spawns = get_max_spawns(reader,group_id,mapcount,bonus_flag)
         
@@ -289,8 +290,8 @@ def get_encounter_table(reader,group_id,mapcount,bonus):
     enc_pointer = "0x"+enc_pointer
 
     if enc_pointer not in encmap.keys():
-        print(f"Enc pointer not found in encmap")
-        return encounters,encsum
+        #print(f"Enc pointer not found in encmap")
+        return None,0
     else:
         encounters = encmap[enc_pointer]
 
@@ -649,7 +650,8 @@ def get_map_mmos(reader,mapcount,rolls):
     print(f"Rolls: {rolls}")
     map_name = get_map_name(reader,mapcount)
     for i in range(0,16):
-        bonus_flag = get_bonus_flag(reader,i,mapcount)
+        enctable,_ = get_encounter_table(reader,i,mapcount,True)
+        bonus_flag = False if enctable == None else True
         display = read_mass_outbreak_rng(reader,i,rolls,mapcount,False)
         for index in display:
             if index != "index" and index != "description":
