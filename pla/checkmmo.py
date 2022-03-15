@@ -615,9 +615,19 @@ def get_normal_outbreak_info(reader,group_id):
         group_seed = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x20 + group_id*0x50+0x38:X}",8)
         max_spawns = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x20 + group_id*0x50+0x40:X}",8)
 
-        return species,group_seed,max_spawns
+        coords = struct.unpack('fff',reader.read_pointer(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x20 + group_id*0x50+0x20:X}",12))
+
+        coordinates = {
+            "x":coords[0],
+            "y":coords[1],
+            "z":coords[2]
+        }
+
+        print(coordinates)
+
+        return species,group_seed,max_spawns,coordinates
                                       
-def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name):
+def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name,coords):
     isbonus = True
     outbreaks = {}
     max_spawns = 10
@@ -636,6 +646,7 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
             display[index]["index"] = f"First Round Path: {value} + {extra} Bonus " + display[index]["index"]
             display[index]["group"] = group_id
             display[index]["mapname"] = map_name
+            display[index]["coords"] = coords
             #print(f"Z: {z} Index: {index}")
             #print()
         outbreaks[f"Bonus" + f"{t} {value}"] = display
@@ -652,15 +663,13 @@ def get_map_mmos(reader,mapcount,rolls):
     for i in range(0,16):
         enctable,_ = get_encounter_table(reader,i,mapcount,True)
         bonus_flag = False if enctable == None else True
-        x_coords,y_coords,z_coords = read_group_coordinates(reader,i,mapcount)
+        coords = read_group_coordinates(reader,i,mapcount)
         display = read_mass_outbreak_rng(reader,i,rolls,mapcount,False)
         for index in display:
             if index != "index" and index != "description":
                 display[str(index)]["group"] = i
                 display[str(index)]["mapname"] = map_name
-                display[str(index)]["x"] = x_coords
-                display[str(index)]["y"] = y_coords
-                display[str(index)]["z"] = z_coords
+                display[str(index)]["coords"] = coords
         if bonus_flag:
             true_spawns = get_max_spawns(reader,i,mapcount,False)
             #print(f"True_spawns = {true_spawns}")
@@ -671,11 +680,7 @@ def get_map_mmos(reader,mapcount,rolls):
             bonus_seed = next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,max_spawns,true_spawns,i,mapcount,bonus_flag,group_seed,False)
             #print(f"Paths: {bonus_seed}")
             #print(f"Path length: {len(bonus_seed)}")
-            result = read_bonus_pathinfo(reader,bonus_seed,i,mapcount,rolls,group_seed,map_name)
-            for index in result:
-                result[str(index)]["x"] = x_coords
-                result[str(index)]["y"] = y_coords
-                result[str(index)]["z"] = z_coords
+            result = read_bonus_pathinfo(reader,bonus_seed,i,mapcount,rolls,group_seed,map_name,coords)
             print(f"Group {i} Bonus Complete!")
         #print(f"Display: {display}")
         outbreaks[f"{i} " + f"{bonus_flag}"] = display
@@ -711,7 +716,7 @@ def read_normal_outbreaks(reader,rolls):
     rolls = rolls + 13
     print(f"Rolls: {rolls}")
     for i in range(0,4):
-        species,group_seed,max_spawns = get_normal_outbreak_info(reader,i)
+        species,group_seed,max_spawns,coordinates = get_normal_outbreak_info(reader,i)
         if species != 0:
             display = next_filtered_aggressive_outbreak_pathfind_normal(group_seed,rolls,max_spawns)
             for index in display:
@@ -719,6 +724,7 @@ def read_normal_outbreaks(reader,rolls):
                     display[str(index)]["group"] = i
                     display[str(index)]["mapname"] = "Normal Outbreak"
                     display[str(index)]["species"] = SPECIES[species]
+                    display[str(index)]["coords"] = coordinates
             outbreaks[f"Outbreak {i}"] = display
 
     return outbreaks
@@ -735,18 +741,45 @@ def get_all_outbreak_names(reader):
 
 def read_group_coordinates(reader,group_id,mapcount):
 
-    x_coord = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount - 0x14:X}",4)
-    y_coord = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount - 0x10:X}",4)
-    z_coord = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount - 0x0c:X}",4)
+    """
+    x_coord = reader.read_pointer(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount - 0x14:X}",4)
+    y_coord = reader.read_pointer(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount - 0x10:X}",4)
+    z_coord = reader.read_pointer(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount - 0x0c:X}",4)
 
-    print(f"X: {x_coord} Y: {y_coord} Z: {z_coord}")
+    x = struct.unpack('f',x_coord)
+    y = struct.unpack('f',y_coord)
+    z = struct.unpack('f',z_coord)
 
-    return x_coord,y_coord,z_coord
+    print(f"X: {x} Y: {y} Z: {z}")
+    """
+    
+    #print(f"Z Pointer: [[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount - 0x14:X}")
+    coords = struct.unpack('fff',reader.read_pointer(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount - 0x14:X}",12))
 
-def teleport_to_spawn(reader,x,y,z):
-    PLAYER_PTR = f"[[[[[[main+42F18E8]+88]+90]+1F0]+18]+80]+90"
+    coordinates = {
+        "x":coords[0],
+        "y":coords[1],
+        "z":coords[2]
+        }
+                           
 
-    position_bytes = struct.pack('fff',x,y,z)
+    #print(coordinates)
+    
+    return coordinates
+
+def teleport_to_spawn(reader,coords):
+    cordarray = []
+    PLAYER_PTR = f"[[[[[[main+42D4720]+18]+48]+1F0]+18]+370]+90"
+
+    #print(f"Teleporting to {coords}")
+
+    for c in coords:
+        cordarray.append(coords[c])
+
+    print(f"Teleporting to {cordarray}")
+    position_bytes = struct.pack('fff', *cordarray)
+    
+    #reader.write_pointer(PLAYER_PTR,f"{int.from_bytes(position_bytes,'big'):024X}")
     reader.write_pointer(PLAYER_PTR,f"{int.from_bytes(position_bytes,'big'):024X}")
 
 

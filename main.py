@@ -43,7 +43,8 @@ def read_normals():
 
 @app.route('/teleport-to-spawn', methods=['POST'])
 def teleport():
-   pla.teleport_to_spawn(reader,request.json['x'],request.json['y'],request.json['z'])
+   pla.teleport_to_spawn(reader,request.json['coords'])
+   return ""
 
 if __name__ == '__main__':
     app.run(host="localhost", port=8100, debug=True)

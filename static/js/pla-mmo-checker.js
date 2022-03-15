@@ -6,7 +6,7 @@ const spinnerTemplate = document.querySelector("[data-pla-spinner]");
 
 const resultsSection = document.querySelector(".pla-section-results");
 
-const teleportButton = document.getElementById("pla-teleport-button");
+const teleportButton = document.querySelector(".pla-results-teleport");
 
 // options
 const mapSelect = document.getElementById("mapSelect");
@@ -167,6 +167,10 @@ function setMap() {
 	  .catch((error) => showError(error));
 }
 
+function convertCoords(coordinates) {
+            return [coordinates[2] * -0.5, coordinates[0] * 0.5];
+}
+		
 function showMapInfo({ locations, spawns }) {
   mapLocationsArea.innerHTML = "";
   mapSpawnsArea.innerHTML = "";
@@ -236,17 +240,14 @@ function checkonemap(){
 	  .catch((error) => showError(error));
 }
 
-function teleportToSpawn(x,y,z) {
-	console.log(x)
-	console.log(y)
-	console.log(z)
+function teleportToSpawn(coords) {
+	console.log(coords)
+	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", "/teleport-to-spawn", true);
 	xhr.setRequestHeader('Content-Type', 'application/json');
 	xhr.send(JSON.stringify({
-		x: x,
-		y: y,
-		z: z
+		coords: coords
 	}));
 }
 
@@ -400,16 +401,14 @@ const showFilteredResults = () => {
         result.ivs[4];
       resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
         result.ivs[5];
-	  
+		
+		
 	  let button = document.createElement("button");
 	  button.innerText = "Teleport to Spawn";
-	  button.onclick = teleportToSpawn(result.x, result.y, result.z);
-	  
-	  console.log(result.x)
-	  console.log(result.y)
-	  console.log(result.z)
+	  button.onclick = () => teleportToSpawn(result.coords);
 
-      teleportButton.appendChild(button);
+      resultContainer.querySelector('.pla-results-teleport').appendChild(button);
+	  
       resultsArea.appendChild(resultContainer);
 	  
     });
