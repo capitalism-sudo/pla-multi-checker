@@ -165,6 +165,28 @@ section {
   );
 }
 
+
+.pla-teleport-button {
+  cursor: pointer;
+  font-weight: bold;
+  border: 2px solid var(--color-accent-2);
+  background-color: var(--color-accent-1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.2rem;
+}
+
+.pla-teleport-button:hover {
+  border: 2px solid var(--color-shadow);
+}
+
+.pla-teleport-button:active {
+  border: 2px solid var(--color-shadow);
+  background: -webkit-linear-gradient(
+    var(--color-accent-1),
+    var(--color-accent-2)
+  );
+}
+
 .pla-results {
   margin: 1rem auto 0.5rem;
   display: flex;
