@@ -736,6 +736,8 @@ def get_all_map_mmos(reader,rolls):
     display = {}
     for i in range(0,4):
         map_name = get_map_name(reader,i)
+        if map_name == "None":
+            continue
         print(f"Map {map_name} starting now...")
         result = get_map_mmos(reader,i,rolls)
         display[map_name] = result

@@ -120,7 +120,7 @@ Goldeen
 Seaking
 Staryu
 Starmie
-Mr. Mime
+Mr.Mime
 Scyther
 Jynx
 Electabuzz
@@ -437,7 +437,7 @@ Skuntank
 Bronzor
 Bronzong
 Bonsly
-Mime Jr.
+MimeJr.
 Happiny
 Chatot
 Spiritomb
