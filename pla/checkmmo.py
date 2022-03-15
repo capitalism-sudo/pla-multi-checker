@@ -269,13 +269,13 @@ def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,bonus_flag):
         else:
             max_spawns += 3
         display = next_filtered_aggressive_outbreak_pathfind(reader,group_seed,rolls,max_spawns,true_spawns,group_id,mapcount,bonus_flag,False)
-        return display
+        return display,species
     else:
         display = {
             "index":group_id,
             "description":"Spawner not active"
             }
-        return display
+        return display,species
 
 def get_encounter_table(reader,group_id,mapcount,bonus):
     encounters = {}
@@ -640,6 +640,7 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
         display = next_filtered_aggressive_outbreak_pathfind(reader,seed,rolls,max_spawns,true_spawns,group_id,mapcount,isbonus,False)
         #print(f"Display: {display}")
         for index in display:
+            form = ''
             #print(f"Index: {index}")
             #print(f"display[index]: {display[index]}")
             #display[index]["index"] = f"First Round Path: {value} + {extra} " + display[index]["index"]
@@ -647,6 +648,26 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
             display[index]["group"] = group_id
             display[index]["mapname"] = map_name
             display[index]["coords"] = coords
+            if " " in display[index]["species"] and "-" in display[index]["species"]:
+                cutspecies = display[index]["species"].rpartition(' ')[2]
+                form = display[index]["species"].rpartition('-')[2]
+                cutspecies = cutspecies.rpartition('-')[0]     
+            elif " " in display[index]["species"]:
+                cutspecies = display[index]["species"].rpartition(' ')[2]
+            elif "-" in display[index]["species"]:
+                cutspecies = display[index]["species"].rpartition('-')[0]
+                form = display[index]["species"].rpartition('-')[2]
+            else:
+                cutspecies = display[index]["species"]
+            #print(f"Species: {display[index]['species']}")
+            #print(f"Cut Species: {cutspecies}")
+            if display[index]["shiny"]:
+                spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}s.png"
+            else:
+                spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}.png"
+            display[index]["sprite"] = spritename
+
+            #print(f"Sprite: {display[index]['sprite']}")
             #print(f"Z: {z} Index: {index}")
             #print()
         outbreaks[f"Bonus" + f"{t} {value}"] = display
@@ -664,12 +685,33 @@ def get_map_mmos(reader,mapcount,rolls):
         enctable,_ = get_encounter_table(reader,i,mapcount,True)
         bonus_flag = False if enctable == None else True
         coords = read_group_coordinates(reader,i,mapcount)
-        display = read_mass_outbreak_rng(reader,i,rolls,mapcount,False)
+        display,species = read_mass_outbreak_rng(reader,i,rolls,mapcount,False)
         for index in display:
             if index != "index" and index != "description":
+                form = ''
                 display[str(index)]["group"] = i
                 display[str(index)]["mapname"] = map_name
                 display[str(index)]["coords"] = coords
+                if " " in display[str(index)]["species"] and "-" in display[str(index)]["species"]:
+                    cutspecies = display[str(index)]["species"].rpartition(' ')[2]
+                    form = display[str(index)]["species"].rpartition('-')[2]
+                    cutspecies = cutspecies.rpartition('-')[0]     
+                elif " " in display[str(index)]["species"]:
+                    cutspecies = display[str(index)]["species"].rpartition(' ')[2]
+                elif "-" in display[str(index)]["species"]:
+                    cutspecies = display[str(index)]["species"].rpartition('-')[0]
+                    form = display[str(index)]["species"].rpartition('-')[2]
+                else:
+                    cutspecies = display[str(index)]["species"]
+                #print(f"Species: {display[str(index)]['species']}")
+                #print(f"Cut Species: {cutspecies}")
+                if display[str(index)]["shiny"]:
+                    spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}s.png"
+                else:
+                    spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}.png"
+                display[str(index)]["sprite"] = spritename
+
+                #print(f"Sprite: {display[str(index)]['sprite']}")
         if bonus_flag:
             true_spawns = get_max_spawns(reader,i,mapcount,False)
             #print(f"True_spawns = {true_spawns}")
@@ -721,10 +763,31 @@ def read_normal_outbreaks(reader,rolls):
             display = next_filtered_aggressive_outbreak_pathfind_normal(group_seed,rolls,max_spawns)
             for index in display:
                 if index != "index" and index != "description":
+                    form = ''
                     display[str(index)]["group"] = i
                     display[str(index)]["mapname"] = "Normal Outbreak"
                     display[str(index)]["species"] = SPECIES[species]
                     display[str(index)]["coords"] = coordinates
+                    if " " in display[str(index)]["species"] and "-" in display[str(index)]["species"]:
+                        cutspecies = display[str(index)]["species"].rpartition(' ')[2]
+                        form = display[str(index)]["species"].rpartition('-')[2]
+                        cutspecies = cutspecies.rpartition('-')[0]     
+                    elif " " in display[str(index)]["species"]:
+                        cutspecies = display[str(index)]["species"].rpartition(' ')[2]
+                    elif "-" in display[str(index)]["species"]:
+                        cutspecies = display[str(index)]["species"].rpartition('-')[0]
+                        form = display[str(index)]["species"].rpartition('-')[2]
+                    else:
+                        cutspecies = display[str(index)]["species"]
+                    #print(f"Species: {display[index]['species']}")
+                    #print(f"Cut Species: {cutspecies}")
+                    if display[str(index)]["shiny"]:
+                        spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}s.png"
+                    else:
+                        spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}.png"
+                    display[str(index)]["sprite"] = spritename
+
+                    #print(f"Sprite: {display[str(index)]['sprite']}")
             outbreaks[f"Outbreak {i}"] = display
 
     return outbreaks
@@ -733,7 +796,7 @@ def read_normal_outbreaks(reader,rolls):
 def get_all_outbreak_names(reader):
     outbreaks = []
     for i in range(0,4):
-        species,_,_ = get_normal_outbreak_info(reader,i)
+        species,_,_,_ = get_normal_outbreak_info(reader,i)
         if species != 0:
             outbreaks.append(SPECIES[species])
 

@@ -5,6 +5,7 @@ const mapSpawnsArea = document.querySelector("[data-pla-info-spawns]");
 const spinnerTemplate = document.querySelector("[data-pla-spinner]");
 
 const resultsSection = document.querySelector(".pla-section-results");
+const resultsSprite = document.querySelector(".pla-results-sprite");
 
 const teleportButton = document.querySelector(".pla-results-teleport");
 
@@ -355,7 +356,11 @@ const showFilteredResults = () => {
 
   if (filteredResults.length > 0) {
     filteredResults.forEach((result) => {
+	  let sprite = document.createElement('img');
+	  sprite.src = "static/img/sprite/"+result.sprite;
+	  
       const resultContainer = resultTemplate.content.cloneNode(true);
+	  resultContainer.querySelector('.pla-results-sprite').appendChild(sprite);
       resultContainer.querySelector("[data-pla-results-species]").innerText =
         result.species;
       resultContainer.querySelector("[data-pla-results-location]").innerText =

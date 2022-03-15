@@ -20,6 +20,10 @@ signal.signal(signal.SIGINT, signal_handler)
 def home():
     return render_template('index.html')
 
+@app.route("/distortion")
+def distortion():
+   return render_template('distortion.html')
+
 @app.route('/read-mmos', methods=['POST'])
 def read_mmos():
     results = pla.get_all_map_mmos(reader, request.json['rolls'])
@@ -45,6 +49,22 @@ def read_normals():
 def teleport():
    pla.teleport_to_spawn(reader,request.json['coords'])
    return ""
+
+@app.route('/read-distortions', methods=['POST'])
+def read_distortions():
+    results = pla.check_all_distortions(reader, request.json['map_name'], request.json['rolls'])
+    return { "distortion_spawns": results }
+
+@app.route('/create-distortion', methods=['POST'])
+def create_distortion():
+    pla.create_distortion(reader)
+    return "Distortion Created"
+
+@app.route('/map-info', methods=['POST'])
+def get_map_info():
+    locations = pla.get_distortion_locations(request.json['map_name'])
+    spawns = pla.get_distortion_spawns(request.json['map_name'])
+    return { "locations": locations, "spawns": spawns }
 
 if __name__ == '__main__':
     app.run(host="localhost", port=8100, debug=True)
