@@ -382,6 +382,8 @@ const showFilteredResults = () => {
 
 	  resultContainer.querySelector("[data-pla-results-group]").innerText =
 	    result.group;
+	  resultContainer.querySelector("[data-pla-results-numspawns]").innerText =
+	    result.numspawns;
 	  resultContainer.querySelector("[data-pla-results-mapname]").innerText =
 	    result.mapname;
       resultContainer.querySelector("[data-pla-results-nature]").innerText =

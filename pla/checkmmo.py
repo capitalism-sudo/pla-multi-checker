@@ -20,6 +20,8 @@ with open("./static/resources/text_natures.txt",encoding="utf-8") as text_nature
 
 with open("./static/resources/text_species_en.txt",encoding="utf-8") as text_species:
     SPECIES = text_species.read().split("\n")
+
+extrapaths = [[],[1],[2],[2,1],[3],[3,1],[3,2],[3,2,1]]
     
 def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     rng = XOROSHIRO(seed)
@@ -80,6 +82,7 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "species":species,
                 "shiny":shiny,
                 "alpha":alpha,
+                "numspawns":true_spawns,
                 "ec":encryption_constant,
                 "pid":pid,
                 "ivs":ivs,
@@ -116,6 +119,7 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "species":species,
                 "shiny":shiny,
                 "alpha":alpha,
+                "numspawns":true_spawns,
                 "ec":encryption_constant,
                 "pid":pid,
                 "ivs":ivs,
@@ -637,40 +641,56 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
         seed = get_bonus_seed(reader,group_id,rolls,mapcount,value)
         #print(f"Seed: {seed:X}")
         extra = [1] * (get_max_spawns(reader,group_id,mapcount,False) - sum(value))
-        display = next_filtered_aggressive_outbreak_pathfind(reader,seed,rolls,max_spawns,true_spawns,group_id,mapcount,isbonus,False)
+        for e,epath in enumerate(extrapaths):
+            spawn_remain = true_spawns - sum(value)
+            if epath == []:
+                #print("Null path, this is doable.")
+                #print(f"Null path, using seed {seed:X}")
+                display = next_filtered_aggressive_outbreak_pathfind(reader,seed,rolls,max_spawns,true_spawns,group_id,mapcount,isbonus,False)
+            elif epath[0] <= spawn_remain:
+                #print("This is doable.")
+                epath_seed = get_extra_path_seed(reader,seed,mapcount,epath)
+                #print(f"Non null path, using seed {epath_seed:X}")
+                display = next_filtered_aggressive_outbreak_pathfind(reader,epath_seed,rolls,max_spawns,true_spawns,group_id,mapcount,isbonus,False)
+            else:
+                #print(f"Remaining Spawns: {spawn_remain}, First epath: {epath[0]}, this is not doable. Continuing.")
+                continue
         #print(f"Display: {display}")
-        for index in display:
-            form = ''
-            #print(f"Index: {index}")
-            #print(f"display[index]: {display[index]}")
-            #display[index]["index"] = f"First Round Path: {value} + {extra} " + display[index]["index"]
-            display[index]["index"] = f"First Round Path: {value} + {extra} Bonus " + display[index]["index"]
-            display[index]["group"] = group_id
-            display[index]["mapname"] = map_name
-            display[index]["coords"] = coords
-            if " " in display[index]["species"] and "-" in display[index]["species"]:
-                cutspecies = display[index]["species"].rpartition(' ')[2]
-                form = display[index]["species"].rpartition('-')[2]
-                cutspecies = cutspecies.rpartition('-')[0]     
-            elif " " in display[index]["species"]:
-                cutspecies = display[index]["species"].rpartition(' ')[2]
-            elif "-" in display[index]["species"]:
-                cutspecies = display[index]["species"].rpartition('-')[0]
-                form = display[index]["species"].rpartition('-')[2]
-            else:
-                cutspecies = display[index]["species"]
-            #print(f"Species: {display[index]['species']}")
-            #print(f"Cut Species: {cutspecies}")
-            if display[index]["shiny"]:
-                spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}s.png"
-            else:
-                spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}.png"
-            display[index]["sprite"] = spritename
+            for index in display:
+                form = ''
+                #print(f"Index: {index}")
+                #print(f"display[index]: {display[index]}")
+                #display[index]["index"] = f"First Round Path: {value} + {extra} " + display[index]["index"]
+                if epath == []:
+                    display[index]["index"] = f"First Round Path: {value} + {extra} Bonus " + display[index]["index"]
+                else:
+                    display[index]["index"] = f"First Round Path: {value} + Revisit {epath}  Bonus " + display[index]["index"]
+                display[index]["group"] = group_id
+                display[index]["mapname"] = map_name
+                display[index]["coords"] = coords
+                if " " in display[index]["species"] and "-" in display[index]["species"]:
+                    cutspecies = display[index]["species"].rpartition(' ')[2]
+                    form = display[index]["species"].rpartition('-')[2]
+                    cutspecies = cutspecies.rpartition('-')[0]     
+                elif " " in display[index]["species"]:
+                    cutspecies = display[index]["species"].rpartition(' ')[2]
+                elif "-" in display[index]["species"]:
+                    cutspecies = display[index]["species"].rpartition('-')[0]
+                    form = display[index]["species"].rpartition('-')[2]
+                else:
+                    cutspecies = display[index]["species"]
+                #print(f"Species: {display[index]['species']}")
+                #print(f"Cut Species: {cutspecies}")
+                if display[index]["shiny"]:
+                    spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}s.png"
+                else:
+                    spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}.png"
+                display[index]["sprite"] = spritename
 
             #print(f"Sprite: {display[index]['sprite']}")
             #print(f"Z: {z} Index: {index}")
             #print()
-        outbreaks[f"Bonus" + f"{t} {value}"] = display
+            outbreaks[f"Bonus" + f"{t} {value}" + f" {e} {epath}"] = display
 
     #print("Outbreaks:")
     #print()
@@ -768,6 +788,7 @@ def read_normal_outbreaks(reader,rolls):
                     form = ''
                     display[str(index)]["group"] = i
                     display[str(index)]["mapname"] = "Normal Outbreak"
+                    display[str(index)]["numspawns"] = max_spawns
                     display[str(index)]["species"] = SPECIES[species]
                     display[str(index)]["coords"] = coordinates
                     if " " in display[str(index)]["species"] and "-" in display[str(index)]["species"]:
@@ -848,6 +869,21 @@ def teleport_to_spawn(reader,coords):
     reader.write_pointer(PLAYER_PTR,f"{int.from_bytes(position_bytes,'big'):024X}")
 
 
+def get_extra_path_seed(reader,group_seed,mapcount,path):
+        main_rng = XOROSHIRO(group_seed)
+        respawn_rng = XOROSHIRO(group_seed)
+        generator_seed = 0
+        for respawn,step in enumerate(path):
+            #print(f"Respawn: {respawn} Step {step}")
+            for pokemon in range(0,(4 -step)):
+                #print(f"Pokemon {pokemon}")
+                generator_seed = respawn_rng.next()
+                tempseed = respawn_rng.next() # spawner 1's seed, unused
+            respawn_rng = XOROSHIRO(respawn_rng.next())
+        bonus_seed = (respawn_rng.next() - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
+        #bonus_seed = respawn_rng.next()
+        return bonus_seed
+    
 """       
 if __name__ == "__main__":
     #rolls = int(input("Shiny Rolls For Species: "))
