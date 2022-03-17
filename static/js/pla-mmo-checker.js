@@ -12,6 +12,7 @@ const teleportButton = document.querySelector(".pla-results-teleport");
 // options
 const mapSelect = document.getElementById("mapSelect");
 const rollsInput = document.getElementById("rolls");
+const inmapCheck = document.getElementById("inmapcheck");
 
 mapSelect.onchange = setMap;
 
@@ -154,6 +155,7 @@ function getOptions() {
   return {
 	mapname: parseInt(mapSelect.value),
     rolls: parseInt(rollsInput.value),
+//	inmap: inmapCheck.checked
   };
 }
 
@@ -363,7 +365,7 @@ const showFilteredResults = () => {
 	  resultContainer.querySelector('.pla-results-sprite').appendChild(sprite);
       resultContainer.querySelector("[data-pla-results-species]").innerText =
         result.species;
-      resultContainer.querySelector("[data-pla-results-location]").innerText =
+      resultContainer.querySelector("[data-pla-results-location]").innerHTML =
         result.index;
 
       let resultShiny = resultContainer.querySelector(
@@ -382,6 +384,8 @@ const showFilteredResults = () => {
 
 	  resultContainer.querySelector("[data-pla-results-group]").innerText =
 	    result.group;
+	  resultContainer.querySelector("[data-pla-results-numspawns]").innerText =
+	    result.numspawns;
 	  resultContainer.querySelector("[data-pla-results-mapname]").innerText =
 	    result.mapname;
       resultContainer.querySelector("[data-pla-results-nature]").innerText =
@@ -389,7 +393,7 @@ const showFilteredResults = () => {
       resultContainer.querySelector("[data-pla-results-gender]").innerText =
         result.gender;
       resultContainer.querySelector("[data-pla-results-seed]").innerText =
-        result.generator_seed.toString(16);
+        result.generator_seed;
       resultContainer.querySelector("[data-pla-results-ec]").innerText =
         result.ec.toString(16);
       resultContainer.querySelector("[data-pla-results-pid]").innerText =
