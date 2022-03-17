@@ -26,23 +26,26 @@ def distortion():
 
 @app.route('/read-mmos', methods=['POST'])
 def read_mmos():
-    results = pla.get_all_map_mmos(reader, request.json['rolls'])
-    return { "mmo_spawns": results }
+    #results = pla.get_all_map_mmos(reader, request.json['rolls'], request.json['inmap'])
+   results = pla.get_all_map_mmos(reader, request.json['rolls'], False)
+   return { "mmo_spawns": results }
 
 @app.route('/read-maps', methods=['GET'])
 def read_maps():
     results = pla.get_all_map_names(reader)
-    outbreaks = pla.get_all_outbreak_names(reader)
+    outbreaks = pla.get_all_outbreak_names(reader,False)
     return { "maps": results, "outbreaks": outbreaks }
 
 @app.route('/read-one-map', methods=['POST'])
 def read_one_map():
-   results = pla.get_map_mmos(reader,request.json['mapname'],request.json['rolls'])
+   #results = pla.get_map_mmos(reader,request.json['mapname'],request.json['rolls'], request.json['inmap'])
+   results = pla.get_map_mmos(reader,request.json['mapname'],request.json['rolls'], False)
    return { "mmo_spawn": results }
 
 @app.route('/read-normals', methods=['POST'])
 def read_normals():
-   results = pla.read_normal_outbreaks(reader,request.json['rolls'])
+   #results = pla.read_normal_outbreaks(reader,request.json['rolls'],request.json['inmap'])
+   results = pla.read_normal_outbreaks(reader,request.json['rolls'],False)
    return { "normal_spawns": results }
 
 @app.route('/teleport-to-spawn', methods=['POST'])

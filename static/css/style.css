@@ -5,6 +5,10 @@
   --color-shadow: #4d4b4a;
   --color-black: #0d0d0d;
   --color-spot: #8abf8d;
+  --color-init: #d2270c;
+  --color-revisit: #19900c;
+  --color-bonus: #CB990B;
+  --color-init: #CB990B;
 }
 
 /*
@@ -266,6 +270,26 @@ section {
 .pla-result-false {
   text-transform: capitalize;
   color: var(--color-shadow);
+}
+
+.pla-results-firstpath {
+	color: var(--color-accent-1);
+	font-weight: bold;
+}
+
+.pla-results-revisit {
+	color: var(--color-revisit);
+	font-weight: bold;
+}
+
+.pla-results-bonus {
+	color: var(--color-bonus);
+	font-weight: bold;
+}
+
+.pla-results-init {
+	color: var(--color-init);
+	font-weight: bold;
 }
 
 .pla-results-species {
