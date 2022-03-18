@@ -23,11 +23,13 @@ const distShinyOrAlphaCheckbox = document.getElementById(
 const distShinyCheckbox = document.getElementById("mmoShinyFilter");
 const distAlphaCheckbox = document.getElementById("mmoAlphaFilter");
 const mmoSpeciesText = document.getElementById("mmoSpeciesFilter");
+const distDefaultCheckbox = document.getElementById("mmoDefaultRouteFilter");
 
 distShinyOrAlphaCheckbox.onchange = setFilter;
 distShinyCheckbox.onchange = setFilter;
 distAlphaCheckbox.onchange = setFilter;
 mmoSpeciesText.oninput = setFilter;
+distDefaultCheckbox.onchange = setFilter;
 
 loadPreferences();
 setupPreferenceSaving();
@@ -50,6 +52,10 @@ function loadPreferences() {
   distShinyOrAlphaCheckbox.checked = readBoolFromStorage(
     "mmoShinyOrAlphaFilter",
     false
+  );
+  distDefaultCheckbox.checked = readBoolFromStorage(
+    "mmoDefaultRouteFilter",
+	false
   );
   validateFilters();
 }
@@ -131,7 +137,7 @@ function validateFilters() {
   distAlphaCheckbox.checked = alphaFilter;
 }
 
-function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter) {
+function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter, defaultFilter) {
   if (shinyOrAlphaFilter && !(result.shiny || result.alpha)) {
     return false;
   }
@@ -142,6 +148,10 @@ function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFil
 
   if (alphaFilter && !result.alpha) {
     return false;
+  }
+  
+  if (defaultFilter && !result.defaultroute) {
+	  return false;
   }
   
   if (SpeciesFilter.value.length != 0 && !result.species.toLowerCase().includes(SpeciesFilter.value.toLowerCase())){
@@ -346,6 +356,7 @@ const showFilteredResults = () => {
   let shinyFilter = distShinyCheckbox.checked;
   let alphaFilter = distAlphaCheckbox.checked;
   let SpeciesFilter = mmoSpeciesFilter;
+  let defaultFilter = distDefaultCheckbox.checked;
 
   resultsArea.innerHTML = "";
   resultsSection.classList.toggle("pla-loading", false);
@@ -353,7 +364,7 @@ const showFilteredResults = () => {
   filteredResults = results.filter(
     (result) =>
       result.spawn &&
-      filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter)
+      filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter, defaultFilter)
   );
 
   if (filteredResults.length > 0) {
@@ -384,8 +395,8 @@ const showFilteredResults = () => {
 
 	  resultContainer.querySelector("[data-pla-results-group]").innerText =
 	    result.group;
-	  resultContainer.querySelector("[data-pla-results-numspawns]").innerText =
-	    result.numspawns;
+	  resultContainer.querySelector("[data-pla-results-defaultroute]").innerText =
+	    result.defaultroute;
 	  resultContainer.querySelector("[data-pla-results-mapname]").innerText =
 	    result.mapname;
       resultContainer.querySelector("[data-pla-results-nature]").innerText =

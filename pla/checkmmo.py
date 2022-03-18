@@ -90,6 +90,10 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "nature":NATURES[nature],
                 "gender":gender
                 }
+            if not isbonus:
+                info["defaultroute"] = True
+            else:
+                info["defaultroute"] = False
             #print(info)
             storage[str(fixed_seed)]=info
     group_seed = main_rng.next()
@@ -127,6 +131,10 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "nature":NATURES[nature],
                 "gender":gender
                 }
+                if not isbonus and sum(steps[:step_i]) == len(steps[:step_i]) and pokemon == 1:
+                    info["defaultroute"] = True
+                else:
+                    info["defaultroute"] = False
                # print(info)
                 storage[str(fixed_seed)]=info
         respawn_rng = XOROSHIRO(respawn_rng.next())
@@ -499,7 +507,8 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
                 "ivs":ivs,
                 "ability":ability,
                 "nature":NATURES[nature],
-                "gender":gender
+                "gender":gender,
+                "defaultroute": True
                 }
             #print(info)
             storage[str(fixed_seed)]=info
@@ -530,6 +539,10 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
                 "nature":NATURES[nature],
                 "gender":gender
                 }
+                if len(steps[:step_i]) == sum(steps[:step_i]) and pokemon == 1:
+                    info["defaultroute"] = True
+                else:
+                    info["defaultroute"] = False
                # print(info)
                 storage[str(fixed_seed)]=info
         respawn_rng = XOROSHIRO(respawn_rng.next())
@@ -683,9 +696,9 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 #print(f"display[index]: {display[index]}")
                 #display[index]["index"] = f"First Round Path: {value} + {extra} " + display[index]["index"]
                 if epath == []:
-                    display[index]["index"] = f"<span class='pla-results-firstpath'>First Round Path: {value} </span> + {extra} <span class='pla-results-bonus'> Bonus " + display[index]["index"]
+                    display[index]["index"] = f"<span class='pla-results-firstpath'>First Round Path: {value} </span> + {extra} + <span class='pla-results-bonus'> Bonus " + display[index]["index"]
                 else:
-                    display[index]["index"] = f"<span class='pla-results-firstpath'>First Round Path: {value} </span> + <span class='pla-results-revisit'> Revisit {epath} </span> <span class='pla-results-bonus'> Bonus " + display[index]["index"]
+                    display[index]["index"] = f"<span class='pla-results-firstpath'>First Round Path: {value} </span> + <span class='pla-results-revisit'> Revisit {epath} </span> + <span class='pla-results-bonus'> Bonus " + display[index]["index"]
                 display[index]["group"] = group_id
                 display[index]["mapname"] = map_name
                 display[index]["coords"] = coords
@@ -707,6 +720,10 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 else:
                     spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}.png"
                 display[index]["sprite"] = spritename
+                if len(value) == sum(value):
+                    display[index]["defaultroute"] = True
+                else:
+                    display[index]["defaultroute"] = False
 
             #print(f"Sprite: {display[index]['sprite']}")
             #print(f"Z: {z} Index: {index}")
@@ -813,7 +830,10 @@ def read_normal_outbreaks(reader,rolls,inmap):
                     display[str(index)]["group"] = i
                     display[str(index)]["mapname"] = "Normal Outbreak"
                     display[str(index)]["numspawns"] = max_spawns
-                    display[str(index)]["species"] = SPECIES[species]
+                    if SPECIES[species] == "Basculin":
+                        display[str(index)]["species"] = "Basculin-2"
+                    else:
+                        display[str(index)]["species"] = SPECIES[species]
                     display[str(index)]["coords"] = coordinates
                     if " " in display[str(index)]["species"] and "-" in display[str(index)]["species"]:
                         cutspecies = display[str(index)]["species"].rpartition(' ')[2]
@@ -824,8 +844,10 @@ def read_normal_outbreaks(reader,rolls,inmap):
                     elif "-" in display[str(index)]["species"]:
                         cutspecies = display[str(index)]["species"].rpartition('-')[0]
                         form = display[str(index)]["species"].rpartition('-')[2]
+                        #print(f"Form: {form} cutspecies: {cutspecies}")
                     else:
                         cutspecies = display[str(index)]["species"]
+                    #print(f"Form: {form} cutspecies: {cutspecies}")
                     #print(f"Species: {display[index]['species']}")
                     #print(f"Cut Species: {cutspecies}")
                     if display[str(index)]["shiny"]:
