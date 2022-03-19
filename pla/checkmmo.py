@@ -282,7 +282,7 @@ def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,inmap,bonus_flag):
         else:
             group_seed = get_gen_seed_to_group_seed(reader,group_id)
 
-        #print(f"Group Seed for Group {group_id} is {group_seed:X}")
+        print(f"Group Seed for Group {group_id} is {group_seed:X}")
             
         max_spawns = get_max_spawns(reader,group_id,mapcount,bonus_flag)
         
@@ -674,7 +674,7 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
     for t,value in enumerate(paths):
         #print(f"Value: {value}, T: {t}")
         seed = get_bonus_seed(reader,group_id,rolls,mapcount,value,inmap)
-        #print(f"Seed: {seed:X}")
+        print(f"Seed: {seed:X}")
         extra = [1] * (get_max_spawns(reader,group_id,mapcount,False) - sum(value))
         for e,epath in enumerate(extrapaths):
             spawn_remain = true_spawns - sum(value)
@@ -782,8 +782,8 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                 group_seed = get_gen_seed_to_group_seed(reader,i)
             #paths = next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,max_spawns,true_spawns,i,mapcount,bonus_flag,group_seed,False)
             bonus_seed = next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,max_spawns,true_spawns,i,mapcount,bonus_flag,group_seed,False)
-            #print(f"Paths: {bonus_seed}")
-            #print(f"Path length: {len(bonus_seed)}")
+            print(f"Paths: {bonus_seed}")
+            print(f"Path length: {len(bonus_seed)}")
             result = read_bonus_pathinfo(reader,bonus_seed,i,mapcount,rolls,group_seed,map_name,coords,inmap)
             print(f"Group {i} Bonus Complete!")
         #print(f"Display: {display}")
