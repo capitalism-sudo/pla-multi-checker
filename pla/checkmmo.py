@@ -2,6 +2,7 @@
 import sys
 import json
 import struct
+from datetime import datetime
 
 from .xoroshiro import XOROSHIRO
 
@@ -795,6 +796,8 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
 
 def get_all_map_mmos(reader,rolls,inmap):
     display = {}
+    starttime = datetime.now()
+    print(f"Starting at {starttime}")
     for i in range(0,4):
         map_name = get_map_name(reader,i)
         if map_name == "None":
@@ -804,6 +807,8 @@ def get_all_map_mmos(reader,rolls,inmap):
         display[map_name] = result
         print(f"Map {map_name} complete!")
 
+    endtime = datetime.now()
+    print(f"Task done at {endtime}, Took {endtime - starttime}")
     #print(display)
     return display
 
