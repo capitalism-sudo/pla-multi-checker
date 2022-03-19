@@ -83,7 +83,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "species":species,
                 "shiny":shiny,
                 "alpha":alpha,
-                "numspawns":true_spawns,
                 "ec":encryption_constant,
                 "pid":pid,
                 "ivs":ivs,
@@ -124,7 +123,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "species":species,
                 "shiny":shiny,
                 "alpha":alpha,
-                "numspawns":true_spawns,
                 "ec":encryption_constant,
                 "pid":pid,
                 "ivs":ivs,
@@ -246,7 +244,7 @@ def get_bonus_seed(reader,group_seed,rolls,mapcount,path,species,max_spawns):
         respawn_rng = XOROSHIRO(respawn_rng.next())
     bonus_seed = (respawn_rng.next() - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
         #bonus_seed = respawn_rng.next()
-    print(f"Bonus Seed: {bonus_seed:X}")
+    #print(f"Bonus Seed: {bonus_seed:X}")
     return bonus_seed
     
 def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,species,group_seed,max_spawns,bonus_flag):
@@ -633,11 +631,12 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
     outbreaks = {}
     for t,value in enumerate(paths):
         #print(f"Value: {value}, T: {t}")
+        #print(f"True Spawns: {true_spawns} Bonus Spawns: {bonus_spawns} Max Spawns: {max_spawns}")
         seed = get_bonus_seed(reader,group_seed,rolls,mapcount,value,species,max_spawns)
         #print(f"Seed: {seed:X}")
         extra = [1] * (max_spawns - sum(value))
         for e,epath in enumerate(extrapaths):
-            spawn_remain = true_spawns - sum(value)
+            spawn_remain = max_spawns - sum(value)
             if epath == []:
                 #print("Null path, this is doable.")
                 #print(f"Null path, using seed {seed:X}")
@@ -663,6 +662,7 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 display[index]["group"] = group_id
                 display[index]["mapname"] = map_name
                 display[index]["coords"] = coords
+                display[index]["numspawns"] = max_spawns
                 if " " in display[index]["species"] and "-" in display[index]["species"]:
                     cutspecies = display[index]["species"].rpartition(' ')[2]
                     form = display[index]["species"].rpartition('-')[2]
@@ -710,7 +710,8 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                 group_seed = get_group_seed(reader,i,mapcount)
             else:
                 group_seed = get_gen_seed_to_group_seed(reader,i)
-            max_spawns = get_max_spawns(reader,i,mapcount,bonus_flag)
+            #print(f"Group seed for {i} is {group_seed:X}")
+            max_spawns = get_max_spawns(reader,i,mapcount,False)
             display = read_mass_outbreak_rng(reader,i,rolls,mapcount,numspecies,group_seed,max_spawns,False)
             for index in display:
                 if index != "index" and index != "description":
@@ -718,6 +719,7 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                     display[str(index)]["group"] = i
                     display[str(index)]["mapname"] = map_name
                     display[str(index)]["coords"] = coords
+                    display[str(index)]["numspawns"] = max_spawns
                     if " " in display[str(index)]["species"] and "-" in display[str(index)]["species"]:
                         cutspecies = display[str(index)]["species"].rpartition(' ')[2]
                         form = display[str(index)]["species"].rpartition('-')[2]
@@ -747,6 +749,7 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                 bonus_seed = next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,bonus_spawns,true_spawns,i,mapcount,bonus_flag,False)
                 #print(f"Paths: {bonus_seed}")
                 #print(f"Path length: {len(bonus_seed)}")
+                true_spawns = get_max_spawns(reader,i,mapcount,True)
                 result = read_bonus_pathinfo(reader,bonus_seed,i,mapcount,rolls,group_seed,map_name,coords,true_spawns,bonus_spawns,max_spawns,numspecies)
                 print(f"Group {i} Bonus Complete!")
             #print(f"Display: {display}")
