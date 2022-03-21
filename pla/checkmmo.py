@@ -653,6 +653,8 @@ def get_normal_outbreak_info(reader,group_id,inmap):
 def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name,coords,true_spawns,bonus_spawns,max_spawns,species):
     isbonus = True
     outbreaks = {}
+    nbpaths = nonbonuspaths[str(true_spawns)]
+    print(f"nbpaths: {nbpaths}")
     for t,value in enumerate(paths):
         #print(f"Value: {value}, T: {t}")
         #print(f"True Spawns: {true_spawns} Bonus Spawns: {bonus_spawns} Max Spawns: {max_spawns}")
@@ -660,18 +662,17 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
         #print(f"Seed: {seed:X}")
         extra = [1] * (max_spawns - sum(value))
         encounters,encsum = get_encounter_table(reader,group_id,mapcount,True)
-        paths = nonbonuspaths[str(true_spawns)]
         for e,epath in enumerate(extrapaths):
             spawn_remain = max_spawns - sum(value)
             if epath == []:
                 #print("Null path, this is doable.")
                 #print(f"Null path, using seed {seed:X}")
-                display = generate_mass_outbreak_aggressive_path(seed,rolls,paths,bonus_spawns,true_spawns,encounters,encsum,isbonus,False)
+                display = generate_mass_outbreak_aggressive_path(seed,rolls,nbpaths,bonus_spawns,true_spawns,encounters,encsum,isbonus,False)
             elif epath[0] <= spawn_remain:
                 #print("This is doable.")
                 epath_seed = get_extra_path_seed(reader,seed,mapcount,epath)
                 #print(f"Non null path, using seed {epath_seed:X}")
-                display = generate_mass_outbreak_aggressive_path(seed,rolls,paths,bonus_spawns,true_spawns,encounters,encsum,isbonus,False)
+                display = generate_mass_outbreak_aggressive_path(epath_seed,rolls,nbpaths,bonus_spawns,true_spawns,encounters,encsum,isbonus,False)
             else:
                 #print(f"Remaining Spawns: {spawn_remain}, First epath: {epath[0]}, this is not doable. Continuing.")
                 continue
