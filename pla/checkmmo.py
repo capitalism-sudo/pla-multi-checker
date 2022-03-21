@@ -239,8 +239,7 @@ def next_filtered_aggressive_outbreak_pathfind(reader,group_seed,rolls,spawns,tr
 
 def get_bonus_seed(reader,group_seed,rolls,mapcount,path,species,max_spawns):
     if species == 201:
-        rolls = 19
-        
+        rolls = 19        
     main_rng = XOROSHIRO(group_seed)
     for init_spawn in range(4):
         generator_seed = main_rng.next()
