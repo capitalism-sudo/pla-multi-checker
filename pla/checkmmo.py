@@ -2,6 +2,7 @@
 import sys
 import json
 import struct
+import random
 from datetime import datetime
 
 from .xoroshiro import XOROSHIRO
@@ -15,6 +16,8 @@ mapnamevals = {
     "56B7":"Cobalt Coastlands"}
 
 encmap = json.load(open("./static/resources/mmo_es.json"))
+
+allpaths = json.load(open("./static/resources/mmopaths.json"))
 
 with open("./static/resources/text_natures.txt",encoding="utf-8") as text_natures:
     NATURES = text_natures.read().split("\n")
@@ -74,7 +77,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
             generate_from_seed(fixed_seed,rolls,guaranteed_ivs)
         #print(f"Species: {noformspecies} alphafilter: {alphafilter} shinyfilter: {shinyfilter} blacklistfilter: {blacklistfilter} whitelistfilter: {whitelistfilter} alpha: {alpha}")
         if not fixed_seed in uniques:
-        #if not fixed_seed in uniques and isbonus:
             uniques.add(fixed_seed)
             info = {
                 "index":f"<span class='pla-results-init'>Init Spawn {init_spawn} </span></span>",
@@ -90,12 +92,19 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "nature":NATURES[nature],
                 "gender":gender
                 }
+            """
+            if not fixed_seed in uniques:
+                info["unique"] = True
+                uniques.add(fixed_seed)
+            else:
+                info["unique"] = False
+            """
             if not isbonus:
                 info["defaultroute"] = True
             else:
                 info["defaultroute"] = False
             #print(info)
-            storage[str(fixed_seed)]=info
+            storage[f"{fixed_seed} + {init_spawn} + {random.randint(0,100)}"]=info
     group_seed = main_rng.next()
     respawn_rng = XOROSHIRO(group_seed)
     for step_i,step in enumerate(steps):
@@ -130,12 +139,19 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "nature":NATURES[nature],
                 "gender":gender
                 }
+                """
+                if not fixed_seed in uniques:
+                    uniques.add(fixed_seed)
+                    info["unique"] = True
+                else:
+                    info["unique"] = False
+                """
                 if not isbonus and sum(steps[:step_i]) == len(steps[:step_i]) and pokemon == 1:
                     info["defaultroute"] = True
                 else:
                     info["defaultroute"] = False
                # print(info)
-                storage[str(fixed_seed)]=info
+                storage[f"{fixed_seed} + {steps[:step_i] + [pokemon]} + {random.randint(0,100)}"]=info
         respawn_rng = XOROSHIRO(respawn_rng.next())
 
 def get_final(spawns):
@@ -746,7 +762,8 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                 bonus_spawns = true_spawns + 4
                 #print(f"Max_spawns = {max_spawns}")
                 #paths = next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,max_spawns,true_spawns,i,mapcount,bonus_flag,group_seed,False)
-                bonus_seed = next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,bonus_spawns,true_spawns,i,mapcount,bonus_flag,False)
+                #bonus_seed = next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,bonus_spawns,true_spawns,i,mapcount,bonus_flag,False)
+                bonus_seed = allpaths[str(max_spawns)]
                 #print(f"Paths: {bonus_seed}")
                 #print(f"Path length: {len(bonus_seed)}")
                 true_spawns = get_max_spawns(reader,i,mapcount,True)
@@ -777,7 +794,7 @@ def get_all_map_mmos(reader,rolls,inmap):
 
     endtime = datetime.now()
     print(f"Task done at {endtime}, Took {endtime - starttime}")
-    #print(display)
+    print(len(display))
     return display
 
 
