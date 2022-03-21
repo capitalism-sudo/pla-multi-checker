@@ -63,8 +63,9 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
     # the generation is unique to each path, no use in splitting this function
     storage = {}
     uniques = set()
+    true_seed = group_seed
     for i, steps in enumerate(paths):
-        main_rng = XOROSHIRO(group_seed)
+        main_rng = XOROSHIRO(true_seed)
         for init_spawn in range(1,5):
             generator_seed = main_rng.next()
             main_rng.next() # spawner 1's seed, unused
