@@ -19,6 +19,8 @@ encmap = json.load(open("./static/resources/mmo_es.json"))
 
 allpaths = json.load(open("./static/resources/mmopaths.json"))
 
+nonbonuspaths = json.load(open("./static/resources/nonbonuspaths.json"))
+
 with open("./static/resources/text_natures.txt",encoding="utf-8") as text_natures:
     NATURES = text_natures.read().split("\n")
 
@@ -55,62 +57,17 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     return ec,pid,ivs,ability,gender,nature,shiny
 
 
-def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storage,spawns,true_spawns,encounters,encsum,isbonus=False,isalpha=False):
+def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_spawns,encounters,encsum,isbonus=False,isalpha=False):
     """Generate all the pokemon of an outbreak based on a provided aggressive path"""
     # pylint: disable=too-many-locals, too-many-arguments
     # the generation is unique to each path, no use in splitting this function
-    main_rng = XOROSHIRO(group_seed)
-    for init_spawn in range(1,5):
-        generator_seed = main_rng.next()
-        main_rng.next() # spawner 1's seed, unused
-        fixed_rng = XOROSHIRO(generator_seed)
-        encounter_slot = (fixed_rng.next() / (2**64)) * encsum
-        species,alpha = get_species(encounters,encounter_slot)
-        if isbonus and alpha:
-            guaranteed_ivs = 4
-        elif isbonus or alpha:
-            guaranteed_ivs = 3
-        else:
-            guaranteed_ivs = 0
-        fixed_seed = fixed_rng.next()
-        encryption_constant,pid,ivs,ability,gender,nature,shiny = \
-            generate_from_seed(fixed_seed,rolls,guaranteed_ivs)
-        #print(f"Species: {noformspecies} alphafilter: {alphafilter} shinyfilter: {shinyfilter} blacklistfilter: {blacklistfilter} whitelistfilter: {whitelistfilter} alpha: {alpha}")
-        if not fixed_seed in uniques:
-            uniques.add(fixed_seed)
-            info = {
-                "index":f"<span class='pla-results-init'>Init Spawn {init_spawn} </span></span>",
-                "spawn":True,
-                "generator_seed":f"{generator_seed:X}",
-                "species":species,
-                "shiny":shiny,
-                "alpha":alpha,
-                "ec":encryption_constant,
-                "pid":pid,
-                "ivs":ivs,
-                "ability":ability,
-                "nature":NATURES[nature],
-                "gender":gender
-                }
-            """
-            if not fixed_seed in uniques:
-                info["unique"] = True
-                uniques.add(fixed_seed)
-            else:
-                info["unique"] = False
-            """
-            if not isbonus:
-                info["defaultroute"] = True
-            else:
-                info["defaultroute"] = False
-            #print(info)
-            storage[f"{fixed_seed} + {init_spawn} + {random.randint(0,100)}"]=info
-    group_seed = main_rng.next()
-    respawn_rng = XOROSHIRO(group_seed)
-    for step_i,step in enumerate(steps):
-        for pokemon in range(1,step+1):
-            generator_seed = respawn_rng.next()
-            respawn_rng.next() # spawner 1's seed, unused
+    storage = {}
+    uniques = set()
+    for i, steps in enumerate(paths):
+        main_rng = XOROSHIRO(group_seed)
+        for init_spawn in range(1,5):
+            generator_seed = main_rng.next()
+            main_rng.next() # spawner 1's seed, unused
             fixed_rng = XOROSHIRO(generator_seed)
             encounter_slot = (fixed_rng.next() / (2**64)) * encsum
             species,alpha = get_species(encounters,encounter_slot)
@@ -123,36 +80,85 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
             fixed_seed = fixed_rng.next()
             encryption_constant,pid,ivs,ability,gender,nature,shiny = \
                 generate_from_seed(fixed_seed,rolls,guaranteed_ivs)
-            if not fixed_seed in uniques and (sum(steps[:step_i]) + pokemon + 4) <= true_spawns:
+            #print(f"Species: {noformspecies} alphafilter: {alphafilter} shinyfilter: {shinyfilter} blacklistfilter: {blacklistfilter} whitelistfilter: {whitelistfilter} alpha: {alpha}")
+            if not fixed_seed in uniques:
                 uniques.add(fixed_seed)
                 info = {
-                "index":f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])} </span>",
-                "spawn":True,
-                "generator_seed":f"{generator_seed:X}",
-                "species":species,
-                "shiny":shiny,
-                "alpha":alpha,
-                "ec":encryption_constant,
-                "pid":pid,
-                "ivs":ivs,
-                "ability":ability,
-                "nature":NATURES[nature],
-                "gender":gender
-                }
+                    "index":f"<span class='pla-results-init'>Init Spawn {init_spawn} </span></span>",
+                    "spawn":True,
+                    "generator_seed":f"{generator_seed:X}",
+                    "species":species,
+                    "shiny":shiny,
+                    "alpha":alpha,
+                    "ec":encryption_constant,
+                    "pid":pid,
+                    "ivs":ivs,
+                    "ability":ability,
+                    "nature":NATURES[nature],
+                    "gender":gender
+                    }
                 """
                 if not fixed_seed in uniques:
-                    uniques.add(fixed_seed)
                     info["unique"] = True
+                    uniques.add(fixed_seed)
                 else:
                     info["unique"] = False
                 """
-                if not isbonus and sum(steps[:step_i]) == len(steps[:step_i]) and pokemon == 1:
+                if not isbonus:
                     info["defaultroute"] = True
                 else:
                     info["defaultroute"] = False
-               # print(info)
-                storage[f"{fixed_seed} + {steps[:step_i] + [pokemon]} + {random.randint(0,100)}"]=info
-        respawn_rng = XOROSHIRO(respawn_rng.next())
+                #print(info)
+                storage[f"{fixed_seed} + {init_spawn} + {random.randint(0,100)} + {i} + {steps}"]=info
+        group_seed = main_rng.next()
+        respawn_rng = XOROSHIRO(group_seed)
+        for step_i,step in enumerate(steps):
+            for pokemon in range(1,step+1):
+                generator_seed = respawn_rng.next()
+                respawn_rng.next() # spawner 1's seed, unused
+                fixed_rng = XOROSHIRO(generator_seed)
+                encounter_slot = (fixed_rng.next() / (2**64)) * encsum
+                species,alpha = get_species(encounters,encounter_slot)
+                if isbonus and alpha:
+                    guaranteed_ivs = 4
+                elif isbonus or alpha:
+                    guaranteed_ivs = 3
+                else:
+                    guaranteed_ivs = 0
+                fixed_seed = fixed_rng.next()
+                encryption_constant,pid,ivs,ability,gender,nature,shiny = \
+                    generate_from_seed(fixed_seed,rolls,guaranteed_ivs)
+                if not fixed_seed in uniques and (sum(steps[:step_i]) + pokemon + 4) <= true_spawns:
+                    uniques.add(fixed_seed)
+                    info = {
+                    "index":f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])} </span>",
+                    "spawn":True,
+                    "generator_seed":f"{generator_seed:X}",
+                    "species":species,
+                    "shiny":shiny,
+                    "alpha":alpha,
+                    "ec":encryption_constant,
+                    "pid":pid,
+                    "ivs":ivs,
+                    "ability":ability,
+                    "nature":NATURES[nature],
+                    "gender":gender
+                    }
+                    """
+                    if not fixed_seed in uniques:
+                        uniques.add(fixed_seed)
+                        info["unique"] = True
+                    else:
+                        info["unique"] = False
+                    """
+                    if not isbonus and sum(steps[:step_i]) == len(steps[:step_i]) and pokemon == 1:
+                        info["defaultroute"] = True
+                    else:
+                        info["defaultroute"] = False
+                   # print(info)
+                    storage[f"{fixed_seed} + {steps[:step_i] + [pokemon]} + {random.randint(0,100)} + {i} + {steps}"]=info
+            respawn_rng = XOROSHIRO(respawn_rng.next())
+    return storage
 
 def get_final(spawns):
     """Get the final path that will be generated to know when to stop aggressive recursion"""
@@ -266,13 +272,15 @@ def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,species,group_seed,max
     if species == 201:
         rolls = 19
     print(f"Species Group: {SPECIES[species]}")
+    encounters,encsum = get_encounter_table(reader,group_id,mapcount,bonus_flag)
+    paths = nonbonuspaths[str(max_spawns)]
     
     true_spawns = max_spawns
     if bonus_flag:
         max_spawns = 10
     else:
         max_spawns += 3
-    display = next_filtered_aggressive_outbreak_pathfind(reader,group_seed,rolls,max_spawns,true_spawns,group_id,mapcount,bonus_flag,False)
+    display = generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,max_spawns,true_spawns,encounters,encsum,bonus_flag,False)
     return display
 
 def get_encounter_table(reader,group_id,mapcount,bonus):
@@ -650,17 +658,19 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
         seed = get_bonus_seed(reader,group_seed,rolls,mapcount,value,species,max_spawns)
         #print(f"Seed: {seed:X}")
         extra = [1] * (max_spawns - sum(value))
+        encounters,encsum = get_encounter_table(reader,group_id,mapcount,True)
+        paths = nonbonuspaths[str(true_spawns)]
         for e,epath in enumerate(extrapaths):
             spawn_remain = max_spawns - sum(value)
             if epath == []:
                 #print("Null path, this is doable.")
                 #print(f"Null path, using seed {seed:X}")
-                display = next_filtered_aggressive_outbreak_pathfind(reader,seed,rolls,bonus_spawns,true_spawns,group_id,mapcount,isbonus,False)
+                display = generate_mass_outbreak_aggressive_path(seed,rolls,paths,bonus_spawns,true_spawns,encounters,encsum,isbonus,False)
             elif epath[0] <= spawn_remain:
                 #print("This is doable.")
                 epath_seed = get_extra_path_seed(reader,seed,mapcount,epath)
                 #print(f"Non null path, using seed {epath_seed:X}")
-                display = next_filtered_aggressive_outbreak_pathfind(reader,epath_seed,rolls,bonus_spawns,true_spawns,group_id,mapcount,isbonus,False)
+                display = generate_mass_outbreak_aggressive_path(seed,rolls,paths,bonus_spawns,true_spawns,encounters,encsum,isbonus,False)
             else:
                 #print(f"Remaining Spawns: {spawn_remain}, First epath: {epath[0]}, this is not doable. Continuing.")
                 continue
