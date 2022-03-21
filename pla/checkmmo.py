@@ -654,7 +654,6 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
     isbonus = True
     outbreaks = {}
     nbpaths = nonbonuspaths[str(true_spawns)]
-    print(f"nbpaths: {nbpaths}")
     for t,value in enumerate(paths):
         #print(f"Value: {value}, T: {t}")
         #print(f"True Spawns: {true_spawns} Bonus Spawns: {bonus_spawns} Max Spawns: {max_spawns}")
