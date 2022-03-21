@@ -2,6 +2,7 @@
 import sys
 import json
 import struct
+import random
 from datetime import datetime
 
 from .xoroshiro import XOROSHIRO
@@ -15,6 +16,8 @@ mapnamevals = {
     "56B7":"Cobalt Coastlands"}
 
 encmap = json.load(open("./static/resources/mmo_es.json"))
+
+allpaths = json.load(open("./static/resources/mmopaths.json"))
 
 with open("./static/resources/text_natures.txt",encoding="utf-8") as text_natures:
     NATURES = text_natures.read().split("\n")
@@ -74,7 +77,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
             generate_from_seed(fixed_seed,rolls,guaranteed_ivs)
         #print(f"Species: {noformspecies} alphafilter: {alphafilter} shinyfilter: {shinyfilter} blacklistfilter: {blacklistfilter} whitelistfilter: {whitelistfilter} alpha: {alpha}")
         if not fixed_seed in uniques:
-        #if not fixed_seed in uniques and isbonus:
             uniques.add(fixed_seed)
             info = {
                 "index":f"<span class='pla-results-init'>Init Spawn {init_spawn} </span></span>",
@@ -83,7 +85,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "species":species,
                 "shiny":shiny,
                 "alpha":alpha,
-                "numspawns":true_spawns,
                 "ec":encryption_constant,
                 "pid":pid,
                 "ivs":ivs,
@@ -91,12 +92,19 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "nature":NATURES[nature],
                 "gender":gender
                 }
+            """
+            if not fixed_seed in uniques:
+                info["unique"] = True
+                uniques.add(fixed_seed)
+            else:
+                info["unique"] = False
+            """
             if not isbonus:
                 info["defaultroute"] = True
             else:
                 info["defaultroute"] = False
             #print(info)
-            storage[str(fixed_seed)]=info
+            storage[f"{fixed_seed} + {init_spawn} + {random.randint(0,100)}"]=info
     group_seed = main_rng.next()
     respawn_rng = XOROSHIRO(group_seed)
     for step_i,step in enumerate(steps):
@@ -124,7 +132,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "species":species,
                 "shiny":shiny,
                 "alpha":alpha,
-                "numspawns":true_spawns,
                 "ec":encryption_constant,
                 "pid":pid,
                 "ivs":ivs,
@@ -132,12 +139,19 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,steps,uniques,storag
                 "nature":NATURES[nature],
                 "gender":gender
                 }
+                """
+                if not fixed_seed in uniques:
+                    uniques.add(fixed_seed)
+                    info["unique"] = True
+                else:
+                    info["unique"] = False
+                """
                 if not isbonus and sum(steps[:step_i]) == len(steps[:step_i]) and pokemon == 1:
                     info["defaultroute"] = True
                 else:
                     info["defaultroute"] = False
                # print(info)
-                storage[str(fixed_seed)]=info
+                storage[f"{fixed_seed} + {steps[:step_i] + [pokemon]} + {random.randint(0,100)}"]=info
         respawn_rng = XOROSHIRO(respawn_rng.next())
 
 def get_final(spawns):
@@ -223,82 +237,43 @@ def next_filtered_aggressive_outbreak_pathfind(reader,group_seed,rolls,spawns,tr
     else:
         return info
 
-def get_bonus_seed(reader,group_id,rolls,mapcount,path,inmap):
-    species = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount:X}",2)
-    #print(f"Species Pointer: [[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount:X}")
-    if species != 0:
-        if species == 201:
-            rolls = 19
-        if not inmap:
-            group_seed = get_group_seed(reader,group_id,mapcount)
-        else:
-            group_seed = get_gen_seed_to_group_seed(reader,group_id)
-            
-        max_spawns = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount+0x60:X}",4)
-        #print(f"Max spawns: {max_spawns}")
-        curr_spawns = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount+0x50:X}",4)
-        main_rng = XOROSHIRO(group_seed)
-        for init_spawn in range(4):
-            generator_seed = main_rng.next()
-            main_rng.next() # spawner 1's seed, unused
-            fixed_rng = XOROSHIRO(generator_seed)
-            fixed_rng.next()
-            fixed_seed = fixed_rng.next()
-            ec,pid,ivs,ability,gender,nature,shiny = generate_from_seed(fixed_seed,rolls)
-        group_seed = main_rng.next()
-        main_rng = XOROSHIRO(group_seed)
-        respawn_rng = XOROSHIRO(group_seed)
-        generator_seed = 0
-        #for respawn in range(1,max_spawns-3):
-        #print(f"Path: {path}")
-        for respawn,step in enumerate(path):
-            #print(f"Respawn: {respawn} Step {step}")
-            for pokemon in range(0,step):
-                #print(f"Pokemon {pokemon}")
-                generator_seed = respawn_rng.next()
-                tempseed = respawn_rng.next() # spawner 1's seed, unused
-                fixed_rng = XOROSHIRO(generator_seed)
-                fixed_rng.next()
-                fixed_seed = fixed_rng.next()
-                ec,pid,ivs,ability,gender,nature,shiny = generate_from_seed(fixed_seed,rolls)
-                fixed_seed = fixed_rng.next()
-            respawn_rng = XOROSHIRO(respawn_rng.next())
-        bonus_seed = (respawn_rng.next() - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
-            #bonus_seed = respawn_rng.next()
-        #print(f"Bonus Seed: {bonus_seed:X}")
-        return bonus_seed
-    else:
-        #print()
-        return None
+def get_bonus_seed(reader,group_seed,rolls,mapcount,path,species,max_spawns):
+    if species == 201:
+        rolls = 19        
+    main_rng = XOROSHIRO(group_seed)
+    for init_spawn in range(4):
+        generator_seed = main_rng.next()
+        main_rng.next() # spawner 1's seed, unused
+    group_seed = main_rng.next()
+    main_rng = XOROSHIRO(group_seed)
+    respawn_rng = XOROSHIRO(group_seed)
+    generator_seed = 0
+    #for respawn in range(1,max_spawns-3):
+    #print(f"Path: {path}")
+    for respawn,step in enumerate(path):
+        #print(f"Respawn: {respawn} Step {step}")
+        for pokemon in range(0,step):
+            #print(f"Pokemon {pokemon}")
+            generator_seed = respawn_rng.next()
+            tempseed = respawn_rng.next() # spawner 1's seed, unused
+        respawn_rng = XOROSHIRO(respawn_rng.next())
+    bonus_seed = (respawn_rng.next() - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
+        #bonus_seed = respawn_rng.next()
+    #print(f"Bonus Seed: {bonus_seed:X}")
+    return bonus_seed
     
-def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,inmap,bonus_flag):
-    species = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+group_id*0x90 + 0xb80 * mapcount:X}",2)
-    if species != 0:
-        if species == 201:
-            rolls = 19
-        print(f"Species Group: {SPECIES[species]}")
-        if not inmap:
-            group_seed = get_group_seed(reader,group_id,mapcount)
-        else:
-            group_seed = get_gen_seed_to_group_seed(reader,group_id)
-
-        print(f"Group Seed for Group {group_id} is {group_seed:X}")
-            
-        max_spawns = get_max_spawns(reader,group_id,mapcount,bonus_flag)
-        
-        true_spawns = max_spawns
-        if bonus_flag:
-            max_spawns = 10
-        else:
-            max_spawns += 3
-        display = next_filtered_aggressive_outbreak_pathfind(reader,group_seed,rolls,max_spawns,true_spawns,group_id,mapcount,bonus_flag,False)
-        return display,species
+def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,species,group_seed,max_spawns,bonus_flag):
+    if species == 201:
+        rolls = 19
+    print(f"Species Group: {SPECIES[species]}")
+    
+    true_spawns = max_spawns
+    if bonus_flag:
+        max_spawns = 10
     else:
-        display = {
-            "index":group_id,
-            "description":"Spawner not active"
-            }
-        return display,species
+        max_spawns += 3
+    display = next_filtered_aggressive_outbreak_pathfind(reader,group_seed,rolls,max_spawns,true_spawns,group_id,mapcount,bonus_flag,False)
+    return display
 
 def get_encounter_table(reader,group_id,mapcount,bonus):
     encounters = {}
@@ -666,31 +641,30 @@ def get_normal_outbreak_info(reader,group_id,inmap):
 
         return species,group_seed,max_spawns,coordinates
                                       
-def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name,coords,inmap):
+def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name,coords,true_spawns,bonus_spawns,max_spawns,species):
     isbonus = True
     outbreaks = {}
-    max_spawns = 10
-    true_spawns = get_max_spawns(reader,group_id,mapcount,True)
     for t,value in enumerate(paths):
         #print(f"Value: {value}, T: {t}")
-        seed = get_bonus_seed(reader,group_id,rolls,mapcount,value,inmap)
-        print(f"Seed: {seed:X}")
-        extra = [1] * (get_max_spawns(reader,group_id,mapcount,False) - sum(value))
+        #print(f"True Spawns: {true_spawns} Bonus Spawns: {bonus_spawns} Max Spawns: {max_spawns}")
+        seed = get_bonus_seed(reader,group_seed,rolls,mapcount,value,species,max_spawns)
+        #print(f"Seed: {seed:X}")
+        extra = [1] * (max_spawns - sum(value))
         for e,epath in enumerate(extrapaths):
-            spawn_remain = true_spawns - sum(value)
+            spawn_remain = max_spawns - sum(value)
             if epath == []:
                 #print("Null path, this is doable.")
                 #print(f"Null path, using seed {seed:X}")
-                display = next_filtered_aggressive_outbreak_pathfind(reader,seed,rolls,max_spawns,true_spawns,group_id,mapcount,isbonus,False)
+                display = next_filtered_aggressive_outbreak_pathfind(reader,seed,rolls,bonus_spawns,true_spawns,group_id,mapcount,isbonus,False)
             elif epath[0] <= spawn_remain:
                 #print("This is doable.")
                 epath_seed = get_extra_path_seed(reader,seed,mapcount,epath)
                 #print(f"Non null path, using seed {epath_seed:X}")
-                display = next_filtered_aggressive_outbreak_pathfind(reader,epath_seed,rolls,max_spawns,true_spawns,group_id,mapcount,isbonus,False)
+                display = next_filtered_aggressive_outbreak_pathfind(reader,epath_seed,rolls,bonus_spawns,true_spawns,group_id,mapcount,isbonus,False)
             else:
                 #print(f"Remaining Spawns: {spawn_remain}, First epath: {epath[0]}, this is not doable. Continuing.")
                 continue
-        #print(f"Display: {display}")
+            #print(f"Display: {display}")
             for index in display:
                 form = ''
                 #print(f"Index: {index}")
@@ -703,6 +677,7 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 display[index]["group"] = group_id
                 display[index]["mapname"] = map_name
                 display[index]["coords"] = coords
+                display[index]["numspawns"] = max_spawns
                 if " " in display[index]["species"] and "-" in display[index]["species"]:
                     cutspecies = display[index]["species"].rpartition(' ')[2]
                     form = display[index]["species"].rpartition('-')[2]
@@ -744,53 +719,62 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
         enctable,_ = get_encounter_table(reader,i,mapcount,True)
         bonus_flag = False if enctable == None else True
         coords = read_group_coordinates(reader,i,mapcount)
-        display,species = read_mass_outbreak_rng(reader,i,rolls,mapcount,inmap,False)
-        for index in display:
-            if index != "index" and index != "description":
-                form = ''
-                display[str(index)]["group"] = i
-                display[str(index)]["mapname"] = map_name
-                display[str(index)]["coords"] = coords
-                if " " in display[str(index)]["species"] and "-" in display[str(index)]["species"]:
-                    cutspecies = display[str(index)]["species"].rpartition(' ')[2]
-                    form = display[str(index)]["species"].rpartition('-')[2]
-                    cutspecies = cutspecies.rpartition('-')[0]     
-                elif " " in display[str(index)]["species"]:
-                    cutspecies = display[str(index)]["species"].rpartition(' ')[2]
-                elif "-" in display[str(index)]["species"]:
-                    cutspecies = display[str(index)]["species"].rpartition('-')[0]
-                    form = display[str(index)]["species"].rpartition('-')[2]
-                else:
-                    cutspecies = display[str(index)]["species"]
-                #print(f"Species: {display[str(index)]['species']}")
-                #print(f"Cut Species: {cutspecies}")
-                if display[str(index)]["shiny"]:
-                    spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}s.png"
-                else:
-                    spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}.png"
-                display[str(index)]["sprite"] = spritename
-
-                #print(f"Sprite: {display[str(index)]['sprite']}")
-        if bonus_flag:
-            true_spawns = get_max_spawns(reader,i,mapcount,False)
-            #print(f"True_spawns = {true_spawns}")
-            max_spawns = true_spawns + 4
-            #print(f"Max_spawns = {max_spawns}")
+        numspecies = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4+i*0x90 + 0xb80 * mapcount:X}",2)
+        if numspecies != 0:
             if not inmap:
                 group_seed = get_group_seed(reader,i,mapcount)
             else:
                 group_seed = get_gen_seed_to_group_seed(reader,i)
-            #paths = next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,max_spawns,true_spawns,i,mapcount,bonus_flag,group_seed,False)
-            bonus_seed = next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,max_spawns,true_spawns,i,mapcount,bonus_flag,group_seed,False)
-            print(f"Paths: {bonus_seed}")
-            print(f"Path length: {len(bonus_seed)}")
-            result = read_bonus_pathinfo(reader,bonus_seed,i,mapcount,rolls,group_seed,map_name,coords,inmap)
-            print(f"Group {i} Bonus Complete!")
-        #print(f"Display: {display}")
-        outbreaks[f"{i} " + f"{bonus_flag}"] = display
-        print(f"Group {i} Complete!")
-        if bonus_flag:
-            outbreaks[f"{i} " + f"{bonus_flag}" + "bonus"] = result
+            #print(f"Group seed for {i} is {group_seed:X}")
+            max_spawns = get_max_spawns(reader,i,mapcount,False)
+            display = read_mass_outbreak_rng(reader,i,rolls,mapcount,numspecies,group_seed,max_spawns,False)
+            for index in display:
+                if index != "index" and index != "description":
+                    form = ''
+                    display[str(index)]["group"] = i
+                    display[str(index)]["mapname"] = map_name
+                    display[str(index)]["coords"] = coords
+                    display[str(index)]["numspawns"] = max_spawns
+                    if " " in display[str(index)]["species"] and "-" in display[str(index)]["species"]:
+                        cutspecies = display[str(index)]["species"].rpartition(' ')[2]
+                        form = display[str(index)]["species"].rpartition('-')[2]
+                        cutspecies = cutspecies.rpartition('-')[0]     
+                    elif " " in display[str(index)]["species"]:
+                        cutspecies = display[str(index)]["species"].rpartition(' ')[2]
+                    elif "-" in display[str(index)]["species"]:
+                        cutspecies = display[str(index)]["species"].rpartition('-')[0]
+                        form = display[str(index)]["species"].rpartition('-')[2]
+                    else:
+                        cutspecies = display[str(index)]["species"]
+                    #print(f"Species: {display[str(index)]['species']}")
+                    #print(f"Cut Species: {cutspecies}")
+                    if display[str(index)]["shiny"]:
+                        spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}s.png"
+                    else:
+                        spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}.png"
+                    display[str(index)]["sprite"] = spritename
+
+                    #print(f"Sprite: {display[str(index)]['sprite']}")
+            if bonus_flag:
+                true_spawns = max_spawns
+                #print(f"True_spawns = {true_spawns}")
+                bonus_spawns = true_spawns + 4
+                #print(f"Max_spawns = {max_spawns}")
+                #paths = next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,max_spawns,true_spawns,i,mapcount,bonus_flag,group_seed,False)
+                #bonus_seed = next_filtered_aggressive_outbreak_pathfind_seed(reader,group_seed,rolls,bonus_spawns,true_spawns,i,mapcount,bonus_flag,False)
+                bonus_seed = allpaths[str(max_spawns)]
+                #print(f"Paths: {bonus_seed}")
+                #print(f"Path length: {len(bonus_seed)}")
+                true_spawns = get_max_spawns(reader,i,mapcount,True)
+                result = read_bonus_pathinfo(reader,bonus_seed,i,mapcount,rolls,group_seed,map_name,coords,true_spawns,bonus_spawns,max_spawns,numspecies)
+                print(f"Group {i} Bonus Complete!")
+            #print(f"Display: {display}")
+            outbreaks[f"{i} " + f"{bonus_flag}"] = display
+            print(f"Group {i} Complete!")
+            if bonus_flag:
+                outbreaks[f"{i} " + f"{bonus_flag}" + "bonus"] = result
+        else:
+            continue
             
     return outbreaks
 
@@ -809,7 +793,7 @@ def get_all_map_mmos(reader,rolls,inmap):
 
     endtime = datetime.now()
     print(f"Task done at {endtime}, Took {endtime - starttime}")
-    #print(display)
+    print(len(display))
     return display
 
 
