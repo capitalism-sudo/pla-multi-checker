@@ -28,8 +28,6 @@ def distortion():
 def read_mmos():
     #results = pla.get_all_map_mmos(reader, request.json['rolls'], request.json['inmap'])
    results = pla.get_all_map_mmos(reader, request.json['rolls'], False)
-   with open('json_data.json', 'w') as outfile:
-       json.dump(results, outfile)
    return { "mmo_spawns": results }
 
 @app.route('/read-maps', methods=['GET'])
