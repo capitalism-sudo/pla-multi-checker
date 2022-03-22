@@ -254,7 +254,6 @@ function checkonemap(){
 }
 
 function teleportToSpawn(coords) {
-	console.log(coords)
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", "/teleport-to-spawn", true);
@@ -305,16 +304,13 @@ const showNormalResults = ({normal_spawns}) => {
 };
 
 const showMapResults = ({mmo_spawn}) => {
-	console.log(mmo_spawn)
 	for (const [key,value] of Object.entries(mmo_spawn)) {
 		for (const [x, pokemon] of Object.entries(value)) {
-			console.log(x)
 			if(pokemon.spawn) {
 				results.push(pokemon);
 			}
 			else if (x.includes("Bonus")) {
 				for (const [b, bonus] of Object.entries(pokemon)) {
-					console.log(b,bonus)
 					if(bonus.spawn) {
 						results.push(bonus);
 					}
@@ -326,17 +322,14 @@ const showMapResults = ({mmo_spawn}) => {
 };
 
 const showResults = ({ mmo_spawns }) => {
-  console.log(mmo_spawns)
   for (const [key, value] of Object.entries(mmo_spawns)) {
 	  for (const [z, vall] of Object.entries(value)) {
 		  for (const[x, pokemon] of Object.entries(vall)) {
-			  console.log(x)
 			  if(pokemon.spawn) {
 				  results.push(pokemon);
 			  }
 			  else if (x.includes("Bonus")) {
 				  for (const[b, bonus] of Object.entries(pokemon)) {
-					  console.log(b, bonus)
 					  if(bonus.spawn) {
 						  results.push(bonus);
 					  }
