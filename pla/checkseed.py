@@ -183,7 +183,7 @@ def get_bonus_seed(group_seed,rolls,path,max_spawns):
 def read_mass_outbreak_rng(rolls,group_seed,max_spawns,bonus_flag):
     print(f"Species Group: FUCKING BULBASAUR")
     encounters = {}
-    encounters,encsum = get_encounter_table(bonus_flag)
+    encounters,encsum = get_encounter_table(False)
     paths = nonbonuspaths[str(max_spawns)]
 
     true_spawns = max_spawns
@@ -212,6 +212,7 @@ def get_encounter_table(bonus):
         enc_pointer = "44182B854CD3745D"
     else:
         enc_pointer = "7FA3A1DE69BD271E"
+    print(f"Enc Pointer: {enc_pointer}")
     enc_pointer = enc_pointer.upper()
     enc_pointer = "0x"+enc_pointer
 

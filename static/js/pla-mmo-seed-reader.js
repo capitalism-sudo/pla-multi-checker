@@ -308,9 +308,11 @@ const showMapResults = ({mmo_spawn}) => {
 };
 
 const showResults = ({ mmo_spawns }) => {
-	console.log(mmo_spawns)
   for (const [key, value] of Object.entries(mmo_spawns)) {
 	  for (const [z, vall] of Object.entries(value)) {
+		  if(vall.spawn) {
+			  results.push(vall)
+		  }
 		  for (const[x, pokemon] of Object.entries(vall)) {
 			  if(pokemon.spawn) {
 				  results.push(pokemon);
