@@ -24,6 +24,10 @@ def home():
 def distortion():
    return render_template('distortion.html')
 
+@app.route("/seed")
+def seed():
+   return render_template('fromseed.html')
+
 @app.route('/read-mmos', methods=['POST'])
 def read_mmos():
     #results = pla.get_all_map_mmos(reader, request.json['rolls'], request.json['inmap'])
@@ -68,6 +72,11 @@ def get_map_info():
     locations = pla.get_distortion_locations(request.json['map_name'])
     spawns = pla.get_distortion_spawns(request.json['map_name'])
     return { "locations": locations, "spawns": spawns }
+
+@app.route('/check-mmoseed', methods=['POST'])
+def get_from_seed():
+   results = pla.check_from_seed(request.json['seed'],request.json['rolls'])
+   return { "mmo_spawns": results }
 
 if __name__ == '__main__':
     app.run(host="localhost", port=8100, debug=True)
