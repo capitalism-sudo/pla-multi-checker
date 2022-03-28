@@ -212,7 +212,6 @@ def get_encounter_table(bonus):
         enc_pointer = "44182B854CD3745D"
     else:
         enc_pointer = "7FA3A1DE69BD271E"
-    print(f"Enc Pointer: {enc_pointer}")
     enc_pointer = enc_pointer.upper()
     enc_pointer = "0x"+enc_pointer
 
