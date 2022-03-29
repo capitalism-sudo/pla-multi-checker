@@ -33,7 +33,10 @@ class NXReader(object):
         if not self.usb_connection:
             self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.s.settimeout(1)
-            self.s.connect((ip, port))
+            try:
+                self.s.connect((ip, port))
+            except socket.timeout:
+                print("Moving along, no IP here...")
         else:
             try:
                 self.global_dev = None
@@ -58,7 +61,10 @@ class NXReader(object):
     def sendCommand(self,content):
         if not self.usb_connection:
             content += '\r\n' #important for the parser on the switch side
-            self.s.sendall(content.encode())
+            try:
+                self.s.sendall(content.encode())
+            except socket.timeout:
+                print("Still moving along...")
         else:
             self.global_out.write(struct.pack("<I", (len(content)+2)))
             self.global_out.write(content)

@@ -8,13 +8,16 @@ import pla
 app = Flask(__name__)
 
 config = json.load(open("config.json"))
-reader = NXReader(config["IP"], usb_connection=config["USB"])
+if config["SeedCheckOnly"]:
+   print("Seed Check only mode! Note: You will not be able to use MMO checker or Distiortion Checker!")
+else:
+   reader = NXReader(config["IP"], usb_connection=config["USB"])
 
-def signal_handler(signal, advances): #CTRL+C handler
-   print("Stop request")
-   reader.close()
+   def signal_handler(signal, advances): #CTRL+C handler
+      print("Stop request")
+      reader.close()
 
-signal.signal(signal.SIGINT, signal_handler)
+   signal.signal(signal.SIGINT, signal_handler)
 
 @app.route("/")
 def home():
@@ -75,7 +78,13 @@ def get_map_info():
 
 @app.route('/check-mmoseed', methods=['POST'])
 def get_from_seed():
-   results = pla.check_from_seed(request.json['seed'],request.json['rolls'])
+   results = pla.check_from_seed(request.json['seed'],
+                                 request.json['rolls'],
+                                 request.json['frencounter'],
+                                 request.json['brencounter'],
+                                 request.json['isbonus'],
+                                 request.json['frspawns'],
+                                 request.json['brspawns'])
    return { "mmo_spawns": results }
 
 if __name__ == '__main__':

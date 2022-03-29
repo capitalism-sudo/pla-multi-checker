@@ -12,6 +12,11 @@ const teleportButton = document.querySelector(".pla-results-teleport");
 // options
 const inputSeed = document.getElementById("inputseed");
 const rollsInput = document.getElementById("rolls");
+const frSpawns = document.getElementById("frspawns");
+const brSpawns = document.getElementById("brspawns");
+const bonusCheckbox = document.getElementById("bonus");
+const frEncounter = document.getElementById("frencounter");
+const brEncounter = document.getElementById("brencounter");
 
 // filters
 const distShinyOrAlphaCheckbox = document.getElementById(
@@ -50,6 +55,12 @@ function loadPreferences() {
     "mmoDefaultRouteFilter",
 	false
   );
+  frSpawns.value = readIntFromStorage("frspawns", 1);
+  brSpawns.value = readIntFromStorage("brspawns", 1);
+  bonusCheckbox.checked = readBoolFromStorage(
+    "bonus",
+	false
+  );
   validateFilters();
 }
 
@@ -65,6 +76,15 @@ function setupPreferenceSaving() {
   );
   distShinyOrAlphaCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("mmoShinyOrAlpaFilter", e.target.checked)
+  );
+  frSpawns.addEventListener("change", (e) =>
+	saveIntToStorage("frspawns", e.target.value)
+  );
+  brSpawns.addEventListener("change", (e) =>
+	saveIntToStorage("brspawns", e.target.value)
+  );
+  bonusCheckbox.addEventListener("change", (e) =>
+	saveBoolToStorage("bonus", e.target.checked)
   );
 }
 
@@ -151,6 +171,11 @@ function getOptions() {
   return {
 	seed: inputSeed.value,
     rolls: parseInt(rollsInput.value),
+	frspawns: parseInt(frSpawns.value),
+	brspawns: parseInt(brSpawns.value),
+	isbonus: bonusCheckbox.checked,
+	frencounter: frEncounter.value,
+	brencounter: brEncounter.value,
 //	inmap: inmapCheck.checked
   };
 }

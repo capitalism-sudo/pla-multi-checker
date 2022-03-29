@@ -180,10 +180,10 @@ def get_bonus_seed(group_seed,rolls,path,max_spawns):
     bonus_seed = (respawn_rng.next() - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
     return bonus_seed
 
-def read_mass_outbreak_rng(rolls,group_seed,max_spawns,bonus_flag):
+def read_mass_outbreak_rng(rolls,group_seed,max_spawns,encounter,bonus_flag):
     print(f"Species Group: FUCKING BULBASAUR")
     encounters = {}
-    encounters,encsum = get_encounter_table(False)
+    encounters,encsum = get_encounter_table(encounter)
     paths = nonbonuspaths[str(max_spawns)]
 
     true_spawns = max_spawns
@@ -195,7 +195,7 @@ def read_mass_outbreak_rng(rolls,group_seed,max_spawns,bonus_flag):
                                                      true_spawns,encounters,encsum,bonus_flag,False)
     return display
 
-def get_encounter_table(bonus):
+def get_encounter_table(encounter):
     encounters = {}
     encsum = 0
     """
@@ -208,10 +208,13 @@ def get_encounter_table(bonus):
     """
 
     #enc_pointer = f"{enc_pointer:X}"
+    """
     if bonus:
         enc_pointer = "44182B854CD3745D"
     else:
         enc_pointer = "7FA3A1DE69BD271E"
+    """
+    enc_pointer = encounter
     enc_pointer = enc_pointer.upper()
     enc_pointer = "0x"+enc_pointer
 
@@ -444,7 +447,7 @@ def get_normal_outbreak_info(reader,group_id,inmap):
     return species,group_seed,max_spawns,coordinates
 
 def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
-                        true_spawns,bonus_spawns,max_spawns):
+                        true_spawns,bonus_spawns,max_spawns,encounter):
     #pylint: disable=too-many-branches
     """reads info about a bonus path"""
     isbonus = True
@@ -453,7 +456,7 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
     for tex,value in enumerate(paths):
         seed = get_bonus_seed(group_seed,rolls,value,max_spawns)
         extra = [1] * (max_spawns - sum(value))
-        encounters,encsum = get_encounter_table(True)
+        encounters,encsum = get_encounter_table(encounter)
         for ext,epath in enumerate(extrapaths):
             spawn_remain = max_spawns - sum(value)
             if epath == []:
@@ -512,7 +515,7 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
 
     return outbreaks
                                          
-def check_from_seed(group_seed,rolls):
+def check_from_seed(group_seed,rolls,frencounter,brencounter,bonus_flag,max_spawns=10,br_spawns=7):
     #pylint: disable=too-many-branches,too-many-locals,too-many-arguments
     """reads a single map's MMOs"""
     i = 0
@@ -521,10 +524,10 @@ def check_from_seed(group_seed,rolls):
     map_name = "DOES NOT MATTER"
     #enctable,_ = get_encounter_table(reader,i,mapcount,True)
     #bonus_flag = False if enctable is None else True
-    bonus_flag = True
+    #bonus_flag = True
     numspecies = 1
-    max_spawns = 10
-    display = read_mass_outbreak_rng(rolls,group_seed,max_spawns,False)
+    #max_spawns = 10
+    display = read_mass_outbreak_rng(rolls,group_seed,max_spawns,frencounter,False)
     for index in display:
         if index not in ('index','description'):
             form = ''
@@ -551,8 +554,8 @@ def check_from_seed(group_seed,rolls):
         true_spawns = max_spawns
         bonus_spawns = true_spawns + 4
         bonus_seed = allpaths[str(max_spawns)]
-        true_spawns = 7
-        result = read_bonus_pathinfo(bonus_seed,rolls,group_seed,map_name,true_spawns,bonus_spawns,max_spawns)
+        true_spawns = br_spawns
+        result = read_bonus_pathinfo(bonus_seed,rolls,group_seed,map_name,true_spawns,bonus_spawns,max_spawns,brencounter)
         print(f"Group {i} Bonus Complete!")
     outbreaks[f"{i} " + f"{bonus_flag}"] = display
     print(f"Group {i} Complete!")
