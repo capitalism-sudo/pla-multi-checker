@@ -515,9 +515,13 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
 
     return outbreaks
                                          
-def check_from_seed(group_seed,rolls,frencounter,brencounter,bonus_flag,max_spawns=10,br_spawns=7):
+def check_from_seed(group_seed,rolls,frencounter,brencounter,bonus_flag=False,max_spawns=10,br_spawns=7):
     #pylint: disable=too-many-branches,too-many-locals,too-many-arguments
     """reads a single map's MMOs"""
+    if len(frencounter) == 0:
+        frencounter = "7FA3A1DE69BD271E"
+    if len(brencounter) == 0:
+        brencounter = "441828854CD36F44"
     i = 0
     outbreaks = {}
     print(f"Rolls: {rolls}")
