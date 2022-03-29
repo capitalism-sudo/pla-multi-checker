@@ -23,6 +23,10 @@ else:
 def home():
     return render_template('index.html')
 
+@app.route("/mmos")
+def mmo_checker():
+   return render_template('mmo-checker.html')
+
 @app.route("/distortion")
 def distortion():
    return render_template('distortion.html')
