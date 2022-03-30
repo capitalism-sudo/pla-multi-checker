@@ -168,16 +168,24 @@ function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, defaultFil
 }
 
 function getOptions() {
-  return {
-	seed: inputSeed.value,
-    rolls: parseInt(rollsInput.value),
-	frspawns: parseInt(frSpawns.value),
-	brspawns: parseInt(brSpawns.value),
-	isbonus: bonusCheckbox.checked,
-	frencounter: frEncounter.value,
-	brencounter: brEncounter.value,
-//	inmap: inmapCheck.checked
-  };
+    let frE = frEncounter.value.trim();
+    if (frE.startsWith('0x')) {
+        frE = frE.slice(2);
+    }
+    let brE = brEncounter.value.trim();
+    if (brE.startsWith('0x')) {
+        brE = brE.slice(2);
+    }
+    return {
+        seed: inputSeed.value,
+        rolls: parseInt(rollsInput.value),
+        frspawns: parseInt(frSpawns.value),
+        brspawns: parseInt(brSpawns.value),
+        isbonus: bonusCheckbox.checked,
+        frencounter: frE,
+        brencounter: brE,
+        //  inmap: inmapCheck.checked
+    };
 }
 
 function setMap() {
