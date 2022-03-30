@@ -1,0 +1,27 @@
+[
+	{
+		"species": "Pikachu",
+		"hash": "7FA3A1DE69BD271E",
+		"parent_id": "0"
+	},
+	{
+		"species": "Raichu",
+		"hash": "44182A854CD372AA",
+		"parent_id": "7FA3A1DE69BD271E"
+	},
+	{
+		"species": "Alpha Pikachu",
+		"hash": "44182B854CD3745D",
+		"parent_id": "7FA3A1DE69BD271E"
+	},
+	{
+		"species": "Alpha Raichu",
+		"hash": "441828854CD36F44",
+		"parent_id": "7FA3A1DE69BD271E"
+	},
+	{
+		"species": "Zubat",
+		"hash": "B6A506CF7BC718EF",
+		"parent_id": "0"
+	}
+]

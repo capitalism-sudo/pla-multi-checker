@@ -15,8 +15,8 @@ const rollsInput = document.getElementById("rolls");
 const frSpawns = document.getElementById("frspawns");
 const brSpawns = document.getElementById("brspawns");
 const bonusCheckbox = document.getElementById("bonus");
-const frEncounter = document.getElementById("frencounter");
-const brEncounter = document.getElementById("brencounter");
+const frEncounter = document.querySelector("#frpokemon");
+const brEncounter = document.querySelector("#brpokemon");
 
 // filters
 const distShinyOrAlphaCheckbox = document.getElementById(

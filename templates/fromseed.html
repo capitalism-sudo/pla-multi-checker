@@ -9,6 +9,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="static/css/style.css" rel="stylesheet">
+	<script type="text/javascript" src="static/js/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(e){
+		console.log("ready!")
+
+		function get_json_data(id, parent_id) {
+			console.log(id.substr(0, 1).toUpperCase() + id.substr(1))
+			var html_code = '';
+			$.getJSON('static/resources/seedhashes.json', function(data) {
+				console.log(id)
+				html_code += '<option value="">Select Species</option>';
+				$.each(data, function(key, value) {
+					if (value.parent_id == parent_id) {
+						html_code += '<option value="' + value.hash + '">' + value.species + '</option>';
+					}
+				});
+				$('#' + id).html(html_code);
+			});
+		}
+		get_json_data('frpokemon',0);
+		console.log("finished frpokemon")
+
+		$(document).on('change', '#frpokemon', function() {
+			var brand_id = $(this).val();
+			if (brand_id != '') {
+				get_json_data('brpokemon', brand_id);
+			} else {
+				$('#brpokemon').html('<option value="">Select Second Round Species</option>');
+			}
+		});
+	});
+	</script>
 </head>
 
 <body>
@@ -56,7 +88,7 @@
 				</select>
 			</div>
 			
-			<div class="pla-control">
+			<!--<div class="pla-control">
 				<label for="frencounter">First Round Encounter Hash:</label>
 				<input type="text" id="frencounter">
 			</div>
@@ -64,6 +96,20 @@
 			<div class="pla-control">
 				<label for="brencounter">Bound Round Encounter Hash:</label>
 				<input type="text" id="brencounter">
+			</div>-->
+			
+			<div class="pla-control">
+				<label for="frencounter">First Round Pokemon:</label>
+				<select name="frpokemon" id="frpokemon" class="form-control">
+					<option value="">Select Pokemon</option>
+				</select>
+			</div>
+			
+			<div class="pla-control">
+				<label for="brencounter">Bonus Round Pokemon:</label>
+				<select name="brpokemon" id="brpokemon" class="form-control">
+					<option value="">Select Pokemon</option>
+				</select>
 			</div>
 
             <div class="pla-control-checkbox">
