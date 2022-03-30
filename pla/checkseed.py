@@ -215,8 +215,8 @@ def get_encounter_table(encounter):
         enc_pointer = "7FA3A1DE69BD271E"
     """
     enc_pointer = encounter
-    enc_pointer = enc_pointer.upper()
-    enc_pointer = "0x"+enc_pointer
+    #enc_pointer = enc_pointer.upper()
+    #enc_pointer = "0x"+enc_pointer
 
     if enc_pointer not in encmap.keys():
         #print(f"Enc pointer not found in encmap")
