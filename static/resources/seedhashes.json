@@ -28,7 +28,7 @@
 	{
 		"species": "Alakazam",
 		"hash": "0xCBC6C76D483390E7",
-		"parent_id": "0",
+		"parent_id": "0x2636AF8BB69216A3",
 		"allspecies": [
 			"Alakazam"
 		]
@@ -54,7 +54,7 @@
 	{
 		"species": "Alpha Alakazam",
 		"hash": "0xCBC6C96D4833944D",
-		"parent_id": "0xCBC6C76D483390E7",
+		"parent_id": "0x2636AF8BB69216A3",
 		"allspecies": []
 	},
 	{
@@ -78,7 +78,7 @@
 	{
 		"species": "Alpha Basculegion",
 		"hash": "0x542CF2BA871B9BBC",
-		"parent_id": "0xA37B2DA46ABBE8A6",
+		"parent_id": "0x542CF4BA871B9F22",
 		"allspecies": []
 	},
 	{
@@ -90,7 +90,7 @@
 	{
 		"species": "Alpha Beautifly",
 		"hash": "0x933C5C41783070E6",
-		"parent_id": "0x933C5A4178306D80",
+		"parent_id": "0x581DE2E85BA38AEC",
 		"allspecies": []
 	},
 	{
@@ -168,13 +168,13 @@
 	{
 		"species": "Alpha Cascoon",
 		"hash": "0xA9876459BC3131E1",
-		"parent_id": "0xA9876259BC312E7B",
+		"parent_id": "0xE35FD9B2D7A94E6F",
 		"allspecies": []
 	},
 	{
 		"species": "Alpha Cascoon",
 		"hash": "0x8B8A6AD381AE5141",
-		"parent_id": "0xA9876259BC312E7B",
+		"parent_id": "0x5182B16F9EC5667A",
 		"allspecies": []
 	},
 	{
@@ -216,7 +216,7 @@
 	{
 		"species": "Alpha Clefable",
 		"hash": "0xD65836D83DB400D7",
-		"parent_id": "0xD65838D83DB4043D",
+		"parent_id": "0x11E3B0315A9DB8B1",
 		"allspecies": []
 	},
 	{
@@ -228,7 +228,7 @@
 	{
 		"species": "Alpha Clefairy",
 		"hash": "0xD65837D83DB4028A",
-		"parent_id": "0xA9B9415FFACD90C4",
+		"parent_id": "0x11E3B0315A9DB8B1",
 		"allspecies": []
 	},
 	{
@@ -246,7 +246,7 @@
 	{
 		"species": "Alpha Crobat",
 		"hash": "0xA331FBB81B1FFA9",
-		"parent_id": "0xA331DBB81B1FC43",
+		"parent_id": "0xAE0FB59D11E10887",
 		"allspecies": []
 	},
 	{
@@ -264,13 +264,13 @@
 	{
 		"species": "Alpha Dartrix",
 		"hash": "0x9F57EEA9C0C34BC1",
-		"parent_id": "0x5EB6A79B1B1FFB18",
+		"parent_id": "0x65503545DDDA60FA",
 		"allspecies": []
 	},
 	{
 		"species": "Alpha Decidueye-1",
 		"hash": "0x9F57EBA9C0C346A8",
-		"parent_id": "0x9F57EDA9C0C34A0E",
+		"parent_id": "0x65503545DDDA60FA",
 		"allspecies": []
 	},
 	{
@@ -282,7 +282,7 @@
 	{
 		"species": "Alpha Dewott",
 		"hash": "0x88137C48FC79DC2C",
-		"parent_id": "0x433A2D3EF14D5E5F",
+		"parent_id": "0x23AD04E3DF914A0B",
 		"allspecies": []
 	},
 	{
@@ -312,13 +312,13 @@
 	{
 		"species": "Alpha Dusclops",
 		"hash": "0x961D2B01BE7077A6",
-		"parent_id": "0x38865A58581A125B",
+		"parent_id": "0x719AB319152CAC75",
 		"allspecies": []
 	},
 	{
 		"species": "Alpha Dusknoir",
 		"hash": "0x961D2A01BE7075F3",
-		"parent_id": "0x961D2C01BE707959",
+		"parent_id": "0x719AB319152CAC75",
 		"allspecies": []
 	},
 	{
@@ -330,7 +330,7 @@
 	{
 		"species": "Alpha Dustox",
 		"hash": "0x8B8A67D381AE4C28",
-		"parent_id": "0x8B8A69D381AE4F8E",
+		"parent_id": "0x5182B16F9EC5667A",
 		"allspecies": []
 	},
 	{
@@ -366,7 +366,7 @@
 	{
 		"species": "Alpha Empoleon",
 		"hash": "0x4D93B908270B43BE",
-		"parent_id": "0x4D93B708270B4058",
+		"parent_id": "0x7BDDFF2CB7692BB4",
 		"allspecies": []
 	},
 	{
@@ -384,7 +384,7 @@
 	{
 		"species": "Alpha Froslass",
 		"hash": "0xEA28C3A49F2E962D",
-		"parent_id": "0xEA28C1A49F2E92C7",
+		"parent_id": "0xEFC729C7F6FE3183",
 		"allspecies": []
 	},
 	{
@@ -396,25 +396,25 @@
 	{
 		"species": "Alpha Gabite",
 		"hash": "0x8AE0891E5F939337",
-		"parent_id": "0x1DD87D8FAD092308",
+		"parent_id": "0x85714105CF348588",
 		"allspecies": []
 	},
 	{
 		"species": "Alpha Gallade",
 		"hash": "0x5E4A7F73E07CC2C",
-		"parent_id": "0x5E4A9F73E07CF92",
+		"parent_id": "0x2C5861D521AA1336",
 		"allspecies": []
 	},
 	{
 		"species": "Alpha Garchomp",
 		"hash": "0x8AE08A1E5F9394EA",
-		"parent_id": "0x8AE0881E5F939184",
+		"parent_id": "0x85714105CF348588",
 		"allspecies": []
 	},
 	{
 		"species": "Alpha Gardevoir",
 		"hash": "0x38631904ED4B83D0",
-		"parent_id": "0x38631B04ED4B8736",
+		"parent_id": "0x11EF632709A94392",
 		"allspecies": []
 	},
 	{
@@ -432,7 +432,7 @@
 	{
 		"species": "Alpha Gengar",
 		"hash": "0xFC68503E2934287F",
-		"parent_id": "0xFC68523E29342BE5",
+		"parent_id": "0xA18BCA1FBA797769",
 		"allspecies": []
 	},
 	{
@@ -480,7 +480,7 @@
 	{
 		"species": "Alpha Golbat",
 		"hash": "0xA331CBB81B1FA90",
-		"parent_id": "0xB6A506CF7BC718EF",
+		"parent_id": "0xAE0FB59D11E10887",
 		"allspecies": []
 	},
 	{
@@ -492,13 +492,13 @@
 	{
 		"species": "Alpha Golem",
 		"hash": "0xB5C197D86916746B",
-		"parent_id": "0xB5C199D8691677D1",
+		"parent_id": "0x7A36227F4C2CC35D",
 		"allspecies": []
 	},
 	{
 		"species": "Alpha Goodra-1",
 		"hash": "0xC9316687DE233CD4",
-		"parent_id": "0xC9316887DE23403A",
+		"parent_id": "0x33920EBC10C294E",
 		"allspecies": []
 	},
 	{
@@ -516,7 +516,7 @@
 	{
 		"species": "Alpha Graveler",
 		"hash": "0xB5C198D86916761E",
-		"parent_id": "0xE680740C6BE14EFB",
+		"parent_id": "0x7A36227F4C2CC35D",
 		"allspecies": []
 	},
 	{
@@ -528,7 +528,7 @@
 	{
 		"species": "Alpha Grotle",
 		"hash": "0x159F53995B80D390",
-		"parent_id": "0x3F66AF29D7FB4867",
+		"parent_id": "0xB97BEC7AEBAFE187",
 		"allspecies": []
 	},
 	{
@@ -558,7 +558,7 @@
 	{
 		"species": "Alpha Haunter",
 		"hash": "0xFC68513E29342A32",
-		"parent_id": "0x22B4B9D8EC78A773",
+		"parent_id": "0xA18BCA1FBA797769",
 		"allspecies": []
 	},
 	{
@@ -588,7 +588,7 @@
 	{
 		"species": "Alpha Infernape",
 		"hash": "0x203950BBCC8C8587",
-		"parent_id": "0x203952BBCC8C88ED",
+		"parent_id": "0xAEFE8B222374C781",
 		"allspecies": []
 	},
 	{
@@ -600,7 +600,7 @@
 	{
 		"species": "Alpha Kadabra",
 		"hash": "0xCBC6C66D48338F34",
-		"parent_id": "0x21C03B7FF717BBAB",
+		"parent_id": "0x2636AF8BB69216A3",
 		"allspecies": []
 	},
 	{
@@ -612,13 +612,13 @@
 	{
 		"species": "Alpha Kirlia",
 		"hash": "0x38631C04ED4B88E9",
-		"parent_id": "0x225AB5796A9B35A8",
+		"parent_id": "0x11EF632709A94392",
 		"allspecies": []
 	},
 	{
 		"species": "Alpha Kirlia",
 		"hash": "0x5E4AAF73E07D145",
-		"parent_id": "0x225AB5796A9B35A8",
+		"parent_id": "0x2C5861D521AA1336",
 		"allspecies": []
 	},
 	{
@@ -684,19 +684,19 @@
 	{
 		"species": "Alpha Luxio",
 		"hash": "0xFAF1610DF5D14B59",
-		"parent_id": "0xC0272DE866874B95",
+		"parent_id": "0xABA3272412310022",
 		"allspecies": []
 	},
 	{
 		"species": "Alpha Luxray",
 		"hash": "0xFAF15E0DF5D14640",
-		"parent_id": "0xFAF1600DF5D149A6",
+		"parent_id": "0xABA3272412310022",
 		"allspecies": []
 	},
 	{
 		"species": "Alpha Machamp",
 		"hash": "0x3589259057A8C6A",
-		"parent_id": "0x3589059057A8904",
+		"parent_id": "0xFDE94940751B7D08",
 		"allspecies": []
 	},
 	{
@@ -708,7 +708,7 @@
 	{
 		"species": "Alpha Machoke",
 		"hash": "0x3589159057A8AB7",
-		"parent_id": "0xC44A139615D5807E",
+		"parent_id": "0xFDE94940751B7D08",
 		"allspecies": []
 	},
 	{
@@ -750,7 +750,7 @@
 	{
 		"species": "Alpha Mamoswine",
 		"hash": "0x972F5D3271FD8068",
-		"parent_id": "0x972F5F3271FD83CE",
+		"parent_id": "0x5D27A6CE8F149ABA",
 		"allspecies": []
 	},
 	{
@@ -792,7 +792,7 @@
 	{
 		"species": "Alpha Monferno",
 		"hash": "0x203951BBCC8C873A",
-		"parent_id": "0x2E9A27B02954F177",
+		"parent_id": "0xAEFE8B222374C781",
 		"allspecies": []
 	},
 	{
@@ -894,7 +894,7 @@
 	{
 		"species": "Alpha Piloswine",
 		"hash": "0x972F603271FD8581",
-		"parent_id": "0xC756FF484B9DD6",
+		"parent_id": "0x5D27A6CE8F149ABA",
 		"allspecies": []
 	},
 	{
@@ -918,7 +918,7 @@
 	{
 		"species": "Alpha Prinplup",
 		"hash": "0x4D93B808270B420B",
-		"parent_id": "0xD50704A9B3BC059C",
+		"parent_id": "0x7BDDFF2CB7692BB4",
 		"allspecies": []
 	},
 	{
@@ -948,7 +948,7 @@
 	{
 		"species": "Alpha Quilava",
 		"hash": "0x4E89B5AF704CE8BB",
-		"parent_id": "0x1AC404AAAAAE96F0",
+		"parent_id": "0x53F8FBC800ABF304",
 		"allspecies": []
 	},
 	{
@@ -984,7 +984,7 @@
 	{
 		"species": "Alpha Rhydon",
 		"hash": "0x351DAF2CFA263E4",
-		"parent_id": "0xCBC824216CF129E5",
+		"parent_id": "0xDE62430A26019073",
 		"allspecies": []
 	},
 	{
@@ -996,7 +996,7 @@
 	{
 		"species": "Alpha Rhyperior",
 		"hash": "0x351DDF2CFA268FD",
-		"parent_id": "0x351DBF2CFA26597",
+		"parent_id": "0xDE62430A26019073",
 		"allspecies": []
 	},
 	{
@@ -1044,7 +1044,7 @@
 	{
 		"species": "Alpha Samurott-1",
 		"hash": "0x88137F48FC79E145",
-		"parent_id": "0x88137D48FC79DDDF",
+		"parent_id": "0x23AD04E3DF914A0B",
 		"allspecies": []
 	},
 	{
@@ -1086,7 +1086,7 @@
 	{
 		"species": "Alpha Silcoon",
 		"hash": "0x933C5B4178306F33",
-		"parent_id": "0xB5EE09F298C830F4",
+		"parent_id": "0x581DE2E85BA38AEC",
 		"allspecies": []
 	},
 	{
@@ -1110,7 +1110,7 @@
 	{
 		"species": "Alpha Sliggoo-1",
 		"hash": "0xC9316987DE2341ED",
-		"parent_id": "0xEAD59441FDF5ADF8",
+		"parent_id": "0x33920EBC10C294E",
 		"allspecies": []
 	},
 	{
@@ -1140,7 +1140,7 @@
 	{
 		"species": "Alpha Snorunt",
 		"hash": "0xEA28C0A49F2E9114",
-		"parent_id": "0x920D11DAB8D7B9C7",
+		"parent_id": "0xEFC729C7F6FE3183",
 		"allspecies": []
 	},
 	{
@@ -1170,7 +1170,7 @@
 	{
 		"species": "Alpha Staraptor",
 		"hash": "0x47287888E15CB83",
-		"parent_id": "0x47289888E15CEE9",
+		"parent_id": "0x5F4F11A6FCD08365",
 		"allspecies": []
 	},
 	{
@@ -1182,7 +1182,7 @@
 	{
 		"species": "Alpha Staravia",
 		"hash": "0x47288888E15CD36",
-		"parent_id": "0xB76A7F0C08A5D3BC",
+		"parent_id": "0x5F4F11A6FCD08365",
 		"allspecies": []
 	},
 	{
@@ -1248,7 +1248,7 @@
 	{
 		"species": "Alpha Togekiss",
 		"hash": "0xFA0FDA71BCEB6FB7",
-		"parent_id": "0xFA0FDC71BCEB731D",
+		"parent_id": "0x359B53CAD9D52791",
 		"allspecies": []
 	},
 	{
@@ -1266,13 +1266,13 @@
 	{
 		"species": "Alpha Togetic",
 		"hash": "0xFA0FDB71BCEB716A",
-		"parent_id": "0x13E5616E29422F7A",
+		"parent_id": "0x359B53CAD9D52791",
 		"allspecies": []
 	},
 	{
 		"species": "Alpha Torterra",
 		"hash": "0x159F56995B80D8A9",
-		"parent_id": "0x159F54995B80D543",
+		"parent_id": "0xB97BEC7AEBAFE187",
 		"allspecies": []
 	},
 	{
@@ -1290,7 +1290,7 @@
 	{
 		"species": "Alpha Typhlosion-1",
 		"hash": "0x4E89B6AF704CEA6E",
-		"parent_id": "0x4E89B4AF704CE708",
+		"parent_id": "0x53F8FBC800ABF304",
 		"allspecies": []
 	},
 	{
@@ -1302,7 +1302,7 @@
 	{
 		"species": "Alpha Ursaluna",
 		"hash": "0xE8A47C8DC42E6EF8",
-		"parent_id": "0xE8A47E8DC42E725E",
+		"parent_id": "0xAD190734A744BDEA",
 		"allspecies": []
 	},
 	{
@@ -1314,7 +1314,7 @@
 	{
 		"species": "Alpha Ursaring",
 		"hash": "0xE8A47F8DC42E7411",
-		"parent_id": "0x6D75099BA76E03B9",
+		"parent_id": "0xAD190734A744BDEA",
 		"allspecies": []
 	},
 	{
@@ -1344,7 +1344,7 @@
 	{
 		"species": "Alpha Wurmple",
 		"hash": "0xA9876159BC312CC8",
-		"parent_id": "0xB5EE09F298C830F4",
+		"parent_id": "0xE35FD9B2D7A94E6F",
 		"allspecies": []
 	},
 	{
@@ -1410,7 +1410,7 @@
 	{
 		"species": "Basculegion",
 		"hash": "0x542CF4BA871B9F22",
-		"parent_id": "0xA37B2DA46ABBE8A6",
+		"parent_id": "0",
 		"allspecies": [
 			"Basculegion",
 			"Basculegion-1"
@@ -1429,7 +1429,7 @@
 	{
 		"species": "Beautifly",
 		"hash": "0x933C5A4178306D80",
-		"parent_id": "0",
+		"parent_id": "0x581DE2E85BA38AEC",
 		"allspecies": [
 			"Beautifly"
 		]
@@ -1540,7 +1540,7 @@
 	{
 		"species": "Cascoon",
 		"hash": "0xA9876259BC312E7B",
-		"parent_id": "0",
+		"parent_id": "0xE35FD9B2D7A94E6F",
 		"allspecies": [
 			"Cascoon"
 		]
@@ -1548,7 +1548,7 @@
 	{
 		"species": "Cascoon",
 		"hash": "0x5182B16F9EC5667A",
-		"parent_id": "0xA9876259BC312E7B",
+		"parent_id": "0",
 		"allspecies": [
 			"Cascoon",
 			"Dustox"
@@ -1608,7 +1608,7 @@
 	{
 		"species": "Clefable",
 		"hash": "0xD65838D83DB4043D",
-		"parent_id": "0",
+		"parent_id": "0x11E3B0315A9DB8B1",
 		"allspecies": [
 			"Clefable"
 		]
@@ -1624,7 +1624,7 @@
 	{
 		"species": "Clefairy",
 		"hash": "0x11E3B0315A9DB8B1",
-		"parent_id": "0xA9B9415FFACD90C4",
+		"parent_id": "0",
 		"allspecies": [
 			"Clefairy",
 			"Clefable"
@@ -1651,7 +1651,7 @@
 	{
 		"species": "Crobat",
 		"hash": "0xA331DBB81B1FC43",
-		"parent_id": "0",
+		"parent_id": "0xAE0FB59D11E10887",
 		"allspecies": [
 			"Crobat"
 		]
@@ -1676,7 +1676,7 @@
 	{
 		"species": "Dartrix",
 		"hash": "0x65503545DDDA60FA",
-		"parent_id": "0x5EB6A79B1B1FFB18",
+		"parent_id": "0",
 		"allspecies": [
 			"Dartrix",
 			"Decidueye-1"
@@ -1685,7 +1685,7 @@
 	{
 		"species": "Decidueye-1",
 		"hash": "0x9F57EDA9C0C34A0E",
-		"parent_id": "0",
+		"parent_id": "0x65503545DDDA60FA",
 		"allspecies": [
 			"Decidueye-1"
 		]
@@ -1701,7 +1701,7 @@
 	{
 		"species": "Dewott",
 		"hash": "0x23AD04E3DF914A0B",
-		"parent_id": "0x433A2D3EF14D5E5F",
+		"parent_id": "0",
 		"allspecies": [
 			"Dewott",
 			"Samurott-1"
@@ -1743,7 +1743,7 @@
 	{
 		"species": "Dusclops",
 		"hash": "0x719AB319152CAC75",
-		"parent_id": "0x38865A58581A125B",
+		"parent_id": "0",
 		"allspecies": [
 			"Dusclops",
 			"Dusknoir"
@@ -1752,7 +1752,7 @@
 	{
 		"species": "Dusknoir",
 		"hash": "0x961D2C01BE707959",
-		"parent_id": "0",
+		"parent_id": "0x719AB319152CAC75",
 		"allspecies": [
 			"Dusknoir"
 		]
@@ -1769,7 +1769,7 @@
 	{
 		"species": "Dustox",
 		"hash": "0x8B8A69D381AE4F8E",
-		"parent_id": "0",
+		"parent_id": "0x5182B16F9EC5667A",
 		"allspecies": [
 			"Dustox"
 		]
@@ -1819,7 +1819,7 @@
 	{
 		"species": "Empoleon",
 		"hash": "0x4D93B708270B4058",
-		"parent_id": "0",
+		"parent_id": "0x7BDDFF2CB7692BB4",
 		"allspecies": [
 			"Empoleon"
 		]
@@ -1844,7 +1844,7 @@
 	{
 		"species": "Froslass",
 		"hash": "0xEA28C1A49F2E92C7",
-		"parent_id": "0",
+		"parent_id": "0xEFC729C7F6FE3183",
 		"allspecies": [
 			"Froslass"
 		]
@@ -1860,7 +1860,7 @@
 	{
 		"species": "Gabite",
 		"hash": "0x85714105CF348588",
-		"parent_id": "0x1DD87D8FAD092308",
+		"parent_id": "0",
 		"allspecies": [
 			"Gabite",
 			"Garchomp"
@@ -1869,7 +1869,7 @@
 	{
 		"species": "Gallade",
 		"hash": "0x5E4A9F73E07CF92",
-		"parent_id": "0",
+		"parent_id": "0x2C5861D521AA1336",
 		"allspecies": [
 			"Gallade"
 		]
@@ -1877,7 +1877,7 @@
 	{
 		"species": "Garchomp",
 		"hash": "0x8AE0881E5F939184",
-		"parent_id": "0",
+		"parent_id": "0x85714105CF348588",
 		"allspecies": [
 			"Garchomp"
 		]
@@ -1885,7 +1885,7 @@
 	{
 		"species": "Gardevoir",
 		"hash": "0x38631B04ED4B8736",
-		"parent_id": "0",
+		"parent_id": "0x11EF632709A94392",
 		"allspecies": [
 			"Gardevoir"
 		]
@@ -1910,7 +1910,7 @@
 	{
 		"species": "Gengar",
 		"hash": "0xFC68523E29342BE5",
-		"parent_id": "0",
+		"parent_id": "0xA18BCA1FBA797769",
 		"allspecies": [
 			"Gengar"
 		]
@@ -1978,7 +1978,7 @@
 	{
 		"species": "Golbat",
 		"hash": "0xAE0FB59D11E10887",
-		"parent_id": "0xB6A506CF7BC718EF",
+		"parent_id": "0",
 		"allspecies": [
 			"Golbat",
 			"Crobat"
@@ -1995,7 +1995,7 @@
 	{
 		"species": "Golem",
 		"hash": "0xB5C199D8691677D1",
-		"parent_id": "0",
+		"parent_id": "0x7A36227F4C2CC35D",
 		"allspecies": [
 			"Golem"
 		]
@@ -2003,7 +2003,7 @@
 	{
 		"species": "Goodra-1",
 		"hash": "0xC9316887DE23403A",
-		"parent_id": "0",
+		"parent_id": "0x33920EBC10C294E",
 		"allspecies": [
 			"Goodra-1"
 		]
@@ -2028,7 +2028,7 @@
 	{
 		"species": "Graveler",
 		"hash": "0x7A36227F4C2CC35D",
-		"parent_id": "0xE680740C6BE14EFB",
+		"parent_id": "0",
 		"allspecies": [
 			"Graveler",
 			"Golem"
@@ -2045,7 +2045,7 @@
 	{
 		"species": "Grotle",
 		"hash": "0xB97BEC7AEBAFE187",
-		"parent_id": "0x3F66AF29D7FB4867",
+		"parent_id": "0",
 		"allspecies": [
 			"Grotle",
 			"Torterra"
@@ -2088,7 +2088,7 @@
 	{
 		"species": "Haunter",
 		"hash": "0xA18BCA1FBA797769",
-		"parent_id": "0x22B4B9D8EC78A773",
+		"parent_id": "0",
 		"allspecies": [
 			"Haunter",
 			"Gengar"
@@ -2130,7 +2130,7 @@
 	{
 		"species": "Infernape",
 		"hash": "0x203952BBCC8C88ED",
-		"parent_id": "0",
+		"parent_id": "0xAEFE8B222374C781",
 		"allspecies": [
 			"Infernape"
 		]
@@ -2146,7 +2146,7 @@
 	{
 		"species": "Kadabra",
 		"hash": "0x2636AF8BB69216A3",
-		"parent_id": "0x21C03B7FF717BBAB",
+		"parent_id": "0",
 		"allspecies": [
 			"Kadabra",
 			"Alakazam"
@@ -2163,7 +2163,7 @@
 	{
 		"species": "Kirlia",
 		"hash": "0x11EF632709A94392",
-		"parent_id": "0x225AB5796A9B35A8",
+		"parent_id": "0",
 		"allspecies": [
 			"Kirlia",
 			"Gardevoir"
@@ -2172,7 +2172,7 @@
 	{
 		"species": "Kirlia",
 		"hash": "0x2C5861D521AA1336",
-		"parent_id": "0x225AB5796A9B35A8",
+		"parent_id": "0",
 		"allspecies": [
 			"Kirlia",
 			"Gallade"
@@ -2263,7 +2263,7 @@
 	{
 		"species": "Luxio",
 		"hash": "0xABA3272412310022",
-		"parent_id": "0xC0272DE866874B95",
+		"parent_id": "0",
 		"allspecies": [
 			"Luxio",
 			"Luxray"
@@ -2272,7 +2272,7 @@
 	{
 		"species": "Luxray",
 		"hash": "0xFAF1600DF5D149A6",
-		"parent_id": "0",
+		"parent_id": "0xABA3272412310022",
 		"allspecies": [
 			"Luxray"
 		]
@@ -2280,7 +2280,7 @@
 	{
 		"species": "Machamp",
 		"hash": "0x3589059057A8904",
-		"parent_id": "0",
+		"parent_id": "0xFDE94940751B7D08",
 		"allspecies": [
 			"Machamp"
 		]
@@ -2296,7 +2296,7 @@
 	{
 		"species": "Machoke",
 		"hash": "0xFDE94940751B7D08",
-		"parent_id": "0xC44A139615D5807E",
+		"parent_id": "0",
 		"allspecies": [
 			"Machoke",
 			"Machamp"
@@ -2357,7 +2357,7 @@
 	{
 		"species": "Mamoswine",
 		"hash": "0x972F5F3271FD83CE",
-		"parent_id": "0",
+		"parent_id": "0x5D27A6CE8F149ABA",
 		"allspecies": [
 			"Mamoswine"
 		]
@@ -2416,7 +2416,7 @@
 	{
 		"species": "Monferno",
 		"hash": "0xAEFE8B222374C781",
-		"parent_id": "0x2E9A27B02954F177",
+		"parent_id": "0",
 		"allspecies": [
 			"Monferno",
 			"Infernape"
@@ -2562,7 +2562,7 @@
 	{
 		"species": "Piloswine",
 		"hash": "0x5D27A6CE8F149ABA",
-		"parent_id": "0xC756FF484B9DD6",
+		"parent_id": "0",
 		"allspecies": [
 			"Piloswine",
 			"Mamoswine"
@@ -2597,7 +2597,7 @@
 	{
 		"species": "Prinplup",
 		"hash": "0x7BDDFF2CB7692BB4",
-		"parent_id": "0xD50704A9B3BC059C",
+		"parent_id": "0",
 		"allspecies": [
 			"Prinplup",
 			"Empoleon"
@@ -2639,7 +2639,7 @@
 	{
 		"species": "Quilava",
 		"hash": "0x53F8FBC800ABF304",
-		"parent_id": "0x1AC404AAAAAE96F0",
+		"parent_id": "0",
 		"allspecies": [
 			"Quilava",
 			"Typhlosion-1"
@@ -2690,7 +2690,7 @@
 	{
 		"species": "Rhydon",
 		"hash": "0xDE62430A26019073",
-		"parent_id": "0xCBC824216CF129E5",
+		"parent_id": "0",
 		"allspecies": [
 			"Rhydon",
 			"Rhyperior"
@@ -2708,7 +2708,7 @@
 	{
 		"species": "Rhyperior",
 		"hash": "0x351DBF2CFA26597",
-		"parent_id": "0",
+		"parent_id": "0xDE62430A26019073",
 		"allspecies": [
 			"Rhyperior"
 		]
@@ -2776,7 +2776,7 @@
 	{
 		"species": "Samurott-1",
 		"hash": "0x88137D48FC79DDDF",
-		"parent_id": "0",
+		"parent_id": "0x23AD04E3DF914A0B",
 		"allspecies": [
 			"Samurott-1"
 		]
@@ -2836,7 +2836,7 @@
 	{
 		"species": "Silcoon",
 		"hash": "0x581DE2E85BA38AEC",
-		"parent_id": "0xB5EE09F298C830F4",
+		"parent_id": "0",
 		"allspecies": [
 			"Silcoon",
 			"Beautifly"
@@ -2870,7 +2870,7 @@
 	{
 		"species": "Sliggoo-1",
 		"hash": "0x33920EBC10C294E",
-		"parent_id": "0xEAD59441FDF5ADF8",
+		"parent_id": "0",
 		"allspecies": [
 			"Sliggoo-1",
 			"Goodra-1"
@@ -2913,7 +2913,7 @@
 	{
 		"species": "Snorunt",
 		"hash": "0xEFC729C7F6FE3183",
-		"parent_id": "0x920D11DAB8D7B9C7",
+		"parent_id": "0",
 		"allspecies": [
 			"Snorunt",
 			"Froslass"
@@ -2957,7 +2957,7 @@
 	{
 		"species": "Staraptor",
 		"hash": "0x47289888E15CEE9",
-		"parent_id": "0",
+		"parent_id": "0x5F4F11A6FCD08365",
 		"allspecies": [
 			"Staraptor"
 		]
@@ -2973,7 +2973,7 @@
 	{
 		"species": "Staravia",
 		"hash": "0x5F4F11A6FCD08365",
-		"parent_id": "0xB76A7F0C08A5D3BC",
+		"parent_id": "0",
 		"allspecies": [
 			"Staravia",
 			"Staraptor"
@@ -3068,7 +3068,7 @@
 	{
 		"species": "Togekiss",
 		"hash": "0xFA0FDC71BCEB731D",
-		"parent_id": "0",
+		"parent_id": "0x359B53CAD9D52791",
 		"allspecies": [
 			"Togekiss"
 		]
@@ -3093,7 +3093,7 @@
 	{
 		"species": "Togetic",
 		"hash": "0x359B53CAD9D52791",
-		"parent_id": "0x13E5616E29422F7A",
+		"parent_id": "0",
 		"allspecies": [
 			"Togetic",
 			"Togekiss"
@@ -3102,7 +3102,7 @@
 	{
 		"species": "Torterra",
 		"hash": "0x159F54995B80D543",
-		"parent_id": "0",
+		"parent_id": "0xB97BEC7AEBAFE187",
 		"allspecies": [
 			"Torterra"
 		]
@@ -3127,7 +3127,7 @@
 	{
 		"species": "Typhlosion-1",
 		"hash": "0x4E89B4AF704CE708",
-		"parent_id": "0",
+		"parent_id": "0x53F8FBC800ABF304",
 		"allspecies": [
 			"Typhlosion-1"
 		]
@@ -3170,7 +3170,7 @@
 	{
 		"species": "Ursaluna",
 		"hash": "0xE8A47E8DC42E725E",
-		"parent_id": "0",
+		"parent_id": "0xAD190734A744BDEA",
 		"allspecies": [
 			"Ursaluna"
 		]
@@ -3186,7 +3186,7 @@
 	{
 		"species": "Ursaring",
 		"hash": "0xAD190734A744BDEA",
-		"parent_id": "0x6D75099BA76E03B9",
+		"parent_id": "0",
 		"allspecies": [
 			"Ursaring",
 			"Ursaluna"
@@ -3230,7 +3230,7 @@
 	{
 		"species": "Wurmple",
 		"hash": "0xE35FD9B2D7A94E6F",
-		"parent_id": "0xB5EE09F298C830F4",
+		"parent_id": "0",
 		"allspecies": [
 			"Wurmple",
 			"Cascoon"
