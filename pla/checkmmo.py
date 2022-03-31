@@ -26,7 +26,11 @@ with open("./static/resources/text_natures.txt",encoding="utf-8") as text_nature
 with open("./static/resources/text_species_en.txt",encoding="utf-8") as text_species:
     SPECIES = text_species.read().split("\n")
 
+RATIOS = json.load(open("./static/resources/ratios.json"))
+
 extrapaths = [[],[1],[2],[2,1],[3],[3,1],[3,2],[3,2,1]]
+
+fixedgenders = ["Happiny", "Chansey", "Blissey", "Petilil", "Lilligant", "Bronzor", "Bronzong", "Voltorb", "Electrode", "Rotom", "Rufflet", "Braviary"]
 
 def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     rng = XOROSHIRO(seed)
@@ -71,7 +75,11 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
             main_rng.next() # spawner 1's seed, unused
             fixed_rng = XOROSHIRO(generator_seed)
             encounter_slot = (fixed_rng.next() / (2**64)) * encsum
-            species,alpha = get_species(encounters,encounter_slot)
+            species,alpha,nomodspecies = get_species(encounters,encounter_slot)
+            if nomodspecies in fixedgenders:
+                set_gender = True
+            else:
+                set_gender = False
             if isbonus and alpha:
                 guaranteed_ivs = 4
             elif isbonus or alpha:
@@ -80,7 +88,7 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                 guaranteed_ivs = 0
             fixed_seed = fixed_rng.next()
             encryption_constant,pid,ivs,ability,gender,nature,shiny = \
-                generate_from_seed(fixed_seed,rolls,guaranteed_ivs)
+                generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
             if not fixed_seed in uniques:
                 uniques.add(fixed_seed)
                 info = {
@@ -120,7 +128,11 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                 respawn_rng.next() # spawner 1's seed, unused
                 fixed_rng = XOROSHIRO(generator_seed)
                 encounter_slot = (fixed_rng.next() / (2**64)) * encsum
-                species,alpha = get_species(encounters,encounter_slot)
+                species,alpha,nomodspecies = get_species(encounters,encounter_slot)
+                if nomodspecies in fixedgenders:
+                    set_gender = True
+                else:
+                    set_gender = False
                 if isbonus and alpha:
                     guaranteed_ivs = 4
                 elif isbonus or alpha:
@@ -129,7 +141,7 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     guaranteed_ivs = 0
                 fixed_seed = fixed_rng.next()
                 encryption_constant,pid,ivs,ability,gender,nature,shiny = \
-                    generate_from_seed(fixed_seed,rolls,guaranteed_ivs)
+                    generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
                 if not fixed_seed in uniques and (sum(steps[:step_i]) + pokemon + 4) <= true_spawns:
                     uniques.add(fixed_seed)
                     info = {
@@ -233,9 +245,10 @@ def get_species(encounters,encounter_slot):
         if encounter_slot < encsum:
             alpha = species['alpha']
             slot = species['name']
+            nomodslot = slot
             if alpha:
                 slot = "Alpha "+slot
-            return slot,alpha
+            return slot,alpha,nomodslot
 
     return "",False
 
@@ -500,6 +513,15 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                     spritename = f"c_{SPECIES.index(cutspecies)}" \
                                  f"{f'-{form}' if len(form) != 0 else ''}.png"
                 display[index]["sprite"] = spritename
+                ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
+                ratio = ratioarray[2]
+                print(f"Ratio: {ratio}")
+                if display[index]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
+                    display[index]["gender"] = "Female"
+                elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
+                    display[index]["gender"] = "Genderless"
+                else:
+                    display[index]["gender"] = "Male"
                 if len(value) == sum(value):
                     display[index]["defaultroute"] = True
                 else:
@@ -550,6 +572,14 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                     else:
                         spritename = f"c_{SPECIES.index(cutspecies)}{f'-{form}' if len(form) != 0 else ''}.png"
                     display[str(index)]["sprite"] = spritename
+                    ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
+                    ratio = ratioarray[2]
+                    if display[str(index)]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
+                        display[str(index)]["gender"] = "Female"
+                    elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
+                        display[str(index)]["gender"] = "Genderless"
+                    else:
+                        display[str(index)]["gender"] = "Male"
             if bonus_flag:
                 true_spawns = max_spawns
                 bonus_spawns = true_spawns + 4
