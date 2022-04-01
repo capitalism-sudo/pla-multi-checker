@@ -29,7 +29,7 @@ with open("./static/resources/text_species_en.txt",encoding="utf-8") as text_spe
 RATIOS = json.load(open("./static/resources/ratios.json"))
 
 extrapaths = [[],[1],[2],[2,1],[3],[3,1],[3,2],[3,2,1]]
-fixedgenders = ["Happiny", "Chansey", "Blissey", "Petilil", "Lilligant", "Bronzor", "Bronzong", "Voltorb", "Electrode", "Rotom", "Rufflet", "Braviary"]
+fixedgenders = ["Happiny", "Chansey", "Blissey", "Petilil", "Lilligant", "Bronzor", "Bronzong", "Voltorb", "Electrode", "Rotom", "Rufflet", "Braviary", "Unown"]
 
 def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     rng = XOROSHIRO(seed)
@@ -520,7 +520,7 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                 display[index]["sprite"] = spritename
                 ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
                 ratio = ratioarray[2]
-                if display[index]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
+                if display[index]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
                     display[index]["gender"] = "Female"
                 elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
                     display[index]["gender"] = "Genderless"
@@ -578,7 +578,7 @@ def check_from_seed(group_seed,rolls,frencounter,brencounter,bonus_flag=False,ma
             ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
             ratio = ratioarray[2]
             #print(f"Ratio: {ratio}")
-            if display[str(index)]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
+            if display[str(index)]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
                 display[str(index)]["gender"] = "Female"
             elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
                 display[str(index)]["gender"] = "Genderless"
