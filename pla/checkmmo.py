@@ -596,7 +596,6 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                 true_spawns = max_spawns
                 bonus_spawns = true_spawns + 4
                 bonus_seed = allpaths[str(max_spawns)]
-                print(f"Bonus Paths: {bonus_seed}")
                 true_spawns = get_max_spawns(reader,i,mapcount,True)
                 result = read_bonus_pathinfo(reader,bonus_seed,i,mapcount,rolls,group_seed,map_name,coords,true_spawns,bonus_spawns,max_spawns,numspecies)
                 print(f"Group {i} Bonus Complete!")
