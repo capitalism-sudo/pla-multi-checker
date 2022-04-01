@@ -479,14 +479,14 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
         for ext,epath in enumerate(extrapaths):
             spawn_remain = max_spawns - sum(value)
             if epath == []:
-                display = generate_mass_outbreak_aggressive_path(seed,rolls,paths,
+                display = generate_mass_outbreak_aggressive_path(seed,rolls,nbpaths,
                                                                  bonus_spawns,
                                                                  true_spawns,encounters,
                                                                  encsum,isbonus,False)
             elif epath[0] <= spawn_remain:
                 epath_seed = get_extra_path_seed(seed,epath)
                 display = generate_mass_outbreak_aggressive_path(epath_seed,rolls,
-                                                                 paths,bonus_spawns,true_spawns,
+                                                                 nbpaths,bonus_spawns,true_spawns,
                                                                  encounters,encsum,isbonus,False)
             else:
                 continue
