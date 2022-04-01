@@ -67,6 +67,7 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
     # the generation is unique to each path, no use in splitting this function
     storage = {}
     uniques = set()
+    dupestore = {}
     true_seed = group_seed
     for i, steps in enumerate(paths):
         main_rng = XOROSHIRO(true_seed)
@@ -91,6 +92,8 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                 generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
             if not fixed_seed in uniques:
                 uniques.add(fixed_seed)
+                dupestore[str(fixed_seed)] = f"{fixed_seed} + {init_spawn} + " \
+                        f"+ {i} + {steps}"
                 info = {
                     "index":f"<span class='pla-results-init'>Init Spawn " \
                     f"{init_spawn} </span></span>",
@@ -104,7 +107,8 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     "ivs":ivs,
                     "ability":ability,
                     "nature":NATURES[nature],
-                    "gender":gender
+                    "gender":gender,
+                    "dupes": []
                     }
                 """
                 if not fixed_seed in uniques:
@@ -119,7 +123,7 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     info["defaultroute"] = False
                 #print(info)
                 storage[f"{fixed_seed} + {init_spawn} + " \
-                        f"{random.randint(0,100)} + {i} + {steps}"]=info
+                        f"+ {i} + {steps}"]=info
         group_seed = main_rng.next()
         respawn_rng = XOROSHIRO(group_seed)
         for step_i,step in enumerate(steps):
@@ -144,6 +148,8 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
                 if not fixed_seed in uniques and (sum(steps[:step_i]) + pokemon + 4) <= true_spawns:
                     uniques.add(fixed_seed)
+                    dupestore[str(fixed_seed)] = f"{fixed_seed} + {steps[:step_i] + [pokemon]} " \
+                            f"+ {i} + {steps}"
                     info = {
                     "index":f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])} </span>",
                     "spawn":True,
@@ -156,7 +162,8 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     "ivs":ivs,
                     "ability":ability,
                     "nature":NATURES[nature],
-                    "gender":gender
+                    "gender":gender,
+                    "dupes": []
                     }
                     """
                     if not fixed_seed in uniques:
@@ -171,7 +178,13 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                         info["defaultroute"] = False
                    # print(info)
                     storage[f"{fixed_seed} + {steps[:step_i] + [pokemon]} " \
-                            f"+ {random.randint(0,100)} + {i} + {steps}"]=info
+                            f"+ {i} + {steps}"]=info
+                """
+                else:
+                    if f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}" not in storage[str(dupestore[str(fixed_seed)])]["dupes"]:
+                        storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}")
+                    print(f"Duplicate found at {fixed_seed}: {storage[str(dupestore[str(fixed_seed)])]['dupes']}")
+                """
             respawn_rng = XOROSHIRO(respawn_rng.next())
     return storage
 
@@ -466,14 +479,14 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
         for ext,epath in enumerate(extrapaths):
             spawn_remain = max_spawns - sum(value)
             if epath == []:
-                display = generate_mass_outbreak_aggressive_path(seed,rolls,nbpaths,
+                display = generate_mass_outbreak_aggressive_path(seed,rolls,paths,
                                                                  bonus_spawns,
                                                                  true_spawns,encounters,
                                                                  encsum,isbonus,False)
             elif epath[0] <= spawn_remain:
                 epath_seed = get_extra_path_seed(seed,epath)
                 display = generate_mass_outbreak_aggressive_path(epath_seed,rolls,
-                                                                 nbpaths,bonus_spawns,true_spawns,
+                                                                 paths,bonus_spawns,true_spawns,
                                                                  encounters,encsum,isbonus,False)
             else:
                 continue
@@ -515,7 +528,6 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 display[index]["sprite"] = spritename
                 ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
                 ratio = ratioarray[2]
-                print(f"Ratio: {ratio}")
                 if display[index]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
                     display[index]["gender"] = "Female"
                 elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
@@ -584,6 +596,7 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                 true_spawns = max_spawns
                 bonus_spawns = true_spawns + 4
                 bonus_seed = allpaths[str(max_spawns)]
+                print(f"Bonus Paths: {bonus_seed}")
                 true_spawns = get_max_spawns(reader,i,mapcount,True)
                 result = read_bonus_pathinfo(reader,bonus_seed,i,mapcount,rolls,group_seed,map_name,coords,true_spawns,bonus_spawns,max_spawns,numspecies)
                 print(f"Group {i} Bonus Complete!")
