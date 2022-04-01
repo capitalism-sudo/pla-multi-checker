@@ -394,6 +394,8 @@ const showFilteredResults = () => {
 	    result.mapname;
       resultContainer.querySelector("[data-pla-results-nature]").innerText =
         result.nature;
+	  /*resultContainer.querySelector("[data-pla-results-dupes]").innerHTML =
+	    result.dupes;*/
       resultContainer.querySelector("[data-pla-results-gender]").innerText =
         result.gender;
       resultContainer.querySelector("[data-pla-results-seed]").innerText =
