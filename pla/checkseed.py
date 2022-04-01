@@ -476,7 +476,7 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                                                                  bonus_spawns,
                                                                  true_spawns,encounters,
                                                                  encsum,isbonus,False)
-            elif epath[0] <= spawn_remain:
+            elif epath[0] < spawn_remain:
                 epath_seed = get_extra_path_seed(seed,epath)
                 display = generate_mass_outbreak_aggressive_path(epath_seed,rolls,
                                                                  nbpaths,bonus_spawns,true_spawns,
