@@ -260,6 +260,17 @@ section {
 
 .pla-iv-31 {
   font-weight: 500;
+  color: blue
+}
+
+.pla-iv-plus {
+	font-weight: bolder;
+	color: blue;
+}
+
+.pla-iv-minus  {
+	font-weight: bolder;
+	color: red;
 }
 
 .pla-iv-0 {

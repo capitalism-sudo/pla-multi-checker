@@ -35,6 +35,10 @@ def distortion():
 def seed():
    return render_template('fromseed.html')
 
+@app.route("/alpha")
+def alpha():
+   return render_template('alphaseed.html')
+
 @app.route('/read-mmos', methods=['POST'])
 def read_mmos():
     #results = pla.get_all_map_mmos(reader, request.json['rolls'], request.json['inmap'])
@@ -90,6 +94,12 @@ def get_from_seed():
                                  request.json['frspawns'],
                                  request.json['brspawns'])
    return { "mmo_spawns": results }
+
+@app.route('/check-alphaseed', methods=['POST'])
+def get_alpha_from_seed():
+   results = pla.check_alpha_from_seed(request.json['seed'], request.json['rolls'],
+                                       request.json['isalpha'], request.json['setgender'])
+   return { "alpha_spawns": results }
 
 if __name__ == '__main__':
     app.run(host="localhost", port=8100, debug=True)

@@ -417,6 +417,89 @@ const showFilteredResults = () => {
       resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
         result.ivs[5];
 		
+	  switch (result.nature){
+        case "Lonely":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
+          break;
+        case "Adamant":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-plus');
+          break;
+        case "Naughty":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
+          break;
+        case "Brave":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
+          break;
+        case "Bold":
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
+          break;
+        case "Impish":
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-plus');
+          break;
+        case "Lax":
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
+          break;
+        case "Relaxed":
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
+          break;
+        case "Modest":
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
+          break;
+        case "Mild":
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
+          break;
+        case "Rash":
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
+          break;
+        case "Quiet":
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
+          break;
+        case "Calm":
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
+          break;
+        case "Gentle":
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
+          break;
+        case "Careful":
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
+          break;
+        case "Sassy":
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
+          break;
+        case "Timid":
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
+          break;
+        case "Hasty":
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
+          break;
+        case "Jolly":
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-plus');
+          break;
+        case "Naive":
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
+          break;
+      }
+		
 		
 	  let button = document.createElement("button");
 	  button.innerText = "Teleport to Spawn";
