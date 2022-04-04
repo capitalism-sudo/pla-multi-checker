@@ -65,7 +65,7 @@
                     <option value="19">Shiny Charm + Perfect</option>
                 </select>
             </div>
-			
+
 			<div class="pla-control">
 				<label for="frspawns">First Round Spawns</label>
 				<select id="frspawns">
@@ -74,12 +74,12 @@
 					<option value="10">10</option>
 				</select>
 			</div>
-			
+
 			<div class="pla-control">
 				<label for="bonus">Bonus Round?</label>
 				<input type="checkbox" id="bonus">
 			</div>
-			
+
 			<div class="pla-control">
 				<label for="brspawns">Bonus Round Spawns</label>
 				<select id="brspawns">
@@ -87,24 +87,24 @@
 					<option value="7">7</option>
 				</select>
 			</div>
-			
+
 			<!--<div class="pla-control">
 				<label for="frencounter">First Round Encounter Hash:</label>
 				<input type="text" id="frencounter">
 			</div>
-			
+
 			<div class="pla-control">
 				<label for="brencounter">Bound Round Encounter Hash:</label>
 				<input type="text" id="brencounter">
 			</div>-->
-			
+
 			<div class="pla-control">
 				<label for="frpokemon">First Round Pokemon:</label>
 				<select name="frpokemon" id="frpokemon" class="form-control">
 					<option value="">Select Pokemon</option>
 				</select>
 			</div>
-			
+
 			<div class="pla-control">
 				<label for="brpokemon">Bonus Round Pokemon:</label>
 				<select name="brpokemon" id="brpokemon" class="form-control">
@@ -126,7 +126,7 @@
                 <label for="mmoAlphaFilter">Alpha Only</label>
                 <input type="checkbox" id="mmoAlphaFilter">
             </div>
-			
+
 			<div class="pla-control-checkbox">
                 <label for="mmoDefaultRouteFilter">Show Default Paths Only</label>
                 <input type="checkbox" id="mmoDefaultRouteFilter">
@@ -137,26 +137,37 @@
                 <label for="inmapcheck">In Area: (Not Currently Functional)</label>
                 <input type="checkbox" id="inmapcheck">
             </div>-->
-			
+
 
             <div class="pla-control-actions">
                 <button class="pla-action-button" onclick="checkmmos()">Check MMO Seed</button>
             </div>
-			
+
         </section>
-		
-		<section class="pla-control">
-			<div class="pla-control-actions">
-                <button class="pla-action-button" onclick="window.location.href='/'">Back</button>
-            </div>
-		</section>
 
         <section class="pla-section-results">
             <div class="pla-results" data-pla-results>
                 This tool was created by Cappy, with help from Anubis, Kurt, Lincoln, Zyro and Santacrab420 for code and other assistance.
             </div>
         </section>
-		
+
+        <section class="pla-section-back">
+            <div class="pla-control-actions">
+                <button class="pla-action-button" onclick="window.location.href='https://github.com/capitalism-sudo/pla-multi-checker/wiki'">Click Here for the Seed Checker Wiki</button>
+            </div>
+
+			<div class="pla-control-actions">
+                <button class="pla-action-button" onclick="window.location.href='/'">Back</button>
+            </div>
+        </section>
+
+        <section class="pla-section-icons">
+            <div class="placontrol-actions">
+                <input type="image" class="icons" src="../static/img/discord-v2_round.ico" onclick="window.location.href='https://discord.gg/2JSZnm8GHf'">
+                <input type="image" class="icons" src="../static/img/youtube_round.ico" onclick="window.location.href='https://www.youtube.com/channel/UCrItwn5zVd2jinwkznYn-dQ'">
+            </div>
+        </section>
+
     </main>
 
     <template data-pla-results-template>
@@ -164,7 +175,7 @@
             <ul class="pla-results-heading pla-results-ul">
 				<li class="pla-results-sprite" data-pla-results-sprite></li>
                 <li class="pla-results-species" data-pla-results-species></li>
-                <li>At <span class="pla-results-mapname" data-pla-results-mapname></span></li>
+                <li><span class="pla-results-mapname" data-pla-results-mapname></span></li>
             </ul>
 
             <ul class="pla-results-ul">
@@ -173,10 +184,6 @@
             </ul>
 
 			<ul class="pla-results-ul">
-                <li><span class="pla-results-label">Group:</span> <span data-pla-results-group></span></li>
-				<li><span class="pla-results-label">Number of Round Spawns: </span><span data-pla-results-numspawns></span></li>
-            </ul>
-			<ul class="pla-results-ul">
 				<li><span class="pla-results-label"><span data-pla-results-location></span></span></li>
 			</ul>
             <ul class="pla-results-ul">
@@ -184,11 +191,11 @@
                 <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>
             </ul>
 
-            <ul class="pla-results-ul">
+            <!--<ul class="pla-results-ul">
                 <li><span class="pla-results-label">Seed:</span> <span data-pla-results-seed></span></li>
                 <li><span class="pla-results-label">EC:</span> <span data-pla-results-ec></span></li>
                 <li><span class="pla-results-label">PID:</span> <span data-pla-results-pid></span></li>
-            </ul>
+            </ul>-->
 
             <div class="pla-results-ivs-container">
                 <span class="pla-results-label">IVs:</span>
@@ -201,9 +208,9 @@
                     <li class="pla-results-ivs-spe" data-pla-results-ivs-spe></li>
                 </ul>
             </div>
-			
-			<div class="pla-results-teleport">
-			</div>
+
+			<!--<div class="pla-results-teleport">
+			</div>-->
         </div>
     </template>
 

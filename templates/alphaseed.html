@@ -9,6 +9,65 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="static/css/style.css" rel="stylesheet">
+	<script type="text/javascript" src="static/js/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(e){
+		console.log("ready!")
+		
+		function get_species_names(mapname) {
+			console.log(mapname)
+			var html_code = '';
+			$.getJSON('static/resources/speciesbymap.json', function(data) {
+				html_code += '<option value="">Select Species</option>';
+				$.each(data, function(key,value) {
+					if (key == mapname) {
+						$.each(value, function(index, species) {
+						html_code += '<option value="' + species + '">' + species + '</option>';
+						});
+					}
+				});
+				$('#speciesnames').html(html_code);
+			});
+		}
+		
+		function get_species_spawners(species,mapname) {
+			var html_code = '';
+			$.getJSON('static/resources/' + mapname + '_spawnerbyspecies.json', function(data) {
+				html_code += '<option value="">Select Spawner:</option>';
+				$.each(data, function(key,value) {
+					if (key == species){
+						var i = 1;
+						$.each(value, function(index, spawnpoint) {
+							html_code += '<option value="' + spawnpoint + '"> Spawner ' + i + '</option>';
+							i++;
+						});
+					}
+				});
+				$('#spawnernames').html(html_code);
+			});
+		}
+		
+		$(document).on('change', '#speciesmap', function() {
+				var  mapname = $(this).val();
+				if (mapname != '') {
+					get_species_names(mapname);
+				} else {
+					$('#speciesnames').html('<option value="">Select Species</option>');
+				}
+		});
+		
+		$(document).on('change', '#speciesnames', function() {
+				var speciesname = $(this).val();
+				var mapname = $('#speciesmap').val();
+				if (speciesname != '') {
+					get_species_spawners(speciesname,mapname);
+				} else {
+					$('#spawnernames').html('<option value="">Select Spawner</option>');
+				}
+		});
+	});
+				
+	</script>
 </head>
 
 <body>
@@ -33,33 +92,48 @@
                     <option value="7">Shiny Charm + Perfect</option>
                 </select>
             </div>
-			
+
 			<div class="pla-control">
 				<label for="staticalpha">Static Alpha?</label>
 				<input type="checkbox" id="staticalpha">
 			</div>
-			
+
 			<div class="pla-control">
 				<label for="gendercheck">Spawn is Fixed Gender/Genderless?</label>
 				<input type="checkbox" id="gendercheck">
 			</div>
 
-			<!--<div class="pla-control">
-				<label for="frencounter">First Round Encounter Hash:</label>
-				<input type="text" id="frencounter">
+			<div class="pla-control">
+				<label for="speciesmap">Map:</label>
+				<select name="speciesmap" id="speciesmap" class="form-control">
+					<option value="">Select Map...</option>
+					<option value="AlabasterIcelands">Alabaster Icelands</option>
+					<option value="CoronetHighlands">Coronet Highlands</option>
+					<option value="CobaltCoastlands">Cobalt Coastlands</option>
+					<option value="CrimsonMirelands">Crimson Mirelands</option>
+					<option value="ObsidianFieldlands">Obsidian Fieldlands</option>
+				</select>
 			</div>
 
 			<div class="pla-control">
-				<label for="brencounter">Bound Round Encounter Hash:</label>
-				<input type="text" id="brencounter">
-			</div>-->
-
-			<!--
-			<div class="pla-control-checkbox">
-                <label for="inmapcheck">In Area: (Not Currently Functional)</label>
-                <input type="checkbox" id="inmapcheck">
-            </div>-->
+				<label for="speciesnames">Species:</label>
+				<select name="speciesnames" id="speciesnames" class="form-control">
+					<option value="">Select Pokemon</option>
+				</select>
+			</div>
 			
+			<div class="pla-control">
+				<label for="spawnernames">Species Spawner:</label>
+				<select name="spawnernames" id="spawnernames" class="form-control">
+					<option value="">Select Spawner</option>
+				</select>
+			</div>
+
+			<div class="pla-control">
+                <label for="daynightcheck">Is Nighttime?</label>
+                <input type="checkbox" id="daynightcheck">
+            </div>
+
 			<div class="pla-control">
 				<label for="gender">Gender Ratio</label>
 				<select id="gender">
@@ -79,6 +153,13 @@
             </div>
 
         </section>
+		
+		<section class="pla-section-info">
+			<h3>Spawner Pokemon</h3>
+			<ul class="pla-info-spawner" data-pla-info-spawner>
+			
+			</ul>
+		</section>
 
         <section class="pla-section-results">
             <div class="pla-results" data-pla-results>
@@ -89,6 +170,17 @@
         <section class="pla-section-back">
             <div class="pla-control-actions">
                 <button class="pla-action-button" onclick="window.location.href='https://github.com/capitalism-sudo/pla-multi-checker/wiki'">Click Here for the Seed Checker Wiki</button>
+            </div>
+
+			<div class="pla-control-actions">
+                <button class="pla-action-button" onclick="window.location.href='/'">Back</button>
+            </div>
+        </section>
+
+        <section class="pla-section-icons">
+            <div class="placontrol-actions">
+                <input type="image" class="icons" src="../static/img/discord-v2_round.ico" onclick="window.location.href='https://discord.gg/2JSZnm8GHf'">
+                <input type="image" class="icons" src="../static/img/youtube_round.ico" onclick="window.location.href='https://www.youtube.com/channel/UCrItwn5zVd2jinwkznYn-dQ'">
             </div>
         </section>
 
@@ -111,11 +203,11 @@
 			<!--<ul class="pla-results-ul">
 				<li><span class="pla-results-label"><span data-pla-results-location></span></span></li>
 			</ul>-->
-			
+
 			<ul class="pla-results-ul">
 				<li><span class="pla-results-adv">Advances To Shiny:</span> <span data-pla-results-adv></span></li>
 			</ul>
-			
+
             <ul class="pla-results-ul">
                 <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
                 <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>

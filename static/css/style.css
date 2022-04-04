@@ -78,6 +78,7 @@ main {
     "options results"
     "info results"
 	"back results"
+	"icons results"
     ". results";
   gap: 1rem;
 }
@@ -111,6 +112,10 @@ section {
 
 .pla-section-results {
   grid-area: results;
+}
+
+.pla-section-icons {
+  grid-area: icons;
 }
 
 .pla-heading-highlight {
@@ -320,6 +325,11 @@ section {
 
 .pla-loading {
   background-color: #4d4b4a;
+}
+
+.icons {
+    width: 50px;
+    height: 50px;
 }
 
 .lds-roller {
