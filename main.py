@@ -98,7 +98,8 @@ def get_from_seed():
 @app.route('/check-alphaseed', methods=['POST'])
 def get_alpha_from_seed():
    results = pla.check_alpha_from_seed(request.json['seed'], request.json['rolls'],
-                                       request.json['isalpha'], request.json['setgender'])
+                                       request.json['isalpha'], request.json['setgender'],
+                                       request.json['filter'])
    return { "alpha_spawns": results }
 
 if __name__ == '__main__':

@@ -128,6 +128,42 @@ section {
   -webkit-text-fill-color: transparent;
 }
 
+.collapsible {
+	cursor: pointer;
+	font-weight: bold;
+	border: 2px solid var(--color-accent-2);
+	background-color: var(--color-accent-1);
+	padding: 0.4rem 0.8rem;
+	border-radius: 0.2rem;
+}
+
+.active, .collapsible:hover {
+	background: -webkit-linear-gradient(
+    var(--color-accent-1),
+    var(--color-accent-2)
+  );
+}
+
+.content {
+	padding: 0 18px;
+	background-color: #f1f1f1;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+}
+
+.collapsible:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  float: right;
+  font-weight: bold;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
 .pla-section-options input[type="checkbox"] {
   padding: 0.5rem;
 }

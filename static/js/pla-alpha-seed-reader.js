@@ -1,11 +1,16 @@
+var script = document.createElement('script');
+script.src = '../static/js/jquery.min.js';
+script.type = 'text/javascript';
+document.getElementsByTagName('head')[0].appendChild(script);
+
 const resultTemplate = document.querySelector("[data-pla-results-template]");
 const resultsArea = document.querySelector("[data-pla-results]");
 const mapLocationsArea = document.querySelector("[data-pla-info-locations]");
-const mapSpawnsArea = document.querySelector("[data-pla-info-spawns]");
 const spinnerTemplate = document.querySelector("[data-pla-spinner]");
 
 const resultsSection = document.querySelector(".pla-section-results");
 const resultsSprite = document.querySelector(".pla-results-sprite");
+const mapSpawnsArea = document.querySelector("[data-pla-info-spawner]");
 
 
 // options
@@ -13,17 +18,40 @@ const inputSeed = document.getElementById("inputseed");
 const rollsInput = document.getElementById("rolls");
 const staticAlpha = document.getElementById("staticalpha");
 const genderCheckbox = document.getElementById("gendercheck");
+const dayNight = document.getElementById("daynightcheck");
+const mapName = document.getElementById("speciesmap");
+const speciesName = document.getElementById("speciesnames");
+const spawnerID = document.getElementById("spawnernames");
 
 // filters
 
 const genderFilter = document.getElementById("gender");
 
 genderFilter.onchange = setFilter;
+spawnerID.onchange = setSpawners;
+dayNight.onchange = setSpawners;
 
 loadPreferences();
 setupPreferenceSaving();
 
 const results = [];
+
+
+var coll = document.getElementsByClassName("collapsible");
+var c;
+
+for (c = 0; c < coll.length; c++){
+	coll[c].addEventListener("click", function() {
+		this.classList.toggle("active");
+		var content = this.nextElementSibling;
+		if (content.style.maxHeight) {
+			content.style.maxHeight = null;
+		}
+		else {
+			content.style.maxHeight = content.scrollHeight + "px";
+		}
+	});
+}
 
 // Save and load user preferences
 function loadPreferences() {
@@ -65,6 +93,46 @@ function setFilter(event) {
 	showFilteredResults();
 }
 
+function setSpawners(event) {
+	mapSpawnsArea.innerHTML = "";
+	$.getJSON('static/resources/' + mapName.value + '.json', function(data) {
+		$.each(data, function(key,value) {
+			if (key == spawnerID.value) {
+				console.log(key)
+				var time = false;
+				let cycle = dayNight.checked;
+				if (cycle)
+					time = true;
+				var breakloop = false;
+				$.each(value, function(timeweather, species) {
+					if ((time) && ((timeweather.includes("Any Time")) || (timeweather.includes("Night"))) && !(breakloop)){
+						breakloop = true;
+						$.each(species, function(pokemon, slot) {
+							let locListItem = document.createElement("ul");
+							locListItem.innerText = pokemon;
+							mapSpawnsArea.appendChild(locListItem);
+						});
+					}
+					else if (!(time) && ((timeweather.includes("Any Time")) || (timeweather.includes("Day"))) && !(breakloop)) {
+						console.log(timeweather)
+						console.log(species)
+						breakloop = true;
+						$.each(species, function(pokemon, slot) {
+							console.log(pokemon)
+							console.log(slot)
+							let locListItem = document.createElement("ul");
+							locListItem.innerText = pokemon;
+							console.log("loclistitem innertext")
+							console.log(locListItem.innerText)
+							mapSpawnsArea.appendChild(locListItem);
+						});
+					}
+				});
+			}
+		});
+	});		
+}
+
 function readBoolFromStorage(id, defaultValue) {
   value = localStorage.getItem(id);
   return value ? parseInt(value) == 1 : defaultValue;
@@ -95,6 +163,12 @@ function getOptions() {
     rolls: parseInt(rollsInput.value),
 	isalpha: staticAlpha.checked,
 	setgender: genderCheckbox.checked,
+	filter: { 
+			species: speciesName.value,
+			mapname: mapName.value,
+			spawner: spawnerID.value,
+			daynight: dayNight.checked
+	}
   };
 }
 
@@ -139,6 +213,13 @@ const showFilteredResults = () => {
 	  console.log(results);
 	  
       const resultContainer = resultTemplate.content.cloneNode(true);
+	  
+	  let sprite = document.createElement('img');
+	  sprite.src = "static/img/sprite/"+result.sprite;
+	  
+	  resultContainer.querySelector('.pla-results-sprite').appendChild(sprite);
+      resultContainer.querySelector("[data-pla-results-species]").innerText =
+        result.species;
 	  
 	  let resultGender = "Genderless";
 	  
