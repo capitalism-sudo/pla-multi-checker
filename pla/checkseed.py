@@ -495,7 +495,7 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                     display[index]["index"] = f"<span class='pla-results-firstpath'>First Round Path: " \
                                               f"{value} </span> + <span class='pla-results-revisit'> " \
                                               f"Revisit {epath} </span> + <span class='pla-results-bonus'> " \
-                                              f"Bonus " \
+                                              f"Bonus Round Path " \
                                               + display[index]["index"]
                 display[index]["group"] = 0
                 display[index]["mapname"] = map_name
