@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <section class="pla-section-results">
+    <section class="pla-section-results flow">
         <div class="pla-results" data-pla-results>
             Search to begin
         </div>
@@ -36,22 +36,22 @@
             </select>
         </div>
 
-        <div class="pla-control-checkbox">
+        <div class="pla-control-spaced">
             <label for="mmoShinyFilter">Shiny or Alpha</label>
             <input type="checkbox" id="mmoShinyOrAlphaFilter">
         </div>
 
-        <div class="pla-control-checkbox">
+        <div class="pla-control-spaced">
             <label for="mmoShinyFilter">Shiny Only</label>
             <input type="checkbox" id="mmoShinyFilter">
         </div>
 
-        <div class="pla-control-checkbox">
+        <div class="pla-control-spaced">
             <label for="mmoAlphaFilter">Alpha Only</label>
             <input type="checkbox" id="mmoAlphaFilter">
         </div>
         
-        <div class="pla-control-checkbox">
+        <div class="pla-control-spaced">
             <label for="mmoDefaultRouteFilter">Show Default Paths Only</label>
             <input type="checkbox" id="mmoDefaultRouteFilter">
         </div>
@@ -62,21 +62,15 @@
         </div>
 
         <!--
-        <div class="pla-control-checkbox">
+        <div class="pla-control-spaced">
             <label for="inmapcheck">In Area: (Not Currently Functional)</label>
             <input type="checkbox" id="inmapcheck">
         </div>-->
         
         <div class="pla-control-actions">
-            <button class="pla-action-button" onclick="checkonemap()">Check Map Index</button>
-        </div>
-
-        <div class="pla-control-actions">
-            <button class="pla-action-button" onclick="checkmmos()">Check All MMOS</button>
-        </div>
-        
-        <div class="pla-control-actions">
-            <button class="pla-action-button" onclick="checknormals()">Check Normal Outbreaks</button>
+            <button class="pla-button pla-button-action" onclick="checkonemap()">Check Map Index</button>
+            <button class="pla-button pla-button-action" onclick="checkmmos()">Check All MMOS</button>
+            <button class="pla-button pla-button-action" onclick="checknormals()">Check Normal Outbreaks</button>
         </div>
     </section>
 
@@ -92,14 +86,7 @@
         </ul>
                     
         <div class="pla-control-actions">
-            <button class="pla-action-button" onclick="checkmaps()">Refresh Maps</button>
-        </div>
-        
-    </section>
-
-    <section class="pla-section-back">
-        <div class="pla-control-actions">
-            <button class="pla-action-button" onclick="window.location.href='/'">Back</button>
+            <button class="pla-button pla-button-action" onclick="checkmaps()">Refresh Maps</button>
         </div>
     </section>
 {% endblock %}

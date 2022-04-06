@@ -63,7 +63,7 @@
 {% endblock %}
 
 {% block main %}
-	<section class="pla-section-results">
+	<section class="pla-section-results flow">
 		<div class="pla-results" data-pla-results>
 			This tool was created by Cappy, with help from Anubis, Kurt, Lincoln, Zyro and Santacrab420 for code and other assistance.
 		</div>
@@ -73,8 +73,8 @@
 {% block sidebar %}
 	<section class="pla-section-options">
 		<div class="pla-control">
-			<label for="inputseed">Input Seed:</label>
-			<input type="text" id="inputseed">
+			<label for="inputseed">Seed</label>
+			<input type="text" id="inputseed" placeholder="Input Seed">
 		</div>
 
 		<div class="pla-control">
@@ -88,49 +88,14 @@
 			</select>
 		</div>
 
-		<div class="pla-control space-between">
+		<div class="pla-control-spaced">
 			<label for="staticalpha">Static Alpha?</label>
 			<input type="checkbox" id="staticalpha">
 		</div>
 
-		<div class="pla-control">
+		<div class="pla-control-spaced">
 			<label for="gendercheck">Spawn is Fixed Gender/Genderless?</label>
 			<input type="checkbox" id="gendercheck">
-		</div>
-		
-		<button type="button" class="pla-button collapsible">Advanced Options</button>
-		<div class="content">
-
-		<div class="pla-control">
-			<label for="speciesmap">Map:</label>
-			<select name="speciesmap" id="speciesmap" class="form-control">
-				<option value="">Select Map...</option>
-				<option value="AlabasterIcelands">Alabaster Icelands</option>
-				<option value="CoronetHighlands">Coronet Highlands</option>
-				<option value="CobaltCoastlands">Cobalt Coastlands</option>
-				<option value="CrimsonMirelands">Crimson Mirelands</option>
-				<option value="ObsidianFieldlands">Obsidian Fieldlands</option>
-			</select>
-		</div>
-
-		<div class="pla-control">
-			<label for="speciesnames">Species:</label>
-			<select name="speciesnames" id="speciesnames" class="form-control">
-				<option value="">Select Pokemon</option>
-			</select>
-		</div>
-		
-		<div class="pla-control">
-			<label for="spawnernames">Species Spawner:</label>
-			<select name="spawnernames" id="spawnernames" class="form-control">
-				<option value="">Select Spawner</option>
-			</select>
-		</div>
-
-		<div class="pla-control">
-			<label for="daynightcheck">Is Nighttime?</label>
-			<input type="checkbox" id="daynightcheck">
-		</div>
 		</div>
 
 		<div class="pla-control">
@@ -151,6 +116,43 @@
 		</div>
 	</section>
 
+	<section class="pla-section-expandable">
+		<button type="button" class="pla-button expandable-control">Advanced Options</button>
+		
+		<div class="expandable">
+			<div class="pla-control">
+				<label for="speciesmap">Map:</label>
+				<select name="speciesmap" id="speciesmap" class="form-control">
+					<option value="">Select Map...</option>
+					<option value="AlabasterIcelands">Alabaster Icelands</option>
+					<option value="CoronetHighlands">Coronet Highlands</option>
+					<option value="CobaltCoastlands">Cobalt Coastlands</option>
+					<option value="CrimsonMirelands">Crimson Mirelands</option>
+					<option value="ObsidianFieldlands">Obsidian Fieldlands</option>
+				</select>
+			</div>
+
+			<div class="pla-control">
+				<label for="speciesnames">Species:</label>
+				<select name="speciesnames" id="speciesnames" class="form-control">
+					<option value="">Select Pokemon</option>
+				</select>
+			</div>
+			
+			<div class="pla-control">
+				<label for="spawnernames">Species Spawner:</label>
+				<select name="spawnernames" id="spawnernames" class="form-control">
+					<option value="">Select Spawner</option>
+				</select>
+			</div>
+
+			<div class="pla-control-spaced">
+				<label for="daynightcheck">Is Nighttime?</label>
+				<input type="checkbox" id="daynightcheck">
+			</div>
+		</div>
+	</section>
+
 	<section class="pla-section-info">
 		<h3>Spawner Pokemon</h3>
 		<ul class="pla-info-spawner" data-pla-info-spawner>
@@ -158,21 +160,9 @@
 		</ul>
 	</section>
 
-	<section class="pla-section-back">
-		<div class="pla-control-actions">
-			<a class="pla-button pla-button-action" href="https://github.com/capitalism-sudo/pla-multi-checker/wiki" target="_blank">Click Here for the Seed Checker Wiki</a>
-		</div>
-
-		<div class="pla-control-actions">
-			<a class="pla-button pla-button-action" href="/">Back</a>
-		</div>
-	</section>
-
 	<section class="pla-section-icons">
-		<div class="pla-control-actions">
-			<a href="https://discord.gg/2JSZnm8GHf" target="_blank"><img class="icons" src="{{ url_for('static', filename='img/discord-v2_round.ico') }}" alt="Discord"></a>
-			<a href="https://www.youtube.com/channel/UCrItwn5zVd2jinwkznYn-dQ" target="_blank"><img class="icons" src="{{ url_for('static', filename='img/youtube_round.ico') }}"></a>
-		</div>
+		<a href="https://discord.gg/2JSZnm8GHf" target="_blank"><img class="icons" src="{{ url_for('static', filename='img/discord-v2_round.ico') }}" alt="Discord"></a>
+		<a href="https://www.youtube.com/channel/UCrItwn5zVd2jinwkznYn-dQ" target="_blank"><img class="icons" src="{{ url_for('static', filename='img/youtube_round.ico') }}"></a>
 	</section>
 {% endblock %}
 

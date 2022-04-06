@@ -8,7 +8,7 @@
     "EventNotificationChannelIdForRareMark": "",
     "IP": "192.168.1.63",
 	"USB": false,
-	"SeedCheckOnly": false,
+	"SeedCheckOnly": true,
     "NotificationChannelForInfo": "",
     "TextNotificationChannelIdForShiny": "",
     "TextNotificationChannelIdForBrilliant": "",

@@ -25,19 +25,19 @@ def home():
 
 @app.route("/mmos")
 def mmo_checker():
-   return render_template('mmo-checker.html', title='MMO Checker')
+   return render_template('pages/mmos.html', title='MMO Checker')
 
-@app.route("/distortion")
+@app.route("/distortions")
 def distortion():
-   return render_template('distortion.html', title='Distortion Checker')
+   return render_template('pages/distortions.html', title='Distortion Checker')
 
-@app.route("/seed")
+@app.route("/seeds")
 def seed():
-   return render_template('fromseed.html', title='MMO Checker')
+   return render_template('pages/seeds.html', title='MMO Checker')
 
-@app.route("/alpha")
+@app.route("/spawns")
 def alpha():
-   return render_template('alphaseed.html', title='Spawn Checker')
+   return render_template('pages/spawns.html', title='Spawn Checker')
 
 @app.route('/read-mmos', methods=['POST'])
 def read_mmos():

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block main %}
-    <section class="pla-section-results">
+    <section class="pla-section-results flow">
         <div class="pla-results" data-pla-results>
             This tool was created by Cappy, with help from Anubis, Kurt, Lincoln, Zyro and Santacrab420 for code and other assistance.
         </div>
@@ -75,8 +75,8 @@
 {% block sidebar %}
     <section class="pla-section-options">
         <div class="pla-control">
-            <label for="inputseed">Input Seed:</label>
-            <input type="text" id="inputseed">
+            <label for="inputseed">Seed</label>
+            <input type="text" id="inputseed" placeholder="Input Seed">
         </div>
 
         <div class="pla-control">
@@ -90,8 +90,8 @@
             </select>
         </div>
 
-        <div class="pla-control">
-            <label for="normalcheckbox">Normal Outbreak Check Only:</label>
+        <div class="pla-control-spaced">
+            <label for="normalcheckbox">Normal Outbreaks Only</label>
             <input type="checkbox" id="normalcheckbox">
         </div>
 
@@ -104,7 +104,7 @@
             </select>
         </div>
 
-        <div class="pla-control">
+        <div class="pla-control-spaced">
             <label for="bonus">Bonus Round?</label>
             <input type="checkbox" id="bonus">
         </div>
@@ -141,47 +141,36 @@
             </select>
         </div>
 
-        <div class="pla-control-checkbox">
+        <div class="pla-control-spaced">
             <label for="mmoShinyFilter">Shiny or Alpha</label>
             <input type="checkbox" id="mmoShinyOrAlphaFilter">
         </div>
 
-        <div class="pla-control-checkbox">
+        <div class="pla-control-spaced">
             <label for="mmoShinyFilter">Shiny Only</label>
             <input type="checkbox" id="mmoShinyFilter">
         </div>
 
-        <div class="pla-control-checkbox">
+        <div class="pla-control-spaced">
             <label for="mmoAlphaFilter">Alpha Only</label>
             <input type="checkbox" id="mmoAlphaFilter">
         </div>
 
-        <div class="pla-control-checkbox">
+        <div class="pla-control-spaced">
             <label for="mmoDefaultRouteFilter">Show Default Paths Only</label>
             <input type="checkbox" id="mmoDefaultRouteFilter">
         </div>
 
         <!--
-        <div class="pla-control-checkbox">
+        <div class="pla-control-spaced">
             <label for="inmapcheck">In Area: (Not Currently Functional)</label>
             <input type="checkbox" id="inmapcheck">
         </div>-->
-
 
         <div class="pla-control-actions">
             <button class="pla-button pla-button-action" onclick="checkmmos()">Check MMO Seed</button>
         </div>
     </section>
-
-    <section class="pla-section-back">
-		<div class="pla-control-actions">
-			<a class="pla-button pla-button-action" href="https://github.com/capitalism-sudo/pla-multi-checker/wiki" target="_blank">Click Here for the Seed Checker Wiki</a>
-		</div>
-
-		<div class="pla-control-actions">
-			<a class="pla-button pla-button-action" href="/">Back</a>
-		</div>
-	</section>
 
 	<section class="pla-section-icons">
 		<div class="pla-control-actions">
@@ -245,8 +234,8 @@
             <div></div>
         </div>
     </template>
-{% block templates %}
+{% endblock %}
 
 {% block script %}
     <script src="static/js/pla-mmo-seed-reader.js"></script>
-{% block script %}
+{% endblock %}
