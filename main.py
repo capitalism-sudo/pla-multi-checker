@@ -39,6 +39,10 @@ def seed():
 def alpha():
    return render_template('pages/spawns.html', title='Spawn Checker')
 
+@app.route("/settings")
+def settings():
+   return render_template('pages/settings.html', title='Settings')
+
 @app.route('/read-mmos', methods=['POST'])
 def read_mmos():
     #results = pla.get_all_map_mmos(reader, request.json['rolls'], request.json['inmap'])
