@@ -489,7 +489,7 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                     display[index]["index"] = f"<span class='pla-results-firstpath'>" \
                                               f"First Round Path: " \
                                               f"{value} </span> + {extra} + " \
-                                              f"<span class='pla-results-bonus'> Bonus " \
+                                              f"<span class='pla-results-bonus'> Bonus Round Path" \
                                               + display[index]["index"]
                 else:
                     display[index]["index"] = f"<span class='pla-results-firstpath'>First Round Path: " \
@@ -521,11 +521,11 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                 ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
                 ratio = ratioarray[2]
                 if display[index]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
-                    display[index]["gender"] = "Female"
-                elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
-                    display[index]["gender"] = "Genderless"
+                    display[index]["gender"] = "Female <i class='fa-solid fa-venus' style='color:pink'></i>"
+                elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode","Unown"]:
+                    display[index]["gender"] = "Genderless <i class='fa-solid fa-genderless'></i>"
                 else:
-                    display[index]["gender"] = "Male"
+                    display[index]["gender"] = "Male <i class='fa-solid fa-mars' style='color:blue'></i>"
                 if len(value) == sum(value):
                     display[index]["defaultroute"] = True
                 else:
@@ -579,11 +579,11 @@ def check_from_seed(group_seed,rolls,frencounter,brencounter,bonus_flag=False,ma
             ratio = ratioarray[2]
             #print(f"Ratio: {ratio}")
             if display[str(index)]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
-                display[str(index)]["gender"] = "Female"
-            elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode"]:
-                display[str(index)]["gender"] = "Genderless"
+                display[str(index)]["gender"] = "Female <i class='fa-solid fa-venus' style='color:pink'></i>"
+            elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode","Unown"]:
+                display[str(index)]["gender"] = "Genderless <i class='fa-solid fa-genderless'></i>"
             else:
-                display[str(index)]["gender"] = "Male"
+                display[str(index)]["gender"] = "Male <i class='fa-solid fa-mars' style='color:blue'></i>"
     if bonus_flag:
         true_spawns = max_spawns
         bonus_spawns = true_spawns + 4

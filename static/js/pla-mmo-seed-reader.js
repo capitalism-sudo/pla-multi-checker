@@ -415,7 +415,7 @@ const showFilteredResults = () => {
 
       resultContainer.querySelector("[data-pla-results-nature]").innerText =
         result.nature;
-      resultContainer.querySelector("[data-pla-results-gender]").innerText =
+      resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
         result.gender;
       resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText =
         result.ivs[0];

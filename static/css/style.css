@@ -329,6 +329,16 @@ section {
   color: var(--color-shadow);
 }
 
+.pla-male {
+	color: blue;
+	font-weight: bold;
+}
+
+.pla-female {
+	color: pink;
+	font-weight: bold;
+}
+
 .pla-results-firstpath {
 	color: var(--color-accent-1);
 	font-weight: bold;

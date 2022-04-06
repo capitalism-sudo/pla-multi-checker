@@ -396,7 +396,7 @@ const showFilteredResults = () => {
         result.nature;
 	  /*resultContainer.querySelector("[data-pla-results-dupes]").innerHTML =
 	    result.dupes;*/
-      resultContainer.querySelector("[data-pla-results-gender]").innerText =
+      resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
         result.gender;
       resultContainer.querySelector("[data-pla-results-seed]").innerText =
         result.generator_seed;
