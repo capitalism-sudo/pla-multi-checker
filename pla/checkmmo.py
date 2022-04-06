@@ -182,7 +182,7 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                 """
                 else:
                     if f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}" not in storage[str(dupestore[str(fixed_seed)])]["dupes"]:
-                        storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}")
+                        storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in step + [pokemon])}")
                     print(f"Duplicate found at {fixed_seed}: {storage[str(dupestore[str(fixed_seed)])]['dupes']}")
                 """
             respawn_rng = XOROSHIRO(respawn_rng.next())
@@ -273,7 +273,7 @@ def get_gen_seed_to_group_seed(reader,group_id):
 
     return group_seed
 
-def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques,storage):
+def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques,paths,storage):
     """Generate all the pokemon of an outbreak based on a provided aggressive path"""
     # pylint: disable=too-many-locals, too-many-arguments
     # the generation is unique to each path, no use in splitting this function
@@ -332,6 +332,7 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
                 "nature":NATURES[nature],
                 "gender":gender
                 }
+                paths.append(f"{'|'.join(str(s) for s in steps[:step_i] + [pokemon])}")
                 if len(steps[:step_i]) == sum(steps[:step_i]) and pokemon == 1:
                     info["defaultroute"] = True
                 else:
@@ -355,14 +356,16 @@ def aggressive_outbreak_pathfind_normal(group_seed,
                                  step=0,
                                  steps=None,
                                  uniques=None,
+                                 paths=None,
                                  storage=None):
     """Recursively pathfind to possible shinies for the current outbreak via multi battles"""
     # pylint: disable=too-many-arguments
     # can this algo be improved?
-    if steps is None or uniques is None or storage is None:
+    if steps is None or uniques is None or storage is None or paths is None:
         steps = []
         uniques = set()
         storage = {}
+        paths = []
     _steps = steps.copy()
     if step != 0:
         _steps.append(step)
@@ -374,13 +377,14 @@ def aggressive_outbreak_pathfind_normal(group_seed,
                                             _step,
                                             _steps,
                                             uniques,
+                                            paths,
                                             storage) is not None:
-                return storage
+                return storage,paths
     else:
         _steps.append(spawns - sum(_steps) - 4)
-        generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,_steps,uniques,storage)
+        generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,_steps,uniques,paths,storage)
         if _steps == get_final_normal(spawns):
-            return storage
+            return storage,paths
     return None
 
 def next_filtered_aggressive_outbreak_pathfind_normal(group_seed,rolls,spawns):
@@ -397,7 +401,7 @@ def next_filtered_aggressive_outbreak_pathfind_normal(group_seed,rolls,spawns):
             group_seed = main_rng.next()
             main_rng.reseed(group_seed)
         advance += 1
-        result = aggressive_outbreak_pathfind_normal(group_seed, rolls, spawns)
+        result,paths = aggressive_outbreak_pathfind_normal(group_seed, rolls, spawns)
         if result is None:
             result = []
     if advance == 0:
@@ -408,9 +412,9 @@ def next_filtered_aggressive_outbreak_pathfind_normal(group_seed,rolls,spawns):
             "description":"Spawner not active"
             }
     if advance != 0:
-        return info
+        return info,paths
     else:
-        return info
+        return info,paths
 
 def get_group_seed(reader,group_id,mapcount):
     group_seed = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
@@ -645,7 +649,7 @@ def read_normal_outbreaks(reader,rolls,inmap):
     for i in range(0,4):
         species,group_seed,max_spawns,coordinates = get_normal_outbreak_info(reader,i,inmap)
         if species != 0:
-            display = next_filtered_aggressive_outbreak_pathfind_normal(group_seed,rolls,max_spawns)
+            display,paths = next_filtered_aggressive_outbreak_pathfind_normal(group_seed,rolls,max_spawns)
             for index in display:
                 if index not in ('index', 'description'):
                     form = ''

@@ -10688,5 +10688,27 @@
       ],
       "ivs": 4
     }
+  ],
+  "0xEEFEE": [
+  {
+	  "slot":100,
+	  "name":"Eevee",
+	  "alpha": false,
+	  "level": [
+		15,
+		16
+		],
+		"ivs":0
+  },
+  {
+	  "slot":1,
+	  "name":"Eevee",
+	  "alpha": true,
+	  "level": [
+		30,
+		31
+		],
+		"ivs":3
+  }
   ]
 }

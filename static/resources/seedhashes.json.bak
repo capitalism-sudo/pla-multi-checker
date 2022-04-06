@@ -1775,14 +1775,6 @@
 		]
 	},
 	{
-		"species": "Eevee",
-		"hash": "0xEEFEE",
-		"parent_id": "0",
-		"allspecies": [
-			"Eevee"
-		]
-	},
-	{
 		"species": "Electabuzz",
 		"hash": "0x7E6885E452C04311",
 		"parent_id": "0",

@@ -159,7 +159,7 @@ function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, defaultFil
   if (alphaFilter && !result.alpha) {
     return false;
   }
-  
+
   if (defaultFilter && !result.defaultroute) {
 	  return false;
   }
@@ -194,7 +194,7 @@ function setMap() {
 function convertCoords(coordinates) {
             return [coordinates[2] * -0.5, coordinates[0] * 0.5];
 }
-		
+
 function showMapInfo({ locations, spawns }) {
   mapLocationsArea.innerHTML = "";
   mapSpawnsArea.innerHTML = "";
@@ -239,7 +239,7 @@ function checkmaps(){
 function checknormals(){
 	const options = getOptions();
 	showFetchingResults();
-	
+
 	fetch("/read-normals", {
 		method: "POST",
 		headers: { "Content-type": "application/json" },
@@ -253,7 +253,7 @@ function checknormals(){
 function checkonemap(){
 	const options = getOptions();
 	showFetchingResults();
-	
+
 	fetch("/read-one-map", {
 		method: "POST",
 		headers: { "Content-type": "application/json" },
@@ -265,7 +265,7 @@ function checkonemap(){
 }
 
 function teleportToSpawn(coords) {
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", "/teleport-to-spawn", true);
 	xhr.setRequestHeader('Content-Type', 'application/json');
@@ -292,7 +292,7 @@ const showMaps = ({maps,outbreaks}) => {
 			mapLocationsArea.appendChild(locListItem);
 		}
 	});
-	
+
 	outbreaks.forEach((pokemon) => {
 		let spawnItem = document.createElement("ul");
 		spawnItem.innerText = pokemon;
@@ -377,7 +377,7 @@ const showFilteredResults = () => {
     filteredResults.forEach((result) => {
 	  let sprite = document.createElement('img');
 	  sprite.src = "static/img/sprite/"+result.sprite;
-	  
+
       const resultContainer = resultTemplate.content.cloneNode(true);
 	  resultContainer.querySelector('.pla-results-sprite').appendChild(sprite);
       resultContainer.querySelector("[data-pla-results-species]").innerText =
@@ -388,33 +388,35 @@ const showFilteredResults = () => {
       let resultShiny = resultContainer.querySelector(
         "[data-pla-results-shiny]"
       );
-      resultShiny.innerText = result.shiny;
+      let sparkle = "";
+      if (result.shiny) {
+          sparkle = "Shiny!"
+      }
+      else {
+          sparkle = "Not Shiny"
+      }
+      resultShiny.innerText = sparkle;
       resultShiny.classList.toggle("pla-result-true", result.shiny);
       resultShiny.classList.toggle("pla-result-false", !result.shiny);
 
       let resultAlpha = resultContainer.querySelector(
         "[data-pla-results-alpha]"
       );
-      resultAlpha.innerText = result.alpha;
+      let bigmon = "";
+      if (result.alpha) {
+          bigmon = "Alpha!";
+      }
+      else {
+          bigmon = "Not Alpha";
+      }
+      resultAlpha.innerText = bigmon;
       resultAlpha.classList.toggle("pla-result-true", result.alpha);
       resultAlpha.classList.toggle("pla-result-false", !result.alpha);
 
-	  resultContainer.querySelector("[data-pla-results-group]").innerText =
-	    result.group;
-	  resultContainer.querySelector("[data-pla-results-numspawns]").innerText =
-	    result.numspawns;
-	  resultContainer.querySelector("[data-pla-results-mapname]").innerText =
-	    result.mapname;
       resultContainer.querySelector("[data-pla-results-nature]").innerText =
         result.nature;
       resultContainer.querySelector("[data-pla-results-gender]").innerText =
         result.gender;
-      resultContainer.querySelector("[data-pla-results-seed]").innerText =
-        result.generator_seed;
-      resultContainer.querySelector("[data-pla-results-ec]").innerText =
-        result.ec.toString(16);
-      resultContainer.querySelector("[data-pla-results-pid]").innerText =
-        result.pid.toString(16);
       resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText =
         result.ivs[0];
       resultContainer.querySelector("[data-pla-results-ivs-att]").innerText =
@@ -427,17 +429,92 @@ const showFilteredResults = () => {
         result.ivs[4];
       resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
         result.ivs[5];
-		
-		
-	  let button = document.createElement("button");
-	  button.innerText = "Teleport to Spawn";
-	  button.classList.add("pla-teleport-button");
-	  button.onclick = () => teleportToSpawn(result.coords);
 
-      resultContainer.querySelector('.pla-results-teleport').appendChild(button);
-	  
+      switch (result.nature){
+        case "Lonely":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
+          break;
+        case "Adamant":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-plus');
+          break;
+        case "Naughty":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
+          break;
+        case "Brave":
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
+          break;
+        case "Bold":
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
+          break;
+        case "Impish":
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-plus');
+          break;
+        case "Lax":
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
+          break;
+        case "Relaxed":
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
+          break;
+        case "Modest":
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
+          break;
+        case "Mild":
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
+          break;
+        case "Rash":
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
+          break;
+        case "Quiet":
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
+          break;
+        case "Calm":
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
+          break;
+        case "Gentle":
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
+          break;
+        case "Careful":
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
+          break;
+        case "Sassy":
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
+          break;
+        case "Timid":
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
+          break;
+        case "Hasty":
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
+          break;
+        case "Jolly":
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-plus');
+          break;
+        case "Naive":
+          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
+          break;
+      }
+
       resultsArea.appendChild(resultContainer);
-	  
+
     });
   } else {
     resultsArea.innerText = "No results found";
