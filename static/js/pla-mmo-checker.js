@@ -394,8 +394,23 @@ const showFilteredResults = () => {
 	    result.mapname;
       resultContainer.querySelector("[data-pla-results-nature]").innerText =
         result.nature;
-	  /*resultContainer.querySelector("[data-pla-results-dupes]").innerHTML =
-	    result.dupes;*/
+	var coll = document.getElementsByClassName("collapsible");
+	  var c;
+
+	  for (c = 0; c < coll.length; c++){
+		coll[c].addEventListener("click", function() {
+		this.classList.toggle("active");
+		var content = this.nextElementSibling;
+		if (content.style.maxHeight) {
+			content.style.maxHeight = null;
+		}
+		else {
+			content.style.maxHeight = content.scrollHeight + "px";
+		}
+		});
+	  }
+	  resultContainer.querySelector("[data-pla-results-dupes]").innerText =
+	    result.dupes;
       resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
         result.gender;
       resultContainer.querySelector("[data-pla-results-seed]").innerText =
@@ -509,8 +524,9 @@ const showFilteredResults = () => {
       resultContainer.querySelector('.pla-results-teleport').appendChild(button);
 	  
       resultsArea.appendChild(resultContainer);
-	  
+	
     });
+	
   } else {
     resultsArea.innerText = "No results found";
   }

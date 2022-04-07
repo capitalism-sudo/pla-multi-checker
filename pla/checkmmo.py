@@ -61,13 +61,12 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
 
 
 def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_spawns,
-                                           encounters,encsum,isbonus=False,isalpha=False):
+                                           encounters,encsum,dupestore,isbonus=False,isalpha=False):
     """Generate all the pokemon of an outbreak based on a provided aggressive path"""
     # pylint: disable=too-many-locals, too-many-arguments
     # the generation is unique to each path, no use in splitting this function
     storage = {}
     uniques = set()
-    dupestore = {}
     true_seed = group_seed
     for i, steps in enumerate(paths):
         main_rng = XOROSHIRO(true_seed)
@@ -110,13 +109,11 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     "gender":gender,
                     "dupes": []
                     }
-                """
                 if not fixed_seed in uniques:
                     info["unique"] = True
                     uniques.add(fixed_seed)
                 else:
                     info["unique"] = False
-                """
                 if not isbonus:
                     info["defaultroute"] = True
                 else:
@@ -165,13 +162,11 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     "gender":gender,
                     "dupes": []
                     }
-                    """
                     if not fixed_seed in uniques:
                         uniques.add(fixed_seed)
                         info["unique"] = True
                     else:
                         info["unique"] = False
-                    """
                     if not isbonus and sum(steps[:step_i]) == len(steps[:step_i]) and pokemon == 1:
                         info["defaultroute"] = True
                     else:
@@ -179,12 +174,10 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                    # print(info)
                     storage[f"{fixed_seed} + {steps[:step_i] + [pokemon]} " \
                             f"+ {i} + {steps}"]=info
-                """
                 else:
-                    if f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}" not in storage[str(dupestore[str(fixed_seed)])]["dupes"]:
-                        storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in step + [pokemon])}")
-                    print(f"Duplicate found at {fixed_seed}: {storage[str(dupestore[str(fixed_seed)])]['dupes']}")
-                """
+                    if f"Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" not in storage[str(dupestore[str(fixed_seed)])]["dupes"] and f":Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" != f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}":
+                        storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}")
+                    #print(f"Duplicate found at {fixed_seed}: {storage[str(dupestore[str(fixed_seed)])]['dupes']}")
             respawn_rng = XOROSHIRO(respawn_rng.next())
     return storage
 
@@ -213,6 +206,7 @@ def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,species,group_seed,max
     print(f"Species Group: {SPECIES[species]}")
     encounters,encsum = get_encounter_table(reader,group_id,mapcount,bonus_flag)
     paths = nonbonuspaths[str(max_spawns)]
+    dupestore = {}
 
     true_spawns = max_spawns
     if bonus_flag:
@@ -220,7 +214,7 @@ def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,species,group_seed,max
     else:
         max_spawns += 3
     display = generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,max_spawns,
-                                                     true_spawns,encounters,encsum,bonus_flag,False)
+                                                     true_spawns,encounters,encsum,dupestore,bonus_flag,False)
     return display
 
 def get_encounter_table(reader,group_id,mapcount,bonus):
@@ -475,6 +469,7 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
     """reads info about a bonus path"""
     isbonus = True
     outbreaks = {}
+    dupestore = {}
     nbpaths = nonbonuspaths[str(true_spawns)]
     for tex,value in enumerate(paths):
         seed = get_bonus_seed(reader,group_seed,rolls,mapcount,value,species,max_spawns)
@@ -486,12 +481,12 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 display = generate_mass_outbreak_aggressive_path(seed,rolls,nbpaths,
                                                                  bonus_spawns,
                                                                  true_spawns,encounters,
-                                                                 encsum,isbonus,False)
+                                                                 encsum,dupestore,isbonus,False)
             elif epath[0] < spawn_remain:
                 epath_seed = get_extra_path_seed(seed,epath)
                 display = generate_mass_outbreak_aggressive_path(epath_seed,rolls,
                                                                  nbpaths,bonus_spawns,true_spawns,
-                                                                 encounters,encsum,isbonus,False)
+                                                                 encounters,encsum,dupestore,isbonus,False)
             else:
                 continue
             for index in display:
