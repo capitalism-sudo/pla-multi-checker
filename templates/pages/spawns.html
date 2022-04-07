@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+
+{% block head %}
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	<script>
+	$(document).ready(function(e){
+		console.log("ready!")
+		
+		function get_species_names(mapname) {
+			console.log(mapname)
+			var html_code = '';
+			$.getJSON('static/resources/speciesbymap.json', function(data) {
+				html_code += '<option value="">Select Species</option>';
+				$.each(data, function(key,value) {
+					if (key == mapname) {
+						$.each(value, function(index, species) {
+						html_code += '<option value="' + species + '">' + species + '</option>';
+						});
+					}
+				});
+				$('#speciesnames').html(html_code);
+			});
+		}
+		
+		function get_species_spawners(species,mapname) {
+			var html_code = '';
+			$.getJSON('static/resources/' + mapname + '_spawnerbyspecies.json', function(data) {
+				html_code += '<option value="">Select Spawner:</option>';
+				$.each(data, function(key,value) {
+					if (key == species){
+						var i = 1;
+						$.each(value, function(index, spawnpoint) {
+							html_code += '<option value="' + spawnpoint + '"> Spawner ' + i + '</option>';
+							i++;
+						});
+					}
+				});
+				$('#spawnernames').html(html_code);
+			});
+		}
+		
+		$(document).on('change', '#speciesmap', function() {
+				var  mapname = $(this).val();
+				if (mapname != '') {
+					get_species_names(mapname);
+				} else {
+					$('#speciesnames').html('<option value="">Select Species</option>');
+				}
+		});
+		
+		$(document).on('change', '#speciesnames', function() {
+				var speciesname = $(this).val();
+				var mapname = $('#speciesmap').val();
+				if (speciesname != '') {
+					get_species_spawners(speciesname,mapname);
+				} else {
+					$('#spawnernames').html('<option value="">Select Spawner</option>');
+				}
+		});
+	});
+				
+	</script>
+{% endblock %}
+
+{% block main %}
+	<section class="pla-section-results flow">
+		<div class="pla-results" data-pla-results>
+			This tool was created by Cappy, with help from Anubis, Kurt, Lincoln, Zyro and Santacrab420 for code and other assistance.
+		</div>
+	</section>
+{% endblock %}
+
+{% block sidebar %}
+	<section class="pla-section-options">
+		<div class="pla-control">
+			<label for="inputseed">Seed</label>
+			<input type="text" id="inputseed" placeholder="Input Seed">
+		</div>
+
+		<div class="pla-control">
+			<label for="rolls">Shiny Rolls</label>
+			<select id="rolls">
+				<option value="1">Default</option>
+				<option value="2">Dex Research 10</option>
+				<option value="4">Dex Research Perfect</option>
+				<option value="5">Shiny Charm</option>
+				<option value="7">Shiny Charm + Perfect</option>
+			</select>
+		</div>
+
+		<div class="pla-control-spaced">
+			<label for="staticalpha">Static Alpha?</label>
+			<input type="checkbox" id="staticalpha">
+		</div>
+
+		<div class="pla-control-spaced">
+			<label for="gendercheck">Spawn is Fixed Gender/Genderless?</label>
+			<input type="checkbox" id="gendercheck">
+		</div>
+
+		<div class="pla-control">
+			<label for="gender">Gender Ratio</label>
+			<select id="gender">
+				<option value="31">1 &#9792; : 7 &#9794;</option>
+				<option value="63">1 &#9792; : 4 &#9794;</option>
+				<option value="127">1 &#9792; : 1 &#9794;</option>
+				<option value="191">3 &#9792; : 1 &#9794;</option>
+				<option value="0"> &#9794; Only</option>
+				<option value="255"> &#9792; Only</option>
+				<option value="-1"> Genderless</option>
+			</select>
+		</div>
+
+		<div class="pla-control-actions">
+			<button class="pla-button pla-button-action" onclick="checkalphaadv()">Find Alpha Shiny Advances</button>
+		</div>
+	</section>
+
+	<section class="pla-section-expandable">
+		<button type="button" class="pla-button expandable-control">Advanced Options</button>
+		
+		<div class="expandable">
+			<div class="pla-control">
+				<label for="speciesmap">Map:</label>
+				<select name="speciesmap" id="speciesmap" class="form-control">
+					<option value="">Select Map...</option>
+					<option value="AlabasterIcelands">Alabaster Icelands</option>
+					<option value="CoronetHighlands">Coronet Highlands</option>
+					<option value="CobaltCoastlands">Cobalt Coastlands</option>
+					<option value="CrimsonMirelands">Crimson Mirelands</option>
+					<option value="ObsidianFieldlands">Obsidian Fieldlands</option>
+				</select>
+			</div>
+
+			<div class="pla-control">
+				<label for="speciesnames">Species:</label>
+				<select name="speciesnames" id="speciesnames" class="form-control">
+					<option value="">Select Pokemon</option>
+				</select>
+			</div>
+			
+			<div class="pla-control">
+				<label for="spawnernames">Species Spawner:</label>
+				<select name="spawnernames" id="spawnernames" class="form-control">
+					<option value="">Select Spawner</option>
+				</select>
+			</div>
+
+			<div class="pla-control-spaced">
+				<label for="daynightcheck">Is Nighttime?</label>
+				<input type="checkbox" id="daynightcheck">
+			</div>
+		</div>
+	</section>
+
+	<section class="pla-section-info">
+		<h3>Spawner Pokemon</h3>
+		<ul class="pla-info-spawner" data-pla-info-spawner>
+		
+		</ul>
+	</section>
+
+	<section class="pla-section-icons">
+		<a href="https://discord.gg/2JSZnm8GHf" target="_blank"><img class="icons" src="{{ url_for('static', filename='img/discord-v2_round.ico') }}" alt="Discord"></a>
+		<a href="https://www.youtube.com/channel/UCrItwn5zVd2jinwkznYn-dQ" target="_blank"><img class="icons" src="{{ url_for('static', filename='img/youtube_round.ico') }}"></a>
+	</section>
+{% endblock %}
+
+{% block templates %}
+    <template data-pla-results-template>
+        <div class="pla-results-item" data-pla-results-template>
+            <ul class="pla-results-heading pla-results-ul">
+				<li class="pla-results-sprite" data-pla-results-sprite></li>
+				<li class="pla-results-species" data-pla-results-species></li>
+            </ul>
+
+			<ul class="pla-results-ul">
+				<li><span class="pla-results-adv">Advances To Shiny:</span> <span data-pla-results-adv></span></li>
+			</ul>
+
+            <ul class="pla-results-ul">
+                <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
+                <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>
+            </ul>
+
+            <div class="pla-results-ivs-container">
+                <span class="pla-results-label">IVs:</span>
+                <ul class="pla-results-ivs">
+                    <li class="pla-results-ivs-hp" data-pla-results-ivs-hp></li>
+                    <li class="pla-results-ivs-att" data-pla-results-ivs-att></li>
+                    <li class="pla-results-ivs-def" data-pla-results-ivs-def></li>
+                    <li class="pla-results-ivs-spa" data-pla-results-ivs-spa></li>
+                    <li class="pla-results-ivs-spd" data-pla-results-ivs-spd></li>
+                    <li class="pla-results-ivs-spe" data-pla-results-ivs-spe></li>
+                </ul>
+            </div>
+        </div>
+    </template>
+
+    <template data-pla-spinner>
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </template>
+{% endblock %}
+
+{% block script %}
+    <script src="static/js/pla-alpha-seed-reader.js"></script>
+{% endblock %}

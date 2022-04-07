@@ -14,8 +14,6 @@ const mapSelect = document.getElementById("mapSelect");
 const rollsInput = document.getElementById("rolls");
 const inmapCheck = document.getElementById("inmapcheck");
 
-mapSelect.onchange = setMap;
-
 // filters
 const distShinyOrAlphaCheckbox = document.getElementById(
   "mmoShinyOrAlphaFilter"
@@ -518,7 +516,7 @@ const showFilteredResults = () => {
 		
 	  let button = document.createElement("button");
 	  button.innerText = "Teleport to Spawn";
-	  button.classList.add("pla-teleport-button");
+	  button.classList.add("pla-button", "pla-button-action");
 	  button.onclick = () => teleportToSpawn(result.coords);
 
       resultContainer.querySelector('.pla-results-teleport').appendChild(button);
