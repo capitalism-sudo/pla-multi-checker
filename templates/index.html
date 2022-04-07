@@ -1,45 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLA Multi Checker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link href="static/css/style.css" rel="stylesheet">
-</head>
+{% block main %}
+    <section class="pla-section-results">
+        Welcome! Special Thanks to Lincoln, Zyro, Santacrab420, Kurt and Anubis for code, insights and help!
+    </section>
+{% endblock %}
 
-<body>
+{% block sidebar %}
+    <section class="pla-section-options">
+        <div class="pla-control-actions">
+            <a class="pla-button pla-button-action" href="/mmos">PLA MMO Checker (CFW NEEDED)</a>
+        </div>
 
-    <header>
-        <h1 class="pla-heading"><span class="pla-heading-highlight">PLA</span> Multi Checker</h1>
-    </header>
-    <main>
-        <section class="pla-section-options">
-			
-            <div class="pla-control-actions">
-                <button class="pla-action-button" onclick="window.location.href='/mmos'">PLA MMO Checker (CFW NEEDED)</button>
-            </div>
-
-            <div class="pla-control-actions">
-                <button class="pla-action-button" onclick="window.location.href='/seed'">PLA Seed Checker (No CFW Needed)</button>
-            </div>
-			
-			<div class="pla-control-actions">
-                <button class="pla-action-button" onclick="window.location.href='/distortion'">PLA Distortion Checker (CFW NEEDED)</button>
-            </div>
-        </section>
-
-        <section class="pla-section-results">
-            <div class="pla-results" data-pla-results>
-                Welcome! Special Thanks to Lincoln, Zyro, Santacrab420, Kurt and Anubis for code, insights and help!
-            </div>
-        </section>
-    </main>
-
-
-</body>
-
-</html>
+        <div class="pla-control-actions">
+            <a class="pla-button pla-button-action" href="/seed">PLA Seed Checker (No CFW Needed)</a>
+        </div>
+        
+        <div class="pla-control-actions">
+            <a class="pla-button pla-button-action" href="/distortion">PLA Distortion Checker (CFW NEEDED)</a>
+        </div>
+    </section>
+{% endblock %}

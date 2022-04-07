@@ -37,20 +37,22 @@ setupPreferenceSaving();
 const results = [];
 
 
-var coll = document.getElementsByClassName("collapsible");
-var c;
+const coll = document.getElementsByClassName("expandable-control");
 
-for (c = 0; c < coll.length; c++){
-	coll[c].addEventListener("click", function() {
-		this.classList.toggle("active");
-		var content = this.nextElementSibling;
-		if (content.style.maxHeight) {
-			content.style.maxHeight = null;
-		}
-		else {
-			content.style.maxHeight = content.scrollHeight + "px";
-		}
-	});
+for (let c = 0; c < coll.length; c++){
+	  coll[c].addEventListener("click", function() {
+      this.classList.toggle("expanded");
+      var content = this.nextElementSibling;
+
+      if (content.style.maxHeight) {
+        content.classList.toggle("expanded", false);
+        content.style.maxHeight = null;
+      }
+      else {
+        content.classList.toggle("expanded", true);
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
 }
 
 // Save and load user preferences
