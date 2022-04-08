@@ -4,8 +4,17 @@ import json
 from flask import Flask, render_template, request
 from nxreader import NXReader
 import pla
+from pla.data import Pokedex
+from pla.saves import read_research, rolls_from_research
 
 app = Flask(__name__)
+
+# Set max size for uploads
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1000 * 1000
+
+# Load a Pokdex
+pokedex = Pokedex()
+hisuidex = pokedex.hisuidex()
 
 config = json.load(open("config.json"))
 if config["SeedCheckOnly"]:
@@ -105,6 +114,38 @@ def get_alpha_from_seed():
                                        request.json['isalpha'], request.json['setgender'],
                                        request.json['filter'])
    return { "alpha_spawns": results }
+
+@app.route('/api/hisuidex')
+def pokemon():
+    return { 'hisuidex': hisuidex }
+
+@app.route('/api/read-research', methods=['POST'])
+def read_savefile():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'save' not in request.files:
+            return { 'error': 'There was no save file selected' }
+        save = request.files['save']
+
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if save.filename == '':
+            return { 'error': 'There was no save file selected' }
+
+        if save:
+            savedata = bytearray(save.read());
+            results = read_research(savedata)
+            if 'error' in results:
+                return { 'error': results['error'] }
+
+            rolls = { pkm['name'] : rolls_from_research(results['research_entries'], pkm) for pkm in hisuidex}
+            
+            return {
+                'shinycharm': results['shinycharm'],
+                'rolls': rolls
+            }
+    
+    return { 'error': 'There was a problem reading your save' }
 
 if __name__ == '__main__':
     app.run(host="localhost", port=8100, debug=True)

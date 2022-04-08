@@ -1,0 +1,5438 @@
+[
+  {
+    "id": "egg",
+    "name": "Egg",
+    "dex_national": 0,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bulbasaur",
+    "name": "Bulbasaur",
+    "dex_national": 1,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ivysaur",
+    "name": "Ivysaur",
+    "dex_national": 2,
+    "gender_ratio": 255
+  },
+  {
+    "id": "venusaur",
+    "name": "Venusaur",
+    "dex_national": 3,
+    "gender_ratio": 255
+  },
+  {
+    "id": "charmander",
+    "name": "Charmander",
+    "dex_national": 4,
+    "gender_ratio": 255
+  },
+  {
+    "id": "charmeleon",
+    "name": "Charmeleon",
+    "dex_national": 5,
+    "gender_ratio": 255
+  },
+  {
+    "id": "charizard",
+    "name": "Charizard",
+    "dex_national": 6,
+    "gender_ratio": 255
+  },
+  {
+    "id": "squirtle",
+    "name": "Squirtle",
+    "dex_national": 7,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wartortle",
+    "name": "Wartortle",
+    "dex_national": 8,
+    "gender_ratio": 255
+  },
+  {
+    "id": "blastoise",
+    "name": "Blastoise",
+    "dex_national": 9,
+    "gender_ratio": 255
+  },
+  {
+    "id": "caterpie",
+    "name": "Caterpie",
+    "dex_national": 10,
+    "gender_ratio": 255
+  },
+  {
+    "id": "metapod",
+    "name": "Metapod",
+    "dex_national": 11,
+    "gender_ratio": 255
+  },
+  {
+    "id": "butterfree",
+    "name": "Butterfree",
+    "dex_national": 12,
+    "gender_ratio": 255
+  },
+  {
+    "id": "weedle",
+    "name": "Weedle",
+    "dex_national": 13,
+    "gender_ratio": 255
+  },
+  {
+    "id": "kakuna",
+    "name": "Kakuna",
+    "dex_national": 14,
+    "gender_ratio": 255
+  },
+  {
+    "id": "beedrill",
+    "name": "Beedrill",
+    "dex_national": 15,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pidgey",
+    "name": "Pidgey",
+    "dex_national": 16,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pidgeotto",
+    "name": "Pidgeotto",
+    "dex_national": 17,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pidgeot",
+    "name": "Pidgeot",
+    "dex_national": 18,
+    "gender_ratio": 255
+  },
+  {
+    "id": "rattata",
+    "name": "Rattata",
+    "dex_national": 19,
+    "gender_ratio": 255
+  },
+  {
+    "id": "raticate",
+    "name": "Raticate",
+    "dex_national": 20,
+    "gender_ratio": 255
+  },
+  {
+    "id": "spearow",
+    "name": "Spearow",
+    "dex_national": 21,
+    "gender_ratio": 255
+  },
+  {
+    "id": "fearow",
+    "name": "Fearow",
+    "dex_national": 22,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ekans",
+    "name": "Ekans",
+    "dex_national": 23,
+    "gender_ratio": 255
+  },
+  {
+    "id": "arbok",
+    "name": "Arbok",
+    "dex_national": 24,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pikachu",
+    "name": "Pikachu",
+    "dex_national": 25,
+    "gender_ratio": 127
+  },
+  {
+    "id": "raichu",
+    "name": "Raichu",
+    "dex_national": 26,
+    "gender_ratio": 127
+  },
+  {
+    "id": "sandshrew",
+    "name": "Sandshrew",
+    "dex_national": 27,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sandslash",
+    "name": "Sandslash",
+    "dex_national": 28,
+    "gender_ratio": 255
+  },
+  {
+    "id": "nidoran_f",
+    "name": "Nidoran♀",
+    "dex_national": 29,
+    "gender_ratio": 255
+  },
+  {
+    "id": "nidorina",
+    "name": "Nidorina",
+    "dex_national": 30,
+    "gender_ratio": 255
+  },
+  {
+    "id": "nidoqueen",
+    "name": "Nidoqueen",
+    "dex_national": 31,
+    "gender_ratio": 255
+  },
+  {
+    "id": "nidoran_m",
+    "name": "Nidoran♂",
+    "dex_national": 32,
+    "gender_ratio": 255
+  },
+  {
+    "id": "nidorino",
+    "name": "Nidorino",
+    "dex_national": 33,
+    "gender_ratio": 255
+  },
+  {
+    "id": "nidoking",
+    "name": "Nidoking",
+    "dex_national": 34,
+    "gender_ratio": 255
+  },
+  {
+    "id": "clefairy",
+    "name": "Clefairy",
+    "dex_national": 35,
+    "gender_ratio": 191
+  },
+  {
+    "id": "clefable",
+    "name": "Clefable",
+    "dex_national": 36,
+    "gender_ratio": 191
+  },
+  {
+    "id": "vulpix",
+    "name": "Vulpix",
+    "dex_national": 37,
+    "gender_ratio": 191
+  },
+  {
+    "id": "ninetales",
+    "name": "Ninetales",
+    "dex_national": 38,
+    "gender_ratio": 191
+  },
+  {
+    "id": "jigglypuff",
+    "name": "Jigglypuff",
+    "dex_national": 39,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wigglytuff",
+    "name": "Wigglytuff",
+    "dex_national": 40,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zubat",
+    "name": "Zubat",
+    "dex_national": 41,
+    "gender_ratio": 127
+  },
+  {
+    "id": "golbat",
+    "name": "Golbat",
+    "dex_national": 42,
+    "gender_ratio": 127
+  },
+  {
+    "id": "oddish",
+    "name": "Oddish",
+    "dex_national": 43,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gloom",
+    "name": "Gloom",
+    "dex_national": 44,
+    "gender_ratio": 255
+  },
+  {
+    "id": "vileplume",
+    "name": "Vileplume",
+    "dex_national": 45,
+    "gender_ratio": 255
+  },
+  {
+    "id": "paras",
+    "name": "Paras",
+    "dex_national": 46,
+    "gender_ratio": 127
+  },
+  {
+    "id": "parasect",
+    "name": "Parasect",
+    "dex_national": 47,
+    "gender_ratio": 127
+  },
+  {
+    "id": "venonat",
+    "name": "Venonat",
+    "dex_national": 48,
+    "gender_ratio": 255
+  },
+  {
+    "id": "venomoth",
+    "name": "Venomoth",
+    "dex_national": 49,
+    "gender_ratio": 255
+  },
+  {
+    "id": "diglett",
+    "name": "Diglett",
+    "dex_national": 50,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dugtrio",
+    "name": "Dugtrio",
+    "dex_national": 51,
+    "gender_ratio": 255
+  },
+  {
+    "id": "meowth",
+    "name": "Meowth",
+    "dex_national": 52,
+    "gender_ratio": 255
+  },
+  {
+    "id": "persian",
+    "name": "Persian",
+    "dex_national": 53,
+    "gender_ratio": 255
+  },
+  {
+    "id": "psyduck",
+    "name": "Psyduck",
+    "dex_national": 54,
+    "gender_ratio": 127
+  },
+  {
+    "id": "golduck",
+    "name": "Golduck",
+    "dex_national": 55,
+    "gender_ratio": 127
+  },
+  {
+    "id": "mankey",
+    "name": "Mankey",
+    "dex_national": 56,
+    "gender_ratio": 255
+  },
+  {
+    "id": "primeape",
+    "name": "Primeape",
+    "dex_national": 57,
+    "gender_ratio": 255
+  },
+  {
+    "id": "growlithe",
+    "name": "Growlithe",
+    "dex_national": 58,
+    "gender_ratio": 255
+  },
+  {
+    "id": "arcanine",
+    "name": "Arcanine",
+    "dex_national": 59,
+    "gender_ratio": 255
+  },
+  {
+    "id": "poliwag",
+    "name": "Poliwag",
+    "dex_national": 60,
+    "gender_ratio": 255
+  },
+  {
+    "id": "poliwhirl",
+    "name": "Poliwhirl",
+    "dex_national": 61,
+    "gender_ratio": 255
+  },
+  {
+    "id": "poliwrath",
+    "name": "Poliwrath",
+    "dex_national": 62,
+    "gender_ratio": 255
+  },
+  {
+    "id": "abra",
+    "name": "Abra",
+    "dex_national": 63,
+    "gender_ratio": 63
+  },
+  {
+    "id": "kadabra",
+    "name": "Kadabra",
+    "dex_national": 64,
+    "gender_ratio": 63
+  },
+  {
+    "id": "alakazam",
+    "name": "Alakazam",
+    "dex_national": 65,
+    "gender_ratio": 63
+  },
+  {
+    "id": "machop",
+    "name": "Machop",
+    "dex_national": 66,
+    "gender_ratio": 63
+  },
+  {
+    "id": "machoke",
+    "name": "Machoke",
+    "dex_national": 67,
+    "gender_ratio": 63
+  },
+  {
+    "id": "machamp",
+    "name": "Machamp",
+    "dex_national": 68,
+    "gender_ratio": 63
+  },
+  {
+    "id": "bellsprout",
+    "name": "Bellsprout",
+    "dex_national": 69,
+    "gender_ratio": 255
+  },
+  {
+    "id": "weepinbell",
+    "name": "Weepinbell",
+    "dex_national": 70,
+    "gender_ratio": 255
+  },
+  {
+    "id": "victreebel",
+    "name": "Victreebel",
+    "dex_national": 71,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tentacool",
+    "name": "Tentacool",
+    "dex_national": 72,
+    "gender_ratio": 127
+  },
+  {
+    "id": "tentacruel",
+    "name": "Tentacruel",
+    "dex_national": 73,
+    "gender_ratio": 127
+  },
+  {
+    "id": "geodude",
+    "name": "Geodude",
+    "dex_national": 74,
+    "gender_ratio": 127
+  },
+  {
+    "id": "graveler",
+    "name": "Graveler",
+    "dex_national": 75,
+    "gender_ratio": 127
+  },
+  {
+    "id": "golem",
+    "name": "Golem",
+    "dex_national": 76,
+    "gender_ratio": 127
+  },
+  {
+    "id": "ponyta",
+    "name": "Ponyta",
+    "dex_national": 77,
+    "gender_ratio": 127
+  },
+  {
+    "id": "rapidash",
+    "name": "Rapidash",
+    "dex_national": 78,
+    "gender_ratio": 127
+  },
+  {
+    "id": "slowpoke",
+    "name": "Slowpoke",
+    "dex_national": 79,
+    "gender_ratio": 255
+  },
+  {
+    "id": "slowbro",
+    "name": "Slowbro",
+    "dex_national": 80,
+    "gender_ratio": 255
+  },
+  {
+    "id": "magnemite",
+    "name": "Magnemite",
+    "dex_national": 81,
+    "gender_ratio": 255
+  },
+  {
+    "id": "magneton",
+    "name": "Magneton",
+    "dex_national": 82,
+    "gender_ratio": 255
+  },
+  {
+    "id": "farfetchd",
+    "name": "Farfetch’d",
+    "dex_national": 83,
+    "gender_ratio": 255
+  },
+  {
+    "id": "doduo",
+    "name": "Doduo",
+    "dex_national": 84,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dodrio",
+    "name": "Dodrio",
+    "dex_national": 85,
+    "gender_ratio": 255
+  },
+  {
+    "id": "seel",
+    "name": "Seel",
+    "dex_national": 86,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dewgong",
+    "name": "Dewgong",
+    "dex_national": 87,
+    "gender_ratio": 255
+  },
+  {
+    "id": "grimer",
+    "name": "Grimer",
+    "dex_national": 88,
+    "gender_ratio": 255
+  },
+  {
+    "id": "muk",
+    "name": "Muk",
+    "dex_national": 89,
+    "gender_ratio": 255
+  },
+  {
+    "id": "shellder",
+    "name": "Shellder",
+    "dex_national": 90,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cloyster",
+    "name": "Cloyster",
+    "dex_national": 91,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gastly",
+    "name": "Gastly",
+    "dex_national": 92,
+    "gender_ratio": 127
+  },
+  {
+    "id": "haunter",
+    "name": "Haunter",
+    "dex_national": 93,
+    "gender_ratio": 127
+  },
+  {
+    "id": "gengar",
+    "name": "Gengar",
+    "dex_national": 94,
+    "gender_ratio": 127
+  },
+  {
+    "id": "onix",
+    "name": "Onix",
+    "dex_national": 95,
+    "gender_ratio": 127
+  },
+  {
+    "id": "drowzee",
+    "name": "Drowzee",
+    "dex_national": 96,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hypno",
+    "name": "Hypno",
+    "dex_national": 97,
+    "gender_ratio": 255
+  },
+  {
+    "id": "krabby",
+    "name": "Krabby",
+    "dex_national": 98,
+    "gender_ratio": 255
+  },
+  {
+    "id": "kingler",
+    "name": "Kingler",
+    "dex_national": 99,
+    "gender_ratio": 255
+  },
+  {
+    "id": "voltorb",
+    "name": "Voltorb",
+    "dex_national": 100,
+    "gender_ratio": 255
+  },
+  {
+    "id": "electrode",
+    "name": "Electrode",
+    "dex_national": 101,
+    "gender_ratio": 255
+  },
+  {
+    "id": "exeggcute",
+    "name": "Exeggcute",
+    "dex_national": 102,
+    "gender_ratio": 255
+  },
+  {
+    "id": "exeggutor",
+    "name": "Exeggutor",
+    "dex_national": 103,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cubone",
+    "name": "Cubone",
+    "dex_national": 104,
+    "gender_ratio": 255
+  },
+  {
+    "id": "marowak",
+    "name": "Marowak",
+    "dex_national": 105,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hitmonlee",
+    "name": "Hitmonlee",
+    "dex_national": 106,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hitmonchan",
+    "name": "Hitmonchan",
+    "dex_national": 107,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lickitung",
+    "name": "Lickitung",
+    "dex_national": 108,
+    "gender_ratio": 127
+  },
+  {
+    "id": "koffing",
+    "name": "Koffing",
+    "dex_national": 109,
+    "gender_ratio": 255
+  },
+  {
+    "id": "weezing",
+    "name": "Weezing",
+    "dex_national": 110,
+    "gender_ratio": 255
+  },
+  {
+    "id": "rhyhorn",
+    "name": "Rhyhorn",
+    "dex_national": 111,
+    "gender_ratio": 127
+  },
+  {
+    "id": "rhydon",
+    "name": "Rhydon",
+    "dex_national": 112,
+    "gender_ratio": 127
+  },
+  {
+    "id": "chansey",
+    "name": "Chansey",
+    "dex_national": 113,
+    "gender_ratio": 254
+  },
+  {
+    "id": "tangela",
+    "name": "Tangela",
+    "dex_national": 114,
+    "gender_ratio": 127
+  },
+  {
+    "id": "kangaskhan",
+    "name": "Kangaskhan",
+    "dex_national": 115,
+    "gender_ratio": 255
+  },
+  {
+    "id": "horsea",
+    "name": "Horsea",
+    "dex_national": 116,
+    "gender_ratio": 255
+  },
+  {
+    "id": "seadra",
+    "name": "Seadra",
+    "dex_national": 117,
+    "gender_ratio": 255
+  },
+  {
+    "id": "goldeen",
+    "name": "Goldeen",
+    "dex_national": 118,
+    "gender_ratio": 255
+  },
+  {
+    "id": "seaking",
+    "name": "Seaking",
+    "dex_national": 119,
+    "gender_ratio": 255
+  },
+  {
+    "id": "staryu",
+    "name": "Staryu",
+    "dex_national": 120,
+    "gender_ratio": 255
+  },
+  {
+    "id": "starmie",
+    "name": "Starmie",
+    "dex_national": 121,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mr_mime",
+    "name": "Mr. Mime",
+    "dex_national": 122,
+    "gender_ratio": 127
+  },
+  {
+    "id": "scyther",
+    "name": "Scyther",
+    "dex_national": 123,
+    "gender_ratio": 127
+  },
+  {
+    "id": "jynx",
+    "name": "Jynx",
+    "dex_national": 124,
+    "gender_ratio": 255
+  },
+  {
+    "id": "electabuzz",
+    "name": "Electabuzz",
+    "dex_national": 125,
+    "gender_ratio": 63
+  },
+  {
+    "id": "magmar",
+    "name": "Magmar",
+    "dex_national": 126,
+    "gender_ratio": 63
+  },
+  {
+    "id": "pinsir",
+    "name": "Pinsir",
+    "dex_national": 127,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tauros",
+    "name": "Tauros",
+    "dex_national": 128,
+    "gender_ratio": 255
+  },
+  {
+    "id": "magikarp",
+    "name": "Magikarp",
+    "dex_national": 129,
+    "gender_ratio": 127
+  },
+  {
+    "id": "gyarados",
+    "name": "Gyarados",
+    "dex_national": 130,
+    "gender_ratio": 127
+  },
+  {
+    "id": "lapras",
+    "name": "Lapras",
+    "dex_national": 131,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ditto",
+    "name": "Ditto",
+    "dex_national": 132,
+    "gender_ratio": 255
+  },
+  {
+    "id": "eevee",
+    "name": "Eevee",
+    "dex_national": 133,
+    "gender_ratio": 31
+  },
+  {
+    "id": "vaporeon",
+    "name": "Vaporeon",
+    "dex_national": 134,
+    "gender_ratio": 31
+  },
+  {
+    "id": "jolteon",
+    "name": "Jolteon",
+    "dex_national": 135,
+    "gender_ratio": 31
+  },
+  {
+    "id": "flareon",
+    "name": "Flareon",
+    "dex_national": 136,
+    "gender_ratio": 31
+  },
+  {
+    "id": "porygon",
+    "name": "Porygon",
+    "dex_national": 137,
+    "gender_ratio": 255
+  },
+  {
+    "id": "omanyte",
+    "name": "Omanyte",
+    "dex_national": 138,
+    "gender_ratio": 255
+  },
+  {
+    "id": "omastar",
+    "name": "Omastar",
+    "dex_national": 139,
+    "gender_ratio": 255
+  },
+  {
+    "id": "kabuto",
+    "name": "Kabuto",
+    "dex_national": 140,
+    "gender_ratio": 255
+  },
+  {
+    "id": "kabutops",
+    "name": "Kabutops",
+    "dex_national": 141,
+    "gender_ratio": 255
+  },
+  {
+    "id": "aerodactyl",
+    "name": "Aerodactyl",
+    "dex_national": 142,
+    "gender_ratio": 255
+  },
+  {
+    "id": "snorlax",
+    "name": "Snorlax",
+    "dex_national": 143,
+    "gender_ratio": 31
+  },
+  {
+    "id": "articuno",
+    "name": "Articuno",
+    "dex_national": 144,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zapdos",
+    "name": "Zapdos",
+    "dex_national": 145,
+    "gender_ratio": 255
+  },
+  {
+    "id": "moltres",
+    "name": "Moltres",
+    "dex_national": 146,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dratini",
+    "name": "Dratini",
+    "dex_national": 147,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dragonair",
+    "name": "Dragonair",
+    "dex_national": 148,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dragonite",
+    "name": "Dragonite",
+    "dex_national": 149,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mewtwo",
+    "name": "Mewtwo",
+    "dex_national": 150,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mew",
+    "name": "Mew",
+    "dex_national": 151,
+    "gender_ratio": 255
+  },
+  {
+    "id": "chikorita",
+    "name": "Chikorita",
+    "dex_national": 152,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bayleef",
+    "name": "Bayleef",
+    "dex_national": 153,
+    "gender_ratio": 255
+  },
+  {
+    "id": "meganium",
+    "name": "Meganium",
+    "dex_national": 154,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cyndaquil",
+    "name": "Cyndaquil",
+    "dex_national": 155,
+    "gender_ratio": 31
+  },
+  {
+    "id": "quilava",
+    "name": "Quilava",
+    "dex_national": 156,
+    "gender_ratio": 31
+  },
+  {
+    "id": "typhlosion",
+    "name": "Typhlosion",
+    "dex_national": 157,
+    "gender_ratio": 255
+  },
+  {
+    "id": "totodile",
+    "name": "Totodile",
+    "dex_national": 158,
+    "gender_ratio": 255
+  },
+  {
+    "id": "croconaw",
+    "name": "Croconaw",
+    "dex_national": 159,
+    "gender_ratio": 255
+  },
+  {
+    "id": "feraligatr",
+    "name": "Feraligatr",
+    "dex_national": 160,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sentret",
+    "name": "Sentret",
+    "dex_national": 161,
+    "gender_ratio": 255
+  },
+  {
+    "id": "furret",
+    "name": "Furret",
+    "dex_national": 162,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hoothoot",
+    "name": "Hoothoot",
+    "dex_national": 163,
+    "gender_ratio": 255
+  },
+  {
+    "id": "noctowl",
+    "name": "Noctowl",
+    "dex_national": 164,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ledyba",
+    "name": "Ledyba",
+    "dex_national": 165,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ledian",
+    "name": "Ledian",
+    "dex_national": 166,
+    "gender_ratio": 255
+  },
+  {
+    "id": "spinarak",
+    "name": "Spinarak",
+    "dex_national": 167,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ariados",
+    "name": "Ariados",
+    "dex_national": 168,
+    "gender_ratio": 255
+  },
+  {
+    "id": "crobat",
+    "name": "Crobat",
+    "dex_national": 169,
+    "gender_ratio": 127
+  },
+  {
+    "id": "chinchou",
+    "name": "Chinchou",
+    "dex_national": 170,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lanturn",
+    "name": "Lanturn",
+    "dex_national": 171,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pichu",
+    "name": "Pichu",
+    "dex_national": 172,
+    "gender_ratio": 127
+  },
+  {
+    "id": "cleffa",
+    "name": "Cleffa",
+    "dex_national": 173,
+    "gender_ratio": 191
+  },
+  {
+    "id": "igglybuff",
+    "name": "Igglybuff",
+    "dex_national": 174,
+    "gender_ratio": 255
+  },
+  {
+    "id": "togepi",
+    "name": "Togepi",
+    "dex_national": 175,
+    "gender_ratio": 31
+  },
+  {
+    "id": "togetic",
+    "name": "Togetic",
+    "dex_national": 176,
+    "gender_ratio": 31
+  },
+  {
+    "id": "natu",
+    "name": "Natu",
+    "dex_national": 177,
+    "gender_ratio": 255
+  },
+  {
+    "id": "xatu",
+    "name": "Xatu",
+    "dex_national": 178,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mareep",
+    "name": "Mareep",
+    "dex_national": 179,
+    "gender_ratio": 255
+  },
+  {
+    "id": "flaaffy",
+    "name": "Flaaffy",
+    "dex_national": 180,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ampharos",
+    "name": "Ampharos",
+    "dex_national": 181,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bellossom",
+    "name": "Bellossom",
+    "dex_national": 182,
+    "gender_ratio": 255
+  },
+  {
+    "id": "marill",
+    "name": "Marill",
+    "dex_national": 183,
+    "gender_ratio": 255
+  },
+  {
+    "id": "azumarill",
+    "name": "Azumarill",
+    "dex_national": 184,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sudowoodo",
+    "name": "Sudowoodo",
+    "dex_national": 185,
+    "gender_ratio": 127
+  },
+  {
+    "id": "politoed",
+    "name": "Politoed",
+    "dex_national": 186,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hoppip",
+    "name": "Hoppip",
+    "dex_national": 187,
+    "gender_ratio": 255
+  },
+  {
+    "id": "skiploom",
+    "name": "Skiploom",
+    "dex_national": 188,
+    "gender_ratio": 255
+  },
+  {
+    "id": "jumpluff",
+    "name": "Jumpluff",
+    "dex_national": 189,
+    "gender_ratio": 255
+  },
+  {
+    "id": "aipom",
+    "name": "Aipom",
+    "dex_national": 190,
+    "gender_ratio": 127
+  },
+  {
+    "id": "sunkern",
+    "name": "Sunkern",
+    "dex_national": 191,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sunflora",
+    "name": "Sunflora",
+    "dex_national": 192,
+    "gender_ratio": 255
+  },
+  {
+    "id": "yanma",
+    "name": "Yanma",
+    "dex_national": 193,
+    "gender_ratio": 127
+  },
+  {
+    "id": "wooper",
+    "name": "Wooper",
+    "dex_national": 194,
+    "gender_ratio": 255
+  },
+  {
+    "id": "quagsire",
+    "name": "Quagsire",
+    "dex_national": 195,
+    "gender_ratio": 255
+  },
+  {
+    "id": "espeon",
+    "name": "Espeon",
+    "dex_national": 196,
+    "gender_ratio": 31
+  },
+  {
+    "id": "umbreon",
+    "name": "Umbreon",
+    "dex_national": 197,
+    "gender_ratio": 31
+  },
+  {
+    "id": "murkrow",
+    "name": "Murkrow",
+    "dex_national": 198,
+    "gender_ratio": 127
+  },
+  {
+    "id": "slowking",
+    "name": "Slowking",
+    "dex_national": 199,
+    "gender_ratio": 255
+  },
+  {
+    "id": "misdreavus",
+    "name": "Misdreavus",
+    "dex_national": 200,
+    "gender_ratio": 127
+  },
+  {
+    "id": "unown",
+    "name": "Unown",
+    "dex_national": 201,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wobbuffet",
+    "name": "Wobbuffet",
+    "dex_national": 202,
+    "gender_ratio": 255
+  },
+  {
+    "id": "girafarig",
+    "name": "Girafarig",
+    "dex_national": 203,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pineco",
+    "name": "Pineco",
+    "dex_national": 204,
+    "gender_ratio": 255
+  },
+  {
+    "id": "forretress",
+    "name": "Forretress",
+    "dex_national": 205,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dunsparce",
+    "name": "Dunsparce",
+    "dex_national": 206,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gligar",
+    "name": "Gligar",
+    "dex_national": 207,
+    "gender_ratio": 127
+  },
+  {
+    "id": "steelix",
+    "name": "Steelix",
+    "dex_national": 208,
+    "gender_ratio": 127
+  },
+  {
+    "id": "snubbull",
+    "name": "Snubbull",
+    "dex_national": 209,
+    "gender_ratio": 255
+  },
+  {
+    "id": "granbull",
+    "name": "Granbull",
+    "dex_national": 210,
+    "gender_ratio": 255
+  },
+  {
+    "id": "qwilfish",
+    "name": "Qwilfish",
+    "dex_national": 211,
+    "gender_ratio": 255
+  },
+  {
+    "id": "scizor",
+    "name": "Scizor",
+    "dex_national": 212,
+    "gender_ratio": 127
+  },
+  {
+    "id": "shuckle",
+    "name": "Shuckle",
+    "dex_national": 213,
+    "gender_ratio": 255
+  },
+  {
+    "id": "heracross",
+    "name": "Heracross",
+    "dex_national": 214,
+    "gender_ratio": 127
+  },
+  {
+    "id": "sneasel",
+    "name": "Sneasel",
+    "dex_national": 215,
+    "gender_ratio": 127
+  },
+  {
+    "id": "teddiursa",
+    "name": "Teddiursa",
+    "dex_national": 216,
+    "gender_ratio": 127
+  },
+  {
+    "id": "ursaring",
+    "name": "Ursaring",
+    "dex_national": 217,
+    "gender_ratio": 127
+  },
+  {
+    "id": "slugma",
+    "name": "Slugma",
+    "dex_national": 218,
+    "gender_ratio": 255
+  },
+  {
+    "id": "magcargo",
+    "name": "Magcargo",
+    "dex_national": 219,
+    "gender_ratio": 255
+  },
+  {
+    "id": "swinub",
+    "name": "Swinub",
+    "dex_national": 220,
+    "gender_ratio": 127
+  },
+  {
+    "id": "piloswine",
+    "name": "Piloswine",
+    "dex_national": 221,
+    "gender_ratio": 127
+  },
+  {
+    "id": "corsola",
+    "name": "Corsola",
+    "dex_national": 222,
+    "gender_ratio": 255
+  },
+  {
+    "id": "remoraid",
+    "name": "Remoraid",
+    "dex_national": 223,
+    "gender_ratio": 127
+  },
+  {
+    "id": "octillery",
+    "name": "Octillery",
+    "dex_national": 224,
+    "gender_ratio": 127
+  },
+  {
+    "id": "delibird",
+    "name": "Delibird",
+    "dex_national": 225,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mantine",
+    "name": "Mantine",
+    "dex_national": 226,
+    "gender_ratio": 127
+  },
+  {
+    "id": "skarmory",
+    "name": "Skarmory",
+    "dex_national": 227,
+    "gender_ratio": 255
+  },
+  {
+    "id": "houndour",
+    "name": "Houndour",
+    "dex_national": 228,
+    "gender_ratio": 255
+  },
+  {
+    "id": "houndoom",
+    "name": "Houndoom",
+    "dex_national": 229,
+    "gender_ratio": 255
+  },
+  {
+    "id": "kingdra",
+    "name": "Kingdra",
+    "dex_national": 230,
+    "gender_ratio": 255
+  },
+  {
+    "id": "phanpy",
+    "name": "Phanpy",
+    "dex_national": 231,
+    "gender_ratio": 255
+  },
+  {
+    "id": "donphan",
+    "name": "Donphan",
+    "dex_national": 232,
+    "gender_ratio": 255
+  },
+  {
+    "id": "porygon2",
+    "name": "Porygon2",
+    "dex_national": 233,
+    "gender_ratio": 255
+  },
+  {
+    "id": "stantler",
+    "name": "Stantler",
+    "dex_national": 234,
+    "gender_ratio": 127
+  },
+  {
+    "id": "smeargle",
+    "name": "Smeargle",
+    "dex_national": 235,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tyrogue",
+    "name": "Tyrogue",
+    "dex_national": 236,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hitmontop",
+    "name": "Hitmontop",
+    "dex_national": 237,
+    "gender_ratio": 255
+  },
+  {
+    "id": "smoochum",
+    "name": "Smoochum",
+    "dex_national": 238,
+    "gender_ratio": 255
+  },
+  {
+    "id": "elekid",
+    "name": "Elekid",
+    "dex_national": 239,
+    "gender_ratio": 63
+  },
+  {
+    "id": "magby",
+    "name": "Magby",
+    "dex_national": 240,
+    "gender_ratio": 63
+  },
+  {
+    "id": "miltank",
+    "name": "Miltank",
+    "dex_national": 241,
+    "gender_ratio": 255
+  },
+  {
+    "id": "blissey",
+    "name": "Blissey",
+    "dex_national": 242,
+    "gender_ratio": 254
+  },
+  {
+    "id": "raikou",
+    "name": "Raikou",
+    "dex_national": 243,
+    "gender_ratio": 255
+  },
+  {
+    "id": "entei",
+    "name": "Entei",
+    "dex_national": 244,
+    "gender_ratio": 255
+  },
+  {
+    "id": "suicune",
+    "name": "Suicune",
+    "dex_national": 245,
+    "gender_ratio": 255
+  },
+  {
+    "id": "larvitar",
+    "name": "Larvitar",
+    "dex_national": 246,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pupitar",
+    "name": "Pupitar",
+    "dex_national": 247,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tyranitar",
+    "name": "Tyranitar",
+    "dex_national": 248,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lugia",
+    "name": "Lugia",
+    "dex_national": 249,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ho_oh",
+    "name": "Ho-Oh",
+    "dex_national": 250,
+    "gender_ratio": 255
+  },
+  {
+    "id": "celebi",
+    "name": "Celebi",
+    "dex_national": 251,
+    "gender_ratio": 255
+  },
+  {
+    "id": "treecko",
+    "name": "Treecko",
+    "dex_national": 252,
+    "gender_ratio": 255
+  },
+  {
+    "id": "grovyle",
+    "name": "Grovyle",
+    "dex_national": 253,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sceptile",
+    "name": "Sceptile",
+    "dex_national": 254,
+    "gender_ratio": 255
+  },
+  {
+    "id": "torchic",
+    "name": "Torchic",
+    "dex_national": 255,
+    "gender_ratio": 255
+  },
+  {
+    "id": "combusken",
+    "name": "Combusken",
+    "dex_national": 256,
+    "gender_ratio": 255
+  },
+  {
+    "id": "blaziken",
+    "name": "Blaziken",
+    "dex_national": 257,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mudkip",
+    "name": "Mudkip",
+    "dex_national": 258,
+    "gender_ratio": 255
+  },
+  {
+    "id": "marshtomp",
+    "name": "Marshtomp",
+    "dex_national": 259,
+    "gender_ratio": 255
+  },
+  {
+    "id": "swampert",
+    "name": "Swampert",
+    "dex_national": 260,
+    "gender_ratio": 255
+  },
+  {
+    "id": "poochyena",
+    "name": "Poochyena",
+    "dex_national": 261,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mightyena",
+    "name": "Mightyena",
+    "dex_national": 262,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zigzagoon",
+    "name": "Zigzagoon",
+    "dex_national": 263,
+    "gender_ratio": 255
+  },
+  {
+    "id": "linoone",
+    "name": "Linoone",
+    "dex_national": 264,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wurmple",
+    "name": "Wurmple",
+    "dex_national": 265,
+    "gender_ratio": 127
+  },
+  {
+    "id": "silcoon",
+    "name": "Silcoon",
+    "dex_national": 266,
+    "gender_ratio": 127
+  },
+  {
+    "id": "beautifly",
+    "name": "Beautifly",
+    "dex_national": 267,
+    "gender_ratio": 127
+  },
+  {
+    "id": "cascoon",
+    "name": "Cascoon",
+    "dex_national": 268,
+    "gender_ratio": 127
+  },
+  {
+    "id": "dustox",
+    "name": "Dustox",
+    "dex_national": 269,
+    "gender_ratio": 127
+  },
+  {
+    "id": "lotad",
+    "name": "Lotad",
+    "dex_national": 270,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lombre",
+    "name": "Lombre",
+    "dex_national": 271,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ludicolo",
+    "name": "Ludicolo",
+    "dex_national": 272,
+    "gender_ratio": 255
+  },
+  {
+    "id": "seedot",
+    "name": "Seedot",
+    "dex_national": 273,
+    "gender_ratio": 255
+  },
+  {
+    "id": "nuzleaf",
+    "name": "Nuzleaf",
+    "dex_national": 274,
+    "gender_ratio": 255
+  },
+  {
+    "id": "shiftry",
+    "name": "Shiftry",
+    "dex_national": 275,
+    "gender_ratio": 255
+  },
+  {
+    "id": "taillow",
+    "name": "Taillow",
+    "dex_national": 276,
+    "gender_ratio": 255
+  },
+  {
+    "id": "swellow",
+    "name": "Swellow",
+    "dex_national": 277,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wingull",
+    "name": "Wingull",
+    "dex_national": 278,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pelipper",
+    "name": "Pelipper",
+    "dex_national": 279,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ralts",
+    "name": "Ralts",
+    "dex_national": 280,
+    "gender_ratio": 127
+  },
+  {
+    "id": "kirlia",
+    "name": "Kirlia",
+    "dex_national": 281,
+    "gender_ratio": 127
+  },
+  {
+    "id": "gardevoir",
+    "name": "Gardevoir",
+    "dex_national": 282,
+    "gender_ratio": 127
+  },
+  {
+    "id": "surskit",
+    "name": "Surskit",
+    "dex_national": 283,
+    "gender_ratio": 255
+  },
+  {
+    "id": "masquerain",
+    "name": "Masquerain",
+    "dex_national": 284,
+    "gender_ratio": 255
+  },
+  {
+    "id": "shroomish",
+    "name": "Shroomish",
+    "dex_national": 285,
+    "gender_ratio": 255
+  },
+  {
+    "id": "breloom",
+    "name": "Breloom",
+    "dex_national": 286,
+    "gender_ratio": 255
+  },
+  {
+    "id": "slakoth",
+    "name": "Slakoth",
+    "dex_national": 287,
+    "gender_ratio": 255
+  },
+  {
+    "id": "vigoroth",
+    "name": "Vigoroth",
+    "dex_national": 288,
+    "gender_ratio": 255
+  },
+  {
+    "id": "slaking",
+    "name": "Slaking",
+    "dex_national": 289,
+    "gender_ratio": 255
+  },
+  {
+    "id": "nincada",
+    "name": "Nincada",
+    "dex_national": 290,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ninjask",
+    "name": "Ninjask",
+    "dex_national": 291,
+    "gender_ratio": 255
+  },
+  {
+    "id": "shedinja",
+    "name": "Shedinja",
+    "dex_national": 292,
+    "gender_ratio": 255
+  },
+  {
+    "id": "whismur",
+    "name": "Whismur",
+    "dex_national": 293,
+    "gender_ratio": 255
+  },
+  {
+    "id": "loudred",
+    "name": "Loudred",
+    "dex_national": 294,
+    "gender_ratio": 255
+  },
+  {
+    "id": "exploud",
+    "name": "Exploud",
+    "dex_national": 295,
+    "gender_ratio": 255
+  },
+  {
+    "id": "makuhita",
+    "name": "Makuhita",
+    "dex_national": 296,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hariyama",
+    "name": "Hariyama",
+    "dex_national": 297,
+    "gender_ratio": 255
+  },
+  {
+    "id": "azurill",
+    "name": "Azurill",
+    "dex_national": 298,
+    "gender_ratio": 255
+  },
+  {
+    "id": "nosepass",
+    "name": "Nosepass",
+    "dex_national": 299,
+    "gender_ratio": 127
+  },
+  {
+    "id": "skitty",
+    "name": "Skitty",
+    "dex_national": 300,
+    "gender_ratio": 255
+  },
+  {
+    "id": "delcatty",
+    "name": "Delcatty",
+    "dex_national": 301,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sableye",
+    "name": "Sableye",
+    "dex_national": 302,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mawile",
+    "name": "Mawile",
+    "dex_national": 303,
+    "gender_ratio": 255
+  },
+  {
+    "id": "aron",
+    "name": "Aron",
+    "dex_national": 304,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lairon",
+    "name": "Lairon",
+    "dex_national": 305,
+    "gender_ratio": 255
+  },
+  {
+    "id": "aggron",
+    "name": "Aggron",
+    "dex_national": 306,
+    "gender_ratio": 255
+  },
+  {
+    "id": "meditite",
+    "name": "Meditite",
+    "dex_national": 307,
+    "gender_ratio": 255
+  },
+  {
+    "id": "medicham",
+    "name": "Medicham",
+    "dex_national": 308,
+    "gender_ratio": 255
+  },
+  {
+    "id": "electrike",
+    "name": "Electrike",
+    "dex_national": 309,
+    "gender_ratio": 255
+  },
+  {
+    "id": "manectric",
+    "name": "Manectric",
+    "dex_national": 310,
+    "gender_ratio": 255
+  },
+  {
+    "id": "plusle",
+    "name": "Plusle",
+    "dex_national": 311,
+    "gender_ratio": 255
+  },
+  {
+    "id": "minun",
+    "name": "Minun",
+    "dex_national": 312,
+    "gender_ratio": 255
+  },
+  {
+    "id": "volbeat",
+    "name": "Volbeat",
+    "dex_national": 313,
+    "gender_ratio": 255
+  },
+  {
+    "id": "illumise",
+    "name": "Illumise",
+    "dex_national": 314,
+    "gender_ratio": 255
+  },
+  {
+    "id": "roselia",
+    "name": "Roselia",
+    "dex_national": 315,
+    "gender_ratio": 127
+  },
+  {
+    "id": "gulpin",
+    "name": "Gulpin",
+    "dex_national": 316,
+    "gender_ratio": 255
+  },
+  {
+    "id": "swalot",
+    "name": "Swalot",
+    "dex_national": 317,
+    "gender_ratio": 255
+  },
+  {
+    "id": "carvanha",
+    "name": "Carvanha",
+    "dex_national": 318,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sharpedo",
+    "name": "Sharpedo",
+    "dex_national": 319,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wailmer",
+    "name": "Wailmer",
+    "dex_national": 320,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wailord",
+    "name": "Wailord",
+    "dex_national": 321,
+    "gender_ratio": 255
+  },
+  {
+    "id": "numel",
+    "name": "Numel",
+    "dex_national": 322,
+    "gender_ratio": 255
+  },
+  {
+    "id": "camerupt",
+    "name": "Camerupt",
+    "dex_national": 323,
+    "gender_ratio": 255
+  },
+  {
+    "id": "torkoal",
+    "name": "Torkoal",
+    "dex_national": 324,
+    "gender_ratio": 255
+  },
+  {
+    "id": "spoink",
+    "name": "Spoink",
+    "dex_national": 325,
+    "gender_ratio": 255
+  },
+  {
+    "id": "grumpig",
+    "name": "Grumpig",
+    "dex_national": 326,
+    "gender_ratio": 255
+  },
+  {
+    "id": "spinda",
+    "name": "Spinda",
+    "dex_national": 327,
+    "gender_ratio": 255
+  },
+  {
+    "id": "trapinch",
+    "name": "Trapinch",
+    "dex_national": 328,
+    "gender_ratio": 255
+  },
+  {
+    "id": "vibrava",
+    "name": "Vibrava",
+    "dex_national": 329,
+    "gender_ratio": 255
+  },
+  {
+    "id": "flygon",
+    "name": "Flygon",
+    "dex_national": 330,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cacnea",
+    "name": "Cacnea",
+    "dex_national": 331,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cacturne",
+    "name": "Cacturne",
+    "dex_national": 332,
+    "gender_ratio": 255
+  },
+  {
+    "id": "swablu",
+    "name": "Swablu",
+    "dex_national": 333,
+    "gender_ratio": 255
+  },
+  {
+    "id": "altaria",
+    "name": "Altaria",
+    "dex_national": 334,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zangoose",
+    "name": "Zangoose",
+    "dex_national": 335,
+    "gender_ratio": 255
+  },
+  {
+    "id": "seviper",
+    "name": "Seviper",
+    "dex_national": 336,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lunatone",
+    "name": "Lunatone",
+    "dex_national": 337,
+    "gender_ratio": 255
+  },
+  {
+    "id": "solrock",
+    "name": "Solrock",
+    "dex_national": 338,
+    "gender_ratio": 255
+  },
+  {
+    "id": "barboach",
+    "name": "Barboach",
+    "dex_national": 339,
+    "gender_ratio": 127
+  },
+  {
+    "id": "whiscash",
+    "name": "Whiscash",
+    "dex_national": 340,
+    "gender_ratio": 127
+  },
+  {
+    "id": "corphish",
+    "name": "Corphish",
+    "dex_national": 341,
+    "gender_ratio": 255
+  },
+  {
+    "id": "crawdaunt",
+    "name": "Crawdaunt",
+    "dex_national": 342,
+    "gender_ratio": 255
+  },
+  {
+    "id": "baltoy",
+    "name": "Baltoy",
+    "dex_national": 343,
+    "gender_ratio": 255
+  },
+  {
+    "id": "claydol",
+    "name": "Claydol",
+    "dex_national": 344,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lileep",
+    "name": "Lileep",
+    "dex_national": 345,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cradily",
+    "name": "Cradily",
+    "dex_national": 346,
+    "gender_ratio": 255
+  },
+  {
+    "id": "anorith",
+    "name": "Anorith",
+    "dex_national": 347,
+    "gender_ratio": 255
+  },
+  {
+    "id": "armaldo",
+    "name": "Armaldo",
+    "dex_national": 348,
+    "gender_ratio": 255
+  },
+  {
+    "id": "feebas",
+    "name": "Feebas",
+    "dex_national": 349,
+    "gender_ratio": 255
+  },
+  {
+    "id": "milotic",
+    "name": "Milotic",
+    "dex_national": 350,
+    "gender_ratio": 255
+  },
+  {
+    "id": "castform",
+    "name": "Castform",
+    "dex_national": 351,
+    "gender_ratio": 255
+  },
+  {
+    "id": "kecleon",
+    "name": "Kecleon",
+    "dex_national": 352,
+    "gender_ratio": 255
+  },
+  {
+    "id": "shuppet",
+    "name": "Shuppet",
+    "dex_national": 353,
+    "gender_ratio": 255
+  },
+  {
+    "id": "banette",
+    "name": "Banette",
+    "dex_national": 354,
+    "gender_ratio": 255
+  },
+  {
+    "id": "duskull",
+    "name": "Duskull",
+    "dex_national": 355,
+    "gender_ratio": 127
+  },
+  {
+    "id": "dusclops",
+    "name": "Dusclops",
+    "dex_national": 356,
+    "gender_ratio": 127
+  },
+  {
+    "id": "tropius",
+    "name": "Tropius",
+    "dex_national": 357,
+    "gender_ratio": 255
+  },
+  {
+    "id": "chimecho",
+    "name": "Chimecho",
+    "dex_national": 358,
+    "gender_ratio": 127
+  },
+  {
+    "id": "absol",
+    "name": "Absol",
+    "dex_national": 359,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wynaut",
+    "name": "Wynaut",
+    "dex_national": 360,
+    "gender_ratio": 255
+  },
+  {
+    "id": "snorunt",
+    "name": "Snorunt",
+    "dex_national": 361,
+    "gender_ratio": 127
+  },
+  {
+    "id": "glalie",
+    "name": "Glalie",
+    "dex_national": 362,
+    "gender_ratio": 127
+  },
+  {
+    "id": "spheal",
+    "name": "Spheal",
+    "dex_national": 363,
+    "gender_ratio": 127
+  },
+  {
+    "id": "sealeo",
+    "name": "Sealeo",
+    "dex_national": 364,
+    "gender_ratio": 127
+  },
+  {
+    "id": "walrein",
+    "name": "Walrein",
+    "dex_national": 365,
+    "gender_ratio": 127
+  },
+  {
+    "id": "clamperl",
+    "name": "Clamperl",
+    "dex_national": 366,
+    "gender_ratio": 255
+  },
+  {
+    "id": "huntail",
+    "name": "Huntail",
+    "dex_national": 367,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gorebyss",
+    "name": "Gorebyss",
+    "dex_national": 368,
+    "gender_ratio": 255
+  },
+  {
+    "id": "relicanth",
+    "name": "Relicanth",
+    "dex_national": 369,
+    "gender_ratio": 255
+  },
+  {
+    "id": "luvdisc",
+    "name": "Luvdisc",
+    "dex_national": 370,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bagon",
+    "name": "Bagon",
+    "dex_national": 371,
+    "gender_ratio": 255
+  },
+  {
+    "id": "shelgon",
+    "name": "Shelgon",
+    "dex_national": 372,
+    "gender_ratio": 255
+  },
+  {
+    "id": "salamence",
+    "name": "Salamence",
+    "dex_national": 373,
+    "gender_ratio": 255
+  },
+  {
+    "id": "beldum",
+    "name": "Beldum",
+    "dex_national": 374,
+    "gender_ratio": 255
+  },
+  {
+    "id": "metang",
+    "name": "Metang",
+    "dex_national": 375,
+    "gender_ratio": 255
+  },
+  {
+    "id": "metagross",
+    "name": "Metagross",
+    "dex_national": 376,
+    "gender_ratio": 255
+  },
+  {
+    "id": "regirock",
+    "name": "Regirock",
+    "dex_national": 377,
+    "gender_ratio": 255
+  },
+  {
+    "id": "regice",
+    "name": "Regice",
+    "dex_national": 378,
+    "gender_ratio": 255
+  },
+  {
+    "id": "registeel",
+    "name": "Registeel",
+    "dex_national": 379,
+    "gender_ratio": 255
+  },
+  {
+    "id": "latias",
+    "name": "Latias",
+    "dex_national": 380,
+    "gender_ratio": 255
+  },
+  {
+    "id": "latios",
+    "name": "Latios",
+    "dex_national": 381,
+    "gender_ratio": 255
+  },
+  {
+    "id": "kyogre",
+    "name": "Kyogre",
+    "dex_national": 382,
+    "gender_ratio": 255
+  },
+  {
+    "id": "groudon",
+    "name": "Groudon",
+    "dex_national": 383,
+    "gender_ratio": 255
+  },
+  {
+    "id": "rayquaza",
+    "name": "Rayquaza",
+    "dex_national": 384,
+    "gender_ratio": 255
+  },
+  {
+    "id": "jirachi",
+    "name": "Jirachi",
+    "dex_national": 385,
+    "gender_ratio": 255
+  },
+  {
+    "id": "deoxys",
+    "name": "Deoxys",
+    "dex_national": 386,
+    "gender_ratio": 255
+  },
+  {
+    "id": "turtwig",
+    "name": "Turtwig",
+    "dex_national": 387,
+    "gender_ratio": 31
+  },
+  {
+    "id": "grotle",
+    "name": "Grotle",
+    "dex_national": 388,
+    "gender_ratio": 31
+  },
+  {
+    "id": "torterra",
+    "name": "Torterra",
+    "dex_national": 389,
+    "gender_ratio": 31
+  },
+  {
+    "id": "chimchar",
+    "name": "Chimchar",
+    "dex_national": 390,
+    "gender_ratio": 31
+  },
+  {
+    "id": "monferno",
+    "name": "Monferno",
+    "dex_national": 391,
+    "gender_ratio": 31
+  },
+  {
+    "id": "infernape",
+    "name": "Infernape",
+    "dex_national": 392,
+    "gender_ratio": 31
+  },
+  {
+    "id": "piplup",
+    "name": "Piplup",
+    "dex_national": 393,
+    "gender_ratio": 31
+  },
+  {
+    "id": "prinplup",
+    "name": "Prinplup",
+    "dex_national": 394,
+    "gender_ratio": 31
+  },
+  {
+    "id": "empoleon",
+    "name": "Empoleon",
+    "dex_national": 395,
+    "gender_ratio": 31
+  },
+  {
+    "id": "starly",
+    "name": "Starly",
+    "dex_national": 396,
+    "gender_ratio": 127
+  },
+  {
+    "id": "staravia",
+    "name": "Staravia",
+    "dex_national": 397,
+    "gender_ratio": 127
+  },
+  {
+    "id": "staraptor",
+    "name": "Staraptor",
+    "dex_national": 398,
+    "gender_ratio": 127
+  },
+  {
+    "id": "bidoof",
+    "name": "Bidoof",
+    "dex_national": 399,
+    "gender_ratio": 127
+  },
+  {
+    "id": "bibarel",
+    "name": "Bibarel",
+    "dex_national": 400,
+    "gender_ratio": 127
+  },
+  {
+    "id": "kricketot",
+    "name": "Kricketot",
+    "dex_national": 401,
+    "gender_ratio": 127
+  },
+  {
+    "id": "kricketune",
+    "name": "Kricketune",
+    "dex_national": 402,
+    "gender_ratio": 127
+  },
+  {
+    "id": "shinx",
+    "name": "Shinx",
+    "dex_national": 403,
+    "gender_ratio": 127
+  },
+  {
+    "id": "luxio",
+    "name": "Luxio",
+    "dex_national": 404,
+    "gender_ratio": 127
+  },
+  {
+    "id": "luxray",
+    "name": "Luxray",
+    "dex_national": 405,
+    "gender_ratio": 127
+  },
+  {
+    "id": "budew",
+    "name": "Budew",
+    "dex_national": 406,
+    "gender_ratio": 127
+  },
+  {
+    "id": "roserade",
+    "name": "Roserade",
+    "dex_national": 407,
+    "gender_ratio": 127
+  },
+  {
+    "id": "cranidos",
+    "name": "Cranidos",
+    "dex_national": 408,
+    "gender_ratio": 31
+  },
+  {
+    "id": "rampardos",
+    "name": "Rampardos",
+    "dex_national": 409,
+    "gender_ratio": 31
+  },
+  {
+    "id": "shieldon",
+    "name": "Shieldon",
+    "dex_national": 410,
+    "gender_ratio": 31
+  },
+  {
+    "id": "bastiodon",
+    "name": "Bastiodon",
+    "dex_national": 411,
+    "gender_ratio": 31
+  },
+  {
+    "id": "burmy",
+    "name": "Burmy",
+    "dex_national": 412,
+    "gender_ratio": 127
+  },
+  {
+    "id": "wormadam",
+    "name": "Wormadam",
+    "dex_national": 413,
+    "gender_ratio": 254
+  },
+  {
+    "id": "mothim",
+    "name": "Mothim",
+    "dex_national": 414,
+    "gender_ratio": 0
+  },
+  {
+    "id": "combee",
+    "name": "Combee",
+    "dex_national": 415,
+    "gender_ratio": 31
+  },
+  {
+    "id": "vespiquen",
+    "name": "Vespiquen",
+    "dex_national": 416,
+    "gender_ratio": 254
+  },
+  {
+    "id": "pachirisu",
+    "name": "Pachirisu",
+    "dex_national": 417,
+    "gender_ratio": 127
+  },
+  {
+    "id": "buizel",
+    "name": "Buizel",
+    "dex_national": 418,
+    "gender_ratio": 127
+  },
+  {
+    "id": "floatzel",
+    "name": "Floatzel",
+    "dex_national": 419,
+    "gender_ratio": 127
+  },
+  {
+    "id": "cherubi",
+    "name": "Cherubi",
+    "dex_national": 420,
+    "gender_ratio": 127
+  },
+  {
+    "id": "cherrim",
+    "name": "Cherrim",
+    "dex_national": 421,
+    "gender_ratio": 127
+  },
+  {
+    "id": "shellos",
+    "name": "Shellos",
+    "dex_national": 422,
+    "gender_ratio": 127
+  },
+  {
+    "id": "gastrodon",
+    "name": "Gastrodon",
+    "dex_national": 423,
+    "gender_ratio": 127
+  },
+  {
+    "id": "ambipom",
+    "name": "Ambipom",
+    "dex_national": 424,
+    "gender_ratio": 127
+  },
+  {
+    "id": "drifloon",
+    "name": "Drifloon",
+    "dex_national": 425,
+    "gender_ratio": 127
+  },
+  {
+    "id": "drifblim",
+    "name": "Drifblim",
+    "dex_national": 426,
+    "gender_ratio": 127
+  },
+  {
+    "id": "buneary",
+    "name": "Buneary",
+    "dex_national": 427,
+    "gender_ratio": 127
+  },
+  {
+    "id": "lopunny",
+    "name": "Lopunny",
+    "dex_national": 428,
+    "gender_ratio": 127
+  },
+  {
+    "id": "mismagius",
+    "name": "Mismagius",
+    "dex_national": 429,
+    "gender_ratio": 127
+  },
+  {
+    "id": "honchkrow",
+    "name": "Honchkrow",
+    "dex_national": 430,
+    "gender_ratio": 127
+  },
+  {
+    "id": "glameow",
+    "name": "Glameow",
+    "dex_national": 431,
+    "gender_ratio": 191
+  },
+  {
+    "id": "purugly",
+    "name": "Purugly",
+    "dex_national": 432,
+    "gender_ratio": 191
+  },
+  {
+    "id": "chingling",
+    "name": "Chingling",
+    "dex_national": 433,
+    "gender_ratio": 127
+  },
+  {
+    "id": "stunky",
+    "name": "Stunky",
+    "dex_national": 434,
+    "gender_ratio": 127
+  },
+  {
+    "id": "skuntank",
+    "name": "Skuntank",
+    "dex_national": 435,
+    "gender_ratio": 127
+  },
+  {
+    "id": "bronzor",
+    "name": "Bronzor",
+    "dex_national": 436,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bronzong",
+    "name": "Bronzong",
+    "dex_national": 437,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bonsly",
+    "name": "Bonsly",
+    "dex_national": 438,
+    "gender_ratio": 127
+  },
+  {
+    "id": "mime_jr",
+    "name": "Mime Jr.",
+    "dex_national": 439,
+    "gender_ratio": 127
+  },
+  {
+    "id": "happiny",
+    "name": "Happiny",
+    "dex_national": 440,
+    "gender_ratio": 254
+  },
+  {
+    "id": "chatot",
+    "name": "Chatot",
+    "dex_national": 441,
+    "gender_ratio": 127
+  },
+  {
+    "id": "spiritomb",
+    "name": "Spiritomb",
+    "dex_national": 442,
+    "gender_ratio": 127
+  },
+  {
+    "id": "gible",
+    "name": "Gible",
+    "dex_national": 443,
+    "gender_ratio": 127
+  },
+  {
+    "id": "gabite",
+    "name": "Gabite",
+    "dex_national": 444,
+    "gender_ratio": 127
+  },
+  {
+    "id": "garchomp",
+    "name": "Garchomp",
+    "dex_national": 445,
+    "gender_ratio": 127
+  },
+  {
+    "id": "munchlax",
+    "name": "Munchlax",
+    "dex_national": 446,
+    "gender_ratio": 31
+  },
+  {
+    "id": "riolu",
+    "name": "Riolu",
+    "dex_national": 447,
+    "gender_ratio": 31
+  },
+  {
+    "id": "lucario",
+    "name": "Lucario",
+    "dex_national": 448,
+    "gender_ratio": 31
+  },
+  {
+    "id": "hippopotas",
+    "name": "Hippopotas",
+    "dex_national": 449,
+    "gender_ratio": 127
+  },
+  {
+    "id": "hippowdon",
+    "name": "Hippowdon",
+    "dex_national": 450,
+    "gender_ratio": 127
+  },
+  {
+    "id": "skorupi",
+    "name": "Skorupi",
+    "dex_national": 451,
+    "gender_ratio": 127
+  },
+  {
+    "id": "drapion",
+    "name": "Drapion",
+    "dex_national": 452,
+    "gender_ratio": 127
+  },
+  {
+    "id": "croagunk",
+    "name": "Croagunk",
+    "dex_national": 453,
+    "gender_ratio": 127
+  },
+  {
+    "id": "toxicroak",
+    "name": "Toxicroak",
+    "dex_national": 454,
+    "gender_ratio": 127
+  },
+  {
+    "id": "carnivine",
+    "name": "Carnivine",
+    "dex_national": 455,
+    "gender_ratio": 127
+  },
+  {
+    "id": "finneon",
+    "name": "Finneon",
+    "dex_national": 456,
+    "gender_ratio": 127
+  },
+  {
+    "id": "lumineon",
+    "name": "Lumineon",
+    "dex_national": 457,
+    "gender_ratio": 127
+  },
+  {
+    "id": "mantyke",
+    "name": "Mantyke",
+    "dex_national": 458,
+    "gender_ratio": 127
+  },
+  {
+    "id": "snover",
+    "name": "Snover",
+    "dex_national": 459,
+    "gender_ratio": 127
+  },
+  {
+    "id": "abomasnow",
+    "name": "Abomasnow",
+    "dex_national": 460,
+    "gender_ratio": 127
+  },
+  {
+    "id": "weavile",
+    "name": "Weavile",
+    "dex_national": 461,
+    "gender_ratio": 127
+  },
+  {
+    "id": "magnezone",
+    "name": "Magnezone",
+    "dex_national": 462,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lickilicky",
+    "name": "Lickilicky",
+    "dex_national": 463,
+    "gender_ratio": 127
+  },
+  {
+    "id": "rhyperior",
+    "name": "Rhyperior",
+    "dex_national": 464,
+    "gender_ratio": 127
+  },
+  {
+    "id": "tangrowth",
+    "name": "Tangrowth",
+    "dex_national": 465,
+    "gender_ratio": 127
+  },
+  {
+    "id": "electivire",
+    "name": "Electivire",
+    "dex_national": 466,
+    "gender_ratio": 63
+  },
+  {
+    "id": "magmortar",
+    "name": "Magmortar",
+    "dex_national": 467,
+    "gender_ratio": 63
+  },
+  {
+    "id": "togekiss",
+    "name": "Togekiss",
+    "dex_national": 468,
+    "gender_ratio": 31
+  },
+  {
+    "id": "yanmega",
+    "name": "Yanmega",
+    "dex_national": 469,
+    "gender_ratio": 127
+  },
+  {
+    "id": "leafeon",
+    "name": "Leafeon",
+    "dex_national": 470,
+    "gender_ratio": 31
+  },
+  {
+    "id": "glaceon",
+    "name": "Glaceon",
+    "dex_national": 471,
+    "gender_ratio": 31
+  },
+  {
+    "id": "gliscor",
+    "name": "Gliscor",
+    "dex_national": 472,
+    "gender_ratio": 127
+  },
+  {
+    "id": "mamoswine",
+    "name": "Mamoswine",
+    "dex_national": 473,
+    "gender_ratio": 127
+  },
+  {
+    "id": "porygon_z",
+    "name": "Porygon-Z",
+    "dex_national": 474,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gallade",
+    "name": "Gallade",
+    "dex_national": 475,
+    "gender_ratio": 0
+  },
+  {
+    "id": "probopass",
+    "name": "Probopass",
+    "dex_national": 476,
+    "gender_ratio": 127
+  },
+  {
+    "id": "dusknoir",
+    "name": "Dusknoir",
+    "dex_national": 477,
+    "gender_ratio": 127
+  },
+  {
+    "id": "froslass",
+    "name": "Froslass",
+    "dex_national": 478,
+    "gender_ratio": 254
+  },
+  {
+    "id": "rotom",
+    "name": "Rotom",
+    "dex_national": 479,
+    "gender_ratio": 255
+  },
+  {
+    "id": "uxie",
+    "name": "Uxie",
+    "dex_national": 480,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mesprit",
+    "name": "Mesprit",
+    "dex_national": 481,
+    "gender_ratio": 255
+  },
+  {
+    "id": "azelf",
+    "name": "Azelf",
+    "dex_national": 482,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dialga",
+    "name": "Dialga",
+    "dex_national": 483,
+    "gender_ratio": 255
+  },
+  {
+    "id": "palkia",
+    "name": "Palkia",
+    "dex_national": 484,
+    "gender_ratio": 255
+  },
+  {
+    "id": "heatran",
+    "name": "Heatran",
+    "dex_national": 485,
+    "gender_ratio": 127
+  },
+  {
+    "id": "regigigas",
+    "name": "Regigigas",
+    "dex_national": 486,
+    "gender_ratio": 255
+  },
+  {
+    "id": "giratina",
+    "name": "Giratina",
+    "dex_national": 487,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cresselia",
+    "name": "Cresselia",
+    "dex_national": 488,
+    "gender_ratio": 254
+  },
+  {
+    "id": "phione",
+    "name": "Phione",
+    "dex_national": 489,
+    "gender_ratio": 255
+  },
+  {
+    "id": "manaphy",
+    "name": "Manaphy",
+    "dex_national": 490,
+    "gender_ratio": 255
+  },
+  {
+    "id": "darkrai",
+    "name": "Darkrai",
+    "dex_national": 491,
+    "gender_ratio": 255
+  },
+  {
+    "id": "shaymin",
+    "name": "Shaymin",
+    "dex_national": 492,
+    "gender_ratio": 255
+  },
+  {
+    "id": "arceus",
+    "name": "Arceus",
+    "dex_national": 493,
+    "gender_ratio": 255
+  },
+  {
+    "id": "victini",
+    "name": "Victini",
+    "dex_national": 494,
+    "gender_ratio": 255
+  },
+  {
+    "id": "snivy",
+    "name": "Snivy",
+    "dex_national": 495,
+    "gender_ratio": 255
+  },
+  {
+    "id": "servine",
+    "name": "Servine",
+    "dex_national": 496,
+    "gender_ratio": 255
+  },
+  {
+    "id": "serperior",
+    "name": "Serperior",
+    "dex_national": 497,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tepig",
+    "name": "Tepig",
+    "dex_national": 498,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pignite",
+    "name": "Pignite",
+    "dex_national": 499,
+    "gender_ratio": 255
+  },
+  {
+    "id": "emboar",
+    "name": "Emboar",
+    "dex_national": 500,
+    "gender_ratio": 255
+  },
+  {
+    "id": "oshawott",
+    "name": "Oshawott",
+    "dex_national": 501,
+    "gender_ratio": 31
+  },
+  {
+    "id": "dewott",
+    "name": "Dewott",
+    "dex_national": 502,
+    "gender_ratio": 31
+  },
+  {
+    "id": "samurott",
+    "name": "Samurott",
+    "dex_national": 503,
+    "gender_ratio": 255
+  },
+  {
+    "id": "patrat",
+    "name": "Patrat",
+    "dex_national": 504,
+    "gender_ratio": 255
+  },
+  {
+    "id": "watchog",
+    "name": "Watchog",
+    "dex_national": 505,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lillipup",
+    "name": "Lillipup",
+    "dex_national": 506,
+    "gender_ratio": 255
+  },
+  {
+    "id": "herdier",
+    "name": "Herdier",
+    "dex_national": 507,
+    "gender_ratio": 255
+  },
+  {
+    "id": "stoutland",
+    "name": "Stoutland",
+    "dex_national": 508,
+    "gender_ratio": 255
+  },
+  {
+    "id": "purrloin",
+    "name": "Purrloin",
+    "dex_national": 509,
+    "gender_ratio": 255
+  },
+  {
+    "id": "liepard",
+    "name": "Liepard",
+    "dex_national": 510,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pansage",
+    "name": "Pansage",
+    "dex_national": 511,
+    "gender_ratio": 255
+  },
+  {
+    "id": "simisage",
+    "name": "Simisage",
+    "dex_national": 512,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pansear",
+    "name": "Pansear",
+    "dex_national": 513,
+    "gender_ratio": 255
+  },
+  {
+    "id": "simisear",
+    "name": "Simisear",
+    "dex_national": 514,
+    "gender_ratio": 255
+  },
+  {
+    "id": "panpour",
+    "name": "Panpour",
+    "dex_national": 515,
+    "gender_ratio": 255
+  },
+  {
+    "id": "simipour",
+    "name": "Simipour",
+    "dex_national": 516,
+    "gender_ratio": 255
+  },
+  {
+    "id": "munna",
+    "name": "Munna",
+    "dex_national": 517,
+    "gender_ratio": 255
+  },
+  {
+    "id": "musharna",
+    "name": "Musharna",
+    "dex_national": 518,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pidove",
+    "name": "Pidove",
+    "dex_national": 519,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tranquill",
+    "name": "Tranquill",
+    "dex_national": 520,
+    "gender_ratio": 255
+  },
+  {
+    "id": "unfezant",
+    "name": "Unfezant",
+    "dex_national": 521,
+    "gender_ratio": 255
+  },
+  {
+    "id": "blitzle",
+    "name": "Blitzle",
+    "dex_national": 522,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zebstrika",
+    "name": "Zebstrika",
+    "dex_national": 523,
+    "gender_ratio": 255
+  },
+  {
+    "id": "roggenrola",
+    "name": "Roggenrola",
+    "dex_national": 524,
+    "gender_ratio": 255
+  },
+  {
+    "id": "boldore",
+    "name": "Boldore",
+    "dex_national": 525,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gigalith",
+    "name": "Gigalith",
+    "dex_national": 526,
+    "gender_ratio": 255
+  },
+  {
+    "id": "woobat",
+    "name": "Woobat",
+    "dex_national": 527,
+    "gender_ratio": 255
+  },
+  {
+    "id": "swoobat",
+    "name": "Swoobat",
+    "dex_national": 528,
+    "gender_ratio": 255
+  },
+  {
+    "id": "drilbur",
+    "name": "Drilbur",
+    "dex_national": 529,
+    "gender_ratio": 255
+  },
+  {
+    "id": "excadrill",
+    "name": "Excadrill",
+    "dex_national": 530,
+    "gender_ratio": 255
+  },
+  {
+    "id": "audino",
+    "name": "Audino",
+    "dex_national": 531,
+    "gender_ratio": 255
+  },
+  {
+    "id": "timburr",
+    "name": "Timburr",
+    "dex_national": 532,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gurdurr",
+    "name": "Gurdurr",
+    "dex_national": 533,
+    "gender_ratio": 255
+  },
+  {
+    "id": "conkeldurr",
+    "name": "Conkeldurr",
+    "dex_national": 534,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tympole",
+    "name": "Tympole",
+    "dex_national": 535,
+    "gender_ratio": 255
+  },
+  {
+    "id": "palpitoad",
+    "name": "Palpitoad",
+    "dex_national": 536,
+    "gender_ratio": 255
+  },
+  {
+    "id": "seismitoad",
+    "name": "Seismitoad",
+    "dex_national": 537,
+    "gender_ratio": 255
+  },
+  {
+    "id": "throh",
+    "name": "Throh",
+    "dex_national": 538,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sawk",
+    "name": "Sawk",
+    "dex_national": 539,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sewaddle",
+    "name": "Sewaddle",
+    "dex_national": 540,
+    "gender_ratio": 255
+  },
+  {
+    "id": "swadloon",
+    "name": "Swadloon",
+    "dex_national": 541,
+    "gender_ratio": 255
+  },
+  {
+    "id": "leavanny",
+    "name": "Leavanny",
+    "dex_national": 542,
+    "gender_ratio": 255
+  },
+  {
+    "id": "venipede",
+    "name": "Venipede",
+    "dex_national": 543,
+    "gender_ratio": 255
+  },
+  {
+    "id": "whirlipede",
+    "name": "Whirlipede",
+    "dex_national": 544,
+    "gender_ratio": 255
+  },
+  {
+    "id": "scolipede",
+    "name": "Scolipede",
+    "dex_national": 545,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cottonee",
+    "name": "Cottonee",
+    "dex_national": 546,
+    "gender_ratio": 255
+  },
+  {
+    "id": "whimsicott",
+    "name": "Whimsicott",
+    "dex_national": 547,
+    "gender_ratio": 255
+  },
+  {
+    "id": "petilil",
+    "name": "Petilil",
+    "dex_national": 548,
+    "gender_ratio": 254
+  },
+  {
+    "id": "lilligant",
+    "name": "Lilligant",
+    "dex_national": 549,
+    "gender_ratio": 255
+  },
+  {
+    "id": "basculin",
+    "name": "Basculin",
+    "dex_national": 550,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sandile",
+    "name": "Sandile",
+    "dex_national": 551,
+    "gender_ratio": 255
+  },
+  {
+    "id": "krokorok",
+    "name": "Krokorok",
+    "dex_national": 552,
+    "gender_ratio": 255
+  },
+  {
+    "id": "krookodile",
+    "name": "Krookodile",
+    "dex_national": 553,
+    "gender_ratio": 255
+  },
+  {
+    "id": "darumaka",
+    "name": "Darumaka",
+    "dex_national": 554,
+    "gender_ratio": 255
+  },
+  {
+    "id": "darmanitan",
+    "name": "Darmanitan",
+    "dex_national": 555,
+    "gender_ratio": 255
+  },
+  {
+    "id": "maractus",
+    "name": "Maractus",
+    "dex_national": 556,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dwebble",
+    "name": "Dwebble",
+    "dex_national": 557,
+    "gender_ratio": 255
+  },
+  {
+    "id": "crustle",
+    "name": "Crustle",
+    "dex_national": 558,
+    "gender_ratio": 255
+  },
+  {
+    "id": "scraggy",
+    "name": "Scraggy",
+    "dex_national": 559,
+    "gender_ratio": 255
+  },
+  {
+    "id": "scrafty",
+    "name": "Scrafty",
+    "dex_national": 560,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sigilyph",
+    "name": "Sigilyph",
+    "dex_national": 561,
+    "gender_ratio": 255
+  },
+  {
+    "id": "yamask",
+    "name": "Yamask",
+    "dex_national": 562,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cofagrigus",
+    "name": "Cofagrigus",
+    "dex_national": 563,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tirtouga",
+    "name": "Tirtouga",
+    "dex_national": 564,
+    "gender_ratio": 255
+  },
+  {
+    "id": "carracosta",
+    "name": "Carracosta",
+    "dex_national": 565,
+    "gender_ratio": 255
+  },
+  {
+    "id": "archen",
+    "name": "Archen",
+    "dex_national": 566,
+    "gender_ratio": 255
+  },
+  {
+    "id": "archeops",
+    "name": "Archeops",
+    "dex_national": 567,
+    "gender_ratio": 255
+  },
+  {
+    "id": "trubbish",
+    "name": "Trubbish",
+    "dex_national": 568,
+    "gender_ratio": 255
+  },
+  {
+    "id": "garbodor",
+    "name": "Garbodor",
+    "dex_national": 569,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zorua",
+    "name": "Zorua",
+    "dex_national": 570,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zoroark",
+    "name": "Zoroark",
+    "dex_national": 571,
+    "gender_ratio": 255
+  },
+  {
+    "id": "minccino",
+    "name": "Minccino",
+    "dex_national": 572,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cinccino",
+    "name": "Cinccino",
+    "dex_national": 573,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gothita",
+    "name": "Gothita",
+    "dex_national": 574,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gothorita",
+    "name": "Gothorita",
+    "dex_national": 575,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gothitelle",
+    "name": "Gothitelle",
+    "dex_national": 576,
+    "gender_ratio": 255
+  },
+  {
+    "id": "solosis",
+    "name": "Solosis",
+    "dex_national": 577,
+    "gender_ratio": 255
+  },
+  {
+    "id": "duosion",
+    "name": "Duosion",
+    "dex_national": 578,
+    "gender_ratio": 255
+  },
+  {
+    "id": "reuniclus",
+    "name": "Reuniclus",
+    "dex_national": 579,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ducklett",
+    "name": "Ducklett",
+    "dex_national": 580,
+    "gender_ratio": 255
+  },
+  {
+    "id": "swanna",
+    "name": "Swanna",
+    "dex_national": 581,
+    "gender_ratio": 255
+  },
+  {
+    "id": "vanillite",
+    "name": "Vanillite",
+    "dex_national": 582,
+    "gender_ratio": 255
+  },
+  {
+    "id": "vanillish",
+    "name": "Vanillish",
+    "dex_national": 583,
+    "gender_ratio": 255
+  },
+  {
+    "id": "vanilluxe",
+    "name": "Vanilluxe",
+    "dex_national": 584,
+    "gender_ratio": 255
+  },
+  {
+    "id": "deerling",
+    "name": "Deerling",
+    "dex_national": 585,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sawsbuck",
+    "name": "Sawsbuck",
+    "dex_national": 586,
+    "gender_ratio": 255
+  },
+  {
+    "id": "emolga",
+    "name": "Emolga",
+    "dex_national": 587,
+    "gender_ratio": 255
+  },
+  {
+    "id": "karrablast",
+    "name": "Karrablast",
+    "dex_national": 588,
+    "gender_ratio": 255
+  },
+  {
+    "id": "escavalier",
+    "name": "Escavalier",
+    "dex_national": 589,
+    "gender_ratio": 255
+  },
+  {
+    "id": "foongus",
+    "name": "Foongus",
+    "dex_national": 590,
+    "gender_ratio": 255
+  },
+  {
+    "id": "amoonguss",
+    "name": "Amoonguss",
+    "dex_national": 591,
+    "gender_ratio": 255
+  },
+  {
+    "id": "frillish",
+    "name": "Frillish",
+    "dex_national": 592,
+    "gender_ratio": 255
+  },
+  {
+    "id": "jellicent",
+    "name": "Jellicent",
+    "dex_national": 593,
+    "gender_ratio": 255
+  },
+  {
+    "id": "alomomola",
+    "name": "Alomomola",
+    "dex_national": 594,
+    "gender_ratio": 255
+  },
+  {
+    "id": "joltik",
+    "name": "Joltik",
+    "dex_national": 595,
+    "gender_ratio": 255
+  },
+  {
+    "id": "galvantula",
+    "name": "Galvantula",
+    "dex_national": 596,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ferroseed",
+    "name": "Ferroseed",
+    "dex_national": 597,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ferrothorn",
+    "name": "Ferrothorn",
+    "dex_national": 598,
+    "gender_ratio": 255
+  },
+  {
+    "id": "klink",
+    "name": "Klink",
+    "dex_national": 599,
+    "gender_ratio": 255
+  },
+  {
+    "id": "klang",
+    "name": "Klang",
+    "dex_national": 600,
+    "gender_ratio": 255
+  },
+  {
+    "id": "klinklang",
+    "name": "Klinklang",
+    "dex_national": 601,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tynamo",
+    "name": "Tynamo",
+    "dex_national": 602,
+    "gender_ratio": 255
+  },
+  {
+    "id": "eelektrik",
+    "name": "Eelektrik",
+    "dex_national": 603,
+    "gender_ratio": 255
+  },
+  {
+    "id": "eelektross",
+    "name": "Eelektross",
+    "dex_national": 604,
+    "gender_ratio": 255
+  },
+  {
+    "id": "elgyem",
+    "name": "Elgyem",
+    "dex_national": 605,
+    "gender_ratio": 255
+  },
+  {
+    "id": "beheeyem",
+    "name": "Beheeyem",
+    "dex_national": 606,
+    "gender_ratio": 255
+  },
+  {
+    "id": "litwick",
+    "name": "Litwick",
+    "dex_national": 607,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lampent",
+    "name": "Lampent",
+    "dex_national": 608,
+    "gender_ratio": 255
+  },
+  {
+    "id": "chandelure",
+    "name": "Chandelure",
+    "dex_national": 609,
+    "gender_ratio": 255
+  },
+  {
+    "id": "axew",
+    "name": "Axew",
+    "dex_national": 610,
+    "gender_ratio": 255
+  },
+  {
+    "id": "fraxure",
+    "name": "Fraxure",
+    "dex_national": 611,
+    "gender_ratio": 255
+  },
+  {
+    "id": "haxorus",
+    "name": "Haxorus",
+    "dex_national": 612,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cubchoo",
+    "name": "Cubchoo",
+    "dex_national": 613,
+    "gender_ratio": 255
+  },
+  {
+    "id": "beartic",
+    "name": "Beartic",
+    "dex_national": 614,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cryogonal",
+    "name": "Cryogonal",
+    "dex_national": 615,
+    "gender_ratio": 255
+  },
+  {
+    "id": "shelmet",
+    "name": "Shelmet",
+    "dex_national": 616,
+    "gender_ratio": 255
+  },
+  {
+    "id": "accelgor",
+    "name": "Accelgor",
+    "dex_national": 617,
+    "gender_ratio": 255
+  },
+  {
+    "id": "stunfisk",
+    "name": "Stunfisk",
+    "dex_national": 618,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mienfoo",
+    "name": "Mienfoo",
+    "dex_national": 619,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mienshao",
+    "name": "Mienshao",
+    "dex_national": 620,
+    "gender_ratio": 255
+  },
+  {
+    "id": "druddigon",
+    "name": "Druddigon",
+    "dex_national": 621,
+    "gender_ratio": 255
+  },
+  {
+    "id": "golett",
+    "name": "Golett",
+    "dex_national": 622,
+    "gender_ratio": 255
+  },
+  {
+    "id": "golurk",
+    "name": "Golurk",
+    "dex_national": 623,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pawniard",
+    "name": "Pawniard",
+    "dex_national": 624,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bisharp",
+    "name": "Bisharp",
+    "dex_national": 625,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bouffalant",
+    "name": "Bouffalant",
+    "dex_national": 626,
+    "gender_ratio": 255
+  },
+  {
+    "id": "rufflet",
+    "name": "Rufflet",
+    "dex_national": 627,
+    "gender_ratio": 0
+  },
+  {
+    "id": "braviary",
+    "name": "Braviary",
+    "dex_national": 628,
+    "gender_ratio": 255
+  },
+  {
+    "id": "vullaby",
+    "name": "Vullaby",
+    "dex_national": 629,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mandibuzz",
+    "name": "Mandibuzz",
+    "dex_national": 630,
+    "gender_ratio": 255
+  },
+  {
+    "id": "heatmor",
+    "name": "Heatmor",
+    "dex_national": 631,
+    "gender_ratio": 255
+  },
+  {
+    "id": "durant",
+    "name": "Durant",
+    "dex_national": 632,
+    "gender_ratio": 255
+  },
+  {
+    "id": "deino",
+    "name": "Deino",
+    "dex_national": 633,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zweilous",
+    "name": "Zweilous",
+    "dex_national": 634,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hydreigon",
+    "name": "Hydreigon",
+    "dex_national": 635,
+    "gender_ratio": 255
+  },
+  {
+    "id": "larvesta",
+    "name": "Larvesta",
+    "dex_national": 636,
+    "gender_ratio": 255
+  },
+  {
+    "id": "volcarona",
+    "name": "Volcarona",
+    "dex_national": 637,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cobalion",
+    "name": "Cobalion",
+    "dex_national": 638,
+    "gender_ratio": 255
+  },
+  {
+    "id": "terrakion",
+    "name": "Terrakion",
+    "dex_national": 639,
+    "gender_ratio": 255
+  },
+  {
+    "id": "virizion",
+    "name": "Virizion",
+    "dex_national": 640,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tornadus",
+    "name": "Tornadus",
+    "dex_national": 641,
+    "gender_ratio": 0
+  },
+  {
+    "id": "thundurus",
+    "name": "Thundurus",
+    "dex_national": 642,
+    "gender_ratio": 0
+  },
+  {
+    "id": "reshiram",
+    "name": "Reshiram",
+    "dex_national": 643,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zekrom",
+    "name": "Zekrom",
+    "dex_national": 644,
+    "gender_ratio": 255
+  },
+  {
+    "id": "landorus",
+    "name": "Landorus",
+    "dex_national": 645,
+    "gender_ratio": 0
+  },
+  {
+    "id": "kyurem",
+    "name": "Kyurem",
+    "dex_national": 646,
+    "gender_ratio": 255
+  },
+  {
+    "id": "keldeo",
+    "name": "Keldeo",
+    "dex_national": 647,
+    "gender_ratio": 255
+  },
+  {
+    "id": "meloetta",
+    "name": "Meloetta",
+    "dex_national": 648,
+    "gender_ratio": 255
+  },
+  {
+    "id": "genesect",
+    "name": "Genesect",
+    "dex_national": 649,
+    "gender_ratio": 255
+  },
+  {
+    "id": "chespin",
+    "name": "Chespin",
+    "dex_national": 650,
+    "gender_ratio": 255
+  },
+  {
+    "id": "quilladin",
+    "name": "Quilladin",
+    "dex_national": 651,
+    "gender_ratio": 255
+  },
+  {
+    "id": "chesnaught",
+    "name": "Chesnaught",
+    "dex_national": 652,
+    "gender_ratio": 255
+  },
+  {
+    "id": "fennekin",
+    "name": "Fennekin",
+    "dex_national": 653,
+    "gender_ratio": 255
+  },
+  {
+    "id": "braixen",
+    "name": "Braixen",
+    "dex_national": 654,
+    "gender_ratio": 255
+  },
+  {
+    "id": "delphox",
+    "name": "Delphox",
+    "dex_national": 655,
+    "gender_ratio": 255
+  },
+  {
+    "id": "froakie",
+    "name": "Froakie",
+    "dex_national": 656,
+    "gender_ratio": 255
+  },
+  {
+    "id": "frogadier",
+    "name": "Frogadier",
+    "dex_national": 657,
+    "gender_ratio": 255
+  },
+  {
+    "id": "greninja",
+    "name": "Greninja",
+    "dex_national": 658,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bunnelby",
+    "name": "Bunnelby",
+    "dex_national": 659,
+    "gender_ratio": 255
+  },
+  {
+    "id": "diggersby",
+    "name": "Diggersby",
+    "dex_national": 660,
+    "gender_ratio": 255
+  },
+  {
+    "id": "fletchling",
+    "name": "Fletchling",
+    "dex_national": 661,
+    "gender_ratio": 255
+  },
+  {
+    "id": "fletchinder",
+    "name": "Fletchinder",
+    "dex_national": 662,
+    "gender_ratio": 255
+  },
+  {
+    "id": "talonflame",
+    "name": "Talonflame",
+    "dex_national": 663,
+    "gender_ratio": 255
+  },
+  {
+    "id": "scatterbug",
+    "name": "Scatterbug",
+    "dex_national": 664,
+    "gender_ratio": 255
+  },
+  {
+    "id": "spewpa",
+    "name": "Spewpa",
+    "dex_national": 665,
+    "gender_ratio": 255
+  },
+  {
+    "id": "vivillon",
+    "name": "Vivillon",
+    "dex_national": 666,
+    "gender_ratio": 255
+  },
+  {
+    "id": "litleo",
+    "name": "Litleo",
+    "dex_national": 667,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pyroar",
+    "name": "Pyroar",
+    "dex_national": 668,
+    "gender_ratio": 255
+  },
+  {
+    "id": "flabebe",
+    "name": "Flabébé",
+    "dex_national": 669,
+    "gender_ratio": 255
+  },
+  {
+    "id": "floette",
+    "name": "Floette",
+    "dex_national": 670,
+    "gender_ratio": 255
+  },
+  {
+    "id": "florges",
+    "name": "Florges",
+    "dex_national": 671,
+    "gender_ratio": 255
+  },
+  {
+    "id": "skiddo",
+    "name": "Skiddo",
+    "dex_national": 672,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gogoat",
+    "name": "Gogoat",
+    "dex_national": 673,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pancham",
+    "name": "Pancham",
+    "dex_national": 674,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pangoro",
+    "name": "Pangoro",
+    "dex_national": 675,
+    "gender_ratio": 255
+  },
+  {
+    "id": "furfrou",
+    "name": "Furfrou",
+    "dex_national": 676,
+    "gender_ratio": 255
+  },
+  {
+    "id": "espurr",
+    "name": "Espurr",
+    "dex_national": 677,
+    "gender_ratio": 255
+  },
+  {
+    "id": "meowstic",
+    "name": "Meowstic",
+    "dex_national": 678,
+    "gender_ratio": 255
+  },
+  {
+    "id": "honedge",
+    "name": "Honedge",
+    "dex_national": 679,
+    "gender_ratio": 255
+  },
+  {
+    "id": "doublade",
+    "name": "Doublade",
+    "dex_national": 680,
+    "gender_ratio": 255
+  },
+  {
+    "id": "aegislash",
+    "name": "Aegislash",
+    "dex_national": 681,
+    "gender_ratio": 255
+  },
+  {
+    "id": "spritzee",
+    "name": "Spritzee",
+    "dex_national": 682,
+    "gender_ratio": 255
+  },
+  {
+    "id": "aromatisse",
+    "name": "Aromatisse",
+    "dex_national": 683,
+    "gender_ratio": 255
+  },
+  {
+    "id": "swirlix",
+    "name": "Swirlix",
+    "dex_national": 684,
+    "gender_ratio": 255
+  },
+  {
+    "id": "slurpuff",
+    "name": "Slurpuff",
+    "dex_national": 685,
+    "gender_ratio": 255
+  },
+  {
+    "id": "inkay",
+    "name": "Inkay",
+    "dex_national": 686,
+    "gender_ratio": 255
+  },
+  {
+    "id": "malamar",
+    "name": "Malamar",
+    "dex_national": 687,
+    "gender_ratio": 255
+  },
+  {
+    "id": "binacle",
+    "name": "Binacle",
+    "dex_national": 688,
+    "gender_ratio": 255
+  },
+  {
+    "id": "barbaracle",
+    "name": "Barbaracle",
+    "dex_national": 689,
+    "gender_ratio": 255
+  },
+  {
+    "id": "skrelp",
+    "name": "Skrelp",
+    "dex_national": 690,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dragalge",
+    "name": "Dragalge",
+    "dex_national": 691,
+    "gender_ratio": 255
+  },
+  {
+    "id": "clauncher",
+    "name": "Clauncher",
+    "dex_national": 692,
+    "gender_ratio": 255
+  },
+  {
+    "id": "clawitzer",
+    "name": "Clawitzer",
+    "dex_national": 693,
+    "gender_ratio": 255
+  },
+  {
+    "id": "helioptile",
+    "name": "Helioptile",
+    "dex_national": 694,
+    "gender_ratio": 255
+  },
+  {
+    "id": "heliolisk",
+    "name": "Heliolisk",
+    "dex_national": 695,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tyrunt",
+    "name": "Tyrunt",
+    "dex_national": 696,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tyrantrum",
+    "name": "Tyrantrum",
+    "dex_national": 697,
+    "gender_ratio": 255
+  },
+  {
+    "id": "amaura",
+    "name": "Amaura",
+    "dex_national": 698,
+    "gender_ratio": 255
+  },
+  {
+    "id": "aurorus",
+    "name": "Aurorus",
+    "dex_national": 699,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sylveon",
+    "name": "Sylveon",
+    "dex_national": 700,
+    "gender_ratio": 31
+  },
+  {
+    "id": "hawlucha",
+    "name": "Hawlucha",
+    "dex_national": 701,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dedenne",
+    "name": "Dedenne",
+    "dex_national": 702,
+    "gender_ratio": 255
+  },
+  {
+    "id": "carbink",
+    "name": "Carbink",
+    "dex_national": 703,
+    "gender_ratio": 255
+  },
+  {
+    "id": "goomy",
+    "name": "Goomy",
+    "dex_national": 704,
+    "gender_ratio": 127
+  },
+  {
+    "id": "sliggoo",
+    "name": "Sliggoo",
+    "dex_national": 705,
+    "gender_ratio": 255
+  },
+  {
+    "id": "goodra",
+    "name": "Goodra",
+    "dex_national": 706,
+    "gender_ratio": 255
+  },
+  {
+    "id": "klefki",
+    "name": "Klefki",
+    "dex_national": 707,
+    "gender_ratio": 255
+  },
+  {
+    "id": "phantump",
+    "name": "Phantump",
+    "dex_national": 708,
+    "gender_ratio": 255
+  },
+  {
+    "id": "trevenant",
+    "name": "Trevenant",
+    "dex_national": 709,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pumpkaboo",
+    "name": "Pumpkaboo",
+    "dex_national": 710,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gourgeist",
+    "name": "Gourgeist",
+    "dex_national": 711,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bergmite",
+    "name": "Bergmite",
+    "dex_national": 712,
+    "gender_ratio": 127
+  },
+  {
+    "id": "avalugg",
+    "name": "Avalugg",
+    "dex_national": 713,
+    "gender_ratio": 255
+  },
+  {
+    "id": "noibat",
+    "name": "Noibat",
+    "dex_national": 714,
+    "gender_ratio": 255
+  },
+  {
+    "id": "noivern",
+    "name": "Noivern",
+    "dex_national": 715,
+    "gender_ratio": 255
+  },
+  {
+    "id": "xerneas",
+    "name": "Xerneas",
+    "dex_national": 716,
+    "gender_ratio": 255
+  },
+  {
+    "id": "yveltal",
+    "name": "Yveltal",
+    "dex_national": 717,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zygarde",
+    "name": "Zygarde",
+    "dex_national": 718,
+    "gender_ratio": 255
+  },
+  {
+    "id": "diancie",
+    "name": "Diancie",
+    "dex_national": 719,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hoopa",
+    "name": "Hoopa",
+    "dex_national": 720,
+    "gender_ratio": 255
+  },
+  {
+    "id": "volcanion",
+    "name": "Volcanion",
+    "dex_national": 721,
+    "gender_ratio": 255
+  },
+  {
+    "id": "rowlet",
+    "name": "Rowlet",
+    "dex_national": 722,
+    "gender_ratio": 31
+  },
+  {
+    "id": "dartrix",
+    "name": "Dartrix",
+    "dex_national": 723,
+    "gender_ratio": 31
+  },
+  {
+    "id": "decidueye",
+    "name": "Decidueye",
+    "dex_national": 724,
+    "gender_ratio": 255
+  },
+  {
+    "id": "litten",
+    "name": "Litten",
+    "dex_national": 725,
+    "gender_ratio": 255
+  },
+  {
+    "id": "torracat",
+    "name": "Torracat",
+    "dex_national": 726,
+    "gender_ratio": 255
+  },
+  {
+    "id": "incineroar",
+    "name": "Incineroar",
+    "dex_national": 727,
+    "gender_ratio": 255
+  },
+  {
+    "id": "popplio",
+    "name": "Popplio",
+    "dex_national": 728,
+    "gender_ratio": 255
+  },
+  {
+    "id": "brionne",
+    "name": "Brionne",
+    "dex_national": 729,
+    "gender_ratio": 255
+  },
+  {
+    "id": "primarina",
+    "name": "Primarina",
+    "dex_national": 730,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pikipek",
+    "name": "Pikipek",
+    "dex_national": 731,
+    "gender_ratio": 255
+  },
+  {
+    "id": "trumbeak",
+    "name": "Trumbeak",
+    "dex_national": 732,
+    "gender_ratio": 255
+  },
+  {
+    "id": "toucannon",
+    "name": "Toucannon",
+    "dex_national": 733,
+    "gender_ratio": 255
+  },
+  {
+    "id": "yungoos",
+    "name": "Yungoos",
+    "dex_national": 734,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gumshoos",
+    "name": "Gumshoos",
+    "dex_national": 735,
+    "gender_ratio": 255
+  },
+  {
+    "id": "grubbin",
+    "name": "Grubbin",
+    "dex_national": 736,
+    "gender_ratio": 255
+  },
+  {
+    "id": "charjabug",
+    "name": "Charjabug",
+    "dex_national": 737,
+    "gender_ratio": 255
+  },
+  {
+    "id": "vikavolt",
+    "name": "Vikavolt",
+    "dex_national": 738,
+    "gender_ratio": 255
+  },
+  {
+    "id": "crabrawler",
+    "name": "Crabrawler",
+    "dex_national": 739,
+    "gender_ratio": 255
+  },
+  {
+    "id": "crabominable",
+    "name": "Crabominable",
+    "dex_national": 740,
+    "gender_ratio": 255
+  },
+  {
+    "id": "oricorio",
+    "name": "Oricorio",
+    "dex_national": 741,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cutiefly",
+    "name": "Cutiefly",
+    "dex_national": 742,
+    "gender_ratio": 255
+  },
+  {
+    "id": "ribombee",
+    "name": "Ribombee",
+    "dex_national": 743,
+    "gender_ratio": 255
+  },
+  {
+    "id": "rockruff",
+    "name": "Rockruff",
+    "dex_national": 744,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lycanroc",
+    "name": "Lycanroc",
+    "dex_national": 745,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wishiwashi",
+    "name": "Wishiwashi",
+    "dex_national": 746,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mareanie",
+    "name": "Mareanie",
+    "dex_national": 747,
+    "gender_ratio": 255
+  },
+  {
+    "id": "toxapex",
+    "name": "Toxapex",
+    "dex_national": 748,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mudbray",
+    "name": "Mudbray",
+    "dex_national": 749,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mudsdale",
+    "name": "Mudsdale",
+    "dex_national": 750,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dewpider",
+    "name": "Dewpider",
+    "dex_national": 751,
+    "gender_ratio": 255
+  },
+  {
+    "id": "araquanid",
+    "name": "Araquanid",
+    "dex_national": 752,
+    "gender_ratio": 255
+  },
+  {
+    "id": "fomantis",
+    "name": "Fomantis",
+    "dex_national": 753,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lurantis",
+    "name": "Lurantis",
+    "dex_national": 754,
+    "gender_ratio": 255
+  },
+  {
+    "id": "morelull",
+    "name": "Morelull",
+    "dex_national": 755,
+    "gender_ratio": 255
+  },
+  {
+    "id": "shiinotic",
+    "name": "Shiinotic",
+    "dex_national": 756,
+    "gender_ratio": 255
+  },
+  {
+    "id": "salandit",
+    "name": "Salandit",
+    "dex_national": 757,
+    "gender_ratio": 255
+  },
+  {
+    "id": "salazzle",
+    "name": "Salazzle",
+    "dex_national": 758,
+    "gender_ratio": 255
+  },
+  {
+    "id": "stufful",
+    "name": "Stufful",
+    "dex_national": 759,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bewear",
+    "name": "Bewear",
+    "dex_national": 760,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bounsweet",
+    "name": "Bounsweet",
+    "dex_national": 761,
+    "gender_ratio": 255
+  },
+  {
+    "id": "steenee",
+    "name": "Steenee",
+    "dex_national": 762,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tsareena",
+    "name": "Tsareena",
+    "dex_national": 763,
+    "gender_ratio": 255
+  },
+  {
+    "id": "comfey",
+    "name": "Comfey",
+    "dex_national": 764,
+    "gender_ratio": 255
+  },
+  {
+    "id": "oranguru",
+    "name": "Oranguru",
+    "dex_national": 765,
+    "gender_ratio": 255
+  },
+  {
+    "id": "passimian",
+    "name": "Passimian",
+    "dex_national": 766,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wimpod",
+    "name": "Wimpod",
+    "dex_national": 767,
+    "gender_ratio": 255
+  },
+  {
+    "id": "golisopod",
+    "name": "Golisopod",
+    "dex_national": 768,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sandygast",
+    "name": "Sandygast",
+    "dex_national": 769,
+    "gender_ratio": 255
+  },
+  {
+    "id": "palossand",
+    "name": "Palossand",
+    "dex_national": 770,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pyukumuku",
+    "name": "Pyukumuku",
+    "dex_national": 771,
+    "gender_ratio": 255
+  },
+  {
+    "id": "type_null",
+    "name": "Type: Null",
+    "dex_national": 772,
+    "gender_ratio": 255
+  },
+  {
+    "id": "silvally",
+    "name": "Silvally",
+    "dex_national": 773,
+    "gender_ratio": 255
+  },
+  {
+    "id": "minior",
+    "name": "Minior",
+    "dex_national": 774,
+    "gender_ratio": 255
+  },
+  {
+    "id": "komala",
+    "name": "Komala",
+    "dex_national": 775,
+    "gender_ratio": 255
+  },
+  {
+    "id": "turtonator",
+    "name": "Turtonator",
+    "dex_national": 776,
+    "gender_ratio": 255
+  },
+  {
+    "id": "togedemaru",
+    "name": "Togedemaru",
+    "dex_national": 777,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mimikyu",
+    "name": "Mimikyu",
+    "dex_national": 778,
+    "gender_ratio": 255
+  },
+  {
+    "id": "bruxish",
+    "name": "Bruxish",
+    "dex_national": 779,
+    "gender_ratio": 255
+  },
+  {
+    "id": "drampa",
+    "name": "Drampa",
+    "dex_national": 780,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dhelmise",
+    "name": "Dhelmise",
+    "dex_national": 781,
+    "gender_ratio": 255
+  },
+  {
+    "id": "jangmo_o",
+    "name": "Jangmo-o",
+    "dex_national": 782,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hakamo_o",
+    "name": "Hakamo-o",
+    "dex_national": 783,
+    "gender_ratio": 255
+  },
+  {
+    "id": "kommo_o",
+    "name": "Kommo-o",
+    "dex_national": 784,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tapu_koko",
+    "name": "Tapu Koko",
+    "dex_national": 785,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tapu_lele",
+    "name": "Tapu Lele",
+    "dex_national": 786,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tapu_bulu",
+    "name": "Tapu Bulu",
+    "dex_national": 787,
+    "gender_ratio": 255
+  },
+  {
+    "id": "tapu_fini",
+    "name": "Tapu Fini",
+    "dex_national": 788,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cosmog",
+    "name": "Cosmog",
+    "dex_national": 789,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cosmoem",
+    "name": "Cosmoem",
+    "dex_national": 790,
+    "gender_ratio": 255
+  },
+  {
+    "id": "solgaleo",
+    "name": "Solgaleo",
+    "dex_national": 791,
+    "gender_ratio": 255
+  },
+  {
+    "id": "lunala",
+    "name": "Lunala",
+    "dex_national": 792,
+    "gender_ratio": 255
+  },
+  {
+    "id": "nihilego",
+    "name": "Nihilego",
+    "dex_national": 793,
+    "gender_ratio": 255
+  },
+  {
+    "id": "buzzwole",
+    "name": "Buzzwole",
+    "dex_national": 794,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pheromosa",
+    "name": "Pheromosa",
+    "dex_national": 795,
+    "gender_ratio": 255
+  },
+  {
+    "id": "xurkitree",
+    "name": "Xurkitree",
+    "dex_national": 796,
+    "gender_ratio": 255
+  },
+  {
+    "id": "celesteela",
+    "name": "Celesteela",
+    "dex_national": 797,
+    "gender_ratio": 255
+  },
+  {
+    "id": "kartana",
+    "name": "Kartana",
+    "dex_national": 798,
+    "gender_ratio": 255
+  },
+  {
+    "id": "guzzlord",
+    "name": "Guzzlord",
+    "dex_national": 799,
+    "gender_ratio": 255
+  },
+  {
+    "id": "necrozma",
+    "name": "Necrozma",
+    "dex_national": 800,
+    "gender_ratio": 255
+  },
+  {
+    "id": "magearna",
+    "name": "Magearna",
+    "dex_national": 801,
+    "gender_ratio": 255
+  },
+  {
+    "id": "marshadow",
+    "name": "Marshadow",
+    "dex_national": 802,
+    "gender_ratio": 255
+  },
+  {
+    "id": "poipole",
+    "name": "Poipole",
+    "dex_national": 803,
+    "gender_ratio": 255
+  },
+  {
+    "id": "naganadel",
+    "name": "Naganadel",
+    "dex_national": 804,
+    "gender_ratio": 255
+  },
+  {
+    "id": "stakataka",
+    "name": "Stakataka",
+    "dex_national": 805,
+    "gender_ratio": 255
+  },
+  {
+    "id": "blacephalon",
+    "name": "Blacephalon",
+    "dex_national": 806,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zeraora",
+    "name": "Zeraora",
+    "dex_national": 807,
+    "gender_ratio": 255
+  },
+  {
+    "id": "meltan",
+    "name": "Meltan",
+    "dex_national": 808,
+    "gender_ratio": 255
+  },
+  {
+    "id": "melmetal",
+    "name": "Melmetal",
+    "dex_national": 809,
+    "gender_ratio": 255
+  },
+  {
+    "id": "grookey",
+    "name": "Grookey",
+    "dex_national": 810,
+    "gender_ratio": 255
+  },
+  {
+    "id": "thwackey",
+    "name": "Thwackey",
+    "dex_national": 811,
+    "gender_ratio": 255
+  },
+  {
+    "id": "rillaboom",
+    "name": "Rillaboom",
+    "dex_national": 812,
+    "gender_ratio": 255
+  },
+  {
+    "id": "scorbunny",
+    "name": "Scorbunny",
+    "dex_national": 813,
+    "gender_ratio": 255
+  },
+  {
+    "id": "raboot",
+    "name": "Raboot",
+    "dex_national": 814,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cinderace",
+    "name": "Cinderace",
+    "dex_national": 815,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sobble",
+    "name": "Sobble",
+    "dex_national": 816,
+    "gender_ratio": 255
+  },
+  {
+    "id": "drizzile",
+    "name": "Drizzile",
+    "dex_national": 817,
+    "gender_ratio": 255
+  },
+  {
+    "id": "inteleon",
+    "name": "Inteleon",
+    "dex_national": 818,
+    "gender_ratio": 255
+  },
+  {
+    "id": "skwovet",
+    "name": "Skwovet",
+    "dex_national": 819,
+    "gender_ratio": 255
+  },
+  {
+    "id": "greedent",
+    "name": "Greedent",
+    "dex_national": 820,
+    "gender_ratio": 255
+  },
+  {
+    "id": "rookidee",
+    "name": "Rookidee",
+    "dex_national": 821,
+    "gender_ratio": 255
+  },
+  {
+    "id": "corvisquire",
+    "name": "Corvisquire",
+    "dex_national": 822,
+    "gender_ratio": 255
+  },
+  {
+    "id": "corviknight",
+    "name": "Corviknight",
+    "dex_national": 823,
+    "gender_ratio": 255
+  },
+  {
+    "id": "blipbug",
+    "name": "Blipbug",
+    "dex_national": 824,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dottler",
+    "name": "Dottler",
+    "dex_national": 825,
+    "gender_ratio": 255
+  },
+  {
+    "id": "orbeetle",
+    "name": "Orbeetle",
+    "dex_national": 826,
+    "gender_ratio": 255
+  },
+  {
+    "id": "nickit",
+    "name": "Nickit",
+    "dex_national": 827,
+    "gender_ratio": 255
+  },
+  {
+    "id": "thievul",
+    "name": "Thievul",
+    "dex_national": 828,
+    "gender_ratio": 255
+  },
+  {
+    "id": "gossifleur",
+    "name": "Gossifleur",
+    "dex_national": 829,
+    "gender_ratio": 255
+  },
+  {
+    "id": "eldegoss",
+    "name": "Eldegoss",
+    "dex_national": 830,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wooloo",
+    "name": "Wooloo",
+    "dex_national": 831,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dubwool",
+    "name": "Dubwool",
+    "dex_national": 832,
+    "gender_ratio": 255
+  },
+  {
+    "id": "chewtle",
+    "name": "Chewtle",
+    "dex_national": 833,
+    "gender_ratio": 255
+  },
+  {
+    "id": "drednaw",
+    "name": "Drednaw",
+    "dex_national": 834,
+    "gender_ratio": 255
+  },
+  {
+    "id": "yamper",
+    "name": "Yamper",
+    "dex_national": 835,
+    "gender_ratio": 255
+  },
+  {
+    "id": "boltund",
+    "name": "Boltund",
+    "dex_national": 836,
+    "gender_ratio": 255
+  },
+  {
+    "id": "rolycoly",
+    "name": "Rolycoly",
+    "dex_national": 837,
+    "gender_ratio": 255
+  },
+  {
+    "id": "carkol",
+    "name": "Carkol",
+    "dex_national": 838,
+    "gender_ratio": 255
+  },
+  {
+    "id": "coalossal",
+    "name": "Coalossal",
+    "dex_national": 839,
+    "gender_ratio": 255
+  },
+  {
+    "id": "applin",
+    "name": "Applin",
+    "dex_national": 840,
+    "gender_ratio": 255
+  },
+  {
+    "id": "flapple",
+    "name": "Flapple",
+    "dex_national": 841,
+    "gender_ratio": 255
+  },
+  {
+    "id": "appletun",
+    "name": "Appletun",
+    "dex_national": 842,
+    "gender_ratio": 255
+  },
+  {
+    "id": "silicobra",
+    "name": "Silicobra",
+    "dex_national": 843,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sandaconda",
+    "name": "Sandaconda",
+    "dex_national": 844,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cramorant",
+    "name": "Cramorant",
+    "dex_national": 845,
+    "gender_ratio": 255
+  },
+  {
+    "id": "arrokuda",
+    "name": "Arrokuda",
+    "dex_national": 846,
+    "gender_ratio": 255
+  },
+  {
+    "id": "barraskewda",
+    "name": "Barraskewda",
+    "dex_national": 847,
+    "gender_ratio": 255
+  },
+  {
+    "id": "toxel",
+    "name": "Toxel",
+    "dex_national": 848,
+    "gender_ratio": 255
+  },
+  {
+    "id": "toxtricity",
+    "name": "Toxtricity",
+    "dex_national": 849,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sizzlipede",
+    "name": "Sizzlipede",
+    "dex_national": 850,
+    "gender_ratio": 255
+  },
+  {
+    "id": "centiskorch",
+    "name": "Centiskorch",
+    "dex_national": 851,
+    "gender_ratio": 255
+  },
+  {
+    "id": "clobbopus",
+    "name": "Clobbopus",
+    "dex_national": 852,
+    "gender_ratio": 255
+  },
+  {
+    "id": "grapploct",
+    "name": "Grapploct",
+    "dex_national": 853,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sinistea",
+    "name": "Sinistea",
+    "dex_national": 854,
+    "gender_ratio": 255
+  },
+  {
+    "id": "polteageist",
+    "name": "Polteageist",
+    "dex_national": 855,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hatenna",
+    "name": "Hatenna",
+    "dex_national": 856,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hattrem",
+    "name": "Hattrem",
+    "dex_national": 857,
+    "gender_ratio": 255
+  },
+  {
+    "id": "hatterene",
+    "name": "Hatterene",
+    "dex_national": 858,
+    "gender_ratio": 255
+  },
+  {
+    "id": "impidimp",
+    "name": "Impidimp",
+    "dex_national": 859,
+    "gender_ratio": 255
+  },
+  {
+    "id": "morgrem",
+    "name": "Morgrem",
+    "dex_national": 860,
+    "gender_ratio": 255
+  },
+  {
+    "id": "grimmsnarl",
+    "name": "Grimmsnarl",
+    "dex_national": 861,
+    "gender_ratio": 255
+  },
+  {
+    "id": "obstagoon",
+    "name": "Obstagoon",
+    "dex_national": 862,
+    "gender_ratio": 255
+  },
+  {
+    "id": "perrserker",
+    "name": "Perrserker",
+    "dex_national": 863,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cursola",
+    "name": "Cursola",
+    "dex_national": 864,
+    "gender_ratio": 255
+  },
+  {
+    "id": "sirfetchd",
+    "name": "Sirfetch’d",
+    "dex_national": 865,
+    "gender_ratio": 255
+  },
+  {
+    "id": "mr_rime",
+    "name": "Mr. Rime",
+    "dex_national": 866,
+    "gender_ratio": 255
+  },
+  {
+    "id": "runerigus",
+    "name": "Runerigus",
+    "dex_national": 867,
+    "gender_ratio": 255
+  },
+  {
+    "id": "milcery",
+    "name": "Milcery",
+    "dex_national": 868,
+    "gender_ratio": 255
+  },
+  {
+    "id": "alcremie",
+    "name": "Alcremie",
+    "dex_national": 869,
+    "gender_ratio": 255
+  },
+  {
+    "id": "falinks",
+    "name": "Falinks",
+    "dex_national": 870,
+    "gender_ratio": 255
+  },
+  {
+    "id": "pincurchin",
+    "name": "Pincurchin",
+    "dex_national": 871,
+    "gender_ratio": 255
+  },
+  {
+    "id": "snom",
+    "name": "Snom",
+    "dex_national": 872,
+    "gender_ratio": 255
+  },
+  {
+    "id": "frosmoth",
+    "name": "Frosmoth",
+    "dex_national": 873,
+    "gender_ratio": 255
+  },
+  {
+    "id": "stonjourner",
+    "name": "Stonjourner",
+    "dex_national": 874,
+    "gender_ratio": 255
+  },
+  {
+    "id": "eiscue",
+    "name": "Eiscue",
+    "dex_national": 875,
+    "gender_ratio": 255
+  },
+  {
+    "id": "indeedee",
+    "name": "Indeedee",
+    "dex_national": 876,
+    "gender_ratio": 255
+  },
+  {
+    "id": "morpeko",
+    "name": "Morpeko",
+    "dex_national": 877,
+    "gender_ratio": 255
+  },
+  {
+    "id": "cufant",
+    "name": "Cufant",
+    "dex_national": 878,
+    "gender_ratio": 255
+  },
+  {
+    "id": "copperajah",
+    "name": "Copperajah",
+    "dex_national": 879,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dracozolt",
+    "name": "Dracozolt",
+    "dex_national": 880,
+    "gender_ratio": 255
+  },
+  {
+    "id": "arctozolt",
+    "name": "Arctozolt",
+    "dex_national": 881,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dracovish",
+    "name": "Dracovish",
+    "dex_national": 882,
+    "gender_ratio": 255
+  },
+  {
+    "id": "arctovish",
+    "name": "Arctovish",
+    "dex_national": 883,
+    "gender_ratio": 255
+  },
+  {
+    "id": "duraludon",
+    "name": "Duraludon",
+    "dex_national": 884,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dreepy",
+    "name": "Dreepy",
+    "dex_national": 885,
+    "gender_ratio": 255
+  },
+  {
+    "id": "drakloak",
+    "name": "Drakloak",
+    "dex_national": 886,
+    "gender_ratio": 255
+  },
+  {
+    "id": "dragapult",
+    "name": "Dragapult",
+    "dex_national": 887,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zacian",
+    "name": "Zacian",
+    "dex_national": 888,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zamazenta",
+    "name": "Zamazenta",
+    "dex_national": 889,
+    "gender_ratio": 255
+  },
+  {
+    "id": "eternatus",
+    "name": "Eternatus",
+    "dex_national": 890,
+    "gender_ratio": 255
+  },
+  {
+    "id": "kubfu",
+    "name": "Kubfu",
+    "dex_national": 891,
+    "gender_ratio": 255
+  },
+  {
+    "id": "urshifu",
+    "name": "Urshifu",
+    "dex_national": 892,
+    "gender_ratio": 255
+  },
+  {
+    "id": "zarude",
+    "name": "Zarude",
+    "dex_national": 893,
+    "gender_ratio": 255
+  },
+  {
+    "id": "regieleki",
+    "name": "Regieleki",
+    "dex_national": 894,
+    "gender_ratio": 255
+  },
+  {
+    "id": "regidrago",
+    "name": "Regidrago",
+    "dex_national": 895,
+    "gender_ratio": 255
+  },
+  {
+    "id": "glastrier",
+    "name": "Glastrier",
+    "dex_national": 896,
+    "gender_ratio": 255
+  },
+  {
+    "id": "spectrier",
+    "name": "Spectrier",
+    "dex_national": 897,
+    "gender_ratio": 255
+  },
+  {
+    "id": "calyrex",
+    "name": "Calyrex",
+    "dex_national": 898,
+    "gender_ratio": 255
+  },
+  {
+    "id": "wyrdeer",
+    "name": "Wyrdeer",
+    "dex_national": 899,
+    "gender_ratio": 127
+  },
+  {
+    "id": "kleavor",
+    "name": "Kleavor",
+    "dex_national": 900,
+    "gender_ratio": 127
+  },
+  {
+    "id": "ursaluna",
+    "name": "Ursaluna",
+    "dex_national": 901,
+    "gender_ratio": 127
+  },
+  {
+    "id": "basculegion",
+    "name": "Basculegion",
+    "dex_national": 902,
+    "gender_ratio": 0
+  },
+  {
+    "id": "sneasler",
+    "name": "Sneasler",
+    "dex_national": 903,
+    "gender_ratio": 127
+  },
+  {
+    "id": "overqwil",
+    "name": "Overqwil",
+    "dex_national": 904,
+    "gender_ratio": 127
+  },
+  {
+    "id": "enamorus",
+    "name": "Enamorus",
+    "dex_national": 905,
+    "gender_ratio": 254
+  }
+]
