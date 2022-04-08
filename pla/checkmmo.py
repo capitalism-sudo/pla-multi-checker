@@ -175,8 +175,8 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     storage[f"{fixed_seed} + {steps[:step_i] + [pokemon]} " \
                             f"+ {i} + {steps}"]=info
                 else:
-                    if f"Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" not in storage[str(dupestore[str(fixed_seed)])]["dupes"] and f":Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" != f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}":
-                        storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}")
+                    if f"Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" not in storage[str(dupestore[str(fixed_seed)])] and f":Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" != f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}":
+                        storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in steps)}")
                     #print(f"Duplicate found at {fixed_seed}: {storage[str(dupestore[str(fixed_seed)])]['dupes']}")
             respawn_rng = XOROSHIRO(respawn_rng.next())
     return storage
@@ -593,6 +593,8 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                     else:
                         display[str(index)]["gender"] = "Male <i class='fa-solid fa-mars' style='color:blue'></i>"
             if bonus_flag:
+                species,alpha,_ = get_species(enctable,1)
+                print(f"Bonus Round Species: {species}")
                 true_spawns = max_spawns
                 bonus_spawns = true_spawns + 4
                 bonus_seed = allpaths[str(max_spawns)]
