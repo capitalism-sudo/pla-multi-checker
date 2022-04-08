@@ -1,13 +1,96 @@
 {% extends "base.html" %}
 
 {% block main %}
-    <section class="pla-section-results">
-        Settings page (ie. for research levels)
+    <section class="pla-section-results flow">
+        <h2>Research Levels</h2>
+
+        <p>You can set the Pokédex research level for all Pokémon at once, set them individually or read them from a
+            save file.</p>
+
+        <div data-pla-messages></div>
+
+        <div>
+            <input type="text" id="pla-research-filter" placeholder="Filter Pokémon...">
+        </div>
+
+        <div class="pla-research-table-container">
+            <table class="pla-research-table">
+                <colgroup>
+                    <col class="pla-research-col1">
+                    <col class="pla-research-col2">
+                    <col class="pla-research-col3">
+                    <col class="pla-research-col3">
+                    <col class="pla-research-col3">
+                </colgroup>
+            </table>
+        </div>
     </section>
 {% endblock %}
 
 {% block sidebar %}
     <section class="pla-section-options">
-        Settings options
+        <div class="pla-control-spaced">
+            <label for="pla-research-shinycharm">
+                Do you have the Shiny Charm?
+            </label>
+            <input type="checkbox" id="pla-research-shinycharm">
+        </div>
+
+        <div class="pla-control-actions">
+            <p>Set the research level for all Pokémon to:</p>
+            <button type="button" class="pla-button" id="pla-research-set-base">Base Level</button>
+            <button type="button" class="pla-button" id="pla-research-set-level10">Level 10</button>
+            <button type="button" class="pla-button" id="pla-research-set-perfect">Perfect</button>
+        </div>
+
+        <div class="pla-control-actions">
+            <button type="button" class="pla-button pla-button-action" id="pla-research-modal-open">Read from save
+                file</button>
+        </div>
+
+        <dialog class="pla-modal" id="pla-research-modal">
+            <p>Select the file called "main" from an exported save to load the research progress from that save
+                file.</p>
+            <div data-pla-modal-messages></div>
+            <div class="pla-control-spaced">
+                <div class="pla-file-input">
+                    <input type="file" id="pla-research-selectsave">
+                    <label for="pla-research-selectsave" class="pla-button pla-button-action">Choose Save File</label>
+                </div>
+                <button type="button" class="pla-button pla-button-action" id="pla-research-modal-close">Close</button>
+            </div>
+        </dialog>
     </section>
+{% endblock %}
+
+{% block templates %}
+    <template data-pla-research-row-template>
+        <tr class="pla-research-row">
+            <td>
+                <img alt="" data-pla-research-row-img>
+            </td>
+            <td class="pla-research-row-name">
+            </td>
+            <td>
+                <label>
+                    <input type="radio" class="pla-research-radio" value="0" checked /> Basic
+                </label>
+            </td>
+            <td>
+                <label>
+                    <input type="radio" class="pla-research-radio" value="1" /> Level 10
+                </label>
+
+            </td>
+            <td>
+                <label>
+                    <input type="radio" class="pla-research-radio" value="3" /> Perfect
+                </label>
+            </td>
+        </tr>
+    </template>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='js/pla-research-reader.js') }}"></script>
 {% endblock %}
