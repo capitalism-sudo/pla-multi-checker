@@ -499,16 +499,24 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
             else:
                 continue
             for index in display:
+                string = "["
+                for p,val in enumerate(value):
+                    if p != 0:
+                        string = string + f", D{val}"
+                    else:
+                        string = string + f"D{val}"
+                string = string + "]"
+                #print(f"String: {string}")
                 form = ''
                 if epath == []:
                     display[index]["index"] = f"<span class='pla-results-firstpath'>" \
                                               f"First Round Path: " \
-                                              f"{value} </span> + [Clear Round] + " \
+                                              f"{string} </span> + [Clear Round] + " \
                                               f"<span class='pla-results-bonus'> Bonus " \
                                               + display[index]["index"]
                 else:
                     display[index]["index"] = f"<span class='pla-results-firstpath'>First Round Path: " \
-                                              f"{value} </span> + <span class='pla-results-revisit'> " \
+                                              f"{string} </span> + <span class='pla-results-revisit'> " \
                                               f"Revisit {epath} </span> + <span class='pla-results-bonus'> " \
                                               f"Bonus " \
                                               + display[index]["index"]
