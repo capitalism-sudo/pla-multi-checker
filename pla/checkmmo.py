@@ -185,7 +185,10 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                        and f":Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" != f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}" \
                        and ((step+1) - pokemon < 3):
                         #print(f" Step+1 = {step+1}, Pokemon = {pokemon}")
-                        storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in steps)}")
+                        dupestring = " Path: "
+                        for s in steps:
+                            dupestring = string + f" D{s}, "
+                        storage[str(dupestore[str(fixed_seed)])]["dupes"].append(dupestring)
                     #print(f"Duplicate found at {fixed_seed}: {storage[str(dupestore[str(fixed_seed)])]['dupes']}")
             respawn_rng = XOROSHIRO(respawn_rng.next())
     return storage
