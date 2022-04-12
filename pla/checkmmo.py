@@ -143,12 +143,18 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                 fixed_seed = fixed_rng.next()
                 encryption_constant,pid,ivs,ability,gender,nature,shiny = \
                     generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
-                if not fixed_seed in uniques and (sum(steps[:step_i]) + pokemon + 4) <= true_spawns:
+                #if not fixed_seed in uniques and (sum(steps[:step_i]) + pokemon + 4) <= true_spawns:
+                if not fixed_seed in uniques:
                     uniques.add(fixed_seed)
                     dupestore[str(fixed_seed)] = f"{fixed_seed} + {steps[:step_i] + [pokemon]} " \
                             f"+ {i} + {steps}"
+                    string = "Path: "
+                    for s in steps[:step_i]:
+                        string = string + f" D{s}, "
+                    string = string + f"D{pokemon}"
                     info = {
-                    "index":f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])} </span>",
+                    #"index":f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])} </span>",
+                    "index": string,
                     "spawn":True,
                     "generator_seed":f"{generator_seed:X}",
                     "species":species,
@@ -175,7 +181,10 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     storage[f"{fixed_seed} + {steps[:step_i] + [pokemon]} " \
                             f"+ {i} + {steps}"]=info
                 else:
-                    if f"Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" not in storage[str(dupestore[str(fixed_seed)])] and f":Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" != f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}":
+                    if f"Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" not in storage[str(dupestore[str(fixed_seed)])] \
+                       and f":Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" != f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}" \
+                       and ((step+1) - pokemon < 3):
+                        #print(f" Step+1 = {step+1}, Pokemon = {pokemon}")
                         storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in steps)}")
                     #print(f"Duplicate found at {fixed_seed}: {storage[str(dupestore[str(fixed_seed)])]['dupes']}")
             respawn_rng = XOROSHIRO(respawn_rng.next())
@@ -494,7 +503,7 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 if epath == []:
                     display[index]["index"] = f"<span class='pla-results-firstpath'>" \
                                               f"First Round Path: " \
-                                              f"{value} </span> + {extra} + " \
+                                              f"{value} </span> + [Clear Round] + " \
                                               f"<span class='pla-results-bonus'> Bonus " \
                                               + display[index]["index"]
                 else:
@@ -503,6 +512,8 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                                               f"Revisit {epath} </span> + <span class='pla-results-bonus'> " \
                                               f"Bonus " \
                                               + display[index]["index"]
+                for du,dupe in enumerate(display[index]["dupes"]):
+                    display[index]["dupes"][du] = f"Bonus {display[index]['dupes'][du]} "
                 display[index]["group"] = group_id
                 display[index]["mapname"] = map_name
                 display[index]["coords"] = coords
