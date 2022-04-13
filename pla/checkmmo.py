@@ -32,7 +32,11 @@ extrapaths = [[],[1],[2],[2,1],[3],[3,1],[3,2],[3,2,1]]
 
 fixedgenders = ["Happiny", "Chansey", "Blissey", "Petilil", "Lilligant", "Bronzor", "Bronzong", "Voltorb", "Electrode", "Rotom", "Rufflet", "Braviary", "Unown"]
 
+initchain = ["<span class='pla-results-init'>Initial Spawn 4 </span></span>","<span class='pla-results-init'>Initial Spawn 3 </span></span>",
+              "<span class='pla-results-init'>Initial Spawn 2 </span></span>","<span class='pla-results-init'>Initial Spawn 1 </span></span>"]
+
 def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
+    square = False
     rng = XOROSHIRO(seed)
     ec = rng.rand(0xFFFFFFFF)
     sidtid = rng.rand(0xFFFFFFFF)
@@ -41,6 +45,8 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
         shiny = ((pid >> 16) ^ (sidtid >> 16) \
             ^ (pid & 0xFFFF) ^ (sidtid & 0xFFFF)) < 0x10
         if shiny:
+            square == ((pid >> 16) ^ (sidtid >> 16) \
+                       ^ (pid & 0xFFFF) ^ (sidtid & 0xFFFF)) == 0x0
             break
     ivs = [-1,-1,-1,-1,-1,-1]
     for i in range(guaranteed_ivs):
@@ -57,11 +63,11 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     else:
         gender = rng.rand(252) + 1
     nature = rng.rand(25)
-    return ec,pid,ivs,ability,gender,nature,shiny
+    return ec,pid,ivs,ability,gender,nature,shiny,square
 
 
 def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_spawns,
-                                           encounters,encsum,dupestore,isbonus=False,isalpha=False):
+                                           encounters,encsum,dupestore,chained,isbonus=False,isalpha=False):
     """Generate all the pokemon of an outbreak based on a provided aggressive path"""
     # pylint: disable=too-many-locals, too-many-arguments
     # the generation is unique to each path, no use in splitting this function
@@ -87,14 +93,14 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
             else:
                 guaranteed_ivs = 0
             fixed_seed = fixed_rng.next()
-            encryption_constant,pid,ivs,ability,gender,nature,shiny = \
+            encryption_constant,pid,ivs,ability,gender,nature,shiny,square = \
                 generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
             if not fixed_seed in uniques:
                 uniques.add(fixed_seed)
                 dupestore[str(fixed_seed)] = f"{fixed_seed} + {init_spawn} + " \
                         f"+ {i} + {steps}"
                 info = {
-                    "index":f"<span class='pla-results-init'>Init Spawn " \
+                    "index":f"<span class='pla-results-init'>Initial Spawn " \
                     f"{init_spawn} </span></span>",
                     "spawn":True,
                     "generator_seed":f"{generator_seed:X}",
@@ -107,7 +113,9 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     "ability":ability,
                     "nature":NATURES[nature],
                     "gender":gender,
-                    "dupes": []
+                    "dupes": [],
+                    "chains": [],
+                    "square": True if square else False
                     }
                 if not fixed_seed in uniques:
                     info["unique"] = True
@@ -141,7 +149,7 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                 else:
                     guaranteed_ivs = 0
                 fixed_seed = fixed_rng.next()
-                encryption_constant,pid,ivs,ability,gender,nature,shiny = \
+                encryption_constant,pid,ivs,ability,gender,nature,shiny,square = \
                     generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
                 #if not fixed_seed in uniques and (sum(steps[:step_i]) + pokemon + 4) <= true_spawns:
                 if not fixed_seed in uniques:
@@ -166,7 +174,9 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     "ability":ability,
                     "nature":NATURES[nature],
                     "gender":gender,
-                    "dupes": []
+                    "dupes": [],
+                    "chains": [],
+                    "square": True if square else False
                     }
                     if not fixed_seed in uniques:
                         uniques.add(fixed_seed)
@@ -183,9 +193,19 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                 else:
                     if f"Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" not in storage[str(dupestore[str(fixed_seed)])] \
                        and f":Path: {'|'.join(str(s) for s in steps[:step_i] + [step])}" != f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}" \
-                       and ((step+1) - pokemon < 3):
+                       and (step+1) - pokemon < 3:
                         #print(f" Step+1 = {step+1}, Pokemon = {pokemon}")
-                        storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in steps)}")
+                        respawns = true_spawns - 4
+                        ghosts = (sum(steps[:step_i])+pokemon) - respawns
+                        dupestring = " Path: "
+                        for s,st in enumerate(steps):
+                            #print(f"Steps: {steps}")
+                            #print(f"S: {s}, St: {st}")
+                            dupestring = dupestring + f" D{st}, "
+                        #print(f"Dupestring: {dupestring}")
+                        #storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in steps)}")
+                        if ghosts <= 0:
+                            storage[str(dupestore[str(fixed_seed)])]["dupes"].append(dupestring)
                     #print(f"Duplicate found at {fixed_seed}: {storage[str(dupestore[str(fixed_seed)])]['dupes']}")
             respawn_rng = XOROSHIRO(respawn_rng.next())
     return storage
@@ -209,7 +229,7 @@ def get_bonus_seed(reader,group_seed,rolls,mapcount,path,species,max_spawns):
     bonus_seed = (respawn_rng.next() - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
     return bonus_seed
 
-def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,species,group_seed,max_spawns,bonus_flag):
+def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,chained,species,group_seed,max_spawns,bonus_flag):
     if species == 201:
         rolls = 19
     print(f"Species Group: {SPECIES[species]}")
@@ -223,7 +243,7 @@ def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,species,group_seed,max
     else:
         max_spawns += 3
     display = generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,max_spawns,
-                                                     true_spawns,encounters,encsum,dupestore,bonus_flag,False)
+                                                     true_spawns,encounters,encsum,dupestore,chained,bonus_flag,False)
     return display
 
 def get_encounter_table(reader,group_id,mapcount,bonus):
@@ -288,12 +308,12 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
         slot = (fixed_rng.next() / (2**64) * 101)
         alpha = slot >= 100
         fixed_seed = fixed_rng.next()
-        encryption_constant,pid,ivs,ability,gender,nature,shiny = \
+        encryption_constant,pid,ivs,ability,gender,nature,shiny,square = \
             generate_from_seed(fixed_seed,rolls,3 if alpha else 0)
         if not fixed_seed in uniques:
             uniques.add(fixed_seed)
             info = {
-                "index":f"Init Spawn {init_spawn}</span>",
+                "index":f"Initial Spawn {init_spawn}</span>",
                 "spawn":True,
                 "generator_seed":f"{generator_seed:X}",
                 "shiny":shiny,
@@ -304,7 +324,8 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
                 "ability":ability,
                 "nature":NATURES[nature],
                 "gender":gender,
-                "defaultroute": True
+                "defaultroute": True,
+                "square": True if square else False
                 }
             #print(info)
             storage[str(fixed_seed)]=info
@@ -318,7 +339,7 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
             slot = (fixed_rng.next() / (2**64) * 101)
             alpha = slot >= 100
             fixed_seed = fixed_rng.next()
-            encryption_constant,pid,ivs,ability,gender,nature,shiny = \
+            encryption_constant,pid,ivs,ability,gender,nature,shiny,square = \
                 generate_from_seed(fixed_seed,rolls,3 if alpha else 0)
             if not fixed_seed in uniques:
                 uniques.add(fixed_seed)
@@ -333,7 +354,8 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
                 "ivs":ivs,
                 "ability":ability,
                 "nature":NATURES[nature],
-                "gender":gender
+                "gender":gender,
+                "square": True if square else False
                 }
                 paths.append(f"{'|'.join(str(s) for s in steps[:step_i] + [pokemon])}")
                 if len(steps[:step_i]) == sum(steps[:step_i]) and pokemon == 1:
@@ -457,8 +479,7 @@ def get_normal_outbreak_info(reader,group_id,inmap):
         group_seed = get_group_seed(reader,group_id,0)
     else:
         group_seed = get_gen_seed_to_group_seed(reader,group_id)
-
-    max_spawns = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
+    max_spawns = reader.read_pointer_int(f"[[[[main+42BA6B0]+2b0]+58]+18]" \
                                          f"{0x20 + group_id*0x50+0x40:X}",8)
 
     coords = struct.unpack('fff',reader.read_pointer(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
@@ -473,7 +494,7 @@ def get_normal_outbreak_info(reader,group_id,inmap):
     return species,group_seed,max_spawns,coordinates
 
 def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name,
-                        coords,true_spawns,bonus_spawns,max_spawns,species):
+                        coords,true_spawns,bonus_spawns,max_spawns,species,chained):
     #pylint: disable=too-many-branches
     """reads info about a bonus path"""
     isbonus = True
@@ -490,12 +511,12 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 display = generate_mass_outbreak_aggressive_path(seed,rolls,nbpaths,
                                                                  bonus_spawns,
                                                                  true_spawns,encounters,
-                                                                 encsum,dupestore,isbonus,False)
+                                                                 encsum,dupestore,chained,isbonus,False)
             elif epath[0] < spawn_remain:
                 epath_seed = get_extra_path_seed(seed,epath)
                 display = generate_mass_outbreak_aggressive_path(epath_seed,rolls,
                                                                  nbpaths,bonus_spawns,true_spawns,
-                                                                 encounters,encsum,dupestore,isbonus,False)
+                                                                 encounters,encsum,dupestore,chained,isbonus,False)
             else:
                 continue
             for index in display:
@@ -543,6 +564,64 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 else:
                     spritename = f"c_{SPECIES.index(cutspecies)}" \
                                  f"{f'-{form}' if len(form) != 0 else ''}.png"
+                if display[index]["shiny"]:
+                    chainstring = display[index]["index"].rpartition("Bonus")[0]
+                    chainresult = []
+                    #print(f"Chainstring: {chainstring}")
+                    if chained.get(chainstring, None) is not None:
+                        chainresult.append(chainstring)
+                    for ini,initcha in enumerate(initchain):
+                        if chained.get(initcha, None) is not None:
+                            chainresult.append(initcha)
+                    for r,res in enumerate(chainresult):
+                        """
+                        if res is not None and (res.rpartition('Bonus')[0] == f"<span class='pla-results-firstpath'>" + \
+                                              f"First Round Path: " + \
+                                              f"{string} </span> + [Clear Round]+ " + \
+                                              f"<span class='pla-results-bonus'> "
+                                              or res.rpartition('Bonus')[0] == f"<span class='pla-results-firstpath'>First Round Path: " + \
+                                              f"{string} </span> + <span class='pla-results-revisit'> " + \
+                                              f"Revisit {epath} </span> + <span class='pla-results-bonus'> "):
+                        """
+                        if res is not None:
+                            print("Possible Chain Shiny Found!")
+                            bonuscheck = chained[res].rpartition("Bonus Path:")[2].replace(" ",'').replace("D",'').split(',')
+                            print(f"Bonus Check: {bonuscheck}")
+                            currcheck = display[index]["index"].rpartition("Bonus Path:")[2].replace(" ",'').replace("D",'').split(',')
+                            print(f"Curr Check: {currcheck}")
+                            #print(f"Initial in? {'Initial' in bonuscheck[len(bonuscheck)-1]}")
+                            if "Initial" in bonuscheck[len(bonuscheck)-1] or "FirstRound" in bonuscheck[0] or (len(bonuscheck) < len(currcheck) and bonuscheck[0] == currcheck[0]):
+                                print("Either an initial spawn, or bonuscheck < currcheck and they're on the same path, adding.")
+                                display[index]["chains"].append(chained[res])
+                            elif len(bonuscheck) <= len(currcheck) and (len(currcheck) > 1 and bonuscheck[0] == currcheck[0]):
+                                bonuscheck = list(map(int, bonuscheck))
+                                currcheck = list(map(int, currcheck))
+                                max_path_size = max(sum(bonuscheck),sum(currcheck))
+                                print(f"Max Path: {max_path_size}")
+                                respawns = true_spawns - 4
+                                print(f"respawns: {respawns}")
+                                ghosts = max_path_size - respawns
+                                print(f"Ghosts: {ghosts}")
+                                difference = max_path_size - min(sum(bonuscheck),sum(currcheck))
+                                print(f"Difference: {difference}")
+                                if ghosts < 0:
+                                    print("Ghosts < 0, adding to chain")
+                                    display[index]["chains"].append(chained[res])
+                                else:
+                                    pokesleft = respawns
+                                    for i in range(0,len(currcheck)-1):
+                                        pokesleft = pokesleft - currcheck[i]
+                                    print(f"Amount left: {pokesleft}")
+                                    if (pokesleft <= 0) and not difference >= 2:
+                                        print(f"Pokesleft <=0 and Difference < 2, adding")
+                                        display[index]["chains"].append(chained[res])
+                                    elif pokesleft > 1 and difference < pokesleft:
+                                        print(f"Pokesleft >0 and difference = {difference}, adding")
+                                        display[index]["chains"].append(chained[res])
+                                    else:
+                                        print(f"Pokesleft not <=0 or difference >= 2.")
+                    chained[display[index]["index"].rpartition("Bonus")[0]] = display[index]["index"]
+                        
                 display[index]["sprite"] = spritename
                 ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
                 ratio = ratioarray[2]
@@ -569,6 +648,7 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
     print(f"Rolls: {rolls}")
     map_name = get_map_name(reader,mapcount)
     for i in range(0,16):
+        chained = {}
         enctable,_ = get_encounter_table(reader,i,mapcount,True)
         bonus_flag = False if enctable is None else True
         coords = read_group_coordinates(reader,i,mapcount)
@@ -579,7 +659,7 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
             else:
                 group_seed = get_gen_seed_to_group_seed(reader,i)
             max_spawns = get_max_spawns(reader,i,mapcount,False)
-            display = read_mass_outbreak_rng(reader,i,rolls,mapcount,numspecies,group_seed,max_spawns,False)
+            display = read_mass_outbreak_rng(reader,i,rolls,mapcount,chained,numspecies,group_seed,max_spawns,False)
             for index in display:
                 if index not in ('index','description'):
                     form = ''
@@ -611,6 +691,8 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                         display[str(index)]["gender"] = "Genderless <i class='fa-solid fa-genderless'></i>"
                     else:
                         display[str(index)]["gender"] = "Male <i class='fa-solid fa-mars' style='color:blue'></i>"
+                    if display[str(index)]["shiny"]:
+                        chained[display[str(index)]["index"]] = f"<span class='pla-results-firstpath'>First Round </span>{display[str(index)]['index']}"
             if bonus_flag:
                 species,alpha,_ = get_species(enctable,1)
                 print(f"Bonus Round Species: {species}")
@@ -618,12 +700,13 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                 bonus_spawns = true_spawns + 4
                 bonus_seed = allpaths[str(max_spawns)]
                 true_spawns = get_max_spawns(reader,i,mapcount,True)
-                result = read_bonus_pathinfo(reader,bonus_seed,i,mapcount,rolls,group_seed,map_name,coords,true_spawns,bonus_spawns,max_spawns,numspecies)
+                result = read_bonus_pathinfo(reader,bonus_seed,i,mapcount,rolls,group_seed,map_name,coords,true_spawns,bonus_spawns,max_spawns,numspecies,chained)
                 print(f"Group {i} Bonus Complete!")
             outbreaks[f"{i} " + f"{bonus_flag}"] = display
             print(f"Group {i} Complete!")
             if bonus_flag:
                 outbreaks[f"{i} " + f"{bonus_flag}" + "bonus"] = result
+            #print(chained)
         else:
             continue
             
