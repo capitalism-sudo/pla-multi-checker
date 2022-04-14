@@ -115,7 +115,8 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     "gender":gender,
                     "dupes": [],
                     "chains": [],
-                    "square": True if square else False
+                    "square": True if square else False,
+                    "multi":False
                     }
                 if not fixed_seed in uniques:
                     info["unique"] = True
@@ -176,7 +177,8 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     "gender":gender,
                     "dupes": [],
                     "chains": [],
-                    "square": True if square else False
+                    "square": True if square else False,
+                    "multi":False
                     }
                     if not fixed_seed in uniques:
                         uniques.add(fixed_seed)
@@ -567,6 +569,32 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 if display[index]["shiny"]:
                     chainstring = display[index]["index"].rpartition("Bonus")[0]
                     chainresult = []
+                    frchainstring = display[index]["index"].split('+')[0]
+                    frchainstring = frchainstring[:frchainstring.rfind("</span>")-1].replace('[','').replace(']','').replace(', ','').split("D")[1:]
+                    #print(f"frChainstring: {frchainstring}")
+                    for chain in chained:
+                        if "+" not in chain and "Initial" not in chain:
+                            frpath = chain.replace(', ','').split("D")[1:]
+                            frbonuspath = list(map(int,frchainstring))
+                            frpath = list(map(int,frpath))
+                            #print(f"frpath: {frpath}")
+                            #print(f"frbonuspath: {frbonuspath}")
+                            if len(frpath) <= len(frbonuspath):
+                                remain = max_spawns - 4
+                                match = True
+                                for v in range(0,len(frpath)-1):
+                                    remain = remain - frpath[v]
+                                    if frpath[v] != frbonuspath[v]:
+                                        match = False
+                                if match:
+                                    if len(frpath) == len(frbonuspath) and frpath[len(frpath)-1] == frbonuspath[len(frbonuspath)-1]:
+                                        print("Exact first round path, adding")
+                                        display[index]["chains"].append(chained[chain])
+                                    elif frbonuspath[len(frpath)-1] >= frpath[len(frpath)-1]:
+                                        difference = frbonuspath[len(frpath)-1] - frpath[len(frpath)-1]
+                                        if remain < difference or difference == 0:
+                                            print("Bonus Path > frpath, adding")
+                                            display[index]["chains"].append(chained[chain])
                     #print(f"Chainstring: {chainstring}")
                     if chained.get(chainstring, None) is not None:
                         chainresult.append(chainstring)
@@ -693,6 +721,7 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                         display[str(index)]["gender"] = "Male <i class='fa-solid fa-mars' style='color:blue'></i>"
                     if display[str(index)]["shiny"]:
                         chained[display[str(index)]["index"]] = f"<span class='pla-results-firstpath'>First Round </span>{display[str(index)]['index']}"
+                        print(f"Chiained: {chained}")
             if bonus_flag:
                 species,alpha,_ = get_species(enctable,1)
                 print(f"Bonus Round Species: {species}")
