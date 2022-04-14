@@ -491,7 +491,7 @@ const showFilteredResults = () => {
           resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
           break;
         case "Careful":
-          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
+          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
           resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
           break;
         case "Sassy":
