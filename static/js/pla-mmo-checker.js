@@ -359,29 +359,66 @@ const showFilteredResults = () => {
   );
 
   if (filteredResults.length > 0) {
-	  resultsArea.innerHTML = "<h3>D = Despawn. Despawn Multiple Pokemon by either Multibattles (for aggressive) or Scaring (for skittish) pokemon.</h3>";
+	  resultsArea.innerHTML = "<h3><section class='pla-section-results' flow>D = Despawn. Despawn Multiple Pokemon by either Multibattles (for aggressive) or Scaring (for skittish) pokemon.</section></h3>";
     filteredResults.forEach((result) => {
 	  let sprite = document.createElement('img');
 	  sprite.src = "static/img/sprite/"+result.sprite;
+	  
+	  let indexprefix = ""
+	  let chainprefix = ""
+	  if (result.chains.length == 0) {
+		  indexprefix = "Single Path Shiny: <p>" + result.index;
+		  chainprefix = "No Additional Shinies On Path";
+	  }
+	  else {
+		  indexprefix = "Multiple Path Shiny: <p>" + result.index;
+		  chainprefix = result.chains;
+	  }
 	 
       const resultContainer = resultTemplate.content.cloneNode(true);
 	  resultContainer.querySelector('.pla-results-sprite').appendChild(sprite);
       resultContainer.querySelector("[data-pla-results-species]").innerText =
         result.species;
       resultContainer.querySelector("[data-pla-results-location]").innerHTML =
-        result.index;
+        indexprefix;
 
       let resultShiny = resultContainer.querySelector(
         "[data-pla-results-shiny]"
       );
-      resultShiny.innerText = result.shiny;
+	  let sparkle = "";
+	  let sparklesprite = document.createElement('img');
+	  sparklesprite.className = "pla-results-sparklesprite";
+	  sparklesprite.src = "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
+	  sparklesprite.height = "10";
+	  sparklesprite.width = "10";
+	  sparklesprite.style.cssText = "pull-left;display:inline-block;margin-left:0px;";
+      if (result.shiny && result.square){
+          sparkle = "Square Shiny!"
+		  sparklesprite.src = "static/img/square.png";
+      }
+      else if (result.shiny){
+		  sparklesprite.src = "static/img/shiny.png";
+          sparkle = "Shiny!"
+      }
+	  else {
+		  sparkle = "Not Shiny"
+	  }
+	  resultContainer.querySelector("[data-pla-results-shinysprite]").appendChild(sparklesprite);
+      resultShiny.innerText = sparkle;
       resultShiny.classList.toggle("pla-result-true", result.shiny);
       resultShiny.classList.toggle("pla-result-false", !result.shiny);
 
       let resultAlpha = resultContainer.querySelector(
         "[data-pla-results-alpha]"
       );
-      resultAlpha.innerText = result.alpha;
+	  let bigmon = "";
+      if (result.alpha) {
+          bigmon = "Alpha!";
+      }
+      else {
+          bigmon = "Not Alpha";
+      }
+      resultAlpha.innerText = bigmon;
       resultAlpha.classList.toggle("pla-result-true", result.alpha);
       resultAlpha.classList.toggle("pla-result-false", !result.alpha);
 
@@ -409,7 +446,7 @@ const showFilteredResults = () => {
 		});
 	  }
 	  resultContainer.querySelector("[data-pla-info-chains]").innerHTML =
-		result.chains;
+		chainprefix;
 	  resultContainer.querySelector("[data-pla-results-dupes]").innerText =
 	    result.dupes;
       resultContainer.querySelector("[data-pla-results-gender]").innerHTML =

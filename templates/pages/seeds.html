@@ -45,6 +45,7 @@
 			console.log(outbreaktype);
 			var html_code2 = '';
 			var html_code3 = '';
+			var html_species = '';
 			if (outbreaktype) {
 				for(i = 10; i <=15; i++) {
 					html_code2 += '<option value="' + i + '">' + i + '</option>';
@@ -54,6 +55,9 @@
                 html_code3 += '<option value="29">Dex Research Perfect</option>'
                 html_code3 += '<option value="30">Shiny Charm</option>'
                 html_code3 += '<option value="32">Shiny Charm + Perfect</option>'
+				
+				html_species += '<option value="0xEEFEE">Normal Outbreak Encounter Table</option>';
+				$('#frpokemon').html(html_species);
 			} else {
 				for(i = 8; i <=10; i++) {
 					html_code2 += '<option value="' + i + '">' + i + '</option>';
@@ -63,6 +67,7 @@
                 html_code3 += '<option value="16">Dex Research Perfect</option>'
                 html_code3 += '<option value="17">Shiny Charm</option>'
                 html_code3 += '<option value="19">Shiny Charm + Perfect</option>'
+				get_json_data('frpokemon',0);
 			}
 			$('#frspawns').html(html_code2);
 			$('#rolls').html(html_code3);
@@ -171,13 +176,6 @@
             <button class="pla-button pla-button-action" onclick="checkmmos()">Check MMO Seed</button>
         </div>
     </section>
-
-	<section class="pla-section-icons">
-		<div class="pla-control-actions">
-			<a href="https://discord.gg/2JSZnm8GHf" target="_blank"><img class="icons" src="{{ url_for('static', filename='img/discord-v2_round.ico') }}" alt="Discord"></a>
-			<a href="https://www.youtube.com/channel/UCrItwn5zVd2jinwkznYn-dQ" target="_blank"><img class="icons" src="{{ url_for('static', filename='img/youtube_round.ico') }}"></a>
-		</div>
-	</section>
 {% endblock %}
 
 {% block templates %}
@@ -190,12 +188,16 @@
             </ul>
 
             <ul class="pla-results-ul">
-                <li><span class="pla-results-label">Shiny:</span> <span data-pla-results-shiny></span></li>
+                <li><span class="pla-results-label">Shiny:</span> <span class="float -left" data-pla-results-shinysprite> <span class="float -right" data-pla-results-shiny> </span></span></li>
+				<li class="pla-results-sparklesprite" data-pla-results-sparklesprite></li>
                 <li><span class="pla-results-label">Alpha:</span> <span data-pla-results-alpha></span></li>
             </ul>
 
 			<ul class="pla-results-ul">
 				<li><span class="pla-results-label"><span data-pla-results-location></span></span></li>
+			</ul>
+			<ul class="pla-results-ul">
+				<span class="pla-results-label">Chained With: <span data-pla-info-chains></span></span>
 			</ul>
             <ul class="pla-results-ul">
                 <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
@@ -237,5 +239,5 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{{ url_for('static', filename='js/pla-mmo-seed-reader.js') }}"></script>
+    <script src="static/js/pla-mmo-seed-reader.js"></script>
 {% endblock %}

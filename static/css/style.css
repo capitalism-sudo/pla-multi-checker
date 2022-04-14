@@ -164,7 +164,7 @@ picture,
 video,
 canvas,
 svg {
-  display: block;
+  display: inline-block;
   max-width: 100%;
 }
 

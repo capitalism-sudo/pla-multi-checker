@@ -45,7 +45,7 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
         shiny = ((pid >> 16) ^ (sidtid >> 16) \
             ^ (pid & 0xFFFF) ^ (sidtid & 0xFFFF)) < 0x10
         if shiny:
-            square == ((pid >> 16) ^ (sidtid >> 16) \
+            square = ((pid >> 16) ^ (sidtid >> 16) \
                        ^ (pid & 0xFFFF) ^ (sidtid & 0xFFFF)) == 0x0
             break
     ivs = [-1,-1,-1,-1,-1,-1]

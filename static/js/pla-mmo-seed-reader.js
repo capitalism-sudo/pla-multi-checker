@@ -6,6 +6,7 @@ const spinnerTemplate = document.querySelector("[data-pla-spinner]");
 
 const resultsSection = document.querySelector(".pla-section-results");
 const resultsSprite = document.querySelector(".pla-results-sprite");
+const resultsSparklesprite = document.querySelector(".pla-results-sparklesprite");
 
 const teleportButton = document.querySelector(".pla-results-teleport");
 
@@ -374,28 +375,52 @@ const showFilteredResults = () => {
   );
 
   if (filteredResults.length > 0) {
+	resultsArea.innerHTML = "<h3><section class='pla-section-results' flow>D = Despawn. Despawn Multiple Pokemon by either Multibattles (for aggressive) or Scaring (for skittish) pokemon.</section></h3>";  
     filteredResults.forEach((result) => {
 	  let sprite = document.createElement('img');
 	  sprite.src = "static/img/sprite/"+result.sprite;
+	  
+	  let indexprefix = ""
+	  let chainprefix = ""
+	  if (result.chains.length == 0) {
+		  indexprefix = "Single Path Shiny: <br>" + result.index;
+		  chainprefix = "No Additional Shinies On Path";
+	  }
+	  else {
+		  indexprefix = "Multiple Path Shiny: <br>" + result.index;
+		  chainprefix = "<br>" + result.chains;
+	  }
 
       const resultContainer = resultTemplate.content.cloneNode(true);
 	  resultContainer.querySelector('.pla-results-sprite').appendChild(sprite);
       resultContainer.querySelector("[data-pla-results-species]").innerText =
         result.species;
       resultContainer.querySelector("[data-pla-results-location]").innerHTML =
-        result.index;
+        indexprefix;
 
       let resultShiny = resultContainer.querySelector(
         "[data-pla-results-shiny]"
       );
       let sparkle = "";
-      if (result.shiny) {
-          sparkle = "Shiny!"
+	  let sparklesprite = document.createElement('img');
+	  sparklesprite.className = "pla-results-sparklesprite";
+	  sparklesprite.src = "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
+	  sparklesprite.height = "10";
+	  sparklesprite.width = "10";
+	  sparklesprite.style.cssText = "pull-left;display:inline-block;";
+      if (result.shiny && result.square) {
+		  sparklesprite.src = "static/img/square.png";
+          sparkle = "Square Shiny!"
       }
+	  else if (result.shiny) {
+		  sparklesprite.src = "static/img/shiny.png";
+		  sparkle = "Shiny!"
+	  }
       else {
           sparkle = "Not Shiny"
       }
-      resultShiny.innerText = sparkle;
+	  resultContainer.querySelector("[data-pla-results-shinysprite]").appendChild(sparklesprite);
+      resultShiny.innerHTML = sparkle;
       resultShiny.classList.toggle("pla-result-true", result.shiny);
       resultShiny.classList.toggle("pla-result-false", !result.shiny);
 
@@ -413,6 +438,8 @@ const showFilteredResults = () => {
       resultAlpha.classList.toggle("pla-result-true", result.alpha);
       resultAlpha.classList.toggle("pla-result-false", !result.alpha);
 
+	  resultContainer.querySelector("[data-pla-info-chains]").innerHTML =
+		chainprefix;
       resultContainer.querySelector("[data-pla-results-nature]").innerText =
         result.nature;
       resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
