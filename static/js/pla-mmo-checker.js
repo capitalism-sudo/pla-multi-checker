@@ -22,12 +22,15 @@ const distShinyCheckbox = document.getElementById("mmoShinyFilter");
 const distAlphaCheckbox = document.getElementById("mmoAlphaFilter");
 const mmoSpeciesText = document.getElementById("mmoSpeciesFilter");
 const distDefaultCheckbox = document.getElementById("mmoDefaultRouteFilter");
+const distMultiCheckbox = document.getElementById("mmoMultiFilter");
 
 distShinyOrAlphaCheckbox.onchange = setFilter;
 distShinyCheckbox.onchange = setFilter;
 distAlphaCheckbox.onchange = setFilter;
 mmoSpeciesText.oninput = setFilter;
 distDefaultCheckbox.onchange = setFilter;
+distMultiCheckbox.onchange = setFilter;
+
 
 loadPreferences();
 setupPreferenceSaving();
@@ -135,7 +138,7 @@ function validateFilters() {
   distAlphaCheckbox.checked = alphaFilter;
 }
 
-function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter, defaultFilter) {
+function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter, defaultFilter, multiFilter) {
   if (shinyOrAlphaFilter && !(result.shiny || result.alpha)) {
     return false;
   }
@@ -153,6 +156,10 @@ function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFil
   }
   
   if (SpeciesFilter.value.length != 0 && !result.species.toLowerCase().includes(SpeciesFilter.value.toLowerCase())){
+	  return false;
+  }
+  
+  if (multiFilter && !result.multi) {
 	  return false;
   }
 
@@ -348,6 +355,7 @@ const showFilteredResults = () => {
   let alphaFilter = distAlphaCheckbox.checked;
   let SpeciesFilter = mmoSpeciesFilter;
   let defaultFilter = distDefaultCheckbox.checked;
+  let multiFilter = distMultiCheckbox.checked;
 
   resultsArea.innerHTML = "";
   resultsSection.classList.toggle("pla-loading", false);
@@ -355,7 +363,7 @@ const showFilteredResults = () => {
   filteredResults = results.filter(
     (result) =>
       result.spawn &&
-      filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter, defaultFilter)
+      filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, SpeciesFilter, defaultFilter, multiFilter)
   );
 
   if (filteredResults.length > 0) {
@@ -373,6 +381,7 @@ const showFilteredResults = () => {
 	  else {
 		  indexprefix = "Multiple Path Shiny: <p>" + result.index;
 		  chainprefix = result.chains;
+		  result.multi = true;
 	  }
 	 
       const resultContainer = resultTemplate.content.cloneNode(true);

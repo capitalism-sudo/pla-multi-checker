@@ -118,7 +118,8 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     "nature":NATURES[nature],
                     "gender":gender,
                     "chains":[],
-                    "square": square
+                    "square": square,
+                    "multi": False
                     }
                 """
                 if not fixed_seed in uniques:
@@ -160,7 +161,7 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     uniques.add(fixed_seed)
                     string = "Path: "
                     for s in steps[:step_i]:
-                        string = string + f" D{s}, "
+                        string = string + f"D{s}, "
                     string = string + f"D{pokemon}"
                     info = {
                     #"index":f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])} </span>",
@@ -177,7 +178,8 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     "nature":NATURES[nature],
                     "gender":gender,
                     "chains":[],
-                    "square":square
+                    "square":square,
+                    "multi":False
                     }
                     """
                     if not fixed_seed in uniques:
@@ -549,12 +551,42 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                 if display[index]["shiny"]:
                     chainstring = display[index]["index"].rpartition("Bonus")[0]
                     chainresult = []
-                    #print(f"Chainstring: {chainstring}")
+                    frchainstring = display[index]["index"].split('+')[0]
+                    frchainstring = frchainstring[:frchainstring.rfind("</span>")-1].replace('[','').replace(']','').replace(', ','').split("D")[1:]
+                    #print(f"frChainstring: {frchainstring}")
+                    """
+                    if chained.get(frchainstring, None) is not None:
+                        chainresult.append(frchainstring)
+                    """
+                    for chain in chained:
+                        if "+" not in chain and "Initial" not in chain:
+                            frpath = chain.replace(', ','').split("D")[1:]
+                            frbonuspath = list(map(int,frchainstring))
+                            frpath = list(map(int,frpath))
+                            #print(f"frpath: {frpath}")
+                            #print(f"frbonuspath: {frbonuspath}")
+                            if len(frpath) <= len(frbonuspath):
+                                remain = max_spawns - 4
+                                match = True
+                                for v in range(0,len(frpath)-1):
+                                    remain = remain - frpath[v]
+                                    if frpath[v] != frbonuspath[v]:
+                                        match = False
+                                if match:
+                                    if len(frpath) == len(frbonuspath) and frpath[len(frpath)-1] == frbonuspath[len(frbonuspath)-1]:
+                                        print("Exact first round path, adding")
+                                        display[index]["chains"].append(chained[chain])
+                                    elif frbonuspath[len(frpath)-1] >= frpath[len(frpath)-1]:
+                                        difference = frbonuspath[len(frpath)-1] - frpath[len(frpath)-1]
+                                        if remain < difference or difference == 0:
+                                            print("Bonus Path > frpath, adding")
+                                            display[index]["chains"].append(chained[chain])
                     if chained.get(chainstring, None) is not None:
                         chainresult.append(chainstring)
                     for ini,initcha in enumerate(initchain):
                         if chained.get(initcha, None) is not None:
                             chainresult.append(initcha)
+                    #print(chained)
                     for r,res in enumerate(chainresult):
                         """
                         if res is not None and (res.rpartition('Bonus')[0] == f"<span class='pla-results-firstpath'>" + \
@@ -566,6 +598,7 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                                               f"Revisit {epath} </span> + <span class='pla-results-bonus'> "):
                         """
                         if res is not None:
+                            print(chained[res])
                             print("Possible Chain Shiny Found!")
                             bonuscheck = chained[res].rpartition("Bonus Round Path:")[2].replace(" ",'').replace("D",'').split(',')
                             print(f"Bonus Check: {bonuscheck}")
@@ -575,7 +608,17 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                             if "Initial" in bonuscheck[len(bonuscheck)-1] or "FirstRound" in bonuscheck[0] or (len(bonuscheck) < len(currcheck) and bonuscheck[0] == currcheck[0]):
                                 print("Either an initial spawn, or bonuscheck < currcheck and they're on the same path, adding.")
                                 display[index]["chains"].append(chained[res])
-                            elif len(bonuscheck) <= len(currcheck) and (len(currcheck) > 1 and (bonuscheck[0] == currcheck[0]) or (len(bonuscheck) == len(currcheck))):
+                            elif len(bonuscheck) < len(currcheck):
+                                bonuscheck = list(map(int, bonuscheck))
+                                currcheck = list(map(int, currcheck))
+                                respawns = true_spawns - 4
+                                remain = respawns
+                                for t in range(0,len(bonuscheck)):
+                                    remain = remain - bonuscheck[t]
+                                if remain >= 1:
+                                    print("Remaining >1, adding")
+                                    display[index]["chains"].append(chained[res])
+                            elif len(bonuscheck) <= len(currcheck) and (len(currcheck) > 1 and (bonuscheck[0] == currcheck[0]) or ((len(bonuscheck) == len(currcheck) and bonuscheck[0] == currcheck[0]))):
                                 bonuscheck = list(map(int, bonuscheck))
                                 currcheck = list(map(int, currcheck))
                                 max_path_size = max(sum(bonuscheck),sum(currcheck))
@@ -674,6 +717,7 @@ def check_from_seed(group_seed,rolls,frencounter,brencounter,bonus_flag=False,ma
                 display[str(index)]["gender"] = "Male <i class='fa-solid fa-mars' style='color:blue'></i>"
             if display[str(index)]["shiny"]:
                 chained[display[str(index)]["index"]] = f"<span class='pla-results-firstpath'>First Round </span>{display[str(index)]['index']}"
+                print(f"Chiained: {chained}")
     if bonus_flag:
         true_spawns = max_spawns
         bonus_spawns = true_spawns + 4
