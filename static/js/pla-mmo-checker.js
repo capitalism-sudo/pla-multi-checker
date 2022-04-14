@@ -408,6 +408,8 @@ const showFilteredResults = () => {
 		}
 		});
 	  }
+	  resultContainer.querySelector("[data-pla-info-chains]").innerHTML =
+		result.chains;
 	  resultContainer.querySelector("[data-pla-results-dupes]").innerText =
 	    result.dupes;
       resultContainer.querySelector("[data-pla-results-gender]").innerHTML =

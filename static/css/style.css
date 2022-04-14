@@ -642,7 +642,7 @@ section.pla-section-expandable {
 
 .pla-results-ivs li:not(:first-child)::before {
   font-weight: normal;
-  color: var(--color-black);
+  color: var(--text1);
   content: " / ";
   margin-left: 0.1rem;
 }
