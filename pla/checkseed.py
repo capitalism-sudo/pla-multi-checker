@@ -554,10 +554,6 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                     frchainstring = display[index]["index"].split('+')[0]
                     frchainstring = frchainstring[:frchainstring.rfind("</span>")-1].replace('[','').replace(']','').replace(', ','').split("D")[1:]
                     #print(f"frChainstring: {frchainstring}")
-                    """
-                    if chained.get(frchainstring, None) is not None:
-                        chainresult.append(frchainstring)
-                    """
                     for chain in chained:
                         if "+" not in chain and "Initial" not in chain:
                             frpath = chain.replace(', ','').split("D")[1:]

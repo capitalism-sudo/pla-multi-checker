@@ -375,11 +375,11 @@ const showFilteredResults = () => {
 	  let indexprefix = ""
 	  let chainprefix = ""
 	  if (result.chains.length == 0) {
-		  indexprefix = "Single Path Shiny: <p>" + result.index;
+		  indexprefix = "Single Shiny Path: <p>" + result.index;
 		  chainprefix = "No Additional Shinies On Path";
 	  }
 	  else {
-		  indexprefix = "Multiple Path Shiny: <p>" + result.index;
+		  indexprefix = "Multiple Shiny Path (Complete for more than one Shiny): <p>" + result.index;
 		  chainprefix = result.chains;
 		  result.multi = true;
 	  }
