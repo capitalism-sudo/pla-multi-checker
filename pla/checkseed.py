@@ -505,6 +505,7 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                 display = generate_mass_outbreak_aggressive_path(epath_seed,rolls,
                                                                  nbpaths,bonus_spawns,true_spawns,
                                                                  encounters,encsum,isbonus,False)
+                print(f"Epath Seed: {epath_seed} for epath {epath} and first round {value}")
             else:
                 continue
             for index in display:
@@ -646,7 +647,7 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                 display[index]["sprite"] = spritename
                 ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
                 ratio = ratioarray[2]
-                if display[index]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
+                if display[index]["gender"] < ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
                     display[index]["gender"] = "Female <i class='fa-solid fa-venus' style='color:pink'></i>"
                 elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode","Unown"]:
                     display[index]["gender"] = "Genderless <i class='fa-solid fa-genderless'></i>"
@@ -705,7 +706,7 @@ def check_from_seed(group_seed,rolls,frencounter,brencounter,bonus_flag=False,ma
             ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
             ratio = ratioarray[2]
             #print(f"Ratio: {ratio}")
-            if display[str(index)]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
+            if display[str(index)]["gender"] < ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
                 display[str(index)]["gender"] = "Female <i class='fa-solid fa-venus' style='color:pink'></i>"
             elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode","Unown"]:
                 display[str(index)]["gender"] = "Genderless <i class='fa-solid fa-genderless'></i>"

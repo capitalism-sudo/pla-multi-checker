@@ -3,3 +3,5 @@ from .CheckDistortion import check_all_distortions, get_distortion_locations, ge
 from .CreateDistortion import create_distortion
 from .checkseed import check_from_seed
 from .checkalpha import check_alpha_from_seed
+from .checkmulti import check_multi_spawner
+from .checkmultiseed import check_multi_spawner_seed

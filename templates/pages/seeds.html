@@ -21,6 +21,8 @@
 				console.log(id)
 				html_code += '<option value="">Select Species</option>';
 				$.each(data, function(key, value) {
+					console.log("Value.parent_id");
+					console.log(value.parent_id);
 					if (value.parent_id == parent_id) {
 						html_code += '<option value="' + value.hash + '">' + value.species + '</option>';
 					}
@@ -56,8 +58,7 @@
                 html_code3 += '<option value="30">Shiny Charm</option>'
                 html_code3 += '<option value="32">Shiny Charm + Perfect</option>'
 				
-				html_species += '<option value="0xEEFEE">Normal Outbreak Encounter Table</option>';
-				$('#frpokemon').html(html_species);
+				get_json_data('frpokemon',-1);
 			} else {
 				for(i = 8; i <=10; i++) {
 					html_code2 += '<option value="' + i + '">' + i + '</option>';

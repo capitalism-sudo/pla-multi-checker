@@ -653,7 +653,7 @@ def read_bonus_pathinfo(reader,paths,group_id,mapcount,rolls,group_seed,map_name
                 display[index]["sprite"] = spritename
                 ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
                 ratio = ratioarray[2]
-                if display[index]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
+                if display[index]["gender"] < ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
                     display[index]["gender"] = "Female <i class='fa-solid fa-venus' style='color:pink'></i>"
                 elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode","Unown"]:
                     display[index]["gender"] = "Genderless <i class='fa-solid fa-genderless'></i>"
@@ -713,7 +713,7 @@ def get_map_mmos(reader,mapcount,rolls,inmap):
                     display[str(index)]["sprite"] = spritename
                     ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
                     ratio = ratioarray[2]
-                    if display[str(index)]["gender"] <= ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
+                    if display[str(index)]["gender"] < ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
                         display[str(index)]["gender"] = "Female <i class='fa-solid fa-venus' style='color:pink'></i>"
                     elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode","Unown"]:
                         display[str(index)]["gender"] = "Genderless <i class='fa-solid fa-genderless'></i>"

@@ -78,7 +78,7 @@
 	{
 		"species": "Alpha Basculegion",
 		"hash": "0x542CF2BA871B9BBC",
-		"parent_id": "0x542CF4BA871B9F22",
+		"parent_id": "0xA37B2DA46ABBE8A6",
 		"allspecies": []
 	},
 	{
@@ -1410,7 +1410,7 @@
 	{
 		"species": "Basculegion",
 		"hash": "0x542CF4BA871B9F22",
-		"parent_id": "0",
+		"parent_id": "0xA37B2DA46ABBE8A6",
 		"allspecies": [
 			"Basculegion",
 			"Basculegion-1"
@@ -3294,5 +3294,1360 @@
 			"Zubat",
 			"Golbat"
 		]
-	}
+	},
+	 {
+   "hash": "Enamorus",
+   "species": "Enamorus",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Enamorus-1",
+   "species": "Enamorus-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Overqwil",
+   "species": "Overqwil",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Sneasler",
+   "species": "Sneasler",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Basculegion",
+   "species": "Basculegion",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Basculegion-1",
+   "species": "Basculegion-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Ursaluna",
+   "species": "Ursaluna",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Kleavor",
+   "species": "Kleavor",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Kleavor-1",
+   "species": "Kleavor-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Wyrdeer",
+   "species": "Wyrdeer",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Decidueye-1",
+   "species": "Decidueye-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Dartrix",
+   "species": "Dartrix",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rowlet",
+   "species": "Rowlet",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Avalugg-1",
+   "species": "Avalugg-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Avalugg-2",
+   "species": "Avalugg-2",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Bergmite",
+   "species": "Bergmite",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Goodra-1",
+   "species": "Goodra-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Sliggoo-1",
+   "species": "Sliggoo-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Goomy",
+   "species": "Goomy",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Sylveon",
+   "species": "Sylveon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Landorus",
+   "species": "Landorus",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Landorus-1",
+   "species": "Landorus-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Thundurus",
+   "species": "Thundurus",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Thundurus-1",
+   "species": "Thundurus-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Tornadus",
+   "species": "Tornadus",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Tornadus-1",
+   "species": "Tornadus-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Braviary-1",
+   "species": "Braviary-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rufflet",
+   "species": "Rufflet",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Zoroark-1",
+   "species": "Zoroark-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Zorua-1",
+   "species": "Zorua-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Basculin-2",
+   "species": "Basculin-2",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Lilligant-1",
+   "species": "Lilligant-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Lilligant-2",
+   "species": "Lilligant-2",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Petilil",
+   "species": "Petilil",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Samurott-1",
+   "species": "Samurott-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Dewott",
+   "species": "Dewott",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Oshawott",
+   "species": "Oshawott",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Arceus",
+   "species": "Arceus",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Shaymin",
+   "species": "Shaymin",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Shaymin-1",
+   "species": "Shaymin-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Darkrai",
+   "species": "Darkrai",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Manaphy",
+   "species": "Manaphy",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Phione",
+   "species": "Phione",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Cresselia",
+   "species": "Cresselia",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Giratina",
+   "species": "Giratina",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Giratina-1",
+   "species": "Giratina-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Regigigas",
+   "species": "Regigigas",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Heatran",
+   "species": "Heatran",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Palkia",
+   "species": "Palkia",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Palkia-1",
+   "species": "Palkia-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Dialga",
+   "species": "Dialga",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Dialga-1",
+   "species": "Dialga-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Azelf",
+   "species": "Azelf",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Mesprit",
+   "species": "Mesprit",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Uxie",
+   "species": "Uxie",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rotom",
+   "species": "Rotom",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rotom-1",
+   "species": "Rotom-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rotom-2",
+   "species": "Rotom-2",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rotom-3",
+   "species": "Rotom-3",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rotom-4",
+   "species": "Rotom-4",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rotom-5",
+   "species": "Rotom-5",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Froslass",
+   "species": "Froslass",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Dusknoir",
+   "species": "Dusknoir",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Probopass",
+   "species": "Probopass",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Gallade",
+   "species": "Gallade",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Porygon-Z",
+   "species": "Porygon-Z",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Mamoswine",
+   "species": "Mamoswine",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Gliscor",
+   "species": "Gliscor",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Glaceon",
+   "species": "Glaceon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Leafeon",
+   "species": "Leafeon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Yanmega",
+   "species": "Yanmega",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Togekiss",
+   "species": "Togekiss",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Magmortar",
+   "species": "Magmortar",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Electivire",
+   "species": "Electivire",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Tangrowth",
+   "species": "Tangrowth",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rhyperior",
+   "species": "Rhyperior",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Lickilicky",
+   "species": "Lickilicky",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Magnezone",
+   "species": "Magnezone",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Weavile",
+   "species": "Weavile",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Abomasnow",
+   "species": "Abomasnow",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Snover",
+   "species": "Snover",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Mantyke",
+   "species": "Mantyke",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Lumineon",
+   "species": "Lumineon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Finneon",
+   "species": "Finneon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Carnivine",
+   "species": "Carnivine",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Toxicroak",
+   "species": "Toxicroak",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Croagunk",
+   "species": "Croagunk",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Drapion",
+   "species": "Drapion",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Skorupi",
+   "species": "Skorupi",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Hippowdon",
+   "species": "Hippowdon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Hippopotas",
+   "species": "Hippopotas",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Lucario",
+   "species": "Lucario",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Riolu",
+   "species": "Riolu",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Munchlax",
+   "species": "Munchlax",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Garchomp",
+   "species": "Garchomp",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Gabite",
+   "species": "Gabite",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Gible",
+   "species": "Gible",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Spiritomb",
+   "species": "Spiritomb",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Chatot",
+   "species": "Chatot",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Happiny",
+   "species": "Happiny",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Mime Jr.",
+   "species": "Mime Jr.",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Bonsly",
+   "species": "Bonsly",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Bronzong",
+   "species": "Bronzong",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Bronzor",
+   "species": "Bronzor",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Skuntank",
+   "species": "Skuntank",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Stunky",
+   "species": "Stunky",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Chingling",
+   "species": "Chingling",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Purugly",
+   "species": "Purugly",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Glameow",
+   "species": "Glameow",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Honchkrow",
+   "species": "Honchkrow",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Mismagius",
+   "species": "Mismagius",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Lopunny",
+   "species": "Lopunny",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Buneary",
+   "species": "Buneary",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Drifblim",
+   "species": "Drifblim",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Drifloon",
+   "species": "Drifloon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Ambipom",
+   "species": "Ambipom",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Gastrodon",
+   "species": "Gastrodon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Gastrodon-1",
+   "species": "Gastrodon-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Shellos",
+   "species": "Shellos",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Shellos-1",
+   "species": "Shellos-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Cherrim",
+   "species": "Cherrim",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Cherrim-1",
+   "species": "Cherrim-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Cherubi",
+   "species": "Cherubi",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Floatzel",
+   "species": "Floatzel",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Buizel",
+   "species": "Buizel",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Pachirisu",
+   "species": "Pachirisu",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Vespiquen",
+   "species": "Vespiquen",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Combee",
+   "species": "Combee",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Mothim",
+   "species": "Mothim",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Mothim-1",
+   "species": "Mothim-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Mothim-2",
+   "species": "Mothim-2",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Wormadam",
+   "species": "Wormadam",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Wormadam-1",
+   "species": "Wormadam-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Wormadam-2",
+   "species": "Wormadam-2",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Burmy",
+   "species": "Burmy",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Burmy-1",
+   "species": "Burmy-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Burmy-2",
+   "species": "Burmy-2",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Bastiodon",
+   "species": "Bastiodon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Shieldon",
+   "species": "Shieldon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rampardos",
+   "species": "Rampardos",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Cranidos",
+   "species": "Cranidos",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Roserade",
+   "species": "Roserade",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Budew",
+   "species": "Budew",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Luxray",
+   "species": "Luxray",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Luxio",
+   "species": "Luxio",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Shinx",
+   "species": "Shinx",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Kricketune",
+   "species": "Kricketune",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Kricketot",
+   "species": "Kricketot",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Bibarel",
+   "species": "Bibarel",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Bidoof",
+   "species": "Bidoof",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Staraptor",
+   "species": "Staraptor",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Staravia",
+   "species": "Staravia",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Starly",
+   "species": "Starly",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Empoleon",
+   "species": "Empoleon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Prinplup",
+   "species": "Prinplup",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Piplup",
+   "species": "Piplup",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Infernape",
+   "species": "Infernape",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Monferno",
+   "species": "Monferno",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Chimchar",
+   "species": "Chimchar",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Torterra",
+   "species": "Torterra",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Grotle",
+   "species": "Grotle",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Turtwig",
+   "species": "Turtwig",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Walrein",
+   "species": "Walrein",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Sealeo",
+   "species": "Sealeo",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Spheal",
+   "species": "Spheal",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Glalie",
+   "species": "Glalie",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Snorunt",
+   "species": "Snorunt",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Chimecho",
+   "species": "Chimecho",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Dusclops",
+   "species": "Dusclops",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Duskull",
+   "species": "Duskull",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Whiscash",
+   "species": "Whiscash",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Barboach",
+   "species": "Barboach",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Roselia",
+   "species": "Roselia",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Nosepass",
+   "species": "Nosepass",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Gardevoir",
+   "species": "Gardevoir",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Kirlia",
+   "species": "Kirlia",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Ralts",
+   "species": "Ralts",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Dustox",
+   "species": "Dustox",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Cascoon",
+   "species": "Cascoon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Beautifly",
+   "species": "Beautifly",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Silcoon",
+   "species": "Silcoon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Wurmple",
+   "species": "Wurmple",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Blissey",
+   "species": "Blissey",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Magby",
+   "species": "Magby",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Elekid",
+   "species": "Elekid",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Stantler",
+   "species": "Stantler",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Porygon2",
+   "species": "Porygon2",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Mantine",
+   "species": "Mantine",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Octillery",
+   "species": "Octillery",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Remoraid",
+   "species": "Remoraid",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Piloswine",
+   "species": "Piloswine",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Swinub",
+   "species": "Swinub",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Ursaring",
+   "species": "Ursaring",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Teddiursa",
+   "species": "Teddiursa",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Sneasel",
+   "species": "Sneasel",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Sneasel-1",
+   "species": "Sneasel-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Heracross",
+   "species": "Heracross",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Scizor",
+   "species": "Scizor",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Qwilfish-1",
+   "species": "Qwilfish-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Steelix",
+   "species": "Steelix",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Gligar",
+   "species": "Gligar",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Unown",
+   "species": "Unown",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Misdreavus",
+   "species": "Misdreavus",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Murkrow",
+   "species": "Murkrow",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Umbreon",
+   "species": "Umbreon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Espeon",
+   "species": "Espeon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Yanma",
+   "species": "Yanma",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Aipom",
+   "species": "Aipom",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Sudowoodo",
+   "species": "Sudowoodo",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Togetic",
+   "species": "Togetic",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Togepi",
+   "species": "Togepi",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Cleffa",
+   "species": "Cleffa",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Pichu",
+   "species": "Pichu",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Crobat",
+   "species": "Crobat",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Typhlosion-1",
+   "species": "Typhlosion-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Quilava",
+   "species": "Quilava",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Cyndaquil",
+   "species": "Cyndaquil",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Snorlax",
+   "species": "Snorlax",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Porygon",
+   "species": "Porygon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Flareon",
+   "species": "Flareon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Jolteon",
+   "species": "Jolteon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Vaporeon",
+   "species": "Vaporeon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Eevee",
+   "species": "Eevee",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Gyarados",
+   "species": "Gyarados",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Magikarp",
+   "species": "Magikarp",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Magmar",
+   "species": "Magmar",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Electabuzz",
+   "species": "Electabuzz",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Scyther",
+   "species": "Scyther",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Mr. Mime",
+   "species": "Mr. Mime",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Tangela",
+   "species": "Tangela",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Chansey",
+   "species": "Chansey",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rhydon",
+   "species": "Rhydon",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rhyhorn",
+   "species": "Rhyhorn",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Lickitung",
+   "species": "Lickitung",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Electrode-1",
+   "species": "Electrode-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Voltorb-1",
+   "species": "Voltorb-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Onix",
+   "species": "Onix",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Gengar",
+   "species": "Gengar",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Haunter",
+   "species": "Haunter",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Gastly",
+   "species": "Gastly",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Magneton",
+   "species": "Magneton",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Magnemite",
+   "species": "Magnemite",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Rapidash",
+   "species": "Rapidash",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Ponyta",
+   "species": "Ponyta",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Golem",
+   "species": "Golem",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Graveler",
+   "species": "Graveler",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Geodude",
+   "species": "Geodude",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Tentacruel",
+   "species": "Tentacruel",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Tentacool",
+   "species": "Tentacool",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Machamp",
+   "species": "Machamp",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Machoke",
+   "species": "Machoke",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Machop",
+   "species": "Machop",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Alakazam",
+   "species": "Alakazam",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Kadabra",
+   "species": "Kadabra",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Abra",
+   "species": "Abra",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Arcanine-1",
+   "species": "Arcanine-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Growlithe-1",
+   "species": "Growlithe-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Golduck",
+   "species": "Golduck",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Psyduck",
+   "species": "Psyduck",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Parasect",
+   "species": "Parasect",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Paras",
+   "species": "Paras",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Golbat",
+   "species": "Golbat",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Zubat",
+   "species": "Zubat",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Ninetales",
+   "species": "Ninetales",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Ninetales-1",
+   "species": "Ninetales-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Vulpix",
+   "species": "Vulpix",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Vulpix-1",
+   "species": "Vulpix-1",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Clefable",
+   "species": "Clefable",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Clefairy",
+   "species": "Clefairy",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Pikachu",
+   "species": "Pikachu",
+   "parent_id": "-1"
+ },
+ {
+   "hash": "Raichu",
+   "species": "Raichu",
+   "parent_id": "-1"
+ }
 ]

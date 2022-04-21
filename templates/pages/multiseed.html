@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block head %}
+	<script type="text/javascript" src="static/js/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(e){
+		console.log("ready!")
+
+		function get_json_data(id, parent_id) {
+			console.log('#' + id)
+			var html_code = '';
+			$.getJSON('static/resources/groupids.json', function(data) {
+				console.log(id)
+				html_code += '<option value="49">Select Spawner:</option>';
+				$.each(data, function(key, value) {
+					console.log("Value.parent_id");
+					console.log(value.parent_id);
+					if (value.parent_id == parent_id) {
+						html_code += '<option value="' + value.id + '">' + value.name + '</option>';
+					}
+				});
+				$('#' + id).html(html_code);
+			});
+		}
+		
+		get_json_data('groupID',0);
+	});
+	</script>
+	<script src="https://kit.fontawesome.com/acd232d529.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block main %}
+
+    <section class="pla-section-results flow">
+	<div class="tab">
+		<button class="tablinks" onclick="openTab(event, 'Results')" id="defaultOpen">Results</button>
+		<button class="tablinks" onclick="openTab(event, 'Maps')">Spawner Maps</button>
+	</div>
+	
+	<div id="Results" class="tabcontent">
+        <div class="pla-results" data-pla-results>
+            Search to begin
+        </div>
+	</div>
+	
+	<div id="Maps" class="tabcontent">
+		<section class="pla-section-spawnmap">
+		<div class="pla-results">
+		<h3>Currently Supported Spawnpoints:</h3>
+		</div>
+		
+		<ul class="pla-results-ul">
+			<li><img src="static/img/spawnpoint-eevee.png"></li>
+			<li><img src="static/img/spawnpoint-combee.png"></li>
+		</ul>
+		<ul class="pla-results-ul">
+			<li><img src="static/img/spawnpoint-petilil.png"></li>
+			<li><img src="static/img/spawnpoint-swinub.png"></li>
+		</ul>
+		</section>
+	</div>
+    </section>
+{% endblock %}
+
+{% block sidebar %}
+    <section class="pla-section-options">
+	
+		<div class="pla-control">
+            <label for="inputseed">Seed</label>
+            <input type="text" id="inputseed" placeholder="Input Seed">
+        </div>
+		
+        <div class="pla-control">
+            <label for="maxDepth">Max Number of Advances:</label>
+            <select id="maxDepth">
+                <option value="5">5</option>
+                <option value="9">9</option>
+                <option value="12">12</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+
+        <div class="pla-control">
+            <label for="rolls">Shiny Rolls</label>
+            <select id="rolls">
+                <option value="1">Default</option>
+                <option value="2">Dex Research 10</option>
+                <option value="4">Dex Research Perfect</option>
+                <option value="5">Shiny Charm</option>
+                <option value="7">Shiny Charm + Perfect</option>
+            </select>
+        </div>
+		
+		<div class="pla-control">
+			<label for="maxAlive">Number of Spawns:</label>
+			<select id="maxAlive">
+				<option value="2">2</option>
+				<option value="3">3</option>
+			</select>
+		</div>
+		
+		<!--<div class="pla-control">
+			<label for="groupID">Group ID:</label>
+			<input type="text" id="groupID">
+		</div>-->
+		
+		<div class="pla-control">
+			<label for="groupID">Select Spawner:</label>
+			<select name="groupID" id="groupID" class="form-control">
+				<option value="49">Select Spawn Point</option>
+			</select>
+		</div>
+
+        <div class="pla-control-spaced">
+            <label for="mmoShinyFilter">Shiny or Alpha</label>
+            <input type="checkbox" id="mmoShinyOrAlphaFilter">
+        </div>
+
+        <div class="pla-control-spaced">
+            <label for="mmoShinyFilter">Shiny Only</label>
+            <input type="checkbox" id="mmoShinyFilter">
+        </div>
+
+        <div class="pla-control-spaced">
+            <label for="mmoAlphaFilter">Alpha Only</label>
+            <input type="checkbox" id="mmoAlphaFilter">
+        </div>
+        
+        <div class="pla-control">
+            <label for="mmoSpeciesFilter">Species Filter:</label>
+            <input type="text" id="mmoSpeciesFilter">
+        </div>
+
+        <!--
+        <div class="pla-control-spaced">
+            <label for="inmapcheck">In Area: (Not Currently Functional)</label>
+            <input type="checkbox" id="inmapcheck">
+        </div>-->
+        
+        <div class="pla-control-actions">
+            <button class="pla-button pla-button-action" onclick="checkmultiseed()">Check Multi Spawner</button>
+        </div>
+    </section>
+
+    <!--<section class="pla-section-info">
+        <h3>Maps</h3>
+        <ul class="pla-info-list" data-pla-info-locations>
+        
+        </ul>
+        
+        <h3>Normal Outbreaks</h3>
+        <ul class="pla-info-list" data-pla-info-spawns>
+
+        </ul>
+                    
+        <div class="pla-control-actions">
+            <button class="pla-button pla-button-action" onclick="checkmaps()">Refresh Maps</button>
+        </div>
+    </section>-->
+{% endblock %}
+
+{% block templates %}
+    <template data-pla-results-template>
+        <div class="pla-results-item" data-pla-results-template>
+            <ul class="pla-results-heading pla-results-ul">
+                <li class="pla-results-sprite" data-pla-results-sprite></li>
+                <li class="pla-results-species" data-pla-results-species></li>
+            </ul>
+
+            <ul class="pla-results-ul">
+                <li><span class="pla-results-label">Shiny:</span> <span class="float -left" data-pla-results-shinysprite><span class="float -right" data-pla-results-shiny></span></span></li>
+                <li><span class="pla-results-label">Alpha:</span> <span data-pla-results-alpha></span></li>
+            </ul>
+
+            <ul class="pla-results-ul">
+                <li><span class="pla-results-label"><span data-pla-results-location></span></span></li>
+            </ul>
+			<ul class="pla-results-ul">
+				<li><span class="pla-results-label">Advances:</span> <span data-pla-results-adv></span></li>
+			</ul>
+			<!--<button type="button" class="collapsible">See Duplicate Paths</button>
+			<div class="content">-->
+            <ul class="pla-results-ul">
+                <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
+                <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>
+            </ul>
+
+            <ul class="pla-results-ul">
+                <li><span class="pla-results-label">EC:</span> <span data-pla-results-ec></span></li>
+                <li><span class="pla-results-label">PID:</span> <span data-pla-results-pid></span></li>
+            </ul>
+
+            <div class="pla-results-ivs-container">
+                <span class="pla-results-label">IVs:</span>
+                <ul class="pla-results-ivs">
+                    <li class="pla-results-ivs-hp" data-pla-results-ivs-hp></li>
+                    <li class="pla-results-ivs-att" data-pla-results-ivs-att></li>
+                    <li class="pla-results-ivs-def" data-pla-results-ivs-def></li>
+                    <li class="pla-results-ivs-spa" data-pla-results-ivs-spa></li>
+                    <li class="pla-results-ivs-spd" data-pla-results-ivs-spd></li>
+                    <li class="pla-results-ivs-spe" data-pla-results-ivs-spe></li>
+                </ul>
+            </div>
+            
+            </div>
+        </div>
+    </template>
+
+    <template data-pla-spinner>
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </template>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='js/pla-multi-seed-reader.js') }}"></script>
+{% endblock %}

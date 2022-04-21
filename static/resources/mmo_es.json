@@ -10710,5 +10710,3528 @@
 		],
 		"ivs":3
   }
-  ]
+  ],
+  "Enamorus": [{
+			"slot": 100,
+			"name": "Enamorus",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Enamorus",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Enamorus-1": [{
+			"slot": 100,
+			"name": "Enamorus-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Enamorus-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Overqwil": [{
+			"slot": 100,
+			"name": "Overqwil",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Overqwil",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Sneasler": [{
+			"slot": 100,
+			"name": "Sneasler",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Sneasler",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Basculegion": [{
+			"slot": 100,
+			"name": "Basculegion",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Basculegion",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Basculegion-1": [{
+			"slot": 100,
+			"name": "Basculegion-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Basculegion-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Ursaluna": [{
+			"slot": 100,
+			"name": "Ursaluna",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Ursaluna",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Kleavor": [{
+			"slot": 100,
+			"name": "Kleavor",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Kleavor",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Kleavor-1": [{
+			"slot": 100,
+			"name": "Kleavor-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Kleavor-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Wyrdeer": [{
+			"slot": 100,
+			"name": "Wyrdeer",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Wyrdeer",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Decidueye-1": [{
+			"slot": 100,
+			"name": "Decidueye-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Decidueye-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Dartrix": [{
+			"slot": 100,
+			"name": "Dartrix",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Dartrix",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rowlet": [{
+			"slot": 100,
+			"name": "Rowlet",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rowlet",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Avalugg-1": [{
+			"slot": 100,
+			"name": "Avalugg-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Avalugg-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Avalugg-2": [{
+			"slot": 100,
+			"name": "Avalugg-2",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Avalugg-2",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Bergmite": [{
+			"slot": 100,
+			"name": "Bergmite",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Bergmite",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Goodra-1": [{
+			"slot": 100,
+			"name": "Goodra-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Goodra-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Sliggoo-1": [{
+			"slot": 100,
+			"name": "Sliggoo-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Sliggoo-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Goomy": [{
+			"slot": 100,
+			"name": "Goomy",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Goomy",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Sylveon": [{
+			"slot": 100,
+			"name": "Sylveon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Sylveon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Landorus": [{
+			"slot": 100,
+			"name": "Landorus",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Landorus",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Landorus-1": [{
+			"slot": 100,
+			"name": "Landorus-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Landorus-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Thundurus": [{
+			"slot": 100,
+			"name": "Thundurus",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Thundurus",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Thundurus-1": [{
+			"slot": 100,
+			"name": "Thundurus-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Thundurus-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Tornadus": [{
+			"slot": 100,
+			"name": "Tornadus",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Tornadus",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Tornadus-1": [{
+			"slot": 100,
+			"name": "Tornadus-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Tornadus-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Braviary-1": [{
+			"slot": 100,
+			"name": "Braviary-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Braviary-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rufflet": [{
+			"slot": 100,
+			"name": "Rufflet",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rufflet",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Zoroark-1": [{
+			"slot": 100,
+			"name": "Zoroark-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Zoroark-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Zorua-1": [{
+			"slot": 100,
+			"name": "Zorua-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Zorua-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Basculin-2": [{
+			"slot": 100,
+			"name": "Basculin-2",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Basculin-2",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Lilligant-1": [{
+			"slot": 100,
+			"name": "Lilligant-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Lilligant-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Lilligant-2": [{
+			"slot": 100,
+			"name": "Lilligant-2",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Lilligant-2",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Petilil": [{
+			"slot": 100,
+			"name": "Petilil",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Petilil",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Samurott-1": [{
+			"slot": 100,
+			"name": "Samurott-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Samurott-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Dewott": [{
+			"slot": 100,
+			"name": "Dewott",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Dewott",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Oshawott": [{
+			"slot": 100,
+			"name": "Oshawott",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Oshawott",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Arceus": [{
+			"slot": 100,
+			"name": "Arceus",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Arceus",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Shaymin": [{
+			"slot": 100,
+			"name": "Shaymin",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Shaymin",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Shaymin-1": [{
+			"slot": 100,
+			"name": "Shaymin-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Shaymin-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Darkrai": [{
+			"slot": 100,
+			"name": "Darkrai",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Darkrai",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Manaphy": [{
+			"slot": 100,
+			"name": "Manaphy",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Manaphy",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Phione": [{
+			"slot": 100,
+			"name": "Phione",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Phione",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Cresselia": [{
+			"slot": 100,
+			"name": "Cresselia",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Cresselia",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Giratina": [{
+			"slot": 100,
+			"name": "Giratina",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Giratina",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Giratina-1": [{
+			"slot": 100,
+			"name": "Giratina-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Giratina-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Regigigas": [{
+			"slot": 100,
+			"name": "Regigigas",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Regigigas",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Heatran": [{
+			"slot": 100,
+			"name": "Heatran",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Heatran",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Palkia": [{
+			"slot": 100,
+			"name": "Palkia",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Palkia",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Palkia-1": [{
+			"slot": 100,
+			"name": "Palkia-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Palkia-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Dialga": [{
+			"slot": 100,
+			"name": "Dialga",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Dialga",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Dialga-1": [{
+			"slot": 100,
+			"name": "Dialga-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Dialga-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Azelf": [{
+			"slot": 100,
+			"name": "Azelf",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Azelf",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Mesprit": [{
+			"slot": 100,
+			"name": "Mesprit",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Mesprit",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Uxie": [{
+			"slot": 100,
+			"name": "Uxie",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Uxie",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rotom": [{
+			"slot": 100,
+			"name": "Rotom",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rotom",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rotom-1": [{
+			"slot": 100,
+			"name": "Rotom-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rotom-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rotom-2": [{
+			"slot": 100,
+			"name": "Rotom-2",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rotom-2",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rotom-3": [{
+			"slot": 100,
+			"name": "Rotom-3",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rotom-3",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rotom-4": [{
+			"slot": 100,
+			"name": "Rotom-4",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rotom-4",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rotom-5": [{
+			"slot": 100,
+			"name": "Rotom-5",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rotom-5",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Froslass": [{
+			"slot": 100,
+			"name": "Froslass",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Froslass",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Dusknoir": [{
+			"slot": 100,
+			"name": "Dusknoir",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Dusknoir",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Probopass": [{
+			"slot": 100,
+			"name": "Probopass",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Probopass",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Gallade": [{
+			"slot": 100,
+			"name": "Gallade",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Gallade",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Porygon-Z": [{
+			"slot": 100,
+			"name": "Porygon-Z",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Porygon-Z",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Mamoswine": [{
+			"slot": 100,
+			"name": "Mamoswine",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Mamoswine",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Gliscor": [{
+			"slot": 100,
+			"name": "Gliscor",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Gliscor",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Glaceon": [{
+			"slot": 100,
+			"name": "Glaceon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Glaceon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Leafeon": [{
+			"slot": 100,
+			"name": "Leafeon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Leafeon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Yanmega": [{
+			"slot": 100,
+			"name": "Yanmega",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Yanmega",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Togekiss": [{
+			"slot": 100,
+			"name": "Togekiss",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Togekiss",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Magmortar": [{
+			"slot": 100,
+			"name": "Magmortar",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Magmortar",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Electivire": [{
+			"slot": 100,
+			"name": "Electivire",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Electivire",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Tangrowth": [{
+			"slot": 100,
+			"name": "Tangrowth",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Tangrowth",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rhyperior": [{
+			"slot": 100,
+			"name": "Rhyperior",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rhyperior",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Lickilicky": [{
+			"slot": 100,
+			"name": "Lickilicky",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Lickilicky",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Magnezone": [{
+			"slot": 100,
+			"name": "Magnezone",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Magnezone",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Weavile": [{
+			"slot": 100,
+			"name": "Weavile",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Weavile",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Abomasnow": [{
+			"slot": 100,
+			"name": "Abomasnow",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Abomasnow",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Snover": [{
+			"slot": 100,
+			"name": "Snover",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Snover",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Mantyke": [{
+			"slot": 100,
+			"name": "Mantyke",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Mantyke",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Lumineon": [{
+			"slot": 100,
+			"name": "Lumineon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Lumineon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Finneon": [{
+			"slot": 100,
+			"name": "Finneon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Finneon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Carnivine": [{
+			"slot": 100,
+			"name": "Carnivine",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Carnivine",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Toxicroak": [{
+			"slot": 100,
+			"name": "Toxicroak",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Toxicroak",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Croagunk": [{
+			"slot": 100,
+			"name": "Croagunk",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Croagunk",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Drapion": [{
+			"slot": 100,
+			"name": "Drapion",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Drapion",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Skorupi": [{
+			"slot": 100,
+			"name": "Skorupi",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Skorupi",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Hippowdon": [{
+			"slot": 100,
+			"name": "Hippowdon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Hippowdon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Hippopotas": [{
+			"slot": 100,
+			"name": "Hippopotas",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Hippopotas",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Lucario": [{
+			"slot": 100,
+			"name": "Lucario",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Lucario",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Riolu": [{
+			"slot": 100,
+			"name": "Riolu",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Riolu",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Munchlax": [{
+			"slot": 100,
+			"name": "Munchlax",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Munchlax",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Garchomp": [{
+			"slot": 100,
+			"name": "Garchomp",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Garchomp",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Gabite": [{
+			"slot": 100,
+			"name": "Gabite",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Gabite",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Gible": [{
+			"slot": 100,
+			"name": "Gible",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Gible",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Spiritomb": [{
+			"slot": 100,
+			"name": "Spiritomb",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Spiritomb",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Chatot": [{
+			"slot": 100,
+			"name": "Chatot",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Chatot",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Happiny": [{
+			"slot": 100,
+			"name": "Happiny",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Happiny",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Mime Jr.": [{
+			"slot": 100,
+			"name": "Mime Jr.",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Mime Jr.",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Bonsly": [{
+			"slot": 100,
+			"name": "Bonsly",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Bonsly",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Bronzong": [{
+			"slot": 100,
+			"name": "Bronzong",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Bronzong",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Bronzor": [{
+			"slot": 100,
+			"name": "Bronzor",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Bronzor",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Skuntank": [{
+			"slot": 100,
+			"name": "Skuntank",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Skuntank",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Stunky": [{
+			"slot": 100,
+			"name": "Stunky",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Stunky",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Chingling": [{
+			"slot": 100,
+			"name": "Chingling",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Chingling",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Purugly": [{
+			"slot": 100,
+			"name": "Purugly",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Purugly",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Glameow": [{
+			"slot": 100,
+			"name": "Glameow",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Glameow",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Honchkrow": [{
+			"slot": 100,
+			"name": "Honchkrow",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Honchkrow",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Mismagius": [{
+			"slot": 100,
+			"name": "Mismagius",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Mismagius",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Lopunny": [{
+			"slot": 100,
+			"name": "Lopunny",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Lopunny",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Buneary": [{
+			"slot": 100,
+			"name": "Buneary",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Buneary",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Drifblim": [{
+			"slot": 100,
+			"name": "Drifblim",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Drifblim",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Drifloon": [{
+			"slot": 100,
+			"name": "Drifloon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Drifloon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Ambipom": [{
+			"slot": 100,
+			"name": "Ambipom",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Ambipom",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Gastrodon": [{
+			"slot": 100,
+			"name": "Gastrodon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Gastrodon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Gastrodon-1": [{
+			"slot": 100,
+			"name": "Gastrodon-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Gastrodon-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Shellos": [{
+			"slot": 100,
+			"name": "Shellos",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Shellos",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Shellos-1": [{
+			"slot": 100,
+			"name": "Shellos-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Shellos-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Cherrim": [{
+			"slot": 100,
+			"name": "Cherrim",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Cherrim",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Cherrim-1": [{
+			"slot": 100,
+			"name": "Cherrim-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Cherrim-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Cherubi": [{
+			"slot": 100,
+			"name": "Cherubi",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Cherubi",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Floatzel": [{
+			"slot": 100,
+			"name": "Floatzel",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Floatzel",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Buizel": [{
+			"slot": 100,
+			"name": "Buizel",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Buizel",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Pachirisu": [{
+			"slot": 100,
+			"name": "Pachirisu",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Pachirisu",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Vespiquen": [{
+			"slot": 100,
+			"name": "Vespiquen",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Vespiquen",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Combee": [{
+			"slot": 100,
+			"name": "Combee",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Combee",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Mothim": [{
+			"slot": 100,
+			"name": "Mothim",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Mothim",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Mothim-1": [{
+			"slot": 100,
+			"name": "Mothim-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Mothim-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Mothim-2": [{
+			"slot": 100,
+			"name": "Mothim-2",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Mothim-2",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Wormadam": [{
+			"slot": 100,
+			"name": "Wormadam",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Wormadam",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Wormadam-1": [{
+			"slot": 100,
+			"name": "Wormadam-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Wormadam-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Wormadam-2": [{
+			"slot": 100,
+			"name": "Wormadam-2",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Wormadam-2",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Burmy": [{
+			"slot": 100,
+			"name": "Burmy",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Burmy",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Burmy-1": [{
+			"slot": 100,
+			"name": "Burmy-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Burmy-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Burmy-2": [{
+			"slot": 100,
+			"name": "Burmy-2",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Burmy-2",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Bastiodon": [{
+			"slot": 100,
+			"name": "Bastiodon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Bastiodon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Shieldon": [{
+			"slot": 100,
+			"name": "Shieldon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Shieldon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rampardos": [{
+			"slot": 100,
+			"name": "Rampardos",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rampardos",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Cranidos": [{
+			"slot": 100,
+			"name": "Cranidos",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Cranidos",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Roserade": [{
+			"slot": 100,
+			"name": "Roserade",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Roserade",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Budew": [{
+			"slot": 100,
+			"name": "Budew",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Budew",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Luxray": [{
+			"slot": 100,
+			"name": "Luxray",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Luxray",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Luxio": [{
+			"slot": 100,
+			"name": "Luxio",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Luxio",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Shinx": [{
+			"slot": 100,
+			"name": "Shinx",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Shinx",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Kricketune": [{
+			"slot": 100,
+			"name": "Kricketune",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Kricketune",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Kricketot": [{
+			"slot": 100,
+			"name": "Kricketot",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Kricketot",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Bibarel": [{
+			"slot": 100,
+			"name": "Bibarel",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Bibarel",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Bidoof": [{
+			"slot": 100,
+			"name": "Bidoof",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Bidoof",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Staraptor": [{
+			"slot": 100,
+			"name": "Staraptor",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Staraptor",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Staravia": [{
+			"slot": 100,
+			"name": "Staravia",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Staravia",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Starly": [{
+			"slot": 100,
+			"name": "Starly",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Starly",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Empoleon": [{
+			"slot": 100,
+			"name": "Empoleon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Empoleon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Prinplup": [{
+			"slot": 100,
+			"name": "Prinplup",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Prinplup",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Piplup": [{
+			"slot": 100,
+			"name": "Piplup",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Piplup",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Infernape": [{
+			"slot": 100,
+			"name": "Infernape",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Infernape",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Monferno": [{
+			"slot": 100,
+			"name": "Monferno",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Monferno",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Chimchar": [{
+			"slot": 100,
+			"name": "Chimchar",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Chimchar",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Torterra": [{
+			"slot": 100,
+			"name": "Torterra",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Torterra",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Grotle": [{
+			"slot": 100,
+			"name": "Grotle",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Grotle",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Turtwig": [{
+			"slot": 100,
+			"name": "Turtwig",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Turtwig",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Walrein": [{
+			"slot": 100,
+			"name": "Walrein",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Walrein",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Sealeo": [{
+			"slot": 100,
+			"name": "Sealeo",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Sealeo",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Spheal": [{
+			"slot": 100,
+			"name": "Spheal",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Spheal",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Glalie": [{
+			"slot": 100,
+			"name": "Glalie",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Glalie",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Snorunt": [{
+			"slot": 100,
+			"name": "Snorunt",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Snorunt",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Chimecho": [{
+			"slot": 100,
+			"name": "Chimecho",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Chimecho",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Dusclops": [{
+			"slot": 100,
+			"name": "Dusclops",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Dusclops",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Duskull": [{
+			"slot": 100,
+			"name": "Duskull",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Duskull",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Whiscash": [{
+			"slot": 100,
+			"name": "Whiscash",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Whiscash",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Barboach": [{
+			"slot": 100,
+			"name": "Barboach",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Barboach",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Roselia": [{
+			"slot": 100,
+			"name": "Roselia",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Roselia",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Nosepass": [{
+			"slot": 100,
+			"name": "Nosepass",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Nosepass",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Gardevoir": [{
+			"slot": 100,
+			"name": "Gardevoir",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Gardevoir",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Kirlia": [{
+			"slot": 100,
+			"name": "Kirlia",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Kirlia",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Ralts": [{
+			"slot": 100,
+			"name": "Ralts",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Ralts",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Dustox": [{
+			"slot": 100,
+			"name": "Dustox",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Dustox",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Cascoon": [{
+			"slot": 100,
+			"name": "Cascoon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Cascoon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Beautifly": [{
+			"slot": 100,
+			"name": "Beautifly",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Beautifly",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Silcoon": [{
+			"slot": 100,
+			"name": "Silcoon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Silcoon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Wurmple": [{
+			"slot": 100,
+			"name": "Wurmple",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Wurmple",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Blissey": [{
+			"slot": 100,
+			"name": "Blissey",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Blissey",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Magby": [{
+			"slot": 100,
+			"name": "Magby",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Magby",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Elekid": [{
+			"slot": 100,
+			"name": "Elekid",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Elekid",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Stantler": [{
+			"slot": 100,
+			"name": "Stantler",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Stantler",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Porygon2": [{
+			"slot": 100,
+			"name": "Porygon2",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Porygon2",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Mantine": [{
+			"slot": 100,
+			"name": "Mantine",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Mantine",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Octillery": [{
+			"slot": 100,
+			"name": "Octillery",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Octillery",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Remoraid": [{
+			"slot": 100,
+			"name": "Remoraid",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Remoraid",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Piloswine": [{
+			"slot": 100,
+			"name": "Piloswine",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Piloswine",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Swinub": [{
+			"slot": 100,
+			"name": "Swinub",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Swinub",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Ursaring": [{
+			"slot": 100,
+			"name": "Ursaring",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Ursaring",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Teddiursa": [{
+			"slot": 100,
+			"name": "Teddiursa",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Teddiursa",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Sneasel": [{
+			"slot": 100,
+			"name": "Sneasel",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Sneasel",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Sneasel-1": [{
+			"slot": 100,
+			"name": "Sneasel-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Sneasel-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Heracross": [{
+			"slot": 100,
+			"name": "Heracross",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Heracross",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Scizor": [{
+			"slot": 100,
+			"name": "Scizor",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Scizor",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Qwilfish-1": [{
+			"slot": 100,
+			"name": "Qwilfish-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Qwilfish-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Steelix": [{
+			"slot": 100,
+			"name": "Steelix",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Steelix",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Gligar": [{
+			"slot": 100,
+			"name": "Gligar",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Gligar",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Unown": [{
+			"slot": 100,
+			"name": "Unown",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Unown",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Misdreavus": [{
+			"slot": 100,
+			"name": "Misdreavus",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Misdreavus",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Murkrow": [{
+			"slot": 100,
+			"name": "Murkrow",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Murkrow",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Umbreon": [{
+			"slot": 100,
+			"name": "Umbreon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Umbreon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Espeon": [{
+			"slot": 100,
+			"name": "Espeon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Espeon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Yanma": [{
+			"slot": 100,
+			"name": "Yanma",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Yanma",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Aipom": [{
+			"slot": 100,
+			"name": "Aipom",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Aipom",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Sudowoodo": [{
+			"slot": 100,
+			"name": "Sudowoodo",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Sudowoodo",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Togetic": [{
+			"slot": 100,
+			"name": "Togetic",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Togetic",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Togepi": [{
+			"slot": 100,
+			"name": "Togepi",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Togepi",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Cleffa": [{
+			"slot": 100,
+			"name": "Cleffa",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Cleffa",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Pichu": [{
+			"slot": 100,
+			"name": "Pichu",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Pichu",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Crobat": [{
+			"slot": 100,
+			"name": "Crobat",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Crobat",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Typhlosion-1": [{
+			"slot": 100,
+			"name": "Typhlosion-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Typhlosion-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Quilava": [{
+			"slot": 100,
+			"name": "Quilava",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Quilava",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Cyndaquil": [{
+			"slot": 100,
+			"name": "Cyndaquil",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Cyndaquil",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Snorlax": [{
+			"slot": 100,
+			"name": "Snorlax",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Snorlax",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Porygon": [{
+			"slot": 100,
+			"name": "Porygon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Porygon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Flareon": [{
+			"slot": 100,
+			"name": "Flareon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Flareon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Jolteon": [{
+			"slot": 100,
+			"name": "Jolteon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Jolteon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Vaporeon": [{
+			"slot": 100,
+			"name": "Vaporeon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Vaporeon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Eevee": [{
+			"slot": 100,
+			"name": "Eevee",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Eevee",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Gyarados": [{
+			"slot": 100,
+			"name": "Gyarados",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Gyarados",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Magikarp": [{
+			"slot": 100,
+			"name": "Magikarp",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Magikarp",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Magmar": [{
+			"slot": 100,
+			"name": "Magmar",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Magmar",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Electabuzz": [{
+			"slot": 100,
+			"name": "Electabuzz",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Electabuzz",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Scyther": [{
+			"slot": 100,
+			"name": "Scyther",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Scyther",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Mr. Mime": [{
+			"slot": 100,
+			"name": "Mr. Mime",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Mr. Mime",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Tangela": [{
+			"slot": 100,
+			"name": "Tangela",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Tangela",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Chansey": [{
+			"slot": 100,
+			"name": "Chansey",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Chansey",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rhydon": [{
+			"slot": 100,
+			"name": "Rhydon",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rhydon",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rhyhorn": [{
+			"slot": 100,
+			"name": "Rhyhorn",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rhyhorn",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Lickitung": [{
+			"slot": 100,
+			"name": "Lickitung",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Lickitung",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Electrode-1": [{
+			"slot": 100,
+			"name": "Electrode-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Electrode-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Voltorb-1": [{
+			"slot": 100,
+			"name": "Voltorb-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Voltorb-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Onix": [{
+			"slot": 100,
+			"name": "Onix",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Onix",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Gengar": [{
+			"slot": 100,
+			"name": "Gengar",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Gengar",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Haunter": [{
+			"slot": 100,
+			"name": "Haunter",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Haunter",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Gastly": [{
+			"slot": 100,
+			"name": "Gastly",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Gastly",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Magneton": [{
+			"slot": 100,
+			"name": "Magneton",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Magneton",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Magnemite": [{
+			"slot": 100,
+			"name": "Magnemite",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Magnemite",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Rapidash": [{
+			"slot": 100,
+			"name": "Rapidash",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Rapidash",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Ponyta": [{
+			"slot": 100,
+			"name": "Ponyta",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Ponyta",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Golem": [{
+			"slot": 100,
+			"name": "Golem",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Golem",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Graveler": [{
+			"slot": 100,
+			"name": "Graveler",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Graveler",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Geodude": [{
+			"slot": 100,
+			"name": "Geodude",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Geodude",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Tentacruel": [{
+			"slot": 100,
+			"name": "Tentacruel",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Tentacruel",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Tentacool": [{
+			"slot": 100,
+			"name": "Tentacool",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Tentacool",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Machamp": [{
+			"slot": 100,
+			"name": "Machamp",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Machamp",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Machoke": [{
+			"slot": 100,
+			"name": "Machoke",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Machoke",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Machop": [{
+			"slot": 100,
+			"name": "Machop",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Machop",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Alakazam": [{
+			"slot": 100,
+			"name": "Alakazam",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Alakazam",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Kadabra": [{
+			"slot": 100,
+			"name": "Kadabra",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Kadabra",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Abra": [{
+			"slot": 100,
+			"name": "Abra",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Abra",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Arcanine-1": [{
+			"slot": 100,
+			"name": "Arcanine-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Arcanine-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Growlithe-1": [{
+			"slot": 100,
+			"name": "Growlithe-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Growlithe-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Golduck": [{
+			"slot": 100,
+			"name": "Golduck",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Golduck",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Psyduck": [{
+			"slot": 100,
+			"name": "Psyduck",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Psyduck",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Parasect": [{
+			"slot": 100,
+			"name": "Parasect",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Parasect",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Paras": [{
+			"slot": 100,
+			"name": "Paras",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Paras",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Golbat": [{
+			"slot": 100,
+			"name": "Golbat",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Golbat",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Zubat": [{
+			"slot": 100,
+			"name": "Zubat",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Zubat",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Ninetales": [{
+			"slot": 100,
+			"name": "Ninetales",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Ninetales",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Ninetales-1": [{
+			"slot": 100,
+			"name": "Ninetales-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Ninetales-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Vulpix": [{
+			"slot": 100,
+			"name": "Vulpix",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Vulpix",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Vulpix-1": [{
+			"slot": 100,
+			"name": "Vulpix-1",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Vulpix-1",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Clefable": [{
+			"slot": 100,
+			"name": "Clefable",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Clefable",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Clefairy": [{
+			"slot": 100,
+			"name": "Clefairy",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Clefairy",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Pikachu": [{
+			"slot": 100,
+			"name": "Pikachu",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Pikachu",
+			"alpha": true,
+			"ivs": 3
+		}
+	],
+	"Raichu": [{
+			"slot": 100,
+			"name": "Raichu",
+			"alpha": false,
+			"ivs": 0
+		},
+		{
+			"slot": 1,
+			"name": "Raichu",
+			"alpha": true,
+			"ivs": 3
+		}
+	]
 }

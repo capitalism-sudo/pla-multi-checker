@@ -48,6 +48,14 @@ def seed():
 def alpha():
    return render_template('pages/spawns.html', title='Spawn Checker')
 
+@app.route("/multis")
+def multi():
+   return render_template('pages/multis.html', title='Multi Spawn Checker')
+
+@app.route("/multiseed")
+def multiseed():
+   return render_template('pages/multiseed.html', title='Multi Spawn Seed Checker')
+
 @app.route("/settings")
 def settings():
    return render_template('pages/settings.html', title='Settings')
@@ -114,6 +122,18 @@ def get_alpha_from_seed():
                                        request.json['isalpha'], request.json['setgender'],
                                        request.json['filter'])
    return { "alpha_spawns": results }
+
+@app.route('/check-multi-spawn', methods=['POST'])
+def check_multispawner():
+   results = pla.check_multi_spawner(reader, request.json['rolls'], request.json['group_id'], request.json['maxalive'],request.json['maxdepth'])
+
+   return { "multi_spawns": results }
+
+@app.route('/check-multi-seed', methods=['POST'])
+def check_multiseed():
+   results = pla.check_multi_spawner_seed(request.json['seed'], request.json['rolls'], request.json['group_id'], request.json['maxalive'],request.json['maxdepth'])
+
+   return { "multi_spawns": results}
 
 @app.route('/api/hisuidex')
 def pokemon():

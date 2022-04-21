@@ -1,0 +1,82 @@
+{
+        "49": [
+            {
+                "slot":100,
+                "species":"Bidoof",
+                "alpha":false
+            },
+            {
+                "slot":2,
+                "species":"Bidoof",
+                "alpha":true
+            },
+            {
+                "slot":20,
+                "species":"Eevee",
+                "alpha":false
+            },
+            {
+                "slot":1,
+                "species":"Eevee",
+                "alpha":true
+            }
+        ],
+		"389": [
+            {
+                "slot":100,
+                "species":"Combee",
+                "alpha":false
+            },
+            {
+                "slot":2,
+                "species":"Combee",
+                "alpha":true
+            }
+		],
+		"390": [
+            {
+                "slot":100,
+                "species":"Combee",
+                "alpha":false
+            },
+            {
+                "slot":2,
+                "species":"Combee",
+                "alpha":true
+            }
+		],
+		"367": [
+            {
+                "slot":100,
+                "species":"Petilil",
+                "alpha":false
+            },
+            {
+                "slot":2,
+                "species":"Petilil",
+                "alpha":true
+            }
+		],
+		"245": [
+            {
+                "slot":100,
+                "species":"Swinub",
+                "alpha":false
+            },
+            {
+                "slot":2,
+                "species":"Swinub",
+                "alpha":true
+            },
+            {
+                "slot":50,
+                "species":"Piloswine",
+                "alpha":false
+            },
+            {
+                "slot":1,
+                "species":"Piloswine",
+                "alpha":true
+            }
+        ]
+}
