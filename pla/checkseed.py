@@ -505,7 +505,6 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                 display = generate_mass_outbreak_aggressive_path(epath_seed,rolls,
                                                                  nbpaths,bonus_spawns,true_spawns,
                                                                  encounters,encsum,isbonus,False)
-                print(f"Epath Seed: {epath_seed} for epath {epath} and first round {value}")
             else:
                 continue
             for index in display:
@@ -560,8 +559,8 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                             frpath = chain.replace(', ','').split("D")[1:]
                             frbonuspath = list(map(int,frchainstring))
                             frpath = list(map(int,frpath))
-                            #print(f"frpath: {frpath}")
-                            #print(f"frbonuspath: {frbonuspath}")
+                            print(f"frpath: {frpath}")
+                            print(f"frbonuspath: {frbonuspath}")
                             if len(frpath) <= len(frbonuspath):
                                 remain = max_spawns - 4
                                 match = True
@@ -571,11 +570,12 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
                                         match = False
                                 if match:
                                     if len(frpath) == len(frbonuspath) and frpath[len(frpath)-1] == frbonuspath[len(frbonuspath)-1]:
-                                        print("Exact first round path, adding")
+                                        print(f"Exact first round path, adding frpath {frpath} and frbonuspath {frbonuspath}")
                                         display[index]["chains"].append(chained[chain])
                                     elif frbonuspath[len(frpath)-1] >= frpath[len(frpath)-1]:
                                         difference = frbonuspath[len(frpath)-1] - frpath[len(frpath)-1]
-                                        if remain < difference or difference == 0:
+                                        print(f"Difference: {difference} Remain: {remain}")
+                                        if difference < remain or difference == 0:
                                             print("Bonus Path > frpath, adding")
                                             display[index]["chains"].append(chained[chain])
                     if chained.get(chainstring, None) is not None:

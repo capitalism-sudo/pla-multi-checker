@@ -206,6 +206,8 @@ def check_multi_spawner(reader,rolls,group_id,maxalive,maxdepth):
                                              f"+{0x70+group_id*0x440+0x20:X}",8)
     group_seed = (generator_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
 
+    print(f"Spawner Pointer: {SPAWNER_PTR}+{0x70+group_id*0x440+0x20:X}")
+
     display,_ = multi(group_seed,rolls,group_id,maxalive,maxdepth)
 
     for index in display:
