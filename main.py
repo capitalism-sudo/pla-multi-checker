@@ -1,11 +1,15 @@
 import signal
 import json
+import mimetypes
 
 from flask import Flask, render_template, request
 from nxreader import NXReader
 import pla
 from pla.data import Pokedex
 from pla.saves import read_research, rolls_from_research
+
+mimetypes.add_type('application/javascript', '.js')
+mimetypes.add_type('application/javascript', '.js')
 
 app = Flask(__name__)
 

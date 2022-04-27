@@ -13,7 +13,7 @@ import {
   readBoolFromStorage,
   setupExpandables,
   showPokemonInformation,
-} from "./modules/common.js";
+} from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
 const resultsArea = document.querySelector("[data-pla-results]");

@@ -5,7 +5,7 @@ import {
   showModalMessage,
   clearMessages,
   clearModalMessages,
-} from "./modules/common.js";
+} from "./modules/common.mjs";
 
 // valid PLA save file sizes
 const VALID_FILESIZES = [0x136dde, 0x13ad06];
