@@ -1,3 +1,20 @@
+import {
+  DEFAULT_MAP,
+  MESSAGE_ERROR,
+  MESSAGE_INFO,
+  showMessage,
+  showModalMessage,
+  clearMessages,
+  clearModalMessages,
+  showNoResultsFound,
+  saveIntToStorage,
+  readIntFromStorage,
+  saveBoolToStorage,
+  readBoolFromStorage,
+  setupExpandables,
+  showPokemonInformation,
+} from "./modules/common.js";
+
 const resultTemplate = document.querySelector("[data-pla-results-template]");
 const resultsArea = document.querySelector("[data-pla-results]");
 const mapLocationsArea = document.querySelector("[data-pla-info-locations]");
@@ -10,7 +27,7 @@ const resultsSection = document.querySelector(".pla-section-results");
 const mapSelect = document.getElementById("mapSelect");
 const rollsInput = document.getElementById("rolls");
 
-mapSelect.onchange = setMap;
+mapSelect.addEventListener("change", setMap);
 
 // filters
 const distShinyOrAlphaCheckbox = document.getElementById(
@@ -19,9 +36,20 @@ const distShinyOrAlphaCheckbox = document.getElementById(
 const distShinyCheckbox = document.getElementById("distortionShinyFilter");
 const distAlphaCheckbox = document.getElementById("distortionAlphaFilter");
 
-distShinyOrAlphaCheckbox.onchange = setFilter;
-distShinyCheckbox.onchange = setFilter;
-distAlphaCheckbox.onchange = setFilter;
+distShinyOrAlphaCheckbox.addEventListener("change", setFilter);
+distShinyCheckbox.addEventListener("change", setFilter);
+distAlphaCheckbox.addEventListener("change", setFilter);
+
+// actions
+const checkDistortionsButton = document.getElementById(
+  "pla-button-check-distortions"
+);
+const createDistortionsButton = document.getElementById(
+  "pla-button-create-distortion"
+);
+
+checkDistortionsButton.addEventListener("click", checkDistortions);
+createDistortionsButton.addEventListener("click", createDistortion);
 
 loadPreferences();
 setupPreferenceSaving();
@@ -31,7 +59,7 @@ const results = [];
 
 // Save and load user preferences
 function loadPreferences() {
-  mapSelect.value = localStorage.getItem("mapSelect") ?? "obsidianfieldlands";
+  mapSelect.value = localStorage.getItem("mapSelect") ?? DEFAULT_MAP;
   rollsInput.value = readIntFromStorage("rolls", 1);
   distAlphaCheckbox.checked = readBoolFromStorage(
     "distortionAlphaFilter",
@@ -64,24 +92,6 @@ function setupPreferenceSaving() {
   distShinyOrAlphaCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("distortionShinyOrAlpaFilter", e.target.checked)
   );
-}
-
-function saveIntToStorage(id, value) {
-  localStorage.setItem(id, value);
-}
-
-function readIntFromStorage(id, defaultValue) {
-  value = localStorage.getItem(id);
-  return value ? parseInt(value) : defaultValue;
-}
-
-function saveBoolToStorage(id, value) {
-  localStorage.setItem(id, value ? 1 : 0);
-}
-
-function readBoolFromStorage(id, defaultValue) {
-  value = localStorage.getItem(id);
-  return value ? parseInt(value) == 1 : defaultValue;
 }
 
 function setFilter(event) {
@@ -144,16 +154,14 @@ function getOptions() {
 }
 
 function setMap() {
-  const options = { map_name: mapSelect.value };
-
   fetch("/map-info", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(options),
+    body: JSON.stringify({ map_name: mapSelect.value }),
   })
     .then((response) => response.json())
     .then((res) => showMapInfo(res))
-    .catch((error) => {});
+    .catch((error) => showMessage(MESSAGE_ERROR, error));
 }
 
 function showMapInfo({ locations, spawns }) {
@@ -166,7 +174,6 @@ function showMapInfo({ locations, spawns }) {
     mapLocationsArea.appendChild(locListItem);
   });
 
-  const spawnList = document.createElement("ul");
   spawns.forEach((spawn) => {
     let spawnItem = document.createElement("li");
     spawnItem.innerText = spawn;
@@ -185,7 +192,7 @@ function checkDistortions() {
   })
     .then((response) => response.json())
     .then((res) => showResults(res))
-    .catch((error) => showError(error));
+    .catch((error) => showMessage(MESSAGE_ERROR, error));
 }
 
 function showFetchingResults() {
@@ -205,7 +212,7 @@ const showResults = ({ distortion_spawns }) => {
   showFilteredResults();
 };
 
-const showFilteredResults = () => {
+function showFilteredResults() {
   validateFilters();
 
   let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
@@ -215,7 +222,7 @@ const showFilteredResults = () => {
   resultsArea.innerHTML = "";
   resultsSection.classList.toggle("pla-loading", false);
 
-  filteredResults = results.filter(
+  const filteredResults = results.filter(
     (result) =>
       result.spawn &&
       filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter)
@@ -266,104 +273,28 @@ const showFilteredResults = () => {
       resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
         result.ivs[5];
 
-      switch (result.nature){
-        case "Lonely":
-          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
-          break;
-        case "Adamant":
-          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-plus');
-          break;
-        case "Naughty":
-          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
-          break;
-        case "Brave":
-          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
-          break;
-        case "Bold":
-          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
-          break;
-        case "Impish":
-          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-plus');
-          break;
-        case "Lax":
-          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
-          break;
-        case "Relaxed":
-          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
-          break;
-        case "Modest":
-          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
-          break;
-        case "Mild":
-          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
-          break;
-        case "Rash":
-          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
-          break;
-        case "Quiet":
-          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
-          break;
-        case "Calm":
-          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
-          break;
-        case "Gentle":
-          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
-          break;
-        case "Careful":
-          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
-          break;
-        case "Sassy":
-          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-plus');
-          break;
-        case "Timid":
-          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-att]").classList.add('pla-iv-plus');
-          break;
-        case "Hasty":
-          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-def]").classList.add('pla-iv-plus');
-          break;
-        case "Jolly":
-          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spa]").classList.add('pla-iv-plus');
-          break;
-        case "Naive":
-          resultContainer.querySelector("[data-pla-results-ivs-spe]").classList.add('pla-iv-minus');
-          resultContainer.querySelector("[data-pla-results-ivs-spd]").classList.add('pla-iv-plus');
-          break;
-      }
-	  
+      showPokemonInformation(resultContainer, result);
+
       resultsArea.appendChild(resultContainer);
     });
   } else {
-    resultsArea.innerText = "No results found";
+    showNoResultsFound();
   }
-};
-
-function showError(error) {
-  console.log(error);
-  resultsArea.textContent = "Error" + JSON.stringify(error, null, 2);
 }
 
 function createDistortion() {
+  clearMessages();
   fetch("/create-distortion", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-  });
+  })
+    .then((response) => response.json())
+    .then((res) =>
+      setTimeout((res) => {
+        // The distortion creation method already has some delay
+        // We delay showing the distortion creation even more to allow the game to update
+        showMessage(MESSAGE_INFO, "Successfully tried to create distortion");
+      }, 1500)
+    )
+    .catch((error) => showMessage(MESSAGE_ERROR, error));
 }
