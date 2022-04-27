@@ -16,6 +16,7 @@ const rollsInput = document.getElementById("rolls");
 const inmapCheck = document.getElementById("inmapcheck");
 const maxAlive = document.getElementById("maxAlive");
 const groupID = document.getElementById("groupID");
+const nightCheck = document.getElementById("nightToggle");
 
 // filters
 const distShinyOrAlphaCheckbox = document.getElementById(
@@ -72,6 +73,10 @@ function loadPreferences() {
     "mmoShinyOrAlphaFilter",
     false
   );
+  nightCheck.checked = readBoolFromStorage(
+	"nightToggle",
+	false
+  );
   validateFilters();
 }
 
@@ -91,10 +96,12 @@ function setupPreferenceSaving() {
   distShinyOrAlphaCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("mmoShinyOrAlpaFilter", e.target.checked)
   );
+  nightCheck.addEventListener("change", (e) =>
+	saveBoolToStorage("nightToggle", e.target.checked)
+  );
 }
 
 function updatevalue() {
-	console.log(mmoSpeciesText.value);
 	setFilter;
 }
 
@@ -197,7 +204,8 @@ function getOptions() {
 	maxdepth: parseInt(maxDepth.value),
     rolls: parseInt(rollsInput.value),
 	group_id: parseInt(groupID.value),
-	maxalive: parseInt(maxAlive.value)
+	maxalive: parseInt(maxAlive.value),
+	isnight: nightCheck.checked
 //	inmap: inmapCheck.checked
   };
 }
@@ -261,7 +269,6 @@ const showFilteredResults = () => {
 	  sprite.src = "static/img/sprite/"+result.sprite;
 	  
 	  let pathdisplay = "Path To Target: &nbsp;";
-	  console.log(result.path);
 	  if (result.path.toString().includes("Initial")) {
 		  pathdisplay += "<input type='checkbox'>&nbsp;"+result.path;
 	  }

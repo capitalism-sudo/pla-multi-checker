@@ -2,23 +2,23 @@ import json
 
 from .xoroshiro import XOROSHIRO
 
-#with open("/home/cappy/pla-multi-checker-web/static/resources/text_natures.txt",encoding="utf-8") as text_natures:
+#with open("/home/pla-multi-checker-web/static/resources/text_natures.txt",encoding="utf-8") as text_natures:
 with open("./static/resources/text_natures.txt",encoding="utf-8") as text_natures:
     NATURES = text_natures.read().split("\n")
 
-#with open("/home/cappy/pla-multi-checker-web/static/resources/text_species_en.txt",encoding="utf-8") as text_species:
+#with open("/home/pla-multi-checker-web/static/resources/text_species_en.txt",encoding="utf-8") as text_species:
 with open("./static/resources/text_species_en.txt",encoding="utf-8") as text_species:
     SPECIES = text_species.read().split("\n")
 
-#RATIOS = json.load(open("/home/cappy/pla-multi-checker-web/static/resources/ratios.json"))
+#RATIOS = json.load(open("/home/pla-multi-checker-web/static/resources/ratios.json"))
 RATIOS = json.load(open("./static/resources/ratios.json"))
 
-#encounter_table = json.load(open("/home/cappy/pla-multi-checker-web/static/resources/multi-es.json"))
+#encounter_table = json.load(open("/home/pla-multi-checker-web/static/resources/multi-es.json"))
 encounter_table = json.load(open("./static/resources/multi-es.json"))
 
 SPAWNER_PTR = "[[main+42a6ee0]+330]"
 
-fixedgenders = ["Happiny", "Chansey", "Blissey", "Petilil", "Lilligant", "Bronzor", "Bronzong", "Voltorb", "Electrode", "Rotom", "Rufflet", "Braviary", "Unown"]
+fixedgenders = ["Happiny", "Chansey", "Blissey", "Petilil", "Lilligant", "Bronzor", "Bronzong", "Voltorb", "Electrode", "Rotom", "Rufflet", "Braviary", "Unown","Basculin-2"]
 
 
 def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
@@ -52,20 +52,6 @@ def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
     nature = rng.rand(25)
     return ec,pid,ivs,ability,gender,nature,shiny,square
 
-def read_mass_outbreak_rng(group_seed,rolls,remain):
-    main_rng = XOROSHIRO(group_seed)
-    for respawn in range(0,remain):
-        generator_seed = respawn_rng.next()
-        respawn_rng.next() # spawner 1's seed, unused
-        respawn_rng = XOROSHIRO(respawn_rng.next())
-        fixed_rng = XOROSHIRO(generator_seed)
-        encounter_slot = (fixed_rng.next() / (2**64)) * encsum
-        fixed_seed = fixed_rng.next()
-        ec,pid,ivs,ability,gender,nature,shiny,square = generate_from_seed(fixed_seed,rolls)
-        if shiny and encounter_slot > 122:
-            print(f"{generator_seed:X} Advance {advance} Respawn {respawn} EC: {ec:08X} PID: {pid:08X} {'/'.join(str(iv) for iv in ivs)}")
-            return True
-    return False
 
 def multi(group_seed,rolls,group_id,maxalive,maxdepth=5):
     path = []
@@ -201,7 +187,12 @@ def get_encounter_slot_sum(group_id):
 
     return encsum
 
-def check_multi_spawner_seed(group_seed,rolls,group_id,maxalive,maxdepth):
+def check_multi_spawner_seed(group_seed,rolls,group_id,maxalive,maxdepth,isnight):
+
+    if isnight and encounter_table.get(f"{group_id}"+"n") is not None:
+        print("Night check is ok")
+        group_id = f"{group_id}" + "n"
+        print(f"Group ID: {group_id}")
 
     group_seed = int(group_seed)
     display,_ = multi(group_seed,rolls,group_id,maxalive,maxdepth)
@@ -228,11 +219,18 @@ def check_multi_spawner_seed(group_seed,rolls,group_id,maxalive,maxdepth):
         display[index]["sprite"] = spritename
         ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
         ratio = ratioarray[2]
-        if display[index]["gender"] < ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
+        if display[index]["gender"] < ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown","Basculin"]:
             display[index]["gender"] = "Female <i class='fa-solid fa-venus' style='color:pink'></i>"
+        elif cutspecies in ["Basculin"]:
+            display[index]["gender"] = "Male <i class='fa-solid fa-mars' style='color:blue'></i>"
         elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode","Unown"]:
             display[index]["gender"] = "Genderless <i class='fa-solid fa-genderless'></i>"
         else:
             display[index]["gender"] = "Male <i class='fa-solid fa-mars' style='color:blue'></i>"
 
-    return display
+    sorted_display = sorted(display.items(), key=lambda x: x[1]["adv"])
+    sorted_dict = {}
+    for key,value in enumerate(sorted_display):
+        sorted_dict[key] = value[1]
+        
+    return sorted_dict
