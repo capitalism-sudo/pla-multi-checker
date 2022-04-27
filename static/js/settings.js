@@ -1,9 +1,14 @@
+import {
+  MESSAGE_ERROR,
+  MESSAGE_INFO,
+  showMessage,
+  showModalMessage,
+  clearMessages,
+  clearModalMessages,
+} from "./modules/common.js";
+
 // valid PLA save file sizes
 const VALID_FILESIZES = [0x136dde, 0x13ad06];
-
-// message types
-const MESSAGE_INFO = "info";
-const MESSAGE_ERROR = "error";
 
 // references to page elements
 const researchTable = document.querySelector(".pla-research-table");
@@ -13,15 +18,18 @@ const filterInput = document.getElementById("pla-research-filter");
 const modal = document.getElementById("pla-research-modal");
 const fileUpload = document.getElementById("pla-research-selectsave");
 
-// The areas of the page where messages (such as errors) will be shown
-const messages = document.querySelector("[data-pla-messages]");
-const modalMessages = document.querySelector("[data-pla-modal-messages]");
-
 // page state
 let hisuidex = [];
 const researchRows = new Map();
 const researchRadios = new Map();
+// Save and load user preferences
+function loadPreferences() {
+  // Here for future proofing - not currently used
+}
 
+function setupPreferenceSaving() {
+  // Here for future proofing - not currently used
+}
 // This runs on page load and wires the javascript up to the page once the pokedex data has loaded
 function loadPokedex() {
   fetch("/api/hisuidex")
@@ -38,10 +46,13 @@ function loadPokedex() {
       );
     });
 }
+
+loadPreferences();
+setupPreferenceSaving();
 loadPokedex();
 
 // The function that actually wires up the page
-const initialisePage = () => {
+function initialisePage() {
   // create the table for for each pokemon in the hisui dex
   hisuidex.forEach((pokemon) => createPokemonRow(pokemon));
 
@@ -112,7 +123,7 @@ const initialisePage = () => {
   });
 
   loadResearch();
-};
+}
 
 function createPokemonRow(pokemon) {
   const row = rowTemplate.content.cloneNode(true);
@@ -194,8 +205,6 @@ function uploadSave(files) {
   })
     .then((response) => response.json())
     .then((res) => {
-      console.log(res);
-
       // there are two possible situations for errors to happen:
       // this is when everything was sent to the server properly, but it had
       // an error while reading the save data
@@ -269,25 +278,9 @@ function setRadioValue(radios, value) {
   }
 }
 
-function showMessage(type, message) {
-  messages.innerHTML = "";
-  messageElement = document.createElement("div");
-  messageElement.classList.add("pla-message", `pla-message-${type}`);
-  messageElement.textContent = message;
-  messages.appendChild(messageElement);
-}
-
-function showModalMessage(type, message) {
-  modalMessages.innerHTML = "";
-  messageElement = document.createElement("div");
-  messageElement.classList.add("pla-message", `pla-message-${type}`);
-  messageElement.textContent = message;
-  modalMessages.appendChild(messageElement);
-}
-
 // close the modal,
 // clearing all errors or they will persist if the modal is reopened
 function closeModal() {
-  modalMessages.innerHTML = "";
+  clearModalMessages();
   modal.close();
 }

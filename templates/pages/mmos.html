@@ -1,13 +1,16 @@
-{% extends "base.html" %}
+{% extends "base/base-sidebar.html" %}
+
+{% block title %}MMO Checker{% endblock %}
 
 {% block head %}
 	<script src="https://kit.fontawesome.com/acd232d529.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block main %}
-    <section class="pla-section-results flow">
+    <section class="pla-section-results">
+        <div data-pla-messages></div>
         <div class="pla-results" data-pla-results>
-            Search to begin
+            <p class="pla-results-message">Search to begin</p>
         </div>
     </section>
 {% endblock %}
@@ -73,9 +76,9 @@
         </div>-->
         
         <div class="pla-control-actions">
-            <button class="pla-button pla-button-action" onclick="checkonemap()">Check Map Index</button>
-            <button class="pla-button pla-button-action" onclick="checkmmos()">Check All MMOS</button>
-            <button class="pla-button pla-button-action" onclick="checknormals()">Check Normal Outbreaks</button>
+            <button class="pla-button pla-button-action" id="pla-button-checkonemap">Check Map Index</button>
+            <button class="pla-button pla-button-action" id="pla-button-checkmmos">Check All MMOS</button>
+            <button class="pla-button pla-button-action" id="pla-button-checknormals">Check Normal Outbreaks</button>
         </div>
     </section>
 
@@ -91,7 +94,7 @@
         </ul>
                     
         <div class="pla-control-actions">
-            <button class="pla-button pla-button-action" onclick="checkmaps()">Refresh Maps</button>
+            <button class="pla-button pla-button-action" id="pla-button-checkmaps">Refresh Maps</button>
         </div>
     </section>
 {% endblock %}
@@ -128,6 +131,7 @@
             <ul class="pla-results-ul">
                 <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
                 <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>
+                <li><span class="pla-results-label">Rolls:</span> <span data-pla-results-rolls></span></li>
             </ul>
 
             <ul class="pla-results-ul">
@@ -152,21 +156,8 @@
             </div>
         </div>
     </template>
-
-    <template data-pla-spinner>
-        <div class="lds-roller">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </template>
 {% endblock %}
 
 {% block script %}
-    <script src="{{ url_for('static', filename='js/pla-mmo-checker.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/mmos.js') }}"></script>
 {% endblock %}

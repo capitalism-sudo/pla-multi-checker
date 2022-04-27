@@ -1,8 +1,10 @@
-{% extends "base.html" %}
+{% extends "base/base-sidebar.html" %}
+
+{% block title %}Multi Seed Checker{% endblock %}
 
 {% block head %}
-	<script type="text/javascript" src="static/js/jquery.min.js"></script>
-	<script>
+	<script type="module" src="static/js/jquery.min.js"></script>
+	<script type="module">
 	$(document).ready(function(e){
 		console.log("ready!")
 
@@ -30,11 +32,12 @@
 {% endblock %}
 
 {% block main %}
-
-    <section class="pla-section-results flow">
-	<div class="tab">
-		<button class="tablinks" onclick="openTab(event, 'Results')" id="defaultOpen">Results</button>
-		<button class="tablinks" onclick="openTab(event, 'Maps')">Spawner Maps</button>
+<section class="pla-section-results">
+    <div data-pla-messages></div>
+	
+    <div class="tab">
+		<button class="tablinks" id="defaultOpen" data-pla-tab-for="Results">Results</button>
+		<button class="tablinks" data-pla-tab-for="Maps">Spawner Maps</button>
 	</div>
 	
 	<div id="Results" class="tabcontent">
@@ -45,9 +48,7 @@
 	
 	<div id="Maps" class="tabcontent">
 		<section class="pla-section-spawnmap">
-		<div class="pla-results">
-		<h3>Currently Supported Spawnpoints:</h3>
-		</div>
+		    <h3>Currently Supported Spawnpoints:</h3>
 		
 			<button type="button" class="pla-button expandable-control">Obsidian Fieldlands</button>
 			<div class="expandable">
@@ -92,9 +93,9 @@
 			
 			<button type="button" class="pla-button expandable-control">Alabaster Icelands</button>
 			<div class="expandable">
-			<ul class="pla-results-ul">
-				<li><img src="static/img/spawnpoint-swinub.png"></li>
-			</ul>
+                <ul class="pla-results-ul">
+                    <li><img src="static/img/spawnpoint-swinub.png"></li>
+                </ul>
 			</div>
 		</section>
 	</div>
@@ -183,7 +184,7 @@
         </div>-->
         
         <div class="pla-control-actions">
-            <button class="pla-button pla-button-action" onclick="checkmultiseed()">Check Multi Spawner</button>
+            <button class="pla-button pla-button-action" id="pla-button-checkmultiseed">Check Multi Spawner</button>
         </div>
     </section>
 
@@ -250,21 +251,8 @@
             </div>
         </div>
     </template>
-
-    <template data-pla-spinner>
-        <div class="lds-roller">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </template>
 {% endblock %}
 
 {% block script %}
-    <script src="{{ url_for('static', filename='js/pla-multi-seed-reader.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/multiseed.js') }}"></script>
 {% endblock %}
