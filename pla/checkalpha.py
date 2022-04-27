@@ -1,40 +1,18 @@
-# Go to root of PyNXReader
-import sys
 import json
-from .xoroshiro import XOROSHIRO
+from app import RESOURCE_PATH
+from pla.core import generate_from_seed
+from pla.data import SPECIES, NATURES
+from pla.rng import XOROSHIRO
 
-with open("./static/resources/text_natures.txt",encoding="utf-8") as text_natures:
-    NATURES = text_natures.read().split("\n")
 
-with open("./static/resources/text_species_en.txt",encoding="utf-8") as text_species:
-    SPECIES = text_species.read().split("\n")
-
-def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
-    rng = XOROSHIRO(seed)
-    ec = rng.rand(0xFFFFFFFF)
-    sidtid = rng.rand(0xFFFFFFFF)
-    for _ in range(rolls):
-        pid = rng.rand(0xFFFFFFFF)
-        shiny = ((pid >> 16) ^ (sidtid >> 16) \
-            ^ (pid & 0xFFFF) ^ (sidtid & 0xFFFF)) < 0x10
-        if shiny:
-            break
-    ivs = [-1,-1,-1,-1,-1,-1]
-    for i in range(guaranteed_ivs):
-        index = rng.rand(6)
-        while ivs[index] != -1:
-            index = rng.rand(6)
-        ivs[index] = 31
-    for i in range(6):
-        if ivs[i] == -1:
-            ivs[i] = rng.rand(32)
-    ability = rng.rand(2) # rand(3) if ha possible
-    if set_gender:
-        gender = -1
-    else:
-        gender = rng.rand(252) + 1
-    nature = rng.rand(25)
-    return ec,pid,ivs,ability,gender,nature,shiny
+# given the size of the json, it might be more efficient to ultimately put this in a database
+# load the encounter slots for a map, caching the results for future requests
+encslot_cache = {}
+def load_encounter_slots(mapname):
+    if mapname not in encslot_cache:
+        with open(f"{RESOURCE_PATH}resources/{mapname}.json", 'r') as encfile:
+            encslot_cache[mapname] = json.load(encfile)
+    return encslot_cache[mapname]
 
 def slot_to_pokemon(values,slot):
     """Compare slot to list of slots to find pokemon"""
@@ -69,7 +47,7 @@ def check_alpha_from_seed(group_seed,rolls,isalpha,set_gender,pfilter):
         encslotmin = 0
         encslotmax = 0
     else:
-        sp_slots = json.load(open(f"./static/resources/{pfilter['mapname']}.json"))
+        sp_slots = load_encounter_slots(pfilter["mapname"])
         spawnerinfo = sp_slots.get(pfilter["spawner"],None)
         if spawnerinfo is None:
             encslotmin,encslotmax,encsum = 0,0,0
@@ -87,7 +65,7 @@ def check_alpha_from_seed(group_seed,rolls,isalpha,set_gender,pfilter):
         encslot = (rng.next() / (2**64)) * encsum
         #print(f"Encslot: {encslot}")
         fixed_seed = rng.next()
-        ec,pid,ivs,ability,gender,nature,shiny = \
+        ec,pid,ivs,ability,gender,nature,shiny,square = \
             generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
         if shiny and encslot <= encslotmax and encslot >= encslotmin:
             break
@@ -97,36 +75,22 @@ def check_alpha_from_seed(group_seed,rolls,isalpha,set_gender,pfilter):
         main_rng.next()
         main_rng = XOROSHIRO(main_rng.next())
 
-    form = ''
-    if encslotmax is 0 or encsum is 0:
-        cutspecies = "Egg"
-    elif "Alpha" in pfilter["species"] and "-" in pfilter["species"]:
-        cutspecies = pfilter["species"].rpartition('Alpha')[2]
-        form = pfilter["species"].rpartition('-')[2]
-        cutspecies = cutspecies.rpartition('-')[0]     
-    elif "Alpha" in pfilter["species"]:
-        cutspecies = pfilter["species"].rpartition('Alpha')[2]
-    elif "-" in pfilter["species"]:
-        cutspecies = pfilter["species"].rpartition('-')[0]
-        form = pfilter["species"].rpartition('-')[2]
-    elif pfilter["species"] != "":
-        cutspecies = pfilter["species"]
-    else:
-        cutspecies = "Egg"
 
     if adv <= 50000:
         results = {
             "spawn": True,
+            "rolls": rolls,
             "adv": adv,
             "ivs": ivs,
             "gender": gender,
             "nature": NATURES[nature],
-            "sprite": f"c_{SPECIES.index(cutspecies)}" + f"{f'-{form}' if len(form) != 0 else ''}s.png",
+            "sprite": get_sprite(pfilter["species"], encslotmax, encsum),
             "species": pfilter["species"]
             }
     else:
         results = {
             "spawn": True,
+            "rolls": rolls,
             "adv": adv,
             "ivs": [0,0,0,0,0,0],
             "gender": -1,
@@ -137,4 +101,22 @@ def check_alpha_from_seed(group_seed,rolls,isalpha,set_gender,pfilter):
 
     return results
 
-
+def get_sprite(species_name, encslotmax, encsum):
+    form = ''
+    if encslotmax == 0 or encsum == 0:
+        cutspecies = "Egg"
+    elif "Alpha" in species_name and "-" in species_name:
+        cutspecies = species_name.rpartition('Alpha')[2]
+        form = species_name.rpartition('-')[2]
+        cutspecies = cutspecies.rpartition('-')[0]     
+    elif "Alpha" in species_name:
+        cutspecies = species_name.rpartition('Alpha')[2]
+    elif "-" in species_name:
+        cutspecies = species_name.rpartition('-')[0]
+        form = species_name.rpartition('-')[2]
+    elif species_name != "":
+        cutspecies = species_name
+    else:
+        cutspecies = "Egg"
+    
+    return f"c_{SPECIES.index(cutspecies)}" + f"{f'-{form}' if len(form) != 0 else ''}s.png"

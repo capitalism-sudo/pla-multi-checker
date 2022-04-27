@@ -1,4 +1,5 @@
 import json
+from app import RESOURCE_PATH
 
 class Pokedex():
     def __init__(self):
@@ -7,14 +8,14 @@ class Pokedex():
         self._dex = {}
         self._dex['national'] = {}
 
-        with open('static/resources/pokemon-species.json') as pokemon_species_file:
+        with open(RESOURCE_PATH + '/resources/pokemon-species.json') as pokemon_species_file:
             species_data = json.load(pokemon_species_file)
             for species in species_data:
                 self._species[species['name']] = species
                 self._dex['national'][species['dex_national']] = species
 
         self._dex['hisui'] = {}
-        with open('static/resources/hisuidex.txt', 'r') as hisuidex_file:
+        with open(RESOURCE_PATH + '/resources/hisuidex.txt', 'r') as hisuidex_file:
             lines = hisuidex_file.readlines()
             for line in lines:
                 [number, name] = line.strip().split('\t')
