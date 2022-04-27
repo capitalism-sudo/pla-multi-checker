@@ -1,9 +1,12 @@
-{% extends "base.html" %}
+{% extends "base/base-sidebar.html" %}
+
+{% block title %}MMO Checker{% endblock %}
 
 {% block main %}
-    <section class="pla-section-results flow">
+    <section class="pla-section-results">
+        <div data-pla-messages></div>
         <div class="pla-results" data-pla-results>
-            This tool was created by Cappy, with help from Anubis, Kurt, Lincoln, Zyro and Santacrab420 for code and other assistance.
+            <p class="pla-results-message">This tool was created by Cappy, with help from Anubis, Kurt, Lincoln, Zyro and Santacrab420 for code and other assistance.</p>
         </div>
     </section>
 {% endblock %}
@@ -82,7 +85,7 @@
     <section class="pla-section-options">
         <div class="pla-control">
             <label for="inputseed">Seed</label>
-            <input type="text" id="inputseed" placeholder="Input Seed">
+            <input type="number" id="inputseed" placeholder="Input Seed">
         </div>
 
         <div class="pla-control">
@@ -179,7 +182,7 @@
         </div>-->
 
         <div class="pla-control-actions">
-            <button class="pla-button pla-button-action" onclick="checkmmos()">Check MMO Seed</button>
+            <button class="pla-button pla-button-action" id="pla-button-checkmmos">Check MMO Seed</button>
         </div>
     </section>
 {% endblock %}
@@ -208,6 +211,7 @@
             <ul class="pla-results-ul">
                 <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
                 <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>
+                <li><span class="pla-results-label">Rolls:</span> <span data-pla-results-rolls></span></li>
             </ul>
 
             <!--<ul class="pla-results-ul">
@@ -229,21 +233,8 @@
             </div>
         </div>
     </template>
-
-    <template data-pla-spinner>
-        <div class="lds-roller">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </template>
 {% endblock %}
 
 {% block script %}
-    <script src="static/js/pla-mmo-seed-reader.js"></script>
+    <script type="module" src="{{ url_for('static', filename='js/seeds.js') }}"></script>
 {% endblock %}

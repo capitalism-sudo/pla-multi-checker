@@ -1,6 +1,18 @@
-{% extends "base.html" %}
+{% extends "base/base-sidebar.html" %}
+
+{% block title %}Settings{% endblock %}
 
 {% block main %}
+    <section class="pla-section flow">
+        <h2>General Settings</h2>
+
+        <div class="pla-control-spaced">
+            <label for="pla-research-shinycharm">
+                Do you have the Shiny Charm?
+            </label>
+            <input type="checkbox" id="pla-research-shinycharm">
+        </div>
+    </section>
     <section class="pla-section-results flow">
         <h2>Research Levels</h2>
 
@@ -29,12 +41,6 @@
 
 {% block sidebar %}
     <section class="pla-section-options">
-        <div class="pla-control-spaced">
-            <label for="pla-research-shinycharm">
-                Do you have the Shiny Charm?
-            </label>
-            <input type="checkbox" id="pla-research-shinycharm">
-        </div>
 
         <div class="pla-control-actions">
             <p>Set the research level for all Pokémon to:</p>
@@ -92,5 +98,5 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{{ url_for('static', filename='js/pla-research-reader.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/settings.js') }}"></script>
 {% endblock %}

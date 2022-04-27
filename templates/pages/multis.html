@@ -1,13 +1,16 @@
-{% extends "base.html" %}
+{% extends "base/base-sidebar.html" %}
+
+{% block title %}Multi Checker{% endblock %}
 
 {% block head %}
 	<script src="https://kit.fontawesome.com/acd232d529.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block main %}
-    <section class="pla-section-results flow">
+    <section class="pla-section-results">
+        <div data-pla-messages></div>
         <div class="pla-results" data-pla-results>
-            Search to begin
+            <p class="pla-results-message">Search to begin</p>
         </div>
     </section>
 {% endblock %}
@@ -76,7 +79,7 @@
         </div>-->
         
         <div class="pla-control-actions">
-            <button class="pla-button pla-button-action" onclick="checkmulti()">Check Multi Spawner</button>
+            <button class="pla-button pla-button-action" id="pla-button-checkmulti">Check Multi Spawner</button>
         </div>
     </section>
 
@@ -143,21 +146,8 @@
             </div>
         </div>
     </template>
-
-    <template data-pla-spinner>
-        <div class="lds-roller">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </template>
 {% endblock %}
 
 {% block script %}
-    <script src="{{ url_for('static', filename='js/pla-multi-checker.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/multis.js') }}"></script>
 {% endblock %}

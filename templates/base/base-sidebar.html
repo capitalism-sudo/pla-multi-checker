@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+
+{% block bodyclass %} class="sidebar"{% endblock %}
+
+{% block base %}    
+    <aside class="pla-sidebar">
+        {% block sidebar %}
+        {% endblock %}
+    </aside>
+
+    <main class="pla-main">
+        {% block main %}
+        {% endblock %}
+    </main>
+{% endblock %}
