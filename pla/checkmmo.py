@@ -692,6 +692,7 @@ def read_group_coordinates(reader,group_id,mapcount):
 
 def teleport_to_spawn(reader,coords):
     """Teleports user to spawn point"""
+    print("teleporting")
     cordarray = []
     playerloc = "[[[[[[main+42D4720]+18]+48]+1F0]+18]+370]+90"
     for i in coords:

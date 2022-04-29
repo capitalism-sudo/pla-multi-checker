@@ -255,7 +255,7 @@ function checkOneMap() {
 }
 
 function teleportToSpawn(coords) {
-  fetch("/api/teleport-to-spawn", {
+  fetch("/teleport-to-spawn", {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({

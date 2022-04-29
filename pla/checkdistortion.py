@@ -30,7 +30,7 @@ def read_wild_rng(map_name, index, group_id, rolls):
     ec,pid,ivs,ability,gender,nature,shiny,square = \
         generate_from_seed(fixed_seed, rolls, 3 if alpha else 0, fixed_gender)
         
-    return group_seed, fixed_seed, encounter_slot, rolls, species, ec, pid, ivs, ability, gender, nature, shiny, square, alpha
+    return group_seed, fixed_seed, encounter_slot, species, ec, pid, ivs, ability, gender, nature, shiny, square, alpha
 
 def get_generator_seed(reader, map_name, distortion_index):
     return reader.read_pointer_int(f"[[[[[[main+42CC4D8]+C0]+1C0]+{distortion_offset[map_name] + distortion_index * 0x8:X}]+18]+430]+C0", 8)

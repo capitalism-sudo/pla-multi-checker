@@ -159,6 +159,7 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
     #pylint: disable=too-many-branches
     """reads info about a bonus path"""
     isbonus = True
+    group_seed = int(group_seed)
     outbreaks = {}
     nbpaths = nonbonuspaths[str(true_spawns)]
     for tex,value in enumerate(paths):
@@ -180,7 +181,7 @@ def read_bonus_pathinfo(paths,rolls,group_seed,map_name,
             else:
                 continue
             for index in display:
-                display[index]["index"] = get_path_display(display[index]["index"], value, extra, epath)
+                display[index]["index"] = get_path_display(display[index]["index"], value, epath)
                 display[index]["group"] = 0
                 display[index]["mapname"] = map_name
                 display[index]["numspawns"] = max_spawns
@@ -305,7 +306,7 @@ def check_from_seed(group_seed,rolls,frencounter,brencounter,bonus_flag=False,ma
     chained = {}
     outbreaks = {}
     print(f"Rolls: {rolls}")
-    map_name = "DOES NOT MATTER"
+    map_name = "From Seed"
     #enctable,_ = get_encounter_table(reader,i,mapcount,True)
     #bonus_flag = False if enctable is None else True
     #bonus_flag = True

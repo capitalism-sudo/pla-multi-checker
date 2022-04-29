@@ -164,6 +164,8 @@ def check_multi_spawner_seed(group_seed,rolls,group_id,maxalive,maxdepth,isnight
         group_id = f"{group_id}" + "n"
         print(f"Group ID: {group_id}")
     
+    group_seed = int(group_seed)
+    
     display,_ = multi(group_seed,rolls,group_id,maxalive,maxdepth)
 
     for index in display:
