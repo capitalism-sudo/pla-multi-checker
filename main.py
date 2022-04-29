@@ -9,7 +9,7 @@ from pla.data import hisuidex
 from pla.saves import read_research, rolls_from_research
 
 mimetypes.add_type('application/javascript', '.js')
-mimetypes.add_type('application/javascript', '.js')
+mimetypes.add_type('application/javascript', '.mjs')
 
 app = Flask(__name__)
 
