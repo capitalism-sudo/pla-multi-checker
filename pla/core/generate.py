@@ -25,13 +25,8 @@ def generate_from_seed(seed, rolls, guaranteed_ivs=0, fixed_gender=False):
         if ivs[i] == -1:
             ivs[i] = rng.rand(32)
     
-    ability = rng.rand(2)+1 # rand(3) if ha possible
-    
-    if fixed_gender:
-        gender = -1
-    else:
-        gender = rng.rand(252) + 1
-    
+    ability = rng.rand(2) # rand(3) if ha possible
+    gender = -1 if fixed_gender else rng.rand(252) + 1
     nature = rng.rand(25)
     
     return ec, pid, ivs, ability, gender, nature, shiny, square

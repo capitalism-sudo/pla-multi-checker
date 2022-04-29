@@ -3,7 +3,7 @@ from datetime import datetime
 
 from pla.core import generate_from_seed
 from pla.core.util import get_path_display, get_sprite, get_gender_string
-from pla.data import NATURES, RATIOS, is_fixed_gender, get_basespecies_form
+from pla.data import NATURES, is_fixed_gender, get_basespecies_form
 from pla.rng import XOROSHIRO
 # common mmo functionality
 from pla.checkmmo import encmap, allpaths, nonbonuspaths, extrapaths, initchain, get_bonus_seed, get_extra_path_seed, get_guaranteed_ivs, get_index_string, get_species
@@ -30,6 +30,7 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
             fixed_seed = fixed_rng.next()
             ec,pid,ivs,ability,gender,nature,shiny,square = \
                 generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
+            
             if not fixed_seed in uniques:
                 uniques.add(fixed_seed)
                 info = {
@@ -51,13 +52,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     "chains":[],
                     "multi": False
                     }
-                """
-                if not fixed_seed in uniques:
-                    info["unique"] = True
-                    uniques.add(fixed_seed)
-                else:
-                    info["unique"] = False
-                """
                 if not isbonus:
                     info["defaultroute"] = True
                 else:
@@ -100,13 +94,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                         "chains":[],
                         "multi":False
                     }
-                    """
-                    if not fixed_seed in uniques:
-                        uniques.add(fixed_seed)
-                        info["unique"] = True
-                    else:
-                        info["unique"] = False
-                    """
                     if not isbonus and sum(steps[:step_i]) == len(steps[:step_i]) and pokemon == 1:
                         info["defaultroute"] = True
                     else:
@@ -334,8 +321,8 @@ def check_from_seed(group_seed,rolls,frencounter,brencounter,bonus_flag=False,ma
             cutspecies, form = get_basespecies_form(display[str_index]["species"])
             display[str_index]["sprite"] = get_sprite(cutspecies, form, display[str_index]["shiny"])
             display[str_index]["gender"] = get_gender_string(cutspecies, display[str_index]["gender"])
-            if display[str(index)]["shiny"]:
-                chained[display[str(index)]["index"]] = f"<span class='pla-results-firstpath'>First Round </span>{display[str(index)]['index']}"
+            if display[str_index]["shiny"]:
+                chained[display[str_index]["index"]] = f"<span class='pla-results-firstpath'>First Round </span>{display[str_index]['index']}"
                 print(f"Chiained: {chained}")
     outbreaks[f"{i} {bonus_flag}"] = display
 

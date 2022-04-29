@@ -28,13 +28,13 @@ def get_path_display(index, value, epath):
         return f"<span class='pla-results-firstpath'>" \
                     f"First Round Path: " \
                     f"{string} </span> + [Clear Round] + " \
-                    f"<span class='pla-results-bonus'> Bonus Round Path" \
+                    f"<span class='pla-results-bonus'> Bonus " \
                     + index
     else:
         return f"<span class='pla-results-firstpath'>First Round Path: " \
                     f"{string} </span> + <span class='pla-results-revisit'> " \
                     f"Revisit {epath} </span> + <span class='pla-results-bonus'> " \
-                    f"Bonus Round Path " \
+                    f"Bonus " \
                     + index
 
 def get_rolls(research, species, base_level):
