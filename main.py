@@ -5,20 +5,16 @@ import mimetypes
 from flask import Flask, render_template, request
 from nxreader import NXReader
 import pla
-from pla.data import Pokedex
+from pla.data import hisuidex
 from pla.saves import read_research, rolls_from_research
 
 mimetypes.add_type('application/javascript', '.js')
-mimetypes.add_type('application/javascript', '.js')
+mimetypes.add_type('application/javascript', '.mjs')
 
 app = Flask(__name__)
 
 # Set max size for uploads
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1000 * 1000
-
-# Load a Pokdex
-pokedex = Pokedex()
-hisuidex = pokedex.hisuidex()
 
 config = json.load(open("config.json"))
 if config["SeedCheckOnly"]:

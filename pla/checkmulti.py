@@ -1,57 +1,15 @@
 import json
+from app import RESOURCE_PATH
+from pla.core import generate_from_seed
+from pla.core.util import get_sprite, get_gender_string
+from pla.data import SPECIES, NATURES, is_fixed_gender, get_basespecies_form
+from pla.rng import XOROSHIRO
 
-from .xoroshiro import XOROSHIRO
-
-#with open("/home/cappy/pla-multi-checker-web/static/resources/text_natures.txt",encoding="utf-8") as text_natures:
-with open("./static/resources/text_natures.txt",encoding="utf-8") as text_natures:
-    NATURES = text_natures.read().split("\n")
-
-#with open("/home/cappy/pla-multi-checker-web/static/resources/text_species_en.txt",encoding="utf-8") as text_species:
-with open("./static/resources/text_species_en.txt",encoding="utf-8") as text_species:
-    SPECIES = text_species.read().split("\n")
-
-#RATIOS = json.load(open("/home/cappy/pla-multi-checker-web/static/resources/ratios.json"))
-RATIOS = json.load(open("./static/resources/ratios.json"))
-
-#encounter_table = json.load(open("/home/cappy/pla-multi-checker-web/static/resources/multi-es.json"))
-encounter_table = json.load(open("./static/resources/multi-es.json"))
+encounter_table = json.load(open(RESOURCE_PATH + "/resources/multi-es.json"))
 
 SPAWNER_PTR = "[[main+42a6ee0]+330]"
 
-fixedgenders = ["Happiny", "Chansey", "Blissey", "Petilil", "Lilligant", "Bronzor", "Bronzong", "Voltorb", "Electrode", "Rotom", "Rufflet", "Braviary", "Unown"]
-
-
-def generate_from_seed(seed,rolls,guaranteed_ivs=0,set_gender=False):
-    rng = XOROSHIRO(seed)
-    ec = rng.rand(0xFFFFFFFF)
-    sidtid = rng.rand(0xFFFFFFFF)
-    for _ in range(rolls):
-        pid = rng.rand(0xFFFFFFFF)
-        shiny = ((pid >> 16) ^ (sidtid >> 16) \
-            ^ (pid & 0xFFFF) ^ (sidtid & 0xFFFF)) < 0x10
-        if shiny:
-            square = ((pid >> 16) ^ (sidtid >> 16) \
-            ^ (pid & 0xFFFF) ^ (sidtid & 0xFFFF)) == 0x00
-            break
-        else:
-            square = False
-    ivs = [-1,-1,-1,-1,-1,-1]
-    for i in range(guaranteed_ivs):
-        index = rng.rand(6)
-        while ivs[index] != -1:
-            index = rng.rand(6)
-        ivs[index] = 31
-    for i in range(6):
-        if ivs[i] == -1:
-            ivs[i] = rng.rand(32)
-    ability = rng.rand(2) # rand(3) if ha possible
-    if set_gender:
-        gender = -1
-    else:
-        gender = rng.rand(252) + 1
-    nature = rng.rand(25)
-    return ec,pid,ivs,ability,gender,nature,shiny,square
-
+# Note - this function has undefinied variables - is it in use?
 def read_mass_outbreak_rng(group_seed,rolls,remain):
     main_rng = XOROSHIRO(group_seed)
     for respawn in range(0,remain):
@@ -80,7 +38,6 @@ def multi(group_seed,rolls,group_id,maxalive,maxdepth=5):
     return info,path
 
 def multi_recursion(info,path,group_seed,rolls,group_id,adv,maxdepth,maxalive,curralive):
-
     if adv > maxdepth:
         return
 
@@ -96,7 +53,6 @@ def multi_recursion(info,path,group_seed,rolls,group_id,adv,maxdepth,maxalive,cu
         if i != (maxalive-curralive):
             curpath.pop()
 
-    
     if curralive == 0:
         curralive = maxalive
 
@@ -107,7 +63,6 @@ def multi_recursion(info,path,group_seed,rolls,group_id,adv,maxdepth,maxalive,cu
         multi_recursion(info,curpath,seed,rolls,group_id,adv,maxdepth,maxalive,curralive)
 
 def generate_spawns(group_seed,rolls,group_id,info,path,adv):
-
     #print(f"Seed: {group_seed}")
     main_rng = XOROSHIRO(group_seed)
     for i in range(path[len(path)-1]):
@@ -118,10 +73,7 @@ def generate_spawns(group_seed,rolls,group_id,info,path,adv):
         encounter_slot = (fixed_rng.next()/(2**64)) * encsum
         fixed_seed = fixed_rng.next()
         species,alpha = get_species(encounter_slot,group_id)
-        if species in fixedgenders:
-            set_gender = True
-        else:
-            set_gender = False
+        set_gender = is_fixed_gender(species) or species == "Basculin-2"
         guaranteed_ivs = 3 if alpha else 0
         ec,pid,ivs,ability,gender,nature,shiny,square = \
             generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
@@ -147,7 +99,6 @@ def generate_spawns(group_seed,rolls,group_id,info,path,adv):
     return group_seed
 
 def generate_initial_spawns(group_seed,rolls,group_id,maxalive,info):
-
     #print(f"Seed: {group_seed}")
     main_rng = XOROSHIRO(group_seed)
     for i in range(1,maxalive+1):
@@ -159,10 +110,7 @@ def generate_initial_spawns(group_seed,rolls,group_id,maxalive,info):
         encounter_slot = (fixed_rng.next()/(2**64)) * encsum
         fixed_seed = fixed_rng.next()
         species,alpha = get_species(encounter_slot,group_id)
-        if species in fixedgenders:
-            set_gender = True
-        else:
-            set_gender = False
+        set_gender = is_fixed_gender(species) or species == "Basculin-2"
         guaranteed_ivs = 3 if alpha else 0
         ec,pid,ivs,ability,gender,nature,shiny,square = \
             generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
@@ -208,6 +156,9 @@ def check_multi_spawner(reader,rolls,group_id,maxalive,maxdepth,isnight):
 
     print(f"Spawner Pointer: {SPAWNER_PTR}+{0x70+group_id*0x440+0x20:X}")
 
+    return check_multi_spawner_seed(group_seed,rolls,group_id,maxalive,maxdepth,isnight)
+
+def check_multi_spawner_seed(group_seed,rolls,group_id,maxalive,maxdepth,isnight):
     if isnight and encounter_table.get(f"{group_id}"+"n") is not None:
         print("Night check is ok")
         group_id = f"{group_id}" + "n"
@@ -216,33 +167,9 @@ def check_multi_spawner(reader,rolls,group_id,maxalive,maxdepth,isnight):
     display,_ = multi(group_seed,rolls,group_id,maxalive,maxdepth)
 
     for index in display:
-        form = ''
-        if " " in display[index]["species"] and "-" in display[index]["species"]:
-            cutspecies = display[index]["species"].rpartition(' ')[2]
-            form = display[index]["species"].rpartition('-')[2]
-            cutspecies = cutspecies.rpartition('-')[0]     
-        elif " " in display[index]["species"]:
-            cutspecies = display[index]["species"].rpartition(' ')[2]
-        elif "-" in display[index]["species"]:
-            cutspecies = display[index]["species"].rpartition('-')[0]
-            form = display[index]["species"].rpartition('-')[2]
-        else:
-            cutspecies = display[index]["species"]
-        if display[index]["shiny"]:
-            spritename = f"c_{SPECIES.index(cutspecies)}" \
-                            f"{f'-{form}' if len(form) != 0 else ''}s.png"
-        else:
-            spritename = f"c_{SPECIES.index(cutspecies)}" \
-                            f"{f'-{form}' if len(form) != 0 else ''}.png"
-        display[index]["sprite"] = spritename
-        ratioarray = RATIOS[str(SPECIES.index(cutspecies))]
-        ratio = ratioarray[2]
-        if display[index]["gender"] < ratio and cutspecies not in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode", "Unown"]:
-            display[index]["gender"] = "Female <i class='fa-solid fa-venus' style='color:pink'></i>"
-        elif cutspecies in ["Bronzor", "Bronzong", "Rotom", "Voltorb", "Electrode","Unown"]:
-            display[index]["gender"] = "Genderless <i class='fa-solid fa-genderless'></i>"
-        else:
-            display[index]["gender"] = "Male <i class='fa-solid fa-mars' style='color:blue'></i>"
+        cutspecies, form = get_basespecies_form(display[index]["species"])
+        display[index]["sprite"] = get_sprite(cutspecies, form, display[index]["shiny"])
+        display[index]["gender"] = get_gender_string(cutspecies, display[index]["gender"])
 
     sorted_display = sorted(display.items(), key=lambda x: x[1]["adv"])
     sorted_dict = {}
