@@ -273,51 +273,17 @@ function showFetchingResults() {
 }
 
 const showNormalResults = ({ normal_spawns }) => {
-  console.log(normal_spawns);
-  for (const [key, value] of Object.entries(normal_spawns)) {
-    for (const [x, pokemon] of Object.entries(value)) {
-      console.log(x);
-      if (pokemon.spawn) {
-        results.push(pokemon);
-      }
-    }
-  }
+  results.push(...normal_spawns);
   showFilteredResults();
 };
 
 const showMapResults = ({ mmo_spawn }) => {
-  for (const [key, value] of Object.entries(mmo_spawn)) {
-    for (const [x, pokemon] of Object.entries(value)) {
-      if (pokemon.spawn) {
-        results.push(pokemon);
-      } else if (x.includes("Bonus")) {
-        for (const [b, bonus] of Object.entries(pokemon)) {
-          if (bonus.spawn) {
-            results.push(bonus);
-          }
-        }
-      }
-    }
-  }
+  results.push(...mmo_spawn);
   showFilteredResults();
 };
 
 function showResults({ mmo_spawns }) {
-  for (const [key, value] of Object.entries(mmo_spawns)) {
-    for (const [z, vall] of Object.entries(value)) {
-      for (const [x, pokemon] of Object.entries(vall)) {
-        if (pokemon.spawn) {
-          results.push(pokemon);
-        } else if (x.includes("Bonus")) {
-          for (const [b, bonus] of Object.entries(pokemon)) {
-            if (bonus.spawn) {
-              results.push(bonus);
-            }
-          }
-        }
-      }
-    }
-  }
+  results.push(...mmo_spawns);
   showFilteredResults();
 }
 
@@ -355,20 +321,44 @@ function showFilteredResults() {
       let sprite = document.createElement("img");
       sprite.src = "static/img/sprite/" + result.sprite;
 
-      let indexprefix = "";
-      let chainprefix = "";
-      if (result.chains.length == 0) {
-        indexprefix = "Single Shiny Path: <p>" + result.index;
-        chainprefix = "No Additional Shinies On Path";
-      } else {
-        indexprefix =
-          "Multiple Shiny Path (Complete for more than one Shiny): <p>" +
-          result.index;
-        chainprefix = result.chains;
-        result.multi = true;
-      }
-
       const resultContainer = resultTemplate.content.cloneNode(true);
+
+      let indexprefix = "";
+      let chainprefix = "N/A";
+
+      const isMMO = result.hasOwnProperty("chains");
+      if (isMMO) {
+        if (result.chains.length == 0) {
+          indexprefix = "Single Shiny Path: <p>" + result.index;
+          chainprefix = "No Additional Shinies On Path";
+        } else {
+          indexprefix =
+            "Multiple Shiny Path (Complete for more than one Shiny): <p>" +
+            result.index;
+          chainprefix = result.chains;
+          result.multi = true;
+        }
+
+        var coll = resultContainer.querySelectorAll(".collapsible");
+        var c;
+
+        for (c = 0; c < coll.length; c++) {
+          coll[c].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+              content.style.maxHeight = null;
+            } else {
+              content.style.maxHeight = content.scrollHeight + "px";
+            }
+          });
+        }
+      }
+      resultContainer.querySelector("[data-pla-info-chains]").innerHTML =
+        chainprefix;
+      resultContainer.querySelector("[data-pla-results-dupes]").innerText =
+        isMMO ? result.dupes : "N/A";
+
       resultContainer.querySelector(".pla-results-sprite").appendChild(sprite);
       resultContainer.querySelector("[data-pla-results-species]").innerText =
         result.species;
@@ -424,24 +414,7 @@ function showFilteredResults() {
         result.mapname;
       resultContainer.querySelector("[data-pla-results-nature]").innerText =
         result.nature;
-      var coll = document.getElementsByClassName("collapsible");
-      var c;
 
-      for (c = 0; c < coll.length; c++) {
-        coll[c].addEventListener("click", function () {
-          this.classList.toggle("active");
-          var content = this.nextElementSibling;
-          if (content.style.maxHeight) {
-            content.style.maxHeight = null;
-          } else {
-            content.style.maxHeight = content.scrollHeight + "px";
-          }
-        });
-      }
-      resultContainer.querySelector("[data-pla-info-chains]").innerHTML =
-        chainprefix;
-      resultContainer.querySelector("[data-pla-results-dupes]").innerText =
-        result.dupes;
       resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
         result.gender;
       resultContainer.querySelector("[data-pla-results-seed]").innerText =
