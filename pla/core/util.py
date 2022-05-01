@@ -13,7 +13,7 @@ def get_gender_string(species, gender):
         return "Male <i class='fa-solid fa-mars' style='color:blue'/>"
 
 def get_sprite(species, form, shiny):
-    return f"c_{SPECIES.index(species)}{'-{form}' if len(form) != 0 else ''}{'s' if shiny else ''}.png"
+    return f"c_{SPECIES.index(species)}{'-' + form if len(form) != 0 else ''}{'s' if shiny else ''}.png"
 
 def get_path_display(index, value, epath):
     string = "["
