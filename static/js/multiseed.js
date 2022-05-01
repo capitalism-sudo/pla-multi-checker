@@ -286,6 +286,8 @@ function showResult(result) {
   resultContainer.querySelector("[data-pla-results-ec]").innerText = result.ec;
   resultContainer.querySelector("[data-pla-results-pid]").innerText =
     result.pid;
+  resultContainer.querySelector("[data-pla-results-rolls]").textContent =
+    result.rolls;
 
   showPokemonIVs(resultContainer, result);
 

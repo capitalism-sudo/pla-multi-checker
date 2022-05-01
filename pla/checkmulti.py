@@ -9,22 +9,6 @@ encounter_table = json.load(open(RESOURCE_PATH + "/resources/multi-es.json"))
 
 SPAWNER_PTR = "[[main+42a6ee0]+330]"
 
-# Note - this function has undefinied variables - is it in use?
-def read_mass_outbreak_rng(group_seed,rolls,remain):
-    main_rng = XOROSHIRO(group_seed)
-    for respawn in range(0,remain):
-        generator_seed = respawn_rng.next()
-        respawn_rng.next() # spawner 1's seed, unused
-        respawn_rng = XOROSHIRO(respawn_rng.next())
-        fixed_rng = XOROSHIRO(generator_seed)
-        encounter_slot = (fixed_rng.next() / (2**64)) * encsum
-        fixed_seed = fixed_rng.next()
-        ec,pid,ivs,ability,gender,nature,shiny,square = generate_from_seed(fixed_seed,rolls)
-        if shiny and encounter_slot > 122:
-            print(f"{generator_seed:X} Advance {advance} Respawn {respawn} EC: {ec:08X} PID: {pid:08X} {'/'.join(str(iv) for iv in ivs)}")
-            return True
-    return False
-
 def multi(group_seed,rolls,group_id,maxalive,maxdepth=5):
     path = []
     info = {}
@@ -89,6 +73,7 @@ def generate_spawns(group_seed,rolls,group_id,info,path,adv):
             "square":square,
             "species":species,
             "alpha":alpha,
+            "rolls": rolls,
             "path":(path[:len(path)-1] + [i+1]),
             "adv":adv
         }
@@ -124,6 +109,7 @@ def generate_initial_spawns(group_seed,rolls,group_id,maxalive,info):
             "square":square,
             "species":species,
             "alpha":alpha,
+            "rolls": rolls,
             "path":f"Initial {i}",
             "adv":0
         }

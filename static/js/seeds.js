@@ -273,6 +273,8 @@ function showResult(result) {
     result.nature;
   resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
     result.gender;
+  resultContainer.querySelector("[data-pla-results-rolls]").textContent =
+    result.rolls;
 
   showPokemonIVs(resultContainer, result);
 

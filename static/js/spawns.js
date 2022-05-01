@@ -144,8 +144,6 @@ function showFilteredResults() {
 }
 
 function showResult(result) {
-  console.log(results);
-
   const resultContainer = resultTemplate.content.cloneNode(true);
 
   let sprite = document.createElement("img");
@@ -169,6 +167,8 @@ function showResult(result) {
     result.nature;
   resultContainer.querySelector("[data-pla-results-gender]").innerText =
     resultGender;
+  resultContainer.querySelector("[data-pla-results-rolls]").textContent =
+    result.rolls;
 
   showPokemonIVs(resultContainer, result);
   resultsArea.appendChild(resultContainer);

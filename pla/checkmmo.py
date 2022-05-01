@@ -258,6 +258,7 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
                 "ability":ability,
                 "nature":NATURES[nature],
                 "gender":gender,
+                "rolls":rolls,
                 "defaultroute": True
             }
             #print(info)
@@ -287,7 +288,8 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
                     "ivs":ivs,
                     "ability":ability,
                     "nature":NATURES[nature],
-                    "gender":gender
+                    "gender":gender,
+                    "rolls":rolls
                 }
                 paths.append(f"{'|'.join(str(s) for s in steps[:step_i] + [pokemon])}")
                 if len(steps[:step_i]) == sum(steps[:step_i]) and pokemon == 1:
