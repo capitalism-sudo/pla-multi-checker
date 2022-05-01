@@ -12,7 +12,7 @@ import {
   saveBoolToStorage,
   readBoolFromStorage,
   setupExpandables,
-  showPokemonInformation,
+  showPokemonIVs,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -160,7 +160,7 @@ function filter(
 
   if (
     speciesFilter.value.length != 0 &&
-    !result.species.toLowerCase().includes(speciesFilter.value.toLowerCase())
+    !result.species.toLowerCase().includes(speciesFilter.toLowerCase())
   ) {
     return false;
   }
@@ -181,7 +181,7 @@ function getOptions() {
 }
 
 function readMaps() {
-  fetch("/read-maps", {
+  fetch("/api/read-maps", {
     method: "GET",
   })
     .then((response) => response.json())
@@ -216,7 +216,7 @@ function checkMMOs() {
   const options = getOptions();
   showFetchingResults();
 
-  fetch("/read-mmos", {
+  fetch("/api/read-mmos", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(options),
@@ -230,13 +230,13 @@ function checkNormals() {
   const options = getOptions();
   showFetchingResults();
 
-  fetch("/read-normals", {
+  fetch("/api/read-normals", {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(options),
   })
     .then((response) => response.json())
-    .then((res) => showNormalResults(res))
+    .then((res) => showResults(res))
     .catch((error) => showMessage(MESSAGE_ERROR, error));
 }
 
@@ -244,18 +244,18 @@ function checkOneMap() {
   const options = getOptions();
   showFetchingResults();
 
-  fetch("/read-one-map", {
+  fetch("/api/read-one-map", {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(options),
   })
     .then((response) => response.json())
-    .then((res) => showMapResults(res))
+    .then((res) => showResults(res))
     .catch((error) => showMessage(MESSAGE_ERROR, error));
 }
 
 function teleportToSpawn(coords) {
-  fetch("/teleport-to-spawn", {
+  fetch("/api/teleport-to-spawn", {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
@@ -272,18 +272,8 @@ function showFetchingResults() {
   resultsSection.classList.toggle("pla-loading", true);
 }
 
-const showNormalResults = ({ normal_spawns }) => {
-  results.push(...normal_spawns);
-  showFilteredResults();
-};
-
-const showMapResults = ({ mmo_spawn }) => {
-  results.push(...mmo_spawn);
-  showFilteredResults();
-};
-
-function showResults({ mmo_spawns }) {
-  results.push(...mmo_spawns);
+function showResults(res) {
+  results.push(...res.results);
   showFilteredResults();
 }
 
@@ -293,25 +283,23 @@ function showFilteredResults() {
   let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
   let shinyFilter = distShinyCheckbox.checked;
   let alphaFilter = distAlphaCheckbox.checked;
-  let speciesFilter = mmoSpeciesText;
+  let speciesFilter = mmoSpeciesText.value;
   let defaultFilter = distDefaultCheckbox.checked;
   let multiFilter = distMultiCheckbox.checked;
 
   resultsArea.innerHTML = "";
   resultsSection.classList.toggle("pla-loading", false);
 
-  const filteredResults = results.filter(
-    (result) =>
-      result.spawn &&
-      filter(
-        result,
-        shinyOrAlphaFilter,
-        shinyFilter,
-        alphaFilter,
-        speciesFilter,
-        defaultFilter,
-        multiFilter
-      )
+  const filteredResults = results.filter((result) =>
+    filter(
+      result,
+      shinyOrAlphaFilter,
+      shinyFilter,
+      alphaFilter,
+      speciesFilter,
+      defaultFilter,
+      multiFilter
+    )
   );
 
   if (filteredResults.length > 0) {
@@ -423,20 +411,8 @@ function showFilteredResults() {
         result.ec.toString(16);
       resultContainer.querySelector("[data-pla-results-pid]").innerText =
         result.pid.toString(16);
-      resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText =
-        result.ivs[0];
-      resultContainer.querySelector("[data-pla-results-ivs-att]").innerText =
-        result.ivs[1];
-      resultContainer.querySelector("[data-pla-results-ivs-def]").innerText =
-        result.ivs[2];
-      resultContainer.querySelector("[data-pla-results-ivs-spa]").innerText =
-        result.ivs[3];
-      resultContainer.querySelector("[data-pla-results-ivs-spd]").innerText =
-        result.ivs[4];
-      resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
-        result.ivs[5];
 
-      showPokemonInformation(resultContainer, result);
+      showPokemonIVs(resultContainer, result);
 
       let button = document.createElement("button");
       button.innerText = "Teleport to Spawn";

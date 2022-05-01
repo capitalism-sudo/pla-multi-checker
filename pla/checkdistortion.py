@@ -75,7 +75,6 @@ def check_distortion(reader, map_name, distortion_index, rolls):
     if group_seed != 0 and check_not_common_spawn(distortion_index, distortion_name):
             return  {
                 "index": distortion_index,
-                "spawn": True,
                 "generator_seed": generator_seed,
                 "distortion_name": distortion_name,
                 "encounter_slot": encounter_slot,

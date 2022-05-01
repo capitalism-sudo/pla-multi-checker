@@ -12,7 +12,7 @@ import {
   saveBoolToStorage,
   readBoolFromStorage,
   setupExpandables,
-  showPokemonInformation,
+  showPokemonIVs,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -28,7 +28,6 @@ const rollsInput = document.getElementById("rolls");
 const maxAlive = document.getElementById("maxAlive");
 const groupID = document.getElementById("groupID");
 const nightCheck = document.getElementById("nightToggle");
-
 
 // filters
 const distShinyOrAlphaCheckbox = document.getElementById(
@@ -94,7 +93,9 @@ function setupPreferenceSaving() {
 
 function setupTabs() {
   document.querySelectorAll(".tablinks").forEach((element) => {
-    element.addEventListener("click", (event) => openTab(event, element.dataset.plaTabFor));
+    element.addEventListener("click", (event) =>
+      openTab(event, element.dataset.plaTabFor)
+    );
   });
 }
 
@@ -156,7 +157,7 @@ function filter(
   shinyOrAlphaFilter,
   shinyFilter,
   alphaFilter,
-  SpeciesFilter
+  speciesFilter
 ) {
   if (shinyOrAlphaFilter && !(result.shiny || result.alpha)) {
     return false;
@@ -171,8 +172,8 @@ function filter(
   }
 
   if (
-    SpeciesFilter.value.length != 0 &&
-    !result.species.toLowerCase().includes(SpeciesFilter.value.toLowerCase())
+    speciesFilter.length != 0 &&
+    !result.species.toLowerCase().includes(speciesFilter.toLowerCase())
   ) {
     return false;
   }
@@ -187,7 +188,7 @@ function getOptions() {
     rolls: parseInt(rollsInput.value),
     group_id: parseInt(groupID.value),
     maxalive: parseInt(maxAlive.value),
-	isnight: nightCheck.checked
+    isnight: nightCheck.checked,
     //	inmap: inmapCheck.checked
   };
 }
@@ -196,7 +197,7 @@ function checkMultiSeed() {
   const options = getOptions();
   showFetchingResults();
 
-  fetch("/check-multi-seed", {
+  fetch("/api/check-multi-seed", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(options),
@@ -214,12 +215,9 @@ function showFetchingResults() {
   resultsSection.classList.toggle("pla-loading", true);
 }
 
-function showResults({ multi_spawns }) {
-  for (const [key, value] of Object.entries(multi_spawns)) {
-    if (value.spawn) {
-      results.push(value);
-    }
-  }
+function showResults(res) {
+  console.log(res);
+  results.push(...res.results);
   showFilteredResults();
 }
 
@@ -229,21 +227,13 @@ function showFilteredResults() {
   let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
   let shinyFilter = distShinyCheckbox.checked;
   let alphaFilter = distAlphaCheckbox.checked;
-  let SpeciesFilter = mmoSpeciesFilter;
+  let speciesFilter = mmoSpeciesText.value;
 
   resultsArea.innerHTML = "";
   resultsSection.classList.toggle("pla-loading", false);
 
-  const filteredResults = results.filter(
-    (result) =>
-      result.spawn &&
-      filter(
-        result,
-        shinyOrAlphaFilter,
-        shinyFilter,
-        alphaFilter,
-        SpeciesFilter
-      )
+  const filteredResults = results.filter((result) =>
+    filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, speciesFilter)
   );
 
   if (filteredResults.length > 0) {
@@ -254,7 +244,6 @@ function showFilteredResults() {
       sprite.src = "static/img/sprite/" + result.sprite;
 
       let pathdisplay = "Path To Target: &nbsp;";
-      console.log(result.path);
       if (result.path.toString().includes("Initial")) {
         pathdisplay += "<input type='checkbox'>&nbsp;" + result.path;
       } else {
@@ -325,20 +314,8 @@ function showFilteredResults() {
         result.ec;
       resultContainer.querySelector("[data-pla-results-pid]").innerText =
         result.pid;
-      resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText =
-        result.ivs[0];
-      resultContainer.querySelector("[data-pla-results-ivs-att]").innerText =
-        result.ivs[1];
-      resultContainer.querySelector("[data-pla-results-ivs-def]").innerText =
-        result.ivs[2];
-      resultContainer.querySelector("[data-pla-results-ivs-spa]").innerText =
-        result.ivs[3];
-      resultContainer.querySelector("[data-pla-results-ivs-spd]").innerText =
-        result.ivs[4];
-      resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
-        result.ivs[5];
 
-      showPokemonInformation(resultContainer, result);
+      showPokemonIVs(resultContainer, result);
 
       resultsArea.appendChild(resultContainer);
     });

@@ -59,3 +59,9 @@ def flatten_bonusround(round, filter, filter_function):
         return [p for b in round.values() for p in b.values() if filter_function(p)]
     else:
         return [p for b in round.values() for p in b.values()]
+
+def flatten_multi(results, filter=True, filter_function=is_shiny):
+    if filter:
+        return [p for p in results.values() if filter_function(p)]
+    else:
+        return list(results.values())

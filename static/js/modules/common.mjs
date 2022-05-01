@@ -125,7 +125,20 @@ const natureIVs = {
   Docile: [false, false],
 };
 
-export function showPokemonInformation(resultContainer, result) {
+export function showPokemonIVs(resultContainer, result) {
+  resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText =
+    result.ivs[0];
+  resultContainer.querySelector("[data-pla-results-ivs-att]").innerText =
+    result.ivs[1];
+  resultContainer.querySelector("[data-pla-results-ivs-def]").innerText =
+    result.ivs[2];
+  resultContainer.querySelector("[data-pla-results-ivs-spa]").innerText =
+    result.ivs[3];
+  resultContainer.querySelector("[data-pla-results-ivs-spd]").innerText =
+    result.ivs[4];
+  resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
+    result.ivs[5];
+  
   const [plusNature, minusNature] = natureIVs[result.nature];
   if (plusNature)
     resultContainer.querySelector(plusNature).classList.add("pla-iv-plus");

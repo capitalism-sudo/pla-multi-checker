@@ -78,7 +78,6 @@ def check_alpha_from_seed(group_seed,rolls,isalpha,set_gender,pfilter):
 
     if adv <= 50000:
         results = {
-            "spawn": True,
             "rolls": rolls,
             "adv": adv,
             "ivs": ivs,
@@ -89,7 +88,6 @@ def check_alpha_from_seed(group_seed,rolls,isalpha,set_gender,pfilter):
             }
     else:
         results = {
-            "spawn": True,
             "rolls": rolls,
             "adv": adv,
             "ivs": [0,0,0,0,0,0],

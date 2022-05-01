@@ -12,7 +12,7 @@ import {
   saveBoolToStorage,
   readBoolFromStorage,
   setupExpandables,
-  showPokemonInformation,
+  showPokemonIVs,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -154,7 +154,7 @@ function getOptions() {
 }
 
 function setMap() {
-  fetch("/map-info", {
+  fetch("/api/map-info", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ map_name: mapSelect.value }),
@@ -185,7 +185,7 @@ function checkDistortions() {
   const options = getOptions();
   showFetchingResults();
 
-  fetch("/read-distortions", {
+  fetch("/api/read-distortions", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(options),
@@ -203,14 +203,10 @@ function showFetchingResults() {
   resultsSection.classList.toggle("pla-loading", true);
 }
 
-const showResults = ({ distortion_spawns }) => {
-  distortion_spawns.forEach((pokemon) => {
-    if (pokemon.spawn) {
-      results.push(pokemon);
-    }
-  });
+function showResults(res) {
+  results.push(...res.results);
   showFilteredResults();
-};
+}
 
 function showFilteredResults() {
   validateFilters();
@@ -222,10 +218,8 @@ function showFilteredResults() {
   resultsArea.innerHTML = "";
   resultsSection.classList.toggle("pla-loading", false);
 
-  const filteredResults = results.filter(
-    (result) =>
-      result.spawn &&
-      filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter)
+  const filteredResults = results.filter((result) =>
+    filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter)
   );
 
   if (filteredResults.length > 0) {
@@ -260,20 +254,8 @@ function showFilteredResults() {
         result.ec.toString(16);
       resultContainer.querySelector("[data-pla-results-pid]").innerText =
         result.pid.toString(16);
-      resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText =
-        result.ivs[0];
-      resultContainer.querySelector("[data-pla-results-ivs-att]").innerText =
-        result.ivs[1];
-      resultContainer.querySelector("[data-pla-results-ivs-def]").innerText =
-        result.ivs[2];
-      resultContainer.querySelector("[data-pla-results-ivs-spa]").innerText =
-        result.ivs[3];
-      resultContainer.querySelector("[data-pla-results-ivs-spd]").innerText =
-        result.ivs[4];
-      resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
-        result.ivs[5];
 
-      showPokemonInformation(resultContainer, result);
+      showPokemonIVs(resultContainer, result);
 
       resultsArea.appendChild(resultContainer);
     });
@@ -284,7 +266,7 @@ function showFilteredResults() {
 
 function createDistortion() {
   clearMessages();
-  fetch("/create-distortion", {
+  fetch("/api/create-distortion", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   })

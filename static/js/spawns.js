@@ -12,7 +12,7 @@ import {
   saveBoolToStorage,
   readBoolFromStorage,
   setupExpandables,
-  showPokemonInformation,
+  showPokemonIVs,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -137,7 +137,7 @@ function checkAlphaAdv() {
   const options = getOptions();
   showFetchingResults();
 
-  fetch("/check-alphaseed", {
+  fetch("/api/check-alphaseed", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(options),
@@ -155,10 +155,8 @@ function showFetchingResults() {
   resultsSection.classList.toggle("pla-loading", true);
 }
 
-function showResults({ alpha_spawns }) {
-  if (alpha_spawns.spawn) {
-    results.push(alpha_spawns);
-  }
+function showResults(res) {
+  results.push(...res.results);
   showFilteredResults();
 }
 
@@ -193,20 +191,8 @@ function showFilteredResults() {
         result.nature;
       resultContainer.querySelector("[data-pla-results-gender]").innerText =
         resultGender;
-      resultContainer.querySelector("[data-pla-results-ivs-hp]").innerText =
-        result.ivs[0];
-      resultContainer.querySelector("[data-pla-results-ivs-att]").innerText =
-        result.ivs[1];
-      resultContainer.querySelector("[data-pla-results-ivs-def]").innerText =
-        result.ivs[2];
-      resultContainer.querySelector("[data-pla-results-ivs-spa]").innerText =
-        result.ivs[3];
-      resultContainer.querySelector("[data-pla-results-ivs-spd]").innerText =
-        result.ivs[4];
-      resultContainer.querySelector("[data-pla-results-ivs-spe]").innerText =
-        result.ivs[5];
 
-      showPokemonInformation(resultContainer, result);
+      showPokemonIVs(resultContainer, result);
       resultsArea.appendChild(resultContainer);
     });
   } else {

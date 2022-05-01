@@ -79,7 +79,6 @@ def generate_spawns(group_seed,rolls,group_id,info,path,adv):
             generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
         currpath = f"{path[:len(path)-1] + [i+1]}"
         poke = {
-            "spawn":True,
             "ec":f"{ec:X}",
             "pid":f"{pid:X}",
             "ivs":ivs,
@@ -115,7 +114,6 @@ def generate_initial_spawns(group_seed,rolls,group_id,maxalive,info):
         ec,pid,ivs,ability,gender,nature,shiny,square = \
             generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
         poke = {
-            "spawn":True,
             "ec":f"{ec:X}",
             "pid":f"{pid:X}",
             "ivs":ivs,
