@@ -112,9 +112,8 @@ def get_from_seed():
     try:
         group_seed = int(request.json['seed'])
     except ValueError:
-        # Return an error when error handling implemented
-        # return { "error": "You need to input a number for the seed" }
-        return { "mmo_spawns": [] }
+        return { "error": "You need to input a number for the seed" }
+    
     results = pla.check_from_seed(group_seed,
                                   request.json['rolls'],
                                   request.json['frencounter'],
@@ -129,9 +128,8 @@ def get_alpha_from_seed():
     try:
         group_seed = int(request.json['seed'])
     except ValueError:
-        # Return an error when error handling implemented
-        # return { "error": "You need to input a number for the seed" }
-        return { "alpha_spawns": [] }
+        return { "error": "You need to input a number for the seed" }
+    
     results = pla.check_alpha_from_seed(group_seed,
                                         request.json['rolls'],
                                         request.json['isalpha'],
@@ -154,9 +152,8 @@ def check_multiseed():
     try:
         group_seed = int(request.json['seed'])
     except ValueError:
-        # Return an error when error handling implemented
-        # return { "error": "You need to input a number for the seed" }
-        return { "multi_spawns": {} }
+        return { "error": "You need to input a number for the seed" }
+
     results = pla.check_multi_spawner_seed(group_seed,
                                            request.json['rolls'],
                                            request.json['group_id'],
