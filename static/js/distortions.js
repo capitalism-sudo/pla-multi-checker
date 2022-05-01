@@ -6,6 +6,7 @@ import {
   showModalMessage,
   clearMessages,
   clearModalMessages,
+  doSearch,
   showNoResultsFound,
   saveIntToStorage,
   readIntFromStorage,
@@ -19,9 +20,6 @@ const resultTemplate = document.querySelector("[data-pla-results-template]");
 const resultsArea = document.querySelector("[data-pla-results]");
 const mapLocationsArea = document.querySelector("[data-pla-info-locations]");
 const mapSpawnsArea = document.querySelector("[data-pla-info-spawns]");
-const spinnerTemplate = document.querySelector("[data-pla-spinner]");
-
-const resultsSection = document.querySelector(".pla-section-results");
 
 // options
 const mapSelect = document.getElementById("mapSelect");
@@ -182,30 +180,7 @@ function showMapInfo({ locations, spawns }) {
 }
 
 function checkDistortions() {
-  const options = getOptions();
-  showFetchingResults();
-
-  fetch("/api/read-distortions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(options),
-  })
-    .then((response) => response.json())
-    .then((res) => showResults(res))
-    .catch((error) => showMessage(MESSAGE_ERROR, error));
-}
-
-function showFetchingResults() {
-  results.length = 0;
-  resultsArea.innerHTML = "";
-  const spinner = spinnerTemplate.content.cloneNode(true);
-  resultsArea.appendChild(spinner);
-  resultsSection.classList.toggle("pla-loading", true);
-}
-
-function showResults(res) {
-  results.push(...res.results);
-  showFilteredResults();
+  doSearch("/api/read-distortions", results, getOptions(), showFilteredResults);
 }
 
 function showFilteredResults() {
@@ -215,52 +190,49 @@ function showFilteredResults() {
   let shinyFilter = distShinyCheckbox.checked;
   let alphaFilter = distAlphaCheckbox.checked;
 
-  resultsArea.innerHTML = "";
-  resultsSection.classList.toggle("pla-loading", false);
-
   const filteredResults = results.filter((result) =>
     filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter)
   );
 
   if (filteredResults.length > 0) {
-    filteredResults.forEach((result) => {
-      const resultContainer = resultTemplate.content.cloneNode(true);
-      resultContainer.querySelector("[data-pla-results-species]").innerText =
-        result.species;
-      resultContainer.querySelector("[data-pla-results-location]").innerText =
-        result.distortion_name;
-
-      let resultShiny = resultContainer.querySelector(
-        "[data-pla-results-shiny]"
-      );
-      resultShiny.innerText = result.shiny;
-      resultShiny.classList.toggle("pla-result-true", result.shiny);
-      resultShiny.classList.toggle("pla-result-false", !result.shiny);
-
-      let resultAlpha = resultContainer.querySelector(
-        "[data-pla-results-alpha]"
-      );
-      resultAlpha.innerText = result.alpha;
-      resultAlpha.classList.toggle("pla-result-true", result.alpha);
-      resultAlpha.classList.toggle("pla-result-false", !result.alpha);
-
-      resultContainer.querySelector("[data-pla-results-nature]").innerText =
-        result.nature;
-      resultContainer.querySelector("[data-pla-results-gender]").innerText =
-        result.gender;
-      resultContainer.querySelector("[data-pla-results-seed]").innerText =
-        result.generator_seed.toString(16);
-      resultContainer.querySelector("[data-pla-results-ec]").innerText =
-        result.ec.toString(16);
-      resultContainer.querySelector("[data-pla-results-pid]").innerText =
-        result.pid.toString(16);
-
-      showPokemonIVs(resultContainer, result);
-
-      resultsArea.appendChild(resultContainer);
-    });
+    filteredResults.forEach((result) => showResult(result));
   } else {
     showNoResultsFound();
+  }
+}
+
+function showResult(result) {
+  {
+    const resultContainer = resultTemplate.content.cloneNode(true);
+    resultContainer.querySelector("[data-pla-results-species]").innerText =
+      result.species;
+    resultContainer.querySelector("[data-pla-results-location]").innerText =
+      result.distortion_name;
+
+    let resultShiny = resultContainer.querySelector("[data-pla-results-shiny]");
+    resultShiny.innerText = result.shiny;
+    resultShiny.classList.toggle("pla-result-true", result.shiny);
+    resultShiny.classList.toggle("pla-result-false", !result.shiny);
+
+    let resultAlpha = resultContainer.querySelector("[data-pla-results-alpha]");
+    resultAlpha.innerText = result.alpha;
+    resultAlpha.classList.toggle("pla-result-true", result.alpha);
+    resultAlpha.classList.toggle("pla-result-false", !result.alpha);
+
+    resultContainer.querySelector("[data-pla-results-nature]").innerText =
+      result.nature;
+    resultContainer.querySelector("[data-pla-results-gender]").innerText =
+      result.gender;
+    resultContainer.querySelector("[data-pla-results-seed]").innerText =
+      result.generator_seed.toString(16);
+    resultContainer.querySelector("[data-pla-results-ec]").innerText =
+      result.ec.toString(16);
+    resultContainer.querySelector("[data-pla-results-pid]").innerText =
+      result.pid.toString(16);
+
+    showPokemonIVs(resultContainer, result);
+
+    resultsArea.appendChild(resultContainer);
   }
 }
 

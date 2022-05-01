@@ -6,6 +6,7 @@ import {
   showModalMessage,
   clearMessages,
   clearModalMessages,
+  doSearch,
   showNoResultsFound,
   saveIntToStorage,
   readIntFromStorage,
@@ -19,9 +20,6 @@ const resultTemplate = document.querySelector("[data-pla-results-template]");
 const resultsArea = document.querySelector("[data-pla-results]");
 const mapLocationsArea = document.querySelector("[data-pla-info-locations]");
 const mapSpawnsArea = document.querySelector("[data-pla-info-spawns]");
-const spinnerTemplate = document.querySelector("[data-pla-spinner]");
-
-const resultsSection = document.querySelector(".pla-section-results");
 
 // options
 const mapSelect = document.getElementById("mapSelect");
@@ -159,7 +157,7 @@ function filter(
   }
 
   if (
-    speciesFilter.value.length != 0 &&
+    speciesFilter.length != 0 &&
     !result.species.toLowerCase().includes(speciesFilter.toLowerCase())
   ) {
     return false;
@@ -208,76 +206,20 @@ function showMaps({ maps, outbreaks }) {
   });
 }
 
-function convertCoords(coordinates) {
-  return [coordinates[2] * -0.5, coordinates[0] * 0.5];
-}
-
 function checkMMOs() {
-  const options = getOptions();
-  showFetchingResults();
-
-  fetch("/api/read-mmos", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(options),
-  })
-    .then((response) => response.json())
-    .then((res) => showResults(res))
-    .catch((error) => showMessage(MESSAGE_ERROR, error));
+  doSearch("/api/read-mmos", results, getOptions(), showFilteredResults);
 }
 
 function checkNormals() {
-  const options = getOptions();
-  showFetchingResults();
-
-  fetch("/api/read-normals", {
-    method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify(options),
-  })
-    .then((response) => response.json())
-    .then((res) => showResults(res))
-    .catch((error) => showMessage(MESSAGE_ERROR, error));
+  doSearch("/api/read-normals", results, getOptions(), showFilteredResults);
 }
 
 function checkOneMap() {
-  const options = getOptions();
-  showFetchingResults();
-
-  fetch("/api/read-one-map", {
-    method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify(options),
-  })
-    .then((response) => response.json())
-    .then((res) => showResults(res))
-    .catch((error) => showMessage(MESSAGE_ERROR, error));
-}
-
-function teleportToSpawn(coords) {
-  fetch("/api/teleport-to-spawn", {
-    method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify({
-      coords: coords,
-    }),
-  });
-}
-
-function showFetchingResults() {
-  results.length = 0;
-  resultsArea.innerHTML = "";
-  const spinner = spinnerTemplate.content.cloneNode(true);
-  resultsArea.appendChild(spinner);
-  resultsSection.classList.toggle("pla-loading", true);
-}
-
-function showResults(res) {
-  results.push(...res.results);
-  showFilteredResults();
+  doSearch("/api/read-one-map", results, getOptions(), showFilteredResults);
 }
 
 function showFilteredResults() {
+  console.log(results);
   validateFilters();
 
   let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
@@ -286,9 +228,6 @@ function showFilteredResults() {
   let speciesFilter = mmoSpeciesText.value;
   let defaultFilter = distDefaultCheckbox.checked;
   let multiFilter = distMultiCheckbox.checked;
-
-  resultsArea.innerHTML = "";
-  resultsSection.classList.toggle("pla-loading", false);
 
   const filteredResults = results.filter((result) =>
     filter(
@@ -305,127 +244,141 @@ function showFilteredResults() {
   if (filteredResults.length > 0) {
     resultsArea.innerHTML =
       "<h3><section class='pla-section-results' flow>D = Despawn. Despawn Multiple Pokemon by either Multibattles (for aggressive) or Scaring (for skittish) pokemon.</section></h3>";
-    filteredResults.forEach((result) => {
-      let sprite = document.createElement("img");
-      sprite.src = "static/img/sprite/" + result.sprite;
-
-      const resultContainer = resultTemplate.content.cloneNode(true);
-
-      let indexprefix = "";
-      let chainprefix = "N/A";
-
-      const isMMO = result.hasOwnProperty("chains");
-      if (isMMO) {
-        if (result.chains.length == 0) {
-          indexprefix = "Single Shiny Path: <p>" + result.index;
-          chainprefix = "No Additional Shinies On Path";
-        } else {
-          indexprefix =
-            "Multiple Shiny Path (Complete for more than one Shiny): <p>" +
-            result.index;
-          chainprefix = result.chains;
-          result.multi = true;
-        }
-
-        var coll = resultContainer.querySelectorAll(".collapsible");
-        var c;
-
-        for (c = 0; c < coll.length; c++) {
-          coll[c].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight) {
-              content.style.maxHeight = null;
-            } else {
-              content.style.maxHeight = content.scrollHeight + "px";
-            }
-          });
-        }
-      }
-      resultContainer.querySelector("[data-pla-info-chains]").innerHTML =
-        chainprefix;
-      resultContainer.querySelector("[data-pla-results-dupes]").innerText =
-        isMMO ? result.dupes : "N/A";
-
-      resultContainer.querySelector(".pla-results-sprite").appendChild(sprite);
-      resultContainer.querySelector("[data-pla-results-species]").innerText =
-        result.species;
-      resultContainer.querySelector("[data-pla-results-location]").innerHTML =
-        indexprefix;
-
-      let resultShiny = resultContainer.querySelector(
-        "[data-pla-results-shiny]"
-      );
-      let sparkle = "";
-      let sparklesprite = document.createElement("img");
-      sparklesprite.className = "pla-results-sparklesprite";
-      sparklesprite.src =
-        "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
-      sparklesprite.height = "10";
-      sparklesprite.width = "10";
-      sparklesprite.style.cssText =
-        "pull-left;display:inline-block;margin-left:0px;";
-      if (result.shiny && result.square) {
-        sparkle = "Square Shiny!";
-        sparklesprite.src = "static/img/square.png";
-      } else if (result.shiny) {
-        sparklesprite.src = "static/img/shiny.png";
-        sparkle = "Shiny!";
-      } else {
-        sparkle = "Not Shiny";
-      }
-      resultContainer
-        .querySelector("[data-pla-results-shinysprite]")
-        .appendChild(sparklesprite);
-      resultShiny.innerText = sparkle;
-      resultShiny.classList.toggle("pla-result-true", result.shiny);
-      resultShiny.classList.toggle("pla-result-false", !result.shiny);
-
-      let resultAlpha = resultContainer.querySelector(
-        "[data-pla-results-alpha]"
-      );
-      let bigmon = "";
-      if (result.alpha) {
-        bigmon = "Alpha!";
-      } else {
-        bigmon = "Not Alpha";
-      }
-      resultAlpha.innerText = bigmon;
-      resultAlpha.classList.toggle("pla-result-true", result.alpha);
-      resultAlpha.classList.toggle("pla-result-false", !result.alpha);
-
-      resultContainer.querySelector("[data-pla-results-group]").innerText =
-        result.group;
-      resultContainer.querySelector("[data-pla-results-numspawns]").innerText =
-        result.numspawns;
-      resultContainer.querySelector("[data-pla-results-mapname]").innerText =
-        result.mapname;
-      resultContainer.querySelector("[data-pla-results-nature]").innerText =
-        result.nature;
-
-      resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
-        result.gender;
-      resultContainer.querySelector("[data-pla-results-seed]").innerText =
-        result.generator_seed;
-      resultContainer.querySelector("[data-pla-results-ec]").innerText =
-        result.ec.toString(16);
-      resultContainer.querySelector("[data-pla-results-pid]").innerText =
-        result.pid.toString(16);
-
-      showPokemonIVs(resultContainer, result);
-
-      let button = document.createElement("button");
-      button.innerText = "Teleport to Spawn";
-      button.classList.add("pla-button", "pla-button-action");
-      button.addEventListener("click", () => teleportToSpawn(result.coords));
-
-      resultContainer
-        .querySelector(".pla-results-teleport")
-        .appendChild(button);
-
-      resultsArea.appendChild(resultContainer);
-    });
+    filteredResults.forEach((result) => showResult(result));
   } else {
     showNoResultsFound();
   }
+}
+
+function showResult(result) {
+  let sprite = document.createElement("img");
+  sprite.src = "static/img/sprite/" + result.sprite;
+
+  const resultContainer = resultTemplate.content.cloneNode(true);
+
+  let indexprefix = "";
+  let chainprefix = "N/A";
+
+  const isMMO = result.hasOwnProperty("chains");
+  if (isMMO) {
+    if (result.chains.length == 0) {
+      indexprefix = "Single Shiny Path: <p>" + result.index;
+      chainprefix = "No Additional Shinies On Path";
+    } else {
+      indexprefix =
+        "Multiple Shiny Path (Complete for more than one Shiny): <p>" +
+        result.index;
+      chainprefix = result.chains;
+      result.multi = true;
+    }
+
+    var coll = resultContainer.querySelectorAll(".collapsible");
+    var c;
+
+    for (c = 0; c < coll.length; c++) {
+      coll[c].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    }
+  } else {
+    // To show path for normal outbreaks
+    indexprefix = result.index;
+  }
+  resultContainer.querySelector("[data-pla-info-chains]").innerHTML =
+    chainprefix;
+  resultContainer.querySelector("[data-pla-results-dupes]").innerText = isMMO
+    ? result.dupes
+    : "N/A";
+
+  resultContainer.querySelector(".pla-results-sprite").appendChild(sprite);
+  resultContainer.querySelector("[data-pla-results-species]").innerText =
+    result.species;
+  resultContainer.querySelector("[data-pla-results-location]").innerHTML =
+    indexprefix;
+
+  let resultShiny = resultContainer.querySelector("[data-pla-results-shiny]");
+  let sparkle = "";
+  let sparklesprite = document.createElement("img");
+  sparklesprite.className = "pla-results-sparklesprite";
+  sparklesprite.src =
+    "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
+  sparklesprite.height = "10";
+  sparklesprite.width = "10";
+  sparklesprite.style.cssText =
+    "pull-left;display:inline-block;margin-left:0px;";
+  if (result.shiny && result.square) {
+    sparkle = "Square Shiny!";
+    sparklesprite.src = "static/img/square.png";
+  } else if (result.shiny) {
+    sparklesprite.src = "static/img/shiny.png";
+    sparkle = "Shiny!";
+  } else {
+    sparkle = "Not Shiny";
+  }
+  resultContainer
+    .querySelector("[data-pla-results-shinysprite]")
+    .appendChild(sparklesprite);
+  resultShiny.innerText = sparkle;
+  resultShiny.classList.toggle("pla-result-true", result.shiny);
+  resultShiny.classList.toggle("pla-result-false", !result.shiny);
+
+  let resultAlpha = resultContainer.querySelector("[data-pla-results-alpha]");
+  let bigmon = "";
+  if (result.alpha) {
+    bigmon = "Alpha!";
+  } else {
+    bigmon = "Not Alpha";
+  }
+  resultAlpha.innerText = bigmon;
+  resultAlpha.classList.toggle("pla-result-true", result.alpha);
+  resultAlpha.classList.toggle("pla-result-false", !result.alpha);
+
+  resultContainer.querySelector("[data-pla-results-group]").innerText =
+    result.group;
+  resultContainer.querySelector("[data-pla-results-numspawns]").innerText =
+    result.numspawns;
+  resultContainer.querySelector("[data-pla-results-mapname]").innerText =
+    result.mapname;
+  resultContainer.querySelector("[data-pla-results-nature]").innerText =
+    result.nature;
+
+  resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
+    result.gender;
+  resultContainer.querySelector("[data-pla-results-seed]").innerText =
+    result.generator_seed;
+  resultContainer.querySelector("[data-pla-results-ec]").innerText =
+    result.ec.toString(16);
+  resultContainer.querySelector("[data-pla-results-pid]").innerText =
+    result.pid.toString(16);
+
+  showPokemonIVs(resultContainer, result);
+
+  let button = document.createElement("button");
+  button.innerText = "Teleport to Spawn";
+  button.classList.add("pla-button", "pla-button-action");
+  button.addEventListener("click", () => teleportToSpawn(result.coords));
+
+  resultContainer.querySelector(".pla-results-teleport").appendChild(button);
+
+  resultsArea.appendChild(resultContainer);
+}
+
+function convertCoords(coordinates) {
+  return [coordinates[2] * -0.5, coordinates[0] * 0.5];
+}
+
+function teleportToSpawn(coords) {
+  fetch("/api/teleport-to-spawn", {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({
+      coords: coords,
+    }),
+  });
 }
