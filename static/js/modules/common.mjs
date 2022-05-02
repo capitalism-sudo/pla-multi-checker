@@ -222,3 +222,85 @@ export function showPokemonIVs(resultContainer, result) {
   if (minusNature)
     resultContainer.querySelector(minusNature).classList.add("pla-iv-minus");
 }
+
+const genderStrings = {
+  MALE: "Male <i class='fa-solid fa-mars' style='color:blue'/>",
+  FEMALE: "Female <i class='fa-solid fa-venus' style='color:pink'/>",
+  GENDERLESS: "Genderless <i class='fa-solid fa-genderless'/>",
+};
+
+export function showPokemonInformation(resultContainer, result) {
+  let sprite = document.createElement("img");
+  sprite.src = "static/img/sprite/" + result.sprite;
+  resultContainer.querySelector(".pla-results-sprite").appendChild(sprite);
+
+  resultContainer.querySelector("[data-pla-results-species]").textContent =
+    result.species;
+  resultContainer.querySelector("[data-pla-results-nature]").textContent =
+    result.nature;
+  resultContainer.querySelector("[data-pla-results-rolls]").textContent =
+    result.rolls;
+
+  // TEMP FOR NOW WHILE DOING THE CHANGEOVER:
+  let genderString = result.gender;
+  switch (result.gender) {
+    case "MALE":
+      genderString = genderStrings.MALE;
+      break;
+    case "FEMALE":
+      genderString = genderStrings.FEMALE;
+      break;
+    case "GENDERLESS":
+      genderString = genderStrings.GENDERLESS;
+      break;
+  }
+  resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
+    genderString;
+
+  let resultShiny = resultContainer.querySelector("[data-pla-results-shiny]");
+  let sparkle = "";
+  let sparklesprite = document.createElement("img");
+  sparklesprite.className = "pla-results-sparklesprite";
+  sparklesprite.src =
+    "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
+  sparklesprite.height = "10";
+  sparklesprite.width = "10";
+  sparklesprite.style.cssText =
+    "pull-left;display:inline-block;margin-left:0px;";
+  if (result.shiny && result.square) {
+    sparkle = "Square Shiny!";
+    sparklesprite.src = "static/img/square.png";
+  } else if (result.shiny) {
+    sparklesprite.src = "static/img/shiny.png";
+    sparkle = "Shiny!";
+  } else {
+    sparkle = "Not Shiny";
+  }
+  resultContainer
+    .querySelector("[data-pla-results-shinysprite]")
+    .appendChild(sparklesprite);
+  resultShiny.innerText = sparkle;
+  resultShiny.classList.toggle("pla-result-true", result.shiny);
+  resultShiny.classList.toggle("pla-result-false", !result.shiny);
+
+  let resultAlpha = resultContainer.querySelector("[data-pla-results-alpha]");
+  let bigmon = "";
+  if (result.alpha) {
+    bigmon = "Alpha!";
+  } else {
+    bigmon = "Not Alpha";
+  }
+  resultAlpha.innerText = bigmon;
+  resultAlpha.classList.toggle("pla-result-true", result.alpha);
+  resultAlpha.classList.toggle("pla-result-false", !result.alpha);
+}
+
+export function showPokemonHiddenInformation(resultContainer, result) {
+  resultContainer.querySelector("[data-pla-results-seed]").textContent =
+    result.generator_seed.toString(16).toUpperCase();
+  resultContainer.querySelector("[data-pla-results-ec]").textContent = result.ec
+    .toString(16)
+    .toUpperCase();
+  resultContainer.querySelector("[data-pla-results-pid]").textContent =
+    result.pid.toString(16).toUpperCase();
+}

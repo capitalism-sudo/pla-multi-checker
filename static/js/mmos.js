@@ -14,6 +14,8 @@ import {
   readBoolFromStorage,
   setupExpandables,
   showPokemonIVs,
+  showPokemonInformation,
+  showPokemonHiddenInformation,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -250,9 +252,6 @@ function showFilteredResults() {
 }
 
 function showResult(result) {
-  let sprite = document.createElement("img");
-  sprite.src = "static/img/sprite/" + result.sprite;
-
   const resultContainer = resultTemplate.content.cloneNode(true);
 
   let indexprefix = "";
@@ -295,48 +294,8 @@ function showResult(result) {
     ? result.dupes
     : "N/A";
 
-  resultContainer.querySelector(".pla-results-sprite").appendChild(sprite);
-  resultContainer.querySelector("[data-pla-results-species]").innerText =
-    result.species;
   resultContainer.querySelector("[data-pla-results-location]").innerHTML =
     indexprefix;
-
-  let resultShiny = resultContainer.querySelector("[data-pla-results-shiny]");
-  let sparkle = "";
-  let sparklesprite = document.createElement("img");
-  sparklesprite.className = "pla-results-sparklesprite";
-  sparklesprite.src =
-    "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
-  sparklesprite.height = "10";
-  sparklesprite.width = "10";
-  sparklesprite.style.cssText =
-    "pull-left;display:inline-block;margin-left:0px;";
-  if (result.shiny && result.square) {
-    sparkle = "Square Shiny!";
-    sparklesprite.src = "static/img/square.png";
-  } else if (result.shiny) {
-    sparklesprite.src = "static/img/shiny.png";
-    sparkle = "Shiny!";
-  } else {
-    sparkle = "Not Shiny";
-  }
-  resultContainer
-    .querySelector("[data-pla-results-shinysprite]")
-    .appendChild(sparklesprite);
-  resultShiny.innerText = sparkle;
-  resultShiny.classList.toggle("pla-result-true", result.shiny);
-  resultShiny.classList.toggle("pla-result-false", !result.shiny);
-
-  let resultAlpha = resultContainer.querySelector("[data-pla-results-alpha]");
-  let bigmon = "";
-  if (result.alpha) {
-    bigmon = "Alpha!";
-  } else {
-    bigmon = "Not Alpha";
-  }
-  resultAlpha.innerText = bigmon;
-  resultAlpha.classList.toggle("pla-result-true", result.alpha);
-  resultAlpha.classList.toggle("pla-result-false", !result.alpha);
 
   resultContainer.querySelector("[data-pla-results-group]").innerText =
     result.group;
@@ -344,20 +303,9 @@ function showResult(result) {
     result.numspawns;
   resultContainer.querySelector("[data-pla-results-mapname]").innerText =
     result.mapname;
-  resultContainer.querySelector("[data-pla-results-nature]").innerText =
-    result.nature;
 
-  resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
-    result.gender;
-  resultContainer.querySelector("[data-pla-results-seed]").innerText =
-    result.generator_seed;
-  resultContainer.querySelector("[data-pla-results-ec]").innerText =
-    result.ec.toString(16);
-  resultContainer.querySelector("[data-pla-results-pid]").innerText =
-    result.pid.toString(16);
-  resultContainer.querySelector("[data-pla-results-rolls]").textContent =
-    result.rolls;
-
+  showPokemonInformation(resultContainer, result);
+  showPokemonHiddenInformation(resultContainer, result);
   showPokemonIVs(resultContainer, result);
 
   let button = document.createElement("button");
