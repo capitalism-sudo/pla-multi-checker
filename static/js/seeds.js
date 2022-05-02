@@ -199,24 +199,7 @@ function showFetchingResults() {
 }
 
 function showResults({ mmo_spawns }) {
-  for (const [key, value] of Object.entries(mmo_spawns)) {
-    for (const [z, vall] of Object.entries(value)) {
-      if (vall.spawn) {
-        results.push(vall);
-      }
-      for (const [x, pokemon] of Object.entries(vall)) {
-        if (pokemon.spawn) {
-          results.push(pokemon);
-        } else if (x.includes("Bonus")) {
-          for (const [b, bonus] of Object.entries(pokemon)) {
-            if (bonus.spawn) {
-              results.push(bonus);
-            }
-          }
-        }
-      }
-    }
-  }
+  results.push(...mmo_spawns);
   showFilteredResults();
 }
 

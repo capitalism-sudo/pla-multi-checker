@@ -1,5 +1,6 @@
 {
     "IP": "192.168.1.63",
 	"USB": false,
-	"SeedCheckOnly": false
+	"SeedCheckOnly": false,
+	"FILTER_ON_SERVER": true
 }
