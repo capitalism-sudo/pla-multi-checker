@@ -197,6 +197,7 @@ function showFilteredResults() {
   );
 
   if (filteredResults.length > 0) {
+    resultsArea.innerHTML = "";
     filteredResults.forEach((result) => showResult(result));
   } else {
     showNoResultsFound();

@@ -128,10 +128,13 @@ function showResultsError(error) {
 
 export function showNoResultsFound() {
   const resultsArea = document.querySelector("[data-pla-results]");
-  const message = document.createElement("p");
-  message.classList.add("pla-results-message");
-  message.textContent = "No results found";
-  resultsArea.appendChild(message);
+  if (resultsArea) {
+    resultsArea.innerHTML = "";
+    const message = document.createElement("p");
+    message.classList.add("pla-results-message");
+    message.textContent = "No results found";
+    resultsArea.appendChild(message);
+  }
 }
 
 // Preference Saving / Loading

@@ -137,6 +137,7 @@ function checkAlphaAdv() {
 
 function showFilteredResults() {
   if (results.length > 0) {
+    resultsArea.innerHTML = "";
     results.forEach((result) => showResult(result));
   } else {
     showNoResultsFound();
