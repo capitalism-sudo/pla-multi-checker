@@ -36,7 +36,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                 info = {
                     "index":f"<span class='pla-results-init'>Initial Spawn " \
                     f"{init_spawn} </span></span>",
-                    "spawn":True,
                     "generator_seed":f"{generator_seed:X}",
                     "species":species,
                     "shiny":shiny,
@@ -78,7 +77,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     info = {
                         #"index":f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])} </span>",
                         "index": get_index_string(steps[:step_i], pokemon),
-                        "spawn":True,
                         "generator_seed":f"{generator_seed:X}",
                         "species":species,
                         "shiny":shiny,

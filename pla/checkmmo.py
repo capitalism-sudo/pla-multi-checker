@@ -57,7 +57,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                 info = {
                     "index":f"<span class='pla-results-init'>Initial Spawn " \
                     f"{init_spawn} </span></span>",
-                    "spawn":True,
                     "generator_seed":f"{generator_seed:X}",
                     "species":species,
                     "shiny":shiny,
@@ -103,7 +102,6 @@ def generate_mass_outbreak_aggressive_path(group_seed,rolls,paths,spawns,true_sp
                     info = {
                         #"index":f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])} </span>",
                         "index": get_index_string(steps[:step_i], pokemon),
-                        "spawn":True,
                         "generator_seed":f"{generator_seed:X}",
                         "species":species,
                         "shiny":shiny,
@@ -175,12 +173,9 @@ def get_bonus_seed(group_seed, path):
             respawn_rng.next()
             respawn_rng.next()
         respawn_rng = XOROSHIRO(respawn_rng.next())
-    bonus_seed = (respawn_rng.next() - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
-    return bonus_seed
+    return (respawn_rng.next() - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
 
 def read_mass_outbreak_rng(reader,group_id,rolls,mapcount,chained,species,group_seed,max_spawns,bonus_flag):
-    if species == 201:
-        rolls = 19
     print(f"Species Group: {SPECIES[species]}")
     encounters,encsum = get_encounter_table(reader,group_id,mapcount,bonus_flag)
     paths = nonbonuspaths[str(max_spawns)]
@@ -253,7 +248,6 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
             uniques.add(fixed_seed)
             info = {
                 "index":f"Initial Spawn {init_spawn}</span>",
-                "spawn":True,
                 "generator_seed":f"{generator_seed:X}",
                 "shiny":shiny,
                 "square": square,
@@ -264,6 +258,7 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
                 "ability":ability,
                 "nature":NATURES[nature],
                 "gender":gender,
+                "rolls":rolls,
                 "defaultroute": True
             }
             #print(info)
@@ -284,7 +279,6 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
                 uniques.add(fixed_seed)
                 info = {
                     "index":f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}</span>",
-                    "spawn":True,
                     "generator_seed":f"{generator_seed:X}",
                     "shiny":shiny,
                     "square": square,
@@ -294,7 +288,8 @@ def generate_mass_outbreak_aggressive_path_normal(group_seed,rolls,steps,uniques
                     "ivs":ivs,
                     "ability":ability,
                     "nature":NATURES[nature],
-                    "gender":gender
+                    "gender":gender,
+                    "rolls":rolls
                 }
                 paths.append(f"{'|'.join(str(s) for s in steps[:step_i] + [pokemon])}")
                 if len(steps[:step_i]) == sum(steps[:step_i]) and pokemon == 1:
@@ -351,35 +346,6 @@ def aggressive_outbreak_pathfind_normal(group_seed,
         if _steps == get_final_normal(spawns):
             return storage,paths
     return None
-
-def next_filtered_aggressive_outbreak_pathfind_normal(group_seed,rolls,spawns):
-    """Check the next outbreak advances until an aggressive path to a pokemon that
-       passes poke_filter exists"""
-    main_rng = XOROSHIRO(group_seed)
-    result = []
-    advance = -1
-
-    while len(result) == 0 and advance < 1:
-        if advance != -1:
-            for _ in range(4*2):
-                main_rng.next()
-            group_seed = main_rng.next()
-            main_rng.reseed(group_seed)
-        advance += 1
-        result,paths = aggressive_outbreak_pathfind_normal(group_seed, rolls, spawns)
-        if result is None:
-            result = []
-    if advance == 0:
-        info = result
-    else:
-        info = {
-            "spawn":False,
-            "description":"Spawner not active"
-            }
-    if advance != 0:
-        return info,paths
-    else:
-        return info,paths
 
 def get_group_seed(reader,group_id,mapcount):
     return reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
@@ -645,7 +611,7 @@ def read_normal_outbreaks(reader,rolls,inmap):
     for i in range(MAX_MAPS):
         species,group_seed,max_spawns,coordinates = get_normal_outbreak_info(reader,i,inmap)
         if species != 0:
-            display,_ = next_filtered_aggressive_outbreak_pathfind_normal(group_seed,rolls,max_spawns)
+            display,_ = aggressive_outbreak_pathfind_normal(group_seed, rolls, max_spawns)
             
             if display is None:
                 display = []
