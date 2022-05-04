@@ -35,72 +35,70 @@ def generate_mmo_aggressive_path(group_seed,rolls,paths,max_spawns,true_spawns,
     # the generation is unique to each path, no use in splitting this function
     storage = {}
     uniques = set()
-    true_seed = group_seed
-    for i, steps in enumerate(paths):
-        main_rng = XOROSHIRO(true_seed)
-        for init_spawn in range(1,5):
-            generator_seed = main_rng.next()
-            main_rng.next() # spawner 1's seed, unused
-            fixed_rng = XOROSHIRO(generator_seed)
-            encounter_slot = (fixed_rng.next() / (2**64)) * encsum
+
+    main_rng = XOROSHIRO(group_seed)
+    for init_spawn in range(1,5):
+        generator_seed = main_rng.next()
+        main_rng.next()
+        fixed_rng = XOROSHIRO(generator_seed)
+        encounter_slot = (fixed_rng.next() / (2**64)) * encsum
+        fixed_seed = fixed_rng.next()
+        
+        if fixed_seed not in uniques:
+            uniques.add(fixed_seed)
+            path_id = get_path_id(fixed_seed, init_spawn, 0, paths[0])
+            dupestore[str(fixed_seed)] = path_id
+
             species,alpha,nomodspecies = get_species(encounters, encounter_slot)
             fixed_gender = is_fixed_gender(nomodspecies)
             guaranteed_ivs = get_guaranteed_ivs(alpha, isbonus)
-            fixed_seed = fixed_rng.next()
-            
-            if not fixed_seed in uniques:
-                uniques.add(fixed_seed)
-                path_id = get_path_id(fixed_seed, init_spawn, i, steps)
-                dupestore[str(fixed_seed)] = path_id
+            ec,pid,ivs,ability,gender,nature,shiny,square = \
+                generate_from_seed(fixed_seed, rolls, guaranteed_ivs, fixed_gender)
 
-                ec,pid,ivs,ability,gender,nature,shiny,square = \
-                    generate_from_seed(fixed_seed, rolls, guaranteed_ivs, fixed_gender)
-
-                storage[path_id] = {
-                    "index": f"<span class='pla-results-init'>Initial Spawn {init_spawn} </span></span>",
-                    "generator_seed": f"{generator_seed:X}",
-                    "species": species,
-                    "shiny": shiny,
-                    "square": square,
-                    "alpha": alpha,
-                    "ec": ec,
-                    "pid": pid,
-                    "ivs": ivs,
-                    "ability": ability,
-                    "nature": NATURES[nature],
-                    "gender": gender,
-                    "rolls": rolls,
-                    "dupes": [],
-                    "chains": [],
-                    "defaultroute": not isbonus,
-                    "multi": False
-                }
-        
-        group_seed = main_rng.next()
-        respawn_rng = XOROSHIRO(group_seed)
-
-        for step_i,step in enumerate(steps):
-            for pokemon in range(1,step+1):
+            storage[path_id] = {
+                "index": f"<span class='pla-results-init'>Initial Spawn {init_spawn} </span></span>",
+                "generator_seed": f"{generator_seed:X}",
+                "species": species,
+                "shiny": shiny,
+                "square": square,
+                "alpha": alpha,
+                "ec": ec,
+                "pid": pid,
+                "ivs": ivs,
+                "ability": ability,
+                "nature": NATURES[nature],
+                "gender": gender,
+                "rolls": rolls,
+                "dupes": [],
+                "chains": [],
+                "defaultroute": not isbonus,
+                "multi": False
+            }
+    
+    respawn_seed = main_rng.next()
+    for path_num, path in enumerate(paths):
+        respawn_rng = XOROSHIRO(respawn_seed)
+        for step_num, step in enumerate(path):
+            for spawn_on_step in range(1, step + 1):
                 generator_seed = respawn_rng.next()
-                respawn_rng.next() # spawner 1's seed, unused
+                respawn_rng.next()
                 fixed_rng = XOROSHIRO(generator_seed)
                 encounter_slot = (fixed_rng.next() / (2**64)) * encsum
-                species,alpha,nomodspecies = get_species(encounters,encounter_slot)
-                fixed_gender = is_fixed_gender(nomodspecies)
-                guaranteed_ivs = get_guaranteed_ivs(alpha, isbonus)
                 fixed_seed = fixed_rng.next()
-                    
-                #if not fixed_seed in uniques and (sum(steps[:step_i]) + pokemon + 4) <= true_spawns:
-                if not fixed_seed in uniques:
+                
+                if fixed_seed not in uniques:
                     uniques.add(fixed_seed)
-                    path_id = get_path_id(fixed_seed, steps[:step_i] + [pokemon], i, steps)
-                    dupestore[str(fixed_seed)] = path_id
+                    path_id = get_path_id(fixed_seed, path[:step_num] + [spawn_on_step], path_num, path)
+                    dupestore[fixed_seed] = path_id
 
+                    species,alpha,nomodspecies = get_species(encounters,encounter_slot)
+                    fixed_gender = is_fixed_gender(nomodspecies)
+                    guaranteed_ivs = get_guaranteed_ivs(alpha, isbonus)
                     ec,pid,ivs,ability,gender,nature,shiny,square = \
                         generate_from_seed(fixed_seed, rolls, guaranteed_ivs, fixed_gender)
 
                     storage[path_id] = {
-                        "index": get_index_string(steps[:step_i], pokemon),
+                        "index": get_path_string(path[:step_num], spawn_on_step),
                         "generator_seed": f"{generator_seed:X}",
                         "species": species,
                         "shiny": shiny,
@@ -110,48 +108,45 @@ def generate_mmo_aggressive_path(group_seed,rolls,paths,max_spawns,true_spawns,
                         "pid": pid,
                         "ivs": ivs,
                         "ability": ability,
-                        "nature":NATURES[nature],
-                        "gender":gender,
-                        "rolls":rolls,
+                        "nature": NATURES[nature],
+                        "gender": gender,
+                        "rolls": rolls,
                         "dupes": [],
                         "chains": [],
-                        "defaultroute": not isbonus and sum(steps[:step_i]) == len(steps[:step_i]) and pokemon == 1,
-                        "multi":False
+                        "defaultroute": not isbonus and sum(path[:step_num]) == len(path[:step_num]) and spawn_on_step == 1,
+                        "multi": False
                     }
                 else:
-                    path_str = get_storage_pathstring(steps[:step_i], step)
-                    if path_str not in storage[dupestore[str(fixed_seed)]] \
-                       and path_str != get_storage_pathstring(steps[:step_i], pokemon) \
-                       and (step+1) - pokemon < 3:
-                        #print(f" Step+1 = {step+1}, Pokemon = {pokemon}")
-                        respawns = true_spawns - 4
-                        ghosts = (sum(steps[:step_i])+pokemon) - respawns
-                        dupestring = get_dupestring(steps)
-                        #storage[str(dupestore[str(fixed_seed)])]["dupes"].append(f"Path: {'|'.join(str(s) for s in steps)}")
+                    path_str = get_path_string(path[:step_num], step)
+                    dupemon = storage[dupestore[fixed_seed]]
+                    
+                    if path_str != dupemon['index'] \
+                       and path_str != get_path_string(path[:step_num], spawn_on_step) \
+                       and step + 1 - spawn_on_step < 3:
+                        
+                        ghosts = sum(path[:step_num]) + spawn_on_step - (true_spawns - 4)
+                        
                         if ghosts <= 0:
-                            storage[dupestore[str(fixed_seed)]]["dupes"].append(dupestring)
-                    #print(f"Duplicate found at {fixed_seed}: {storage[str(dupestore[str(fixed_seed)])]['dupes']}")
+                            dupemon["dupes"].append(get_path_string(path))
+            
             respawn_rng = XOROSHIRO(respawn_rng.next())
     return storage
 
+# def get_init_path_id(seed, spawn):
+#     return f"{seed} + {spawn}"
+
 def get_path_id(seed, spawn, i, steps):
-    return f"{seed} + {spawn} + {i} + {steps}"
+    return f"{seed:X} + {spawn} + {i} + {steps}"
 
-def get_storage_pathstring(steps, final):
-    return f"Path: {'|'.join(str(s) for s in steps + [final])}"
-
+def get_path_string(steps, final = None):
+    return "Path: " + ', '.join(f"D{step}" for step in (steps if final is None else steps + [final]))
+    
 def get_guaranteed_ivs(alpha, isbonus):
     if isbonus and alpha:
         return 4
     if isbonus or alpha:
         return 3
     return 0
-
-def get_index_string(current_step, respawn_index):
-    return "Path: " + ''.join(f" D{s}, " for s in current_step) + f" D{respawn_index}"
-
-def get_dupestring(steps):
-    return " Path: " + ''.join(f" D{step}, " for step in steps)
 
 def get_bonus_seed(group_seed, path):
     main_rng = XOROSHIRO(group_seed)
@@ -224,10 +219,10 @@ def get_bonus_flag(reader, group_id, map_index):
     return reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
                                    f"{0x1d4 + 0x90*group_id + 0xb80*map_index + 0x18:X}", 1) == 1
 
-def get_firstround_paths(max_spawns):
+def get_nonbonus_paths(max_spawns):
     return nonbonuspaths[str(max_spawns)]
 
-def get_bonusround_paths(max_spawns):
+def get_bonus_paths(max_spawns):
     return allpaths[str(max_spawns)]
 
 def get_group_coordinates(reader, group_id, map_index):
@@ -382,31 +377,30 @@ def get_bonusround(paths,group_id,rolls,group_seed,map_name,coords,
                     true_spawns,bonus_spawns,max_spawns,encounters,encsum,chained):
     #pylint: disable=too-many-branches
     """reads info about a bonus path"""
-    isbonus = True
     outbreaks = {}
     dupestore = {}
-    nbpaths = nonbonuspaths[str(true_spawns)]
+    nbpaths = get_nonbonus_paths(true_spawns)
 
     for path_num, path in enumerate(paths):
         seed = get_bonus_seed(group_seed,path)
         
-        for ext,epath in enumerate(extrapaths):
+        for ext_num, epath in enumerate(extrapaths):
             spawn_remain = max_spawns - sum(path)
             
             if epath == []:
                 results = generate_mmo_aggressive_path(seed,rolls,nbpaths,bonus_spawns,true_spawns,
-                                                                 encounters,encsum,dupestore,chained,isbonus)
+                                                                 encounters,encsum,dupestore,chained,True)
             elif epath[0] < spawn_remain:
                 epath_seed = get_extra_path_seed(seed,epath)
                 results = generate_mmo_aggressive_path(epath_seed,rolls,nbpaths,bonus_spawns,true_spawns,
-                                                                 encounters,encsum,dupestore,chained,isbonus)
+                                                                 encounters,encsum,dupestore,chained,True)
             else:
                 continue
             
             for index in results:
                 format_bonusround_result(results[index],path,epath,group_id,map_name,coords,true_spawns,max_spawns,chained)
             
-            outbreaks[f"Bonus{path_num} {path} {ext} {epath}"] = results
+            outbreaks[f"Bonus{path_num} {path} {ext_num} {epath}"] = results
 
     return outbreaks
 
@@ -461,15 +455,15 @@ def get_mmo(reader, group_id, map_index, rolls, inmap):
     
     coords = get_group_coordinates(reader,group_id,map_index)
     group_seed = get_gen_seed_to_group_seed(reader,group_id) if inmap else get_group_seed(reader,group_id,map_index)
-    max_spawns = get_max_spawns(reader,group_id,map_index,False)
+    fr_spawns = get_max_spawns(reader,group_id,map_index,False)
 
-    return mmo_from_seed(group_id,rolls,group_seed,map_name,coords,frencounter,brencounter,has_bonus,max_spawns,br_spawns)
+    return mmo_from_seed(group_id,rolls,group_seed,map_name,coords,frencounter,brencounter,has_bonus,fr_spawns,br_spawns)
                            
 def mmo_from_seed(group_id,rolls,group_seed,map_name,coords,frencounter,brencounter,has_bonus,max_spawns,br_spawns):
     chained = {}
 
     encounters,encsum = get_encounter_table(frencounter)
-    paths = get_firstround_paths(max_spawns)
+    paths = get_nonbonus_paths(max_spawns)
     dupestore = {}
     true_spawns = max_spawns + 3
     firstround = generate_mmo_aggressive_path(group_seed,rolls,paths,max_spawns,true_spawns,
@@ -482,7 +476,7 @@ def mmo_from_seed(group_id,rolls,group_seed,map_name,coords,frencounter,brencoun
     
     if has_bonus:
         bonus_spawns = max_spawns + 4
-        bonusround_paths = get_bonusround_paths(max_spawns)
+        bonusround_paths = get_bonus_paths(max_spawns)
         encounters,encsum = get_encounter_table(brencounter)
         
         species,_,_ = get_species(encounters,1)
