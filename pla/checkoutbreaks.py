@@ -1,20 +1,19 @@
 import struct
-from pla.core import generate_from_seed
-from pla.core.util import get_sprite
+from pla.core import BASE_ROLLS_OUTBREAKS, generate_from_seed, get_rolls, get_sprite
 from pla.data import pokedex, natures
 from pla.rng import XOROSHIRO
 
 from pla.checkmmo import MAX_MAPS, get_group_seed, get_gen_seed_to_group_seed
 
-def get_all_outbreaks(reader, rolls, inmap):
+def get_all_outbreaks(reader, research, inmap, rolls_override = None):
     """reads all normal outbreaks on map"""
     outbreaks = {}
-    rolls = rolls + 13
 
     for map_index in range(MAX_MAPS):
         pokemon, group_seed, max_spawns, coordinates = get_outbreak_info(reader, map_index, inmap)
         
         if pokemon is not None:
+            rolls = rolls_override if rolls_override is not None else get_rolls(pokemon, research, BASE_ROLLS_OUTBREAKS)
             results,_ = pathfind_aggressive_outbreak(group_seed, rolls, max_spawns)
             
             if results is None:

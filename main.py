@@ -5,8 +5,7 @@ import mimetypes
 from flask import Flask, render_template, request
 from nxreader import NXReader
 import pla
-from pla.core import teleport_to_spawn
-from pla.core.util import get_sprite
+from pla.core import get_sprite, teleport_to_spawn
 from pla.data import hisuidex
 from pla.saves import read_research, rolls_from_research
 from pla.data.data_utils import flatten_all_map_mmo_results, flatten_map_mmo_results, flatten_normal_outbreaks, flatten_multi
@@ -20,7 +19,7 @@ app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1000 * 1000
 
 config = json.load(open("config.json"))
-config["SeedCheckOnly"] = True
+
 if config["SeedCheckOnly"]:
     print("Seed Check only mode! Note: You will not be able to use MMO checker or Distiortion Checker!")
 else:
@@ -68,17 +67,17 @@ def settings():
 # API ROUTES
 @app.route('/api/read-mmos', methods=['POST'])
 def read_mmos():
-    results = pla.get_all_map_mmos(reader, request.json['rolls'], False)
+    results = pla.get_all_map_mmos(reader, request.json['research'], False)
     return { "results": flatten_all_map_mmo_results(results, config.get('FILTER_ON_SERVER', False)) }
 
 @app.route('/api/read-mmos-one-map', methods=['POST'])
 def read_one_map():
-    results = pla.get_map_mmos(reader,request.json['mapname'],request.json['rolls'], False)
+    results = pla.get_map_mmos(reader,request.json['mapname'],request.json['research'], False)
     return { "results": flatten_map_mmo_results(results, config.get('FILTER_ON_SERVER', False)) }
 
 @app.route('/api/read-outbreaks', methods=['POST'])
 def read_normals():
-    results = pla.get_all_outbreaks(reader,request.json['rolls'], False)
+    results = pla.get_all_outbreaks(reader,request.json['research'], False)
     return { "results": flatten_normal_outbreaks(results, config.get('FILTER_ON_SERVER', False)) }
 
 @app.route('/api/read-mmo-map-info', methods=['GET'])
@@ -94,15 +93,13 @@ def teleport():
 
 @app.route('/api/read-distortions', methods=['POST'])
 def read_distortions():
-    results = pla.check_all_distortions(reader,
-                                        request.json['map_name'],
-                                        request.json['rolls'])
+    results = pla.check_all_distortions(reader, request.json['map_name'], request.json['research'])
     return { "results": results }
 
 @app.route('/api/create-distortion', methods=['POST'])
 def create_distortion():
     pla.create_distortion(reader)
-    return "Distortion Created"
+    return { "results": "Distortion Created"}
 
 @app.route('/api/read-distortion-map-info', methods=['POST'])
 def get_map_info():
@@ -118,12 +115,13 @@ def get_from_seed():
         return { "error": "You need to input a number for the seed" }
     
     results = pla.check_mmo_from_seed(group_seed,
-                                  request.json['rolls'],
+                                  request.json['research'],
                                   request.json['frencounter'],
                                   request.json['brencounter'],
                                   request.json['isbonus'],
                                   request.json['frspawns'],
                                   request.json['brspawns'])
+    print(request.json['research'])
     return { "results": flatten_map_mmo_results(results, config.get('FILTER_ON_SERVER', False)) }
 
 @app.route('/api/check-alphaseed', methods=['POST'])
@@ -143,7 +141,7 @@ def get_alpha_from_seed():
 @app.route('/api/check-multi-spawn', methods=['POST'])
 def check_multispawner():
     results = pla.check_multi_spawner(reader,
-                                      request.json['rolls'],
+                                      request.json['research'],
                                       request.json['group_id'],
                                       request.json['maxalive'],
                                       request.json['maxdepth'],
@@ -158,7 +156,7 @@ def check_multiseed():
         return { "error": "You need to input a number for the seed" }
 
     results = pla.check_multi_spawner_seed(group_seed,
-                                           request.json['rolls'],
+                                           request.json['research'],
                                            request.json['group_id'],
                                            request.json['maxalive'],
                                            request.json['maxdepth'],

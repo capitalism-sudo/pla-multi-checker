@@ -1,7 +1,6 @@
 import json
 from app import RESOURCE_PATH
-from pla.core import generate_from_seed
-from pla.core.util import get_sprite
+from pla.core import generate_from_seed, get_sprite
 from pla.data import pokedex, natures
 from pla.rng import XOROSHIRO
 

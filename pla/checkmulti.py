@@ -1,7 +1,6 @@
 import json
 from app import RESOURCE_PATH
-from pla.core import generate_from_seed
-from pla.core.util import get_sprite
+from pla.core import BASE_ROLLS, generate_from_seed, get_rolls, get_sprite
 from pla.data import pokedex, natures
 from pla.rng import XOROSHIRO
 
@@ -9,19 +8,19 @@ encounter_table = json.load(open(RESOURCE_PATH + "resources/multi-es.json"))
 
 SPAWNER_PTR = "[[main+42a6ee0]+330]"
 
-def multi(group_seed,rolls,group_id,maxalive,maxdepth=5):
+def multi(group_seed, research, group_id, maxalive, maxdepth=5, rolls_override=None):
     path = []
     info = {}
     adv = 0
     curralive = maxalive
 
-    group_seed = generate_initial_spawns(group_seed,rolls,group_id,maxalive,info)
+    group_seed = generate_initial_spawns(group_seed, research, group_id, maxalive, info, rolls_override)
 
-    multi_recursion(info,path,group_seed,rolls,group_id,adv,maxdepth,maxalive,curralive)
+    multi_recursion(info,path,group_seed,research,group_id,adv,maxdepth,maxalive,curralive,rolls_override)
 
     return info,path
 
-def multi_recursion(info,path,group_seed,rolls,group_id,adv,maxdepth,maxalive,curralive):
+def multi_recursion(info,path,group_seed,research,group_id,adv,maxdepth,maxalive,curralive,rolls_override=None):
     if adv > maxdepth:
         return
 
@@ -31,9 +30,9 @@ def multi_recursion(info,path,group_seed,rolls,group_id,adv,maxdepth,maxalive,cu
     curpath = path.copy()
     seed = group_seed
 
-    for i in range(1,maxalive-curralive+1):
+    for i in range(1, maxalive-curralive+1):
         curpath.append(i)
-        seed = generate_spawns(group_seed,rolls,group_id,info,curpath,adv)
+        seed = generate_spawns(group_seed, research, group_id, info, curpath, adv, rolls_override)
         if i != (maxalive-curralive):
             curpath.pop()
 
@@ -44,9 +43,9 @@ def multi_recursion(info,path,group_seed,rolls,group_id,adv,maxdepth,maxalive,cu
 
     while curralive >= 0:
         curralive -= 1
-        multi_recursion(info,curpath,seed,rolls,group_id,adv,maxdepth,maxalive,curralive)
+        multi_recursion(info,curpath,seed,research,group_id,adv,maxdepth,maxalive,curralive,rolls_override)
 
-def generate_spawns(group_seed,rolls,group_id,info,path,adv):
+def generate_spawns(group_seed, research, group_id, info, path, adv, rolls_override = None):
     #print(f"Seed: {group_seed}")
     main_rng = XOROSHIRO(group_seed)
     for i in range(path[-1]):
@@ -62,6 +61,7 @@ def generate_spawns(group_seed,rolls,group_id,info,path,adv):
         set_gender = pokemon.is_fixed_gender() or pokemon.id == "Basculin-2"
 
         guaranteed_ivs = 3 if alpha else 0
+        rolls = rolls_override if rolls_override is not None else get_rolls(pokemon, research, BASE_ROLLS)
         ec,pid,ivs,ability,gender,nature,shiny,square = \
             generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
         gender = pokemon.calculate_gender(gender)
@@ -88,7 +88,7 @@ def generate_spawns(group_seed,rolls,group_id,info,path,adv):
     #print(f"Finished Seed: {group_seed}")
     return group_seed
 
-def generate_initial_spawns(group_seed,rolls,group_id,maxalive,info):
+def generate_initial_spawns(group_seed, research, group_id, maxalive, info, rolls_override = None):
     #print(f"Seed: {group_seed}")
     main_rng = XOROSHIRO(group_seed)
     for i in range(1,maxalive+1):
@@ -105,6 +105,7 @@ def generate_initial_spawns(group_seed,rolls,group_id,maxalive,info):
         set_gender = pokemon.is_fixed_gender() or pokemon.id == "Basculin-2"
 
         guaranteed_ivs = 3 if alpha else 0
+        rolls = rolls_override if rolls_override is not None else get_rolls(pokemon, research, BASE_ROLLS)
         ec,pid,ivs,ability,gender,nature,shiny,square = \
             generate_from_seed(fixed_seed,rolls,guaranteed_ivs,set_gender)
         gender = pokemon.calculate_gender(gender)
@@ -141,22 +142,22 @@ def get_species(encounter_slot, group_id):
 def get_encounter_slot_sum(group_id):
     return sum(e['slot'] for e in encounter_table[str(group_id)])
 
-def check_multi_spawner(reader,rolls,group_id,maxalive,maxdepth,isnight):
+def check_multi_spawner(reader, research, group_id, maxalive, maxdepth, isnight, rolls_override = None):
     generator_seed = reader.read_pointer_int(f"{SPAWNER_PTR}"\
-                                             f"+{0x70+group_id*0x440+0x20:X}",8)
+                                             f"+{0x70 + group_id*0x440 + 0x20:X}",8)
     group_seed = (generator_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
 
-    print(f"Spawner Pointer: {SPAWNER_PTR}+{0x70+group_id*0x440+0x20:X}")
+    print(f"Spawner Pointer: {SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x20:X}")
 
-    return check_multi_spawner_seed(group_seed,rolls,group_id,maxalive,maxdepth,isnight)
+    return check_multi_spawner_seed(group_seed,research,group_id,maxalive,maxdepth,isnight,rolls_override)
 
-def check_multi_spawner_seed(group_seed,rolls,group_id,maxalive,maxdepth,isnight):
+def check_multi_spawner_seed(group_seed, research, group_id, maxalive, maxdepth, isnight, rolls_override = None):
     if isnight and encounter_table.get(f"{group_id}"+"n") is not None:
         print("Night check is ok")
         group_id = f"{group_id}" + "n"
         print(f"Group ID: {group_id}")
     
-    display,_ = multi(group_seed,rolls,group_id,maxalive,maxdepth)
+    display,_ = multi(group_seed, research, group_id, maxalive, maxdepth, rolls_override)
 
     sorted_display = sorted(display.items(), key=lambda x: x[1]["adv"])
     sorted_dict = {}
