@@ -25,7 +25,6 @@ const mapSpawnsArea = document.querySelector("[data-pla-info-spawns]");
 
 // options
 const mapSelect = document.getElementById("mapSelect");
-const rollsInput = document.getElementById("rolls");
 
 mapSelect.addEventListener("change", setMap);
 
@@ -60,7 +59,6 @@ const results = [];
 // Save and load user preferences
 function loadPreferences() {
   mapSelect.value = localStorage.getItem("mapSelect") ?? DEFAULT_MAP;
-  rollsInput.value = readIntFromStorage("rolls", 1);
   distAlphaCheckbox.checked = readBoolFromStorage(
     "distortionAlphaFilter",
     false
@@ -79,9 +77,6 @@ function loadPreferences() {
 function setupPreferenceSaving() {
   mapSelect.addEventListener("change", (e) =>
     localStorage.setItem("mapSelect", e.target.value)
-  );
-  rollsInput.addEventListener("change", (e) =>
-    saveIntToStorage("rolls", e.target.value)
   );
   distAlphaCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("distortionAlphaFilter", e.target.checked)
@@ -149,7 +144,6 @@ function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter) {
 function getOptions() {
   return {
     map_name: mapSelect.value,
-    rolls: parseInt(rollsInput.value),
   };
 }
 

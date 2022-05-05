@@ -15,8 +15,6 @@
 	<script type="text/javascript" src="static/js/jquery.min.mjs"></script>
 	<script>
 	$(document).ready(function(e){
-		console.log("ready!")
-
 		function get_json_data(id, parent_id) {
 			console.log(id.substr(0, 1).toUpperCase() + id.substr(1))
 			var html_code = '';
@@ -55,26 +53,14 @@
 				for(i = 10; i <=15; i++) {
 					html_code2 += '<option value="' + i + '">' + i + '</option>';
 				}
-				html_code3 += '<option value="26">Default</option>'
-                html_code3 += '<option value="27">Dex Research 10</option>'
-                html_code3 += '<option value="29">Dex Research Perfect</option>'
-                html_code3 += '<option value="30">Shiny Charm</option>'
-                html_code3 += '<option value="32">Shiny Charm + Perfect</option>'
-				
 				get_json_data('frpokemon',-1);
 			} else {
 				for(i = 8; i <=10; i++) {
 					html_code2 += '<option value="' + i + '">' + i + '</option>';
 				}
-				html_code3 += '<option value="13">Default</option>'
-                html_code3 += '<option value="14">Dex Research 10</option>'
-                html_code3 += '<option value="16">Dex Research Perfect</option>'
-                html_code3 += '<option value="17">Shiny Charm</option>'
-                html_code3 += '<option value="19">Shiny Charm + Perfect</option>'
 				get_json_data('frpokemon',0);
 			}
 			$('#frspawns').html(html_code2);
-			$('#rolls').html(html_code3);
 		});
 	});
 	</script>
@@ -85,17 +71,6 @@
         <div class="pla-control">
             <label for="inputseed">Seed</label>
             <input type="number" id="inputseed" placeholder="Input Seed">
-        </div>
-
-        <div class="pla-control">
-            <label for="rolls">Shiny Rolls</label>
-            <select id="rolls">
-                <option value="13">Default</option>
-                <option value="14">Dex Research 10</option>
-                <option value="16">Dex Research Perfect</option>
-                <option value="17">Shiny Charm</option>
-                <option value="19">Shiny Charm + Perfect</option>
-            </select>
         </div>
 
         <div class="pla-control-spaced">

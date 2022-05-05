@@ -25,7 +25,6 @@ const mapSpawnsArea = document.querySelector("[data-pla-info-spawns]");
 
 // options
 const mapSelect = document.getElementById("mapSelect");
-const rollsInput = document.getElementById("rolls");
 // const inmapCheck = document.getElementById("inmapcheck");
 
 // filters
@@ -65,7 +64,6 @@ const results = [];
 // Save and load user preferences
 function loadPreferences() {
   mapSelect.value = localStorage.getItem("mmo-mapSelect") ?? "0";
-  rollsInput.value = readIntFromStorage("rolls", 1);
   distAlphaCheckbox.checked = readBoolFromStorage("mmoAlphaFilter", false);
   distShinyCheckbox.checked = readBoolFromStorage("mmoShinyFilter", false);
   distShinyOrAlphaCheckbox.checked = readBoolFromStorage(
@@ -82,9 +80,6 @@ function loadPreferences() {
 function setupPreferenceSaving() {
   mapSelect.addEventListener("change", (e) =>
     localStorage.setItem("mmo-mapSelect", e.target.value)
-  );
-  rollsInput.addEventListener("change", (e) =>
-    saveIntToStorage("rolls", e.target.value)
   );
   distAlphaCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("mmoAlphaFilter", e.target.checked)
@@ -175,7 +170,6 @@ function filter(
 function getOptions() {
   return {
     mapname: parseInt(mapSelect.value),
-    rolls: parseInt(rollsInput.value),
     //	inmap: inmapCheck.checked
   };
 }

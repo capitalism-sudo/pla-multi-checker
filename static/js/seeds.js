@@ -23,7 +23,6 @@ const resultsArea = document.querySelector("[data-pla-results]");
 
 // options
 const inputSeed = document.getElementById("inputseed");
-const rollsInput = document.getElementById("rolls");
 const frSpawns = document.getElementById("frspawns");
 const brSpawns = document.getElementById("brspawns");
 const bonusCheckbox = document.getElementById("bonus");
@@ -55,7 +54,6 @@ const results = [];
 
 // Save and load user preferences
 function loadPreferences() {
-  rollsInput.value = readIntFromStorage("rolls", 1);
   distAlphaCheckbox.checked = readBoolFromStorage("mmoAlphaFilter", false);
   distShinyCheckbox.checked = readBoolFromStorage("mmoShinyFilter", false);
   distShinyOrAlphaCheckbox.checked = readBoolFromStorage(
@@ -73,9 +71,6 @@ function loadPreferences() {
 }
 
 function setupPreferenceSaving() {
-  rollsInput.addEventListener("change", (e) =>
-    saveIntToStorage("rolls", e.target.value)
-  );
   distAlphaCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("mmoAlphaFilter", e.target.checked)
   );
@@ -166,7 +161,6 @@ function filter(
 function getOptions() {
   return {
     seed: inputSeed.value,
-    rolls: parseInt(rollsInput.value),
     frspawns: parseInt(frSpawns.value),
     brspawns: parseInt(brSpawns.value),
     isbonus: bonusCheckbox.checked,
