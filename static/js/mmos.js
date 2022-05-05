@@ -47,12 +47,14 @@ distMultiCheckbox.addEventListener("change", setFilter);
 // actions
 const checkOneMapButton = document.getElementById("pla-button-checkonemap");
 const checkMMOsButton = document.getElementById("pla-button-checkmmos");
-const checkNormalsButton = document.getElementById("pla-button-checknormals");
+const checkOutbreaksButton = document.getElementById(
+  "pla-button-checkoutbreaks"
+);
 const checkMapsButton = document.getElementById("pla-button-checkmaps");
 
 checkOneMapButton.addEventListener("click", checkOneMap);
 checkMMOsButton.addEventListener("click", checkMMOs);
-checkNormalsButton.addEventListener("click", checkNormals);
+checkOutbreaksButton.addEventListener("click", checkOutbreaks);
 checkMapsButton.addEventListener("click", readMaps);
 
 loadPreferences();
@@ -203,15 +205,33 @@ function showMaps({ maps, outbreaks }) {
 }
 
 function checkMMOs() {
-  doSearch("/api/read-mmos", results, getOptions(), showFilteredResults);
-}
-
-function checkNormals() {
-  doSearch("/api/read-outbreaks", results, getOptions(), showFilteredResults);
+  doSearch(
+    "/api/read-mmos",
+    results,
+    getOptions(),
+    showFilteredResults,
+    checkMMOsButton
+  );
 }
 
 function checkOneMap() {
-  doSearch("/api/read-mmos-one-map", results, getOptions(), showFilteredResults);
+  doSearch(
+    "/api/read-mmos-one-map",
+    results,
+    getOptions(),
+    showFilteredResults,
+    checkOneMapButton
+  );
+}
+
+function checkOutbreaks() {
+  doSearch(
+    "/api/read-outbreaks",
+    results,
+    getOptions(),
+    showFilteredResults,
+    checkOutbreaksButton
+  );
 }
 
 function showFilteredResults() {
@@ -238,7 +258,7 @@ function showFilteredResults() {
 
   if (filteredResults.length > 0) {
     resultsArea.innerHTML =
-      "<h3><section class='pla-section-results' flow>D = Despawn. Despawn Multiple Pokemon by either Multibattles (for aggressive) or Scaring (for skittish) pokemon.</section></h3>";
+      "<section><h3>D = Despawn. Despawn Multiple Pokemon by either Multibattles (for aggressive) or Scaring (for skittish) pokemon.</h3></section>";
     filteredResults.forEach((result) => showResult(result));
   } else {
     showNoResultsFound();

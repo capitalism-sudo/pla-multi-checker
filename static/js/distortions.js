@@ -16,6 +16,7 @@ import {
   showPokemonIVs,
   showPokemonInformation,
   showPokemonHiddenInformation,
+  replaceWithSpinnerUntilRestore,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -176,7 +177,7 @@ function showMapInfo({ locations, spawns }) {
 }
 
 function checkDistortions() {
-  doSearch("/api/read-distortions", results, getOptions(), showFilteredResults);
+  doSearch("/api/read-distortions", results, getOptions(), showFilteredResults, checkDistortionsButton);
 }
 
 function showFilteredResults() {
@@ -212,17 +213,20 @@ function showResult(result) {
 }
 
 function createDistortion() {
+  const restoreButton = replaceWithSpinnerUntilRestore(createDistortionsButton);
+
   clearMessages();
   fetch("/api/create-distortion", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   })
     .then((response) => response.json())
-    .then((res) =>
-      setTimeout((res) => {
+    .then(() =>
+      setTimeout(() => {
         // The distortion creation method already has some delay
         // We delay showing the distortion creation even more to allow the game to update
         showMessage(MESSAGE_INFO, "Successfully tried to create distortion");
+        restoreButton();
       }, 1500)
     )
     .catch((error) => showMessage(MESSAGE_ERROR, error));

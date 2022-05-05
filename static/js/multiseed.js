@@ -188,7 +188,13 @@ function getOptions() {
 }
 
 function checkMultiSeed() {
-  doSearch("/api/check-multi-seed", results, getOptions(), showFilteredResults);
+  doSearch(
+    "/api/check-multi-seed",
+    results,
+    getOptions(),
+    showFilteredResults,
+    checkMultiButton
+  );
 }
 
 function showFilteredResults() {

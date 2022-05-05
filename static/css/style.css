@@ -486,6 +486,11 @@ input[type="number"]:focus-visible {
   );
 }
 
+.pla-button:disabled {
+  color: var(--surface1);
+  background-color: rgba(var(--brand-rgb), 0.2);
+}
+
 .tab {
   overflow: hidden;
   border: 2px solid var(--brand);
@@ -889,6 +894,10 @@ section.pla-section-expandable {
 }
 
 /* Loading Spinner */
+.pla-spinner {
+  margin: auto;
+}
+
 .pla-loading {
   padding: 2rem;
   background-color: var(--surface2);

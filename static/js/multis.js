@@ -160,7 +160,8 @@ function checkMulti() {
     "/api/check-multi-spawn",
     results,
     getOptions(),
-    showFilteredResults
+    showFilteredResults,
+    checkMultiButton
   );
 }
 

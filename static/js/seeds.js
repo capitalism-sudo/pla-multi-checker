@@ -171,7 +171,13 @@ function getOptions() {
 }
 
 function checkMMOs() {
-  doSearch("/api/check-mmoseed", results, getOptions(), showFilteredResults);
+  doSearch(
+    "/api/check-mmoseed",
+    results,
+    getOptions(),
+    showFilteredResults,
+    checkMMOsButton
+  );
 }
 
 function showFilteredResults() {
