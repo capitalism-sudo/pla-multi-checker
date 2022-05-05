@@ -154,7 +154,7 @@ function getOptions() {
 }
 
 function setMap() {
-  fetch("/api/map-info", {
+  fetch("/api/read-distortion-map-info", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ map_name: mapSelect.value }),

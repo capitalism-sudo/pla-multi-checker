@@ -181,7 +181,7 @@ function getOptions() {
 }
 
 function readMaps() {
-  fetch("/api/read-maps", {
+  fetch("/api/read-mmo-map-info", {
     method: "GET",
   })
     .then((response) => response.json())
@@ -213,11 +213,11 @@ function checkMMOs() {
 }
 
 function checkNormals() {
-  doSearch("/api/read-normals", results, getOptions(), showFilteredResults);
+  doSearch("/api/read-outbreaks", results, getOptions(), showFilteredResults);
 }
 
 function checkOneMap() {
-  doSearch("/api/read-one-map", results, getOptions(), showFilteredResults);
+  doSearch("/api/read-mmos-one-map", results, getOptions(), showFilteredResults);
 }
 
 function showFilteredResults() {

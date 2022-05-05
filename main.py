@@ -71,17 +71,17 @@ def read_mmos():
     results = pla.get_all_map_mmos(reader, request.json['rolls'], False)
     return { "results": flatten_all_map_mmo_results(results, config.get('FILTER_ON_SERVER', False)) }
 
-@app.route('/api/read-one-map', methods=['POST'])
+@app.route('/api/read-mmos-one-map', methods=['POST'])
 def read_one_map():
     results = pla.get_map_mmos(reader,request.json['mapname'],request.json['rolls'], False)
     return { "results": flatten_map_mmo_results(results, config.get('FILTER_ON_SERVER', False)) }
 
-@app.route('/api/read-normals', methods=['POST'])
+@app.route('/api/read-outbreaks', methods=['POST'])
 def read_normals():
     results = pla.get_all_outbreaks(reader,request.json['rolls'], False)
     return { "results": flatten_normal_outbreaks(results, config.get('FILTER_ON_SERVER', False)) }
 
-@app.route('/api/read-maps', methods=['GET'])
+@app.route('/api/read-mmo-map-info', methods=['GET'])
 def read_maps():
     map_names = pla.get_all_map_names(reader)
     outbreaks = pla.get_all_outbreak_names(reader,False)
@@ -104,7 +104,7 @@ def create_distortion():
     pla.create_distortion(reader)
     return "Distortion Created"
 
-@app.route('/api/map-info', methods=['POST'])
+@app.route('/api/read-distortion-map-info', methods=['POST'])
 def get_map_info():
     locations = pla.get_distortion_locations(request.json['map_name'])
     spawns = pla.get_distortion_spawns(request.json['map_name'])
