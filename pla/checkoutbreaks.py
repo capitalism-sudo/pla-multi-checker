@@ -1,7 +1,7 @@
 import struct
 from pla.core import generate_from_seed
 from pla.core.util import get_sprite
-from pla.data import SPECIES, NATURES, get_basespecies_form
+from pla.data import pokedex, natures
 from pla.rng import XOROSHIRO
 
 from pla.checkmmo import MAX_MAPS, get_group_seed, get_gen_seed_to_group_seed
@@ -12,34 +12,31 @@ def get_all_outbreaks(reader, rolls, inmap):
     rolls = rolls + 13
 
     for map_index in range(MAX_MAPS):
-        species,group_seed,max_spawns,coordinates = get_outbreak_info(reader, map_index, inmap)
+        pokemon, group_seed, max_spawns, coordinates = get_outbreak_info(reader, map_index, inmap)
         
-        if species != 0:
+        if pokemon is not None:
             results,_ = pathfind_aggressive_outbreak(group_seed, rolls, max_spawns)
             
             if results is None:
                 results = []
             
-            for index in results:
-                if index not in ('index', 'description'):
-                    format_outbreak_result(results[str(index)],species,map_index,max_spawns,coordinates)
+            for result in results.values():
+                format_outbreak_result(result, pokemon, map_index, max_spawns, coordinates)
             
             outbreaks[f"Outbreak {map_index}"] = results
 
     return outbreaks
 
-def format_outbreak_result(result,species,map_index,max_spawns,coordinates):
+def format_outbreak_result(result, pokemon, map_index, max_spawns, coordinates):
     result["group"] = map_index
     result["mapname"] = "Normal Outbreak"
     result["numspawns"] = max_spawns
-    if SPECIES[species] == "Basculin":
-        result["species"] = "Basculin-2"
-    else:
-        result["species"] = SPECIES[species]
     result["coords"] = coordinates
-
-    cutspecies, form = get_basespecies_form(result["species"])
-    result["sprite"] = get_sprite(cutspecies, form, result["shiny"])
+    
+    result["species"] = pokemon.display_name()
+    gender = pokemon.calculate_gender(result["gender"])
+    result["gender"] = gender.value
+    result["sprite"] = get_sprite(pokemon, result["shiny"], gender)
 
 def generate_outbreak_aggressive_path(group_seed, rolls, steps, uniques, paths, storage):
     """Generate all the pokemon of an outbreak based on a provided aggressive path"""
@@ -61,7 +58,7 @@ def generate_outbreak_aggressive_path(group_seed, rolls, steps, uniques, paths, 
 
             storage[str(fixed_seed)] = {
                 "index":f"Initial Spawn {init_spawn}</span>",
-                "generator_seed": f"{generator_seed:X}",
+                "generator_seed": generator_seed,
                 "shiny": shiny,
                 "square": square,
                 "alpha": alpha,
@@ -69,7 +66,7 @@ def generate_outbreak_aggressive_path(group_seed, rolls, steps, uniques, paths, 
                 "pid": pid,
                 "ivs": ivs,
                 "ability": ability,
-                "nature": NATURES[nature],
+                "nature": natures(nature),
                 "gender": gender,
                 "rolls": rolls,
                 "defaultroute": True
@@ -91,10 +88,11 @@ def generate_outbreak_aggressive_path(group_seed, rolls, steps, uniques, paths, 
                 uniques.add(fixed_seed)
                 ec,pid,ivs,ability,gender,nature,shiny,square = \
                     generate_from_seed(fixed_seed,rolls,3 if alpha else 0)
-                
+                path_string = '|'.join(str(s) for s in steps[:step_i] + [pokemon])
+
                 storage[str(fixed_seed)] = {
-                    "index":f"Path: {'|'.join(str(s) for s in steps[:step_i] + [pokemon])}</span>",
-                    "generator_seed": f"{generator_seed:X}",
+                    "index":f"Path: {path_string}</span>",
+                    "generator_seed": generator_seed,
                     "shiny": shiny,
                     "square": square,
                     "alpha": alpha,
@@ -102,12 +100,12 @@ def generate_outbreak_aggressive_path(group_seed, rolls, steps, uniques, paths, 
                     "pid": pid,
                     "ivs": ivs,
                     "ability": ability,
-                    "nature": NATURES[nature],
+                    "nature": natures(nature),
                     "gender": gender,
                     "rolls": rolls,
                     "defaultroute": len(steps[:step_i]) == sum(steps[:step_i]) and pokemon == 1
                 }
-                paths.append(f"{'|'.join(str(s) for s in steps[:step_i] + [pokemon])}")
+                paths.append(path_string)
         
         respawn_rng = XOROSHIRO(respawn_rng.next())
 
@@ -149,15 +147,17 @@ def get_all_outbreak_names(reader, inmap):
     """gets all map names of outbreak locations"""
     outbreaks = []
     for map_index in range(MAX_MAPS):
-        species,_,_,_ = get_outbreak_info(reader, map_index, inmap)
-        if species != 0:
-            outbreaks.append(SPECIES[species])
+        pokemon,_,_,_ = get_outbreak_info(reader, map_index, inmap)
+        if pokemon is not None:
+            outbreaks.append(pokemon.display_name())
 
     return outbreaks
 
 def get_outbreak_info(reader, group_id, inmap):
-    species = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
-                                      f"{0x20 + 0x50*group_id:X}", 2)
+    species_index = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
+                                            f"{0x20 + 0x50*group_id:X}", 2)
+    if species_index == 0:
+        return None, 0, 0, None
     
     group_seed = get_gen_seed_to_group_seed(reader,group_id) if inmap else get_group_seed(reader,group_id,0)
     
@@ -173,5 +173,5 @@ def get_outbreak_info(reader, group_id, inmap):
         "z":coords[2]
     }
 
-    return species, group_seed, max_spawns, coordinates
+    return pokedex.entry_by_index(species_index), group_seed, max_spawns, coordinates
     

@@ -6,6 +6,7 @@ from flask import Flask, render_template, request
 from nxreader import NXReader
 import pla
 from pla.core import teleport_to_spawn
+from pla.core.util import get_sprite
 from pla.data import hisuidex
 from pla.saves import read_research, rolls_from_research
 from pla.data.data_utils import flatten_all_map_mmo_results, flatten_map_mmo_results, flatten_normal_outbreaks, flatten_multi
@@ -136,7 +137,7 @@ def get_alpha_from_seed():
                                         request.json['isalpha'],
                                         request.json['setgender'],
                                         request.json['filter'])
-    return { "results": [results] }
+    return { "results": results }
 
 @app.route('/api/check-multi-spawn', methods=['POST'])
 def check_multispawner():
@@ -165,7 +166,15 @@ def check_multiseed():
 
 @app.route('/api/hisuidex')
 def pokemon():
-    return { 'hisuidex': hisuidex }
+    return { "hisuidex": [
+                {
+                    "id": p.id,
+                    "species": p.species,
+                    "sprite": get_sprite(p),
+                    "number": p.dex_number('hisui')
+                } for p in hisuidex
+            ]
+        }
 
 @app.route('/api/read-research', methods=['POST'])
 def read_savefile():

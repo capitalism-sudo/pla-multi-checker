@@ -14,6 +14,8 @@ import {
   readBoolFromStorage,
   setupExpandables,
   showPokemonIVs,
+  showPokemonInformation,
+  showPokemonGender,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -147,30 +149,21 @@ function showFilteredResults() {
 function showResult(result) {
   const resultContainer = resultTemplate.content.cloneNode(true);
 
-  let sprite = document.createElement("img");
-  sprite.src = "static/img/sprite/" + result.sprite;
-
-  resultContainer.querySelector(".pla-results-sprite").appendChild(sprite);
-  resultContainer.querySelector("[data-pla-results-species]").innerText =
-    result.species;
-
-  let resultGender = "Genderless";
-
-  if (result.gender < parseInt(genderFilter.value)) {
-    resultGender = "Female";
-  } else if (parseInt(genderFilter.value) != -1) {
-    resultGender = "Male";
-  }
-
   resultContainer.querySelector("[data-pla-results-adv]").innerText =
     result.adv;
-  resultContainer.querySelector("[data-pla-results-nature]").innerText =
-    result.nature;
-  resultContainer.querySelector("[data-pla-results-gender]").innerText =
-    resultGender;
-  resultContainer.querySelector("[data-pla-results-rolls]").textContent =
-    result.rolls;
 
+  showPokemonInformation(resultContainer, result);
   showPokemonIVs(resultContainer, result);
+
+  // Overwrite Gender Display
+  let genderValue = genderFilter.value;
+  let resultGender = "GENDERLESS";
+  if (result.gender < genderValue) {
+    resultGender = "FEMALE";
+  } else if (genderValue != -1) {
+    resultGender = "MALE";
+  }
+  showPokemonGender(resultContainer, resultGender);
+
   resultsArea.appendChild(resultContainer);
 }

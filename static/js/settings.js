@@ -22,6 +22,7 @@ const fileUpload = document.getElementById("pla-research-selectsave");
 let hisuidex = [];
 const researchRows = new Map();
 const researchRadios = new Map();
+
 // Save and load user preferences
 function loadPreferences() {
   // Here for future proofing - not currently used
@@ -53,6 +54,7 @@ loadPokedex();
 
 // The function that actually wires up the page
 function initialisePage() {
+  console.log(hisuidex);
   // create the table for for each pokemon in the hisui dex
   hisuidex.forEach((pokemon) => createPokemonRow(pokemon));
 
@@ -93,7 +95,7 @@ function initialisePage() {
     });
 
   // the input that filters the list of pokemon
-  filterInput.addEventListener("keyup", (e) => {
+  filterInput.addEventListener("input", (e) => {
     const filterText = e.target.value.toLowerCase();
     for (const [name, row] of researchRows) {
       row.classList.toggle(
@@ -127,8 +129,10 @@ function initialisePage() {
 
 function createPokemonRow(pokemon) {
   const row = rowTemplate.content.cloneNode(true);
-  row.querySelector(".pla-research-row-name").textContent = pokemon.name;
-  row.querySelector("[data-pla-research-row-img]").src = getSpriteSrc(pokemon);
+  row.querySelector(".pla-research-row-name").textContent = pokemon.species;
+  row.querySelector(
+    "[data-pla-research-row-img]"
+  ).src = `/static/img/sprite/${pokemon.sprite}`;
   let radios = row.querySelectorAll(".pla-research-radio");
 
   radios[0].name = pokemon.id;
@@ -139,36 +143,9 @@ function createPokemonRow(pokemon) {
   radios[1].addEventListener("change", saveResearch);
   radios[2].addEventListener("change", saveResearch);
 
-  researchRows.set(pokemon.name, row.querySelector(".pla-research-row"));
-  researchRadios.set(pokemon.name, [radios[0], radios[1], radios[2]]);
+  researchRows.set(pokemon.species, row.querySelector(".pla-research-row"));
+  researchRadios.set(pokemon.species, [radios[0], radios[1], radios[2]]);
   researchTable.appendChild(row);
-}
-
-// This is an ugly (temporary?) hack
-const hisuiFormSprites = {
-  Decidueye: "-1",
-  Typhlosion: "-1",
-  Samurott: "-1",
-  Qwilfish: "-1",
-  Lilligant: "-1",
-  Sliggoo: "-1",
-  Goodra: "-1",
-  Growlithe: "-1",
-  Arcanine: "-1",
-  Basculin: "-2",
-  Voltorb: "-1",
-  Electrode: "-1",
-  Avalugg: "-1",
-  Zorua: "-1",
-  Zoroark: "-1",
-  Braviary: "-1",
-};
-function getSpriteSrc(pokemon) {
-  return `/static/img/sprite/c_${pokemon.dex_national}${
-    hisuiFormSprites.hasOwnProperty(pokemon.name)
-      ? hisuiFormSprites[pokemon.name]
-      : ""
-  }.png`;
 }
 
 // select a save file to upload, doing some basic checking

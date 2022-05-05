@@ -80,6 +80,7 @@ export function doSearch(apiRoute, results, options, displayFunction) {
       if (res.hasOwnProperty("error")) {
         showMessage(MESSAGE_ERROR, res.error);
       } else if (res.hasOwnProperty("results")) {
+        console.log(res);
         results.push(...res.results);
       }
 
@@ -227,10 +228,15 @@ export function showPokemonIVs(resultContainer, result) {
 }
 
 const genderStrings = {
-  MALE: "Male <i class='fa-solid fa-mars' style='color:blue'/>",
-  FEMALE: "Female <i class='fa-solid fa-venus' style='color:pink'/>",
-  GENDERLESS: "Genderless <i class='fa-solid fa-genderless'/>",
+  male: "Male <i class='fa-solid fa-mars' style='color:blue'/>",
+  female: "Female <i class='fa-solid fa-venus' style='color:pink'/>",
+  genderless: "Genderless <i class='fa-solid fa-genderless'/>",
 };
+
+export function showPokemonGender(resultContainer, gender) {
+  resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
+    genderStrings[gender];
+}
 
 export function showPokemonInformation(resultContainer, result) {
   let sprite = document.createElement("img");
@@ -238,27 +244,14 @@ export function showPokemonInformation(resultContainer, result) {
   resultContainer.querySelector(".pla-results-sprite").appendChild(sprite);
 
   resultContainer.querySelector("[data-pla-results-species]").textContent =
-    result.species;
+    result.alpha ? "Alpha " + result.species : result.species;
   resultContainer.querySelector("[data-pla-results-nature]").textContent =
     result.nature;
   resultContainer.querySelector("[data-pla-results-rolls]").textContent =
     result.rolls;
 
-  // TEMP FOR NOW WHILE DOING THE CHANGEOVER:
-  let genderString = result.gender;
-  switch (result.gender) {
-    case "MALE":
-      genderString = genderStrings.MALE;
-      break;
-    case "FEMALE":
-      genderString = genderStrings.FEMALE;
-      break;
-    case "GENDERLESS":
-      genderString = genderStrings.GENDERLESS;
-      break;
-  }
   resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
-    genderString;
+    genderStrings[result.gender];
 
   let resultShiny = resultContainer.querySelector("[data-pla-results-shiny]");
   let sparkle = "";
@@ -282,28 +275,25 @@ export function showPokemonInformation(resultContainer, result) {
   resultContainer
     .querySelector("[data-pla-results-shinysprite]")
     .appendChild(sparklesprite);
-  resultShiny.innerText = sparkle;
+  resultShiny.textContent = sparkle;
   resultShiny.classList.toggle("pla-result-true", result.shiny);
   resultShiny.classList.toggle("pla-result-false", !result.shiny);
 
   let resultAlpha = resultContainer.querySelector("[data-pla-results-alpha]");
-  let bigmon = "";
-  if (result.alpha) {
-    bigmon = "Alpha!";
-  } else {
-    bigmon = "Not Alpha";
-  }
-  resultAlpha.innerText = bigmon;
+  resultAlpha.textContent = result.alpha ? "Alpha!" : "Not Alpha";
   resultAlpha.classList.toggle("pla-result-true", result.alpha);
   resultAlpha.classList.toggle("pla-result-false", !result.alpha);
 }
 
 export function showPokemonHiddenInformation(resultContainer, result) {
-  resultContainer.querySelector("[data-pla-results-seed]").textContent =
-    result.generator_seed.toString(16).toUpperCase();
-  resultContainer.querySelector("[data-pla-results-ec]").textContent = result.ec
-    .toString(16)
-    .toUpperCase();
-  resultContainer.querySelector("[data-pla-results-pid]").textContent =
-    result.pid.toString(16).toUpperCase();
+  let el = null;
+
+  el = resultContainer.querySelector("[data-pla-results-seed]");
+  if (el) el.textContent = result.generator_seed.toString(16).toUpperCase();
+
+  el = resultContainer.querySelector("[data-pla-results-ec]");
+  if (el) el.textContent = result.ec.toString(16).toUpperCase();
+
+  el = resultContainer.querySelector("[data-pla-results-pid]");
+  if (el) el.textContent = result.pid.toString(16).toUpperCase();
 }

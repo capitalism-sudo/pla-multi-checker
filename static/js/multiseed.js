@@ -235,11 +235,9 @@ function showResult(result) {
     pathdisplay;
   resultContainer.querySelector("[data-pla-results-adv]").innerText =
     result.adv;
-  resultContainer.querySelector("[data-pla-results-ec]").innerText = result.ec;
-  resultContainer.querySelector("[data-pla-results-pid]").innerText =
-    result.pid;
 
   showPokemonInformation(resultContainer, result);
+  showPokemonHiddenInformation(resultContainer, result);
   showPokemonIVs(resultContainer, result);
 
   resultsArea.appendChild(resultContainer);
