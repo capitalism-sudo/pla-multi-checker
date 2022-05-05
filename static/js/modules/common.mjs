@@ -52,19 +52,36 @@ export function clearModalMessages() {
 // This is the big function - basically a metafunction that takes other functions
 // It abstracts a lot of common functionality for any search that will return an array of results to be shown on the page
 // This way a lot of state for eg. spinners is all managed in a single function
-export function doSearch(apiRoute, results, options, displayFunction) {
-  // const research = loadResearchOrError();
+export function doSearch(
+  apiRoute,
+  results,
+  options,
+  displayFunction,
+  activationButton = null
+) {
+  console.log("loading research");
+  const researchString = localStorage.getItem("pla-research");
 
-  // if (research.hasOwnProperty("error")) {
-  //   // If there's no research, don't perform the search
-  //   return false;
-  // } else {
-  //   options["research"] = research;
-  // }
+  if (!researchString) {
+    console.log("In !researchString");
+    showMessage(
+      MESSAGE_ERROR,
+      "You haven't set the Pokedex research levels you've reached. This information is needed to work out your shiny odds. Please go to the 'Settings' page and fill in this information."
+    );
+    return false;
+  }
+
+  options["research"] = JSON.parse(researchString);
 
   // if that's all valid, set the page state to fetching results
   results.length = 0;
   showFetchingResults();
+
+  let restoreButton = null;
+  // if the activation button was provided, disable it to prevent hammering the api
+  if (activationButton) {
+    restoreButton = disableUntilRestore(activationButton);
+  }
 
   // and do the fetch
   fetch(apiRoute, {
@@ -85,6 +102,7 @@ export function doSearch(apiRoute, results, options, displayFunction) {
       }
 
       setFetchingComplete();
+      if (restoreButton) restoreButton();
       displayFunction();
     })
     .catch((error) => showResultsError(error));
@@ -296,4 +314,36 @@ export function showPokemonHiddenInformation(resultContainer, result) {
 
   el = resultContainer.querySelector("[data-pla-results-pid]");
   if (el) el.textContent = result.pid.toString(16).toUpperCase();
+}
+
+// Buttons
+// Replaces button text with a spinner and disables the button
+// returns a function that will restore the button to its original state
+// So no state has to be saved
+export function replaceWithSpinnerUntilRestore(buttonElement) {
+  const spinnerTemplate = document.querySelector("[data-pla-spinner]");
+  const spinner = spinnerTemplate.content.cloneNode(true);
+  spinner.firstElementChild.classList.add("small");
+
+  const buttonText = buttonElement.textContent;
+  buttonElement.textContent = "";
+  buttonElement.appendChild(spinner);
+  buttonElement.disabled = true;
+
+  return () => {
+    buttonElement.removeChild(buttonElement.firstElementChild);
+    buttonElement.textContent = buttonText;
+    buttonElement.disabled = false;
+  };
+}
+
+// Replaces button text with a spinner and disables the button
+// returns a function that will restore the button to its original state
+// So no state has to be saved
+export function disableUntilRestore(buttonElement) {
+  buttonElement.disabled = true;
+
+  return () => {
+    buttonElement.disabled = false;
+  };
 }

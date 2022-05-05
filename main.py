@@ -20,6 +20,7 @@ app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1000 * 1000
 
 config = json.load(open("config.json"))
+config["SeedCheckOnly"] = True
 if config["SeedCheckOnly"]:
     print("Seed Check only mode! Note: You will not be able to use MMO checker or Distiortion Checker!")
 else:
@@ -195,7 +196,7 @@ def read_savefile():
             if 'error' in results:
                 return { 'error': results['error'] }
 
-            rolls = { pkm['name'] : rolls_from_research(results['research_entries'], pkm) for pkm in hisuidex}
+            rolls = { pkm.species : rolls_from_research(results['research_entries'], pkm.dex_number()) for pkm in hisuidex }
             
             return {
                 'shinycharm': results['shinycharm'],

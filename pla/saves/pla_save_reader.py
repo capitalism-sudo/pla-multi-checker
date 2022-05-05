@@ -126,7 +126,7 @@ def read_research_entry(data, offset):
     flags = int.from_bytes(data[offset:offset+4], byteorder='little')
     research_rate = int.from_bytes(data[offset+0x08:offset+0x08+2], byteorder='little')
     return {
-        'level10': research_rate >= 100,
+        'complete': research_rate >= 100,
         'perfect': flags & (1 << 2) != 0
     }
         
@@ -144,10 +144,10 @@ def has_shinycharm(blockdata):
                 return True, None
     return False, None
 
-def rolls_from_research(research, pkm):
-    if research[pkm['dex_national']]['perfect']:
+def rolls_from_research(research, natdex_number):
+    if research[natdex_number]['perfect']:
         return 3
-    elif research[pkm['dex_national']]['level10']:
+    elif research[natdex_number]['complete']:
         return 1
     else:
         return 0
