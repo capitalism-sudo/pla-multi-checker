@@ -34,7 +34,12 @@ class DexEntry():
     def calculate_gender(self, gender_value: int) -> Gender:
         if self.gender_ratio < 0 or self.gender_ratio >= 255:
             return Gender.GENDERLESS
-        elif gender_value < self.gender_ratio:
+        if self.gender_ratio == 0:
+            return Gender.MALE
+        if self.gender_ratio == 254:
+            return Gender.FEMALE
+
+        if gender_value < self.gender_ratio:
             return Gender.FEMALE
         else:
             return Gender.MALE
