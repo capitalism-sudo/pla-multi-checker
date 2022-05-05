@@ -5,6 +5,7 @@ import mimetypes
 from flask import Flask, render_template, request
 from nxreader import NXReader
 import pla
+from pla.core import teleport_to_spawn
 from pla.data import hisuidex
 from pla.saves import read_research, rolls_from_research
 from pla.data.data_utils import flatten_all_map_mmo_results, flatten_map_mmo_results, flatten_normal_outbreaks, flatten_multi
@@ -75,7 +76,7 @@ def read_one_map():
 
 @app.route('/api/read-normals', methods=['POST'])
 def read_normals():
-    results = pla.read_normal_outbreaks(reader,request.json['rolls'],False)
+    results = pla.get_all_outbreaks(reader,request.json['rolls'], False)
     return { "results": flatten_normal_outbreaks(results, config.get('FILTER_ON_SERVER', False)) }
 
 @app.route('/api/read-maps', methods=['GET'])
@@ -86,7 +87,7 @@ def read_maps():
 
 @app.route('/api/teleport-to-spawn', methods=['POST'])
 def teleport():
-    pla.teleport_to_spawn(reader,request.json['coords'])
+    teleport_to_spawn(reader, request.json['coords'])
     return ""
 
 @app.route('/api/read-distortions', methods=['POST'])
@@ -114,7 +115,7 @@ def get_from_seed():
     except ValueError:
         return { "error": "You need to input a number for the seed" }
     
-    results = pla.check_from_seed(group_seed,
+    results = pla.check_mmo_from_seed(group_seed,
                                   request.json['rolls'],
                                   request.json['frencounter'],
                                   request.json['brencounter'],
@@ -145,7 +146,7 @@ def check_multispawner():
                                       request.json['maxalive'],
                                       request.json['maxdepth'],
                                       request.json['isnight'])
-    return { "results": flatten_multi(results, False) }
+    return { "results": flatten_multi(results, config.get('FILTER_ON_SERVER', False)) }
 
 @app.route('/api/check-multi-seed', methods=['POST'])
 def check_multiseed():
@@ -160,7 +161,7 @@ def check_multiseed():
                                            request.json['maxalive'],
                                            request.json['maxdepth'],
                                            request.json['isnight'])
-    return { "results": flatten_multi(results, False) }
+    return { "results": flatten_multi(results, config.get('FILTER_ON_SERVER', False)) }
 
 @app.route('/api/hisuidex')
 def pokemon():
@@ -210,7 +211,7 @@ def read_one_map_old():
 @app.route('/read-normals', methods=['POST'])
 def read_normals_old():
     #results = pla.read_normal_outbreaks(reader,request.json['rolls'],request.json['inmap'])
-    results = pla.read_normal_outbreaks(reader,request.json['rolls'],False)
+    results = pla.get_all_outbreaks(reader,request.json['rolls'],False)
     return { "normal_spawns": flatten_normal_outbreaks(results, config.get('FILTER_ON_SERVER', False)) }
 
 @app.route('/read-maps', methods=['GET'])
@@ -218,11 +219,6 @@ def read_maps_old():
     results = pla.get_all_map_names(reader)
     outbreaks = pla.get_all_outbreak_names(reader,False)
     return { "maps": results, "outbreaks": outbreaks }
-
-@app.route('/teleport-to-spawn', methods=['POST'])
-def teleport_old():
-    pla.teleport_to_spawn(reader,request.json['coords'])
-    return ""
 
 @app.route('/read-distortions', methods=['POST'])
 def read_distortions_old():
