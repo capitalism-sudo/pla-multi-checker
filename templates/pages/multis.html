@@ -37,11 +37,17 @@
 			<input type="text" id="groupID">
 		</div>
 		
-		<div class="pla-control">
+		<div class="pla-control-spaced">
 			<label for="nightToggle">Check Night Spawns:</label>
 			<input type="checkbox" id="nightToggle">
-		</div
+        </div>
+        
+        <div class="pla-control-actions">
+            <button class="pla-button pla-button-action" id="pla-button-checkmulti">Check Multi Spawner</button>
+        </div>
+    </section>
 
+    <section>
         <div class="pla-control-spaced">
             <label for="mmoShinyFilter">Shiny or Alpha</label>
             <input type="checkbox" id="mmoShinyOrAlphaFilter">
@@ -61,33 +67,7 @@
             <label for="mmoSpeciesFilter">Species Filter:</label>
             <input type="text" id="mmoSpeciesFilter">
         </div>
-
-        <!--
-        <div class="pla-control-spaced">
-            <label for="inmapcheck">In Area: (Not Currently Functional)</label>
-            <input type="checkbox" id="inmapcheck">
-        </div>-->
-        
-        <div class="pla-control-actions">
-            <button class="pla-button pla-button-action" id="pla-button-checkmulti">Check Multi Spawner</button>
-        </div>
     </section>
-
-    <!--<section class="pla-section-info">
-        <h3>Maps</h3>
-        <ul class="pla-info-list" data-pla-info-locations>
-        
-        </ul>
-        
-        <h3>Normal Outbreaks</h3>
-        <ul class="pla-info-list" data-pla-info-spawns>
-
-        </ul>
-                    
-        <div class="pla-control-actions">
-            <button class="pla-button pla-button-action" onclick="checkmaps()">Refresh Maps</button>
-        </div>
-    </section>-->
 {% endblock %}
 
 {% block templates %}

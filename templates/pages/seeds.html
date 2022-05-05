@@ -45,10 +45,7 @@
 
 		$(document).on('change', '#normalcheckbox', function() {
 			var outbreaktype = $(this).prop('checked');
-			console.log(outbreaktype);
 			var html_code2 = '';
-			var html_code3 = '';
-			var html_species = '';
 			if (outbreaktype) {
 				for(i = 10; i <=15; i++) {
 					html_code2 += '<option value="' + i + '">' + i + '</option>';
@@ -87,12 +84,19 @@
             </select>
         </div>
 
+        <div class="pla-control">
+            <label for="frpokemon">First Round Pokemon</label>
+            <select name="frpokemon" id="frpokemon" class="form-control">
+                <option value="">Select Pokemon</option>
+            </select>
+        </div>
+
         <div class="pla-control-spaced">
             <label for="bonus">Bonus Round?</label>
             <input type="checkbox" id="bonus">
         </div>
 
-        <div class="pla-control">
+        <div class="pla-control" data-pla-bonus-round>
             <label for="brspawns">Bonus Round Spawns</label>
             <select id="brspawns">
                 <option value="6">6</option>
@@ -100,30 +104,25 @@
             </select>
         </div>
 
-        <!--<div class="pla-control">
-            <label for="frencounter">First Round Encounter Hash:</label>
-            <input type="text" id="frencounter">
-        </div>
-
-        <div class="pla-control">
-            <label for="brencounter">Bound Round Encounter Hash:</label>
-            <input type="text" id="brencounter">
-        </div>-->
-
-        <div class="pla-control">
-            <label for="frpokemon">First Round Pokemon:</label>
-            <select name="frpokemon" id="frpokemon" class="form-control">
-                <option value="">Select Pokemon</option>
-            </select>
-        </div>
-
-        <div class="pla-control">
-            <label for="brpokemon">Bonus Round Pokemon:</label>
+        <div class="pla-control" data-pla-bonus-round>
+            <label for="brpokemon">Bonus Round Pokemon</label>
             <select name="brpokemon" id="brpokemon" class="form-control">
                 <option value="">Select Pokemon</option>
             </select>
         </div>
 
+        <!--
+        <div class="pla-control-spaced">
+            <label for="inmapcheck">In Area: (Not Currently Functional)</label>
+            <input type="checkbox" id="inmapcheck">
+        </div>-->
+
+        <div class="pla-control-actions">
+            <button class="pla-button pla-button-action" id="pla-button-checkmmos">Check MMO Seed</button>
+        </div>
+    </section>
+
+    <section>
         <div class="pla-control-spaced">
             <label for="mmoShinyFilter">Shiny or Alpha</label>
             <input type="checkbox" id="mmoShinyOrAlphaFilter">
@@ -147,16 +146,6 @@
 		<div class="pla-control-spaced">
             <label for="mmoDefaultRouteFilter">Show Multiple Shiny Paths Only</label>
             <input type="checkbox" id="mmoMultiFilter">
-        </div>
-
-        <!--
-        <div class="pla-control-spaced">
-            <label for="inmapcheck">In Area: (Not Currently Functional)</label>
-            <input type="checkbox" id="inmapcheck">
-        </div>-->
-
-        <div class="pla-control-actions">
-            <button class="pla-button pla-button-action" id="pla-button-checkmmos">Check MMO Seed</button>
         </div>
     </section>
 {% endblock %}

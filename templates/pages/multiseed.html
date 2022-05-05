@@ -103,10 +103,9 @@
 
 {% block sidebar %}
     <section class="pla-section-options">
-	
 		<div class="pla-control">
             <label for="inputseed">Seed</label>
-            <input type="text" id="inputseed" placeholder="Input Seed">
+            <input type="number" id="inputseed" placeholder="Input Seed">
         </div>
 		
         <div class="pla-control">
@@ -135,11 +134,17 @@
 			</select>
 		</div>
 		
-		<div class="pla-control">
+		<div class="pla-control-spaced">
 			<label for="nightToggle">Check Night Spawns:</label>
 			<input type="checkbox" id="nightToggle">
 		</div>
+        
+        <div class="pla-control-actions">
+            <button class="pla-button pla-button-action" id="pla-button-checkmultiseed">Check Multi Spawner</button>
+        </div>
+    </section>
 
+	<section>
         <div class="pla-control-spaced">
             <label for="mmoShinyFilter">Shiny or Alpha</label>
             <input type="checkbox" id="mmoShinyOrAlphaFilter">
@@ -159,11 +164,7 @@
             <label for="mmoSpeciesFilter">Species Filter:</label>
             <input type="text" id="mmoSpeciesFilter">
         </div>
-        
-        <div class="pla-control-actions">
-            <button class="pla-button pla-button-action" id="pla-button-checkmultiseed">Check Multi Spawner</button>
-        </div>
-    </section>
+	</section>
 {% endblock %}
 
 {% block templates %}
