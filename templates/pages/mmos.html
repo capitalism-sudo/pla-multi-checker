@@ -13,15 +13,17 @@
 
 {% block sidebar %}
     <section class="pla-section-options">
-        <div class="pla-control">
-            <label for="mapSelect">Choose Map Index</label>
-            <select id="mapSelect">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
+        <div class="pla-control-actions">
+            <button class="pla-button pla-button-action" id="pla-button-checkmmos">Check All MMOS</button>
+        </div>
+
+        <div class="pla-control-actions">
+            <div class="pla-control">
+                <label for="mapSelect">Choose an active map</label>
+                <select id="mapSelect">
+                </select>
+            </div>
+            <button class="pla-button pla-button-action" id="pla-button-checkonemap">Check Single Map</button>
         </div>
 
         <!--<div class="pla-control-spaced">
@@ -30,8 +32,6 @@
         </div>-->
         
         <div class="pla-control-actions">
-            <button class="pla-button pla-button-action" id="pla-button-checkonemap">Check Map Index</button>
-            <button class="pla-button pla-button-action" id="pla-button-checkmmos">Check All MMOS</button>
             <button class="pla-button pla-button-action" id="pla-button-checkoutbreaks">Check Normal Outbreaks</button>
         </div>
     </section>
@@ -69,7 +69,7 @@
     </section>
 
     <section class="pla-section-info">
-        <h3>Maps</h3>
+        <h3>MMO Locations</h3>
         <ul class="pla-info-list" data-pla-info-locations>
         
         </ul>

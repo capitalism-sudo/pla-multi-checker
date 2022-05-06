@@ -176,20 +176,65 @@ function readMaps() {
   })
     .then((response) => response.json())
     .then((res) => showMaps(res))
-    .catch((error) => showMessage(MESSAGE_ERROR, error));
+    .catch((error) => {
+      console.log(error);
+      showMessage(
+        MESSAGE_ERROR,
+        "There was an error loading MMO information. Try restarting the program and clicking 'Refresh Maps'"
+      );
+
+      checkOneMapButton.disabled = true;
+      checkMMOsButton.disabled = true;
+      checkOutbreaksButton.disabled = true;
+    });
 }
 
 function showMaps({ maps, outbreaks }) {
+  mapSelect.innerHTML = "";
   mapLocationsArea.innerHTML = "";
   mapSpawnsArea.innerHTML = "";
 
+  let validMaps = 0;
   maps.forEach((location, index) => {
     if (location != "None") {
+      validMaps++;
+
+      let mapSelectItem = document.createElement("option");
+      mapSelectItem.textContent = location;
+      mapSelectItem.value = index;
+      mapSelect.append(mapSelectItem);
+
       let locListItem = document.createElement("li");
       locListItem.textContent = `${index} - ${location}`;
       mapLocationsArea.appendChild(locListItem);
     }
   });
+
+  if (validMaps == 0) {
+    let mapSelectItem = document.createElement("option");
+    mapSelectItem.textContent = "No MMOs";
+    mapSelectItem.value = "-1";
+    mapSelect.append(mapSelectItem);
+
+    let locListItem = document.createElement("li");
+    locListItem.textContent = "No MMOs Active";
+    mapLocationsArea.appendChild(locListItem);
+
+    checkOneMapButton.disabled = true;
+    checkMMOsButton.disabled = true;
+  } else {
+    checkOneMapButton.disabled = false;
+    checkMMOsButton.disabled = false;
+  }
+
+  if (outbreaks.length == 0) {
+    const el = document.createElement("li");
+    el.textContent = "None";
+    mapSpawnsArea.appendChild(el);
+    checkOutbreaksButton.disabled = true;
+  } else {
+    checkOutbreaksButton.disabled = false;
+  }
 
   outbreaks.forEach((pokemon) => {
     let spawnItem = document.createElement("li");
