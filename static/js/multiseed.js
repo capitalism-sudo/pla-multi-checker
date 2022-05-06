@@ -16,6 +16,7 @@ import {
   showPokemonIVs,
   showPokemonInformation,
   showPokemonHiddenInformation,
+  initializeApp,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -24,7 +25,6 @@ const resultsArea = document.querySelector("[data-pla-results]");
 // options
 const inputSeed = document.getElementById("inputseed");
 const maxDepth = document.getElementById("maxDepth");
-const rollsInput = document.getElementById("rolls");
 const maxAlive = document.getElementById("maxAlive");
 const groupID = document.getElementById("groupID");
 const nightCheck = document.getElementById("nightToggle");
@@ -46,6 +46,7 @@ mmoSpeciesText.addEventListener("input", setFilter);
 const checkMultiButton = document.getElementById("pla-button-checkmultiseed");
 checkMultiButton.addEventListener("click", checkMultiSeed);
 
+initializeApp("multiseed");
 loadPreferences();
 setupPreferenceSaving();
 setupExpandables();
@@ -59,7 +60,6 @@ const results = [];
 // Save and load user preferences
 function loadPreferences() {
   maxDepth.value = localStorage.getItem("maxDepth") ?? "0";
-  rollsInput.value = readIntFromStorage("rolls", 1);
   distAlphaCheckbox.checked = readBoolFromStorage("mmoAlphaFilter", false);
   distShinyCheckbox.checked = readBoolFromStorage("mmoShinyFilter", false);
   nightCheck.checked = readBoolFromStorage("nightToggle");
@@ -73,9 +73,6 @@ function loadPreferences() {
 function setupPreferenceSaving() {
   maxDepth.addEventListener("change", (e) =>
     localStorage.setItem("maxDepth", e.target.value)
-  );
-  rollsInput.addEventListener("change", (e) =>
-    saveIntToStorage("rolls", e.target.value)
   );
   distAlphaCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("mmoAlphaFilter", e.target.checked)
@@ -185,7 +182,6 @@ function getOptions() {
   return {
     seed: inputSeed.value,
     maxdepth: parseInt(maxDepth.value),
-    rolls: parseInt(rollsInput.value),
     group_id: parseInt(groupID.value),
     maxalive: parseInt(maxAlive.value),
     isnight: nightCheck.checked,
@@ -194,7 +190,13 @@ function getOptions() {
 }
 
 function checkMultiSeed() {
-  doSearch("/api/check-multi-seed", results, getOptions(), showFilteredResults);
+  doSearch(
+    "/api/check-multi-seed",
+    results,
+    getOptions(),
+    showFilteredResults,
+    checkMultiButton
+  );
 }
 
 function showFilteredResults() {

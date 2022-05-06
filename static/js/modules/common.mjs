@@ -5,6 +5,54 @@ export const DEFAULT_MAP = "obsidianfieldlands";
 export const MESSAGE_INFO = "info";
 export const MESSAGE_ERROR = "error";
 
+// Preference Data Version
+export const PREFERENCES_VERSION = 1;
+
+// Page initialisation
+export function initializeApp(page) {
+  checkPreferencesVersion();
+
+  if (page !== "settings") {
+    checkForResearch();
+  }
+}
+
+// Preferences versioning - allows us to clear local storage if a breaking upgrade has happened
+function checkPreferencesVersion() {
+  let prefsVersion = readIntFromStorage("pla-prefs-version", -1);
+
+  if (prefsVersion < PREFERENCES_VERSION) {
+    // save the research string
+    const researchString = localStorage.getItem("pla-research");
+
+    localStorage.clear();
+    saveIntToStorage("pla-prefs-version", PREFERENCES_VERSION);
+
+    if (researchString) {
+      localStorage.setItem("pla-research", researchString);
+    }
+
+    showMessage(
+      MESSAGE_INFO,
+      "PLA Multi Checker was recently updated, and we had to clear your old preferences to be compatible with the new version - don't worry, your research levels are still saved."
+    );
+  }
+}
+
+function checkForResearch() {
+  // save the research string
+  const researchString = localStorage.getItem("pla-research");
+
+  if (!researchString) {
+    showMessage(
+      MESSAGE_INFO,
+      "It looks like you haven't set the Pokédex research levels you've reached in the game. We need this information to work out your shiny odds. Please go to the 'Settings' page to fill it in. You don't have to fill in everything, but the more detail you give the more accurate your results will be."
+    );
+    return false;
+  }
+}
+
+// Messages
 export function showMessage(type, message) {
   const messages = document.querySelector("[data-pla-messages]");
   if (!messages) {
@@ -52,19 +100,34 @@ export function clearModalMessages() {
 // This is the big function - basically a metafunction that takes other functions
 // It abstracts a lot of common functionality for any search that will return an array of results to be shown on the page
 // This way a lot of state for eg. spinners is all managed in a single function
-export function doSearch(apiRoute, results, options, displayFunction) {
-  // const research = loadResearchOrError();
+export function doSearch(
+  apiRoute,
+  results,
+  options,
+  displayFunction,
+  activationButton = null
+) {
+  const researchString = localStorage.getItem("pla-research");
 
-  // if (research.hasOwnProperty("error")) {
-  //   // If there's no research, don't perform the search
-  //   return false;
-  // } else {
-  //   options["research"] = research;
-  // }
+  if (!researchString) {
+    showMessage(
+      MESSAGE_ERROR,
+      "You haven't set the Pokedex research levels you've reached. This information is needed to work out your shiny odds. Please go to the 'Settings' page and fill in this information."
+    );
+    return false;
+  }
+
+  options["research"] = JSON.parse(researchString);
 
   // if that's all valid, set the page state to fetching results
   results.length = 0;
   showFetchingResults();
+
+  let restoreButton = null;
+  // if the activation button was provided, disable it to prevent hammering the api
+  if (activationButton) {
+    restoreButton = disableUntilRestore(activationButton);
+  }
 
   // and do the fetch
   fetch(apiRoute, {
@@ -85,6 +148,7 @@ export function doSearch(apiRoute, results, options, displayFunction) {
       }
 
       setFetchingComplete();
+      if (restoreButton) restoreButton();
       displayFunction();
     })
     .catch((error) => showResultsError(error));
@@ -296,4 +360,36 @@ export function showPokemonHiddenInformation(resultContainer, result) {
 
   el = resultContainer.querySelector("[data-pla-results-pid]");
   if (el) el.textContent = result.pid.toString(16).toUpperCase();
+}
+
+// Buttons
+// Replaces button text with a spinner and disables the button
+// returns a function that will restore the button to its original state
+// So no state has to be saved
+export function replaceWithSpinnerUntilRestore(buttonElement) {
+  const spinnerTemplate = document.querySelector("[data-pla-spinner]");
+  const spinner = spinnerTemplate.content.cloneNode(true);
+  spinner.firstElementChild.classList.add("small");
+
+  const buttonText = buttonElement.textContent;
+  buttonElement.textContent = "";
+  buttonElement.appendChild(spinner);
+  buttonElement.disabled = true;
+
+  return () => {
+    buttonElement.removeChild(buttonElement.firstElementChild);
+    buttonElement.textContent = buttonText;
+    buttonElement.disabled = false;
+  };
+}
+
+// Replaces button text with a spinner and disables the button
+// returns a function that will restore the button to its original state
+// So no state has to be saved
+export function disableUntilRestore(buttonElement) {
+  buttonElement.disabled = true;
+
+  return () => {
+    buttonElement.disabled = false;
+  };
 }

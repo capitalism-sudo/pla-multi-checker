@@ -1,21 +1,14 @@
 import {
-  DEFAULT_MAP,
   MESSAGE_ERROR,
-  MESSAGE_INFO,
   showMessage,
-  showModalMessage,
-  clearMessages,
-  clearModalMessages,
   doSearch,
   showNoResultsFound,
-  saveIntToStorage,
-  readIntFromStorage,
   saveBoolToStorage,
   readBoolFromStorage,
-  setupExpandables,
   showPokemonIVs,
   showPokemonInformation,
   showPokemonHiddenInformation,
+  initializeApp,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -25,7 +18,6 @@ const mapSpawnsArea = document.querySelector("[data-pla-info-spawns]");
 
 // options
 const mapSelect = document.getElementById("mapSelect");
-const rollsInput = document.getElementById("rolls");
 // const inmapCheck = document.getElementById("inmapcheck");
 
 // filters
@@ -48,14 +40,17 @@ distMultiCheckbox.addEventListener("change", setFilter);
 // actions
 const checkOneMapButton = document.getElementById("pla-button-checkonemap");
 const checkMMOsButton = document.getElementById("pla-button-checkmmos");
-const checkNormalsButton = document.getElementById("pla-button-checknormals");
+const checkOutbreaksButton = document.getElementById(
+  "pla-button-checkoutbreaks"
+);
 const checkMapsButton = document.getElementById("pla-button-checkmaps");
 
 checkOneMapButton.addEventListener("click", checkOneMap);
 checkMMOsButton.addEventListener("click", checkMMOs);
-checkNormalsButton.addEventListener("click", checkNormals);
+checkOutbreaksButton.addEventListener("click", checkOutbreaks);
 checkMapsButton.addEventListener("click", readMaps);
 
+initializeApp("mmos");
 loadPreferences();
 setupPreferenceSaving();
 readMaps();
@@ -65,7 +60,6 @@ const results = [];
 // Save and load user preferences
 function loadPreferences() {
   mapSelect.value = localStorage.getItem("mmo-mapSelect") ?? "0";
-  rollsInput.value = readIntFromStorage("rolls", 1);
   distAlphaCheckbox.checked = readBoolFromStorage("mmoAlphaFilter", false);
   distShinyCheckbox.checked = readBoolFromStorage("mmoShinyFilter", false);
   distShinyOrAlphaCheckbox.checked = readBoolFromStorage(
@@ -82,9 +76,6 @@ function loadPreferences() {
 function setupPreferenceSaving() {
   mapSelect.addEventListener("change", (e) =>
     localStorage.setItem("mmo-mapSelect", e.target.value)
-  );
-  rollsInput.addEventListener("change", (e) =>
-    saveIntToStorage("rolls", e.target.value)
   );
   distAlphaCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("mmoAlphaFilter", e.target.checked)
@@ -175,31 +166,75 @@ function filter(
 function getOptions() {
   return {
     mapname: parseInt(mapSelect.value),
-    rolls: parseInt(rollsInput.value),
     //	inmap: inmapCheck.checked
   };
 }
 
 function readMaps() {
-  fetch("/api/read-maps", {
+  fetch("/api/read-mmo-map-info", {
     method: "GET",
   })
     .then((response) => response.json())
     .then((res) => showMaps(res))
-    .catch((error) => showMessage(MESSAGE_ERROR, error));
+    .catch((error) => {
+      console.log(error);
+      showMessage(
+        MESSAGE_ERROR,
+        "There was an error loading MMO information. Try restarting the program and clicking 'Refresh Maps'"
+      );
+
+      checkOneMapButton.disabled = true;
+      checkMMOsButton.disabled = true;
+      checkOutbreaksButton.disabled = true;
+    });
 }
 
 function showMaps({ maps, outbreaks }) {
+  mapSelect.innerHTML = "";
   mapLocationsArea.innerHTML = "";
   mapSpawnsArea.innerHTML = "";
 
+  let validMaps = 0;
   maps.forEach((location, index) => {
     if (location != "None") {
+      validMaps++;
+
+      let mapSelectItem = document.createElement("option");
+      mapSelectItem.textContent = location;
+      mapSelectItem.value = index;
+      mapSelect.append(mapSelectItem);
+
       let locListItem = document.createElement("li");
       locListItem.textContent = `${index} - ${location}`;
       mapLocationsArea.appendChild(locListItem);
     }
   });
+
+  if (validMaps == 0) {
+    let mapSelectItem = document.createElement("option");
+    mapSelectItem.textContent = "No MMOs";
+    mapSelectItem.value = "-1";
+    mapSelect.append(mapSelectItem);
+
+    let locListItem = document.createElement("li");
+    locListItem.textContent = "No MMOs Active";
+    mapLocationsArea.appendChild(locListItem);
+
+    checkOneMapButton.disabled = true;
+    checkMMOsButton.disabled = true;
+  } else {
+    checkOneMapButton.disabled = false;
+    checkMMOsButton.disabled = false;
+  }
+
+  if (outbreaks.length == 0) {
+    const el = document.createElement("li");
+    el.textContent = "None";
+    mapSpawnsArea.appendChild(el);
+    checkOutbreaksButton.disabled = true;
+  } else {
+    checkOutbreaksButton.disabled = false;
+  }
 
   outbreaks.forEach((pokemon) => {
     let spawnItem = document.createElement("li");
@@ -209,15 +244,33 @@ function showMaps({ maps, outbreaks }) {
 }
 
 function checkMMOs() {
-  doSearch("/api/read-mmos", results, getOptions(), showFilteredResults);
-}
-
-function checkNormals() {
-  doSearch("/api/read-normals", results, getOptions(), showFilteredResults);
+  doSearch(
+    "/api/read-mmos",
+    results,
+    getOptions(),
+    showFilteredResults,
+    checkMMOsButton
+  );
 }
 
 function checkOneMap() {
-  doSearch("/api/read-one-map", results, getOptions(), showFilteredResults);
+  doSearch(
+    "/api/read-mmos-one-map",
+    results,
+    getOptions(),
+    showFilteredResults,
+    checkOneMapButton
+  );
+}
+
+function checkOutbreaks() {
+  doSearch(
+    "/api/read-outbreaks",
+    results,
+    getOptions(),
+    showFilteredResults,
+    checkOutbreaksButton
+  );
 }
 
 function showFilteredResults() {
@@ -244,7 +297,7 @@ function showFilteredResults() {
 
   if (filteredResults.length > 0) {
     resultsArea.innerHTML =
-      "<h3><section class='pla-section-results' flow>D = Despawn. Despawn Multiple Pokemon by either Multibattles (for aggressive) or Scaring (for skittish) pokemon.</section></h3>";
+      "<section><h3>D = Despawn. Despawn Multiple Pokemon by either Multibattles (for aggressive) or Scaring (for skittish) pokemon.</h3></section>";
     filteredResults.forEach((result) => showResult(result));
   } else {
     showNoResultsFound();

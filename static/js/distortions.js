@@ -3,19 +3,16 @@ import {
   MESSAGE_ERROR,
   MESSAGE_INFO,
   showMessage,
-  showModalMessage,
   clearMessages,
-  clearModalMessages,
   doSearch,
   showNoResultsFound,
-  saveIntToStorage,
-  readIntFromStorage,
   saveBoolToStorage,
   readBoolFromStorage,
-  setupExpandables,
   showPokemonIVs,
   showPokemonInformation,
   showPokemonHiddenInformation,
+  replaceWithSpinnerUntilRestore,
+  initializeApp,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -25,7 +22,6 @@ const mapSpawnsArea = document.querySelector("[data-pla-info-spawns]");
 
 // options
 const mapSelect = document.getElementById("mapSelect");
-const rollsInput = document.getElementById("rolls");
 
 mapSelect.addEventListener("change", setMap);
 
@@ -51,6 +47,7 @@ const createDistortionsButton = document.getElementById(
 checkDistortionsButton.addEventListener("click", checkDistortions);
 createDistortionsButton.addEventListener("click", createDistortion);
 
+initializeApp("distortions");
 loadPreferences();
 setupPreferenceSaving();
 setMap();
@@ -60,7 +57,6 @@ const results = [];
 // Save and load user preferences
 function loadPreferences() {
   mapSelect.value = localStorage.getItem("mapSelect") ?? DEFAULT_MAP;
-  rollsInput.value = readIntFromStorage("rolls", 1);
   distAlphaCheckbox.checked = readBoolFromStorage(
     "distortionAlphaFilter",
     false
@@ -79,9 +75,6 @@ function loadPreferences() {
 function setupPreferenceSaving() {
   mapSelect.addEventListener("change", (e) =>
     localStorage.setItem("mapSelect", e.target.value)
-  );
-  rollsInput.addEventListener("change", (e) =>
-    saveIntToStorage("rolls", e.target.value)
   );
   distAlphaCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("distortionAlphaFilter", e.target.checked)
@@ -149,12 +142,11 @@ function filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter) {
 function getOptions() {
   return {
     map_name: mapSelect.value,
-    rolls: parseInt(rollsInput.value),
   };
 }
 
 function setMap() {
-  fetch("/api/map-info", {
+  fetch("/api/read-distortion-map-info", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ map_name: mapSelect.value }),
@@ -182,7 +174,13 @@ function showMapInfo({ locations, spawns }) {
 }
 
 function checkDistortions() {
-  doSearch("/api/read-distortions", results, getOptions(), showFilteredResults);
+  doSearch(
+    "/api/read-distortions",
+    results,
+    getOptions(),
+    showFilteredResults,
+    checkDistortionsButton
+  );
 }
 
 function showFilteredResults() {
@@ -218,17 +216,20 @@ function showResult(result) {
 }
 
 function createDistortion() {
+  const restoreButton = replaceWithSpinnerUntilRestore(createDistortionsButton);
+
   clearMessages();
   fetch("/api/create-distortion", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   })
     .then((response) => response.json())
-    .then((res) =>
-      setTimeout((res) => {
+    .then(() =>
+      setTimeout(() => {
         // The distortion creation method already has some delay
         // We delay showing the distortion creation even more to allow the game to update
         showMessage(MESSAGE_INFO, "Successfully tried to create distortion");
+        restoreButton();
       }, 1500)
     )
     .catch((error) => showMessage(MESSAGE_ERROR, error));
