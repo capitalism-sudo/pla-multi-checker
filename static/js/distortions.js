@@ -14,6 +14,8 @@ import {
   readBoolFromStorage,
   setupExpandables,
   showPokemonIVs,
+  showPokemonInformation,
+  showPokemonHiddenInformation,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -168,13 +170,13 @@ function showMapInfo({ locations, spawns }) {
 
   locations.forEach((loc) => {
     let locListItem = document.createElement("li");
-    locListItem.innerText = loc;
+    locListItem.textContent = loc;
     mapLocationsArea.appendChild(locListItem);
   });
 
   spawns.forEach((spawn) => {
     let spawnItem = document.createElement("li");
-    spawnItem.innerText = spawn;
+    spawnItem.textContent = spawn;
     mapSpawnsArea.appendChild(spawnItem);
   });
 }
@@ -195,6 +197,7 @@ function showFilteredResults() {
   );
 
   if (filteredResults.length > 0) {
+    resultsArea.innerHTML = "";
     filteredResults.forEach((result) => showResult(result));
   } else {
     showNoResultsFound();
@@ -202,40 +205,16 @@ function showFilteredResults() {
 }
 
 function showResult(result) {
-  {
-    const resultContainer = resultTemplate.content.cloneNode(true);
-    resultContainer.querySelector("[data-pla-results-species]").innerText =
-      result.species;
-    resultContainer.querySelector("[data-pla-results-location]").innerText =
-      result.distortion_name;
+  const resultContainer = resultTemplate.content.cloneNode(true);
 
-    let resultShiny = resultContainer.querySelector("[data-pla-results-shiny]");
-    resultShiny.innerText = result.shiny;
-    resultShiny.classList.toggle("pla-result-true", result.shiny);
-    resultShiny.classList.toggle("pla-result-false", !result.shiny);
+  resultContainer.querySelector("[data-pla-results-location]").textContent =
+    result.distortion_name;
 
-    let resultAlpha = resultContainer.querySelector("[data-pla-results-alpha]");
-    resultAlpha.innerText = result.alpha;
-    resultAlpha.classList.toggle("pla-result-true", result.alpha);
-    resultAlpha.classList.toggle("pla-result-false", !result.alpha);
+  showPokemonInformation(resultContainer, result);
+  showPokemonHiddenInformation(resultContainer, result);
+  showPokemonIVs(resultContainer, result);
 
-    resultContainer.querySelector("[data-pla-results-nature]").innerText =
-      result.nature;
-    resultContainer.querySelector("[data-pla-results-gender]").innerText =
-      result.gender;
-    resultContainer.querySelector("[data-pla-results-seed]").innerText =
-      result.generator_seed.toString(16);
-    resultContainer.querySelector("[data-pla-results-ec]").innerText =
-      result.ec.toString(16);
-    resultContainer.querySelector("[data-pla-results-pid]").innerText =
-      result.pid.toString(16);
-    resultContainer.querySelector("[data-pla-results-rolls]").textContent =
-      result.rolls;
-
-    showPokemonIVs(resultContainer, result);
-
-    resultsArea.appendChild(resultContainer);
-  }
+  resultsArea.appendChild(resultContainer);
 }
 
 function createDistortion() {

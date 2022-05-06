@@ -623,16 +623,16 @@ section.pla-section-expandable {
 .pla-results {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: var(--spacing3);
   min-height: 60vh;
 }
 
 .pla-results-message {
-  align-self: center;
   text-align: center;
   max-width: 80ch;
   padding-bottom: 5vh;
+  margin: auto;
 }
 
 .pla-results-item {

@@ -1,1 +1,2 @@
-from .data import SPECIES, NATURES, RATIOS, GENDERLESS, is_fixed_gender, pokedex, hisuidex, get_basespecies_form
+from .data import pokedex, hisuidex, natures
+from .gender import Gender

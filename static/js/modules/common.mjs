@@ -80,6 +80,7 @@ export function doSearch(apiRoute, results, options, displayFunction) {
       if (res.hasOwnProperty("error")) {
         showMessage(MESSAGE_ERROR, res.error);
       } else if (res.hasOwnProperty("results")) {
+        console.log(res);
         results.push(...res.results);
       }
 
@@ -128,10 +129,13 @@ function showResultsError(error) {
 
 export function showNoResultsFound() {
   const resultsArea = document.querySelector("[data-pla-results]");
-  const message = document.createElement("p");
-  message.classList.add("pla-results-message");
-  message.textContent = "No results found";
-  resultsArea.appendChild(message);
+  if (resultsArea) {
+    resultsArea.innerHTML = "";
+    const message = document.createElement("p");
+    message.classList.add("pla-results-message");
+    message.textContent = "No results found";
+    resultsArea.appendChild(message);
+  }
 }
 
 // Preference Saving / Loading
@@ -221,4 +225,75 @@ export function showPokemonIVs(resultContainer, result) {
     resultContainer.querySelector(plusNature).classList.add("pla-iv-plus");
   if (minusNature)
     resultContainer.querySelector(minusNature).classList.add("pla-iv-minus");
+}
+
+const genderStrings = {
+  male: "Male <i class='fa-solid fa-mars' style='color:blue'/>",
+  female: "Female <i class='fa-solid fa-venus' style='color:pink'/>",
+  genderless: "Genderless <i class='fa-solid fa-genderless'/>",
+};
+
+export function showPokemonGender(resultContainer, gender) {
+  resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
+    genderStrings[gender];
+}
+
+export function showPokemonInformation(resultContainer, result) {
+  let sprite = document.createElement("img");
+  sprite.src = "static/img/sprite/" + result.sprite;
+  resultContainer.querySelector(".pla-results-sprite").appendChild(sprite);
+
+  resultContainer.querySelector("[data-pla-results-species]").textContent =
+    result.alpha ? "Alpha " + result.species : result.species;
+  resultContainer.querySelector("[data-pla-results-nature]").textContent =
+    result.nature;
+  resultContainer.querySelector("[data-pla-results-rolls]").textContent =
+    result.rolls;
+
+  resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
+    genderStrings[result.gender];
+
+  let resultShiny = resultContainer.querySelector("[data-pla-results-shiny]");
+  let sparkle = "";
+  let sparklesprite = document.createElement("img");
+  sparklesprite.className = "pla-results-sparklesprite";
+  sparklesprite.src =
+    "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
+  sparklesprite.height = "10";
+  sparklesprite.width = "10";
+  sparklesprite.style.cssText =
+    "pull-left;display:inline-block;margin-left:0px;";
+  if (result.shiny && result.square) {
+    sparkle = "Square Shiny!";
+    sparklesprite.src = "static/img/square.png";
+  } else if (result.shiny) {
+    sparklesprite.src = "static/img/shiny.png";
+    sparkle = "Shiny!";
+  } else {
+    sparkle = "Not Shiny";
+  }
+  resultContainer
+    .querySelector("[data-pla-results-shinysprite]")
+    .appendChild(sparklesprite);
+  resultShiny.textContent = sparkle;
+  resultShiny.classList.toggle("pla-result-true", result.shiny);
+  resultShiny.classList.toggle("pla-result-false", !result.shiny);
+
+  let resultAlpha = resultContainer.querySelector("[data-pla-results-alpha]");
+  resultAlpha.textContent = result.alpha ? "Alpha!" : "Not Alpha";
+  resultAlpha.classList.toggle("pla-result-true", result.alpha);
+  resultAlpha.classList.toggle("pla-result-false", !result.alpha);
+}
+
+export function showPokemonHiddenInformation(resultContainer, result) {
+  let el = null;
+
+  el = resultContainer.querySelector("[data-pla-results-seed]");
+  if (el) el.textContent = result.generator_seed.toString(16).toUpperCase();
+
+  el = resultContainer.querySelector("[data-pla-results-ec]");
+  if (el) el.textContent = result.ec.toString(16).toUpperCase();
+
+  el = resultContainer.querySelector("[data-pla-results-pid]");
+  if (el) el.textContent = result.pid.toString(16).toUpperCase();
 }

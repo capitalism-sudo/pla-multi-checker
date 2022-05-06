@@ -3,8 +3,8 @@ import struct
 from datetime import datetime
 from app import RESOURCE_PATH
 from pla.core import generate_from_seed
-from pla.core.util import get_path_display, get_sprite, get_gender_string
-from pla.data import SPECIES, NATURES, is_fixed_gender, get_basespecies_form
+from pla.core.util import get_sprite
+from pla.data import pokedex, natures
 from pla.rng import XOROSHIRO
 
 MAX_MAPS = 5
@@ -46,19 +46,21 @@ def generate_mmo_aggressive_path(group_seed,rolls,paths,max_spawns,true_spawns,
         
         if fixed_seed not in uniques:
             uniques.add(fixed_seed)
-            path_id = get_path_id(fixed_seed, init_spawn, 0, paths[0])
+            path_id = get_path_id(fixed_seed, init_spawn)
             dupestore[str(fixed_seed)] = path_id
 
-            species,alpha,nomodspecies = get_species(encounters, encounter_slot)
-            fixed_gender = is_fixed_gender(nomodspecies)
+            pokemon, alpha = get_species(encounters,encounter_slot)
+            fixed_gender = pokemon.is_fixed_gender()
             guaranteed_ivs = get_guaranteed_ivs(alpha, isbonus)
             ec,pid,ivs,ability,gender,nature,shiny,square = \
                 generate_from_seed(fixed_seed, rolls, guaranteed_ivs, fixed_gender)
+            gender = pokemon.calculate_gender(gender)
 
             storage[path_id] = {
                 "index": f"<span class='pla-results-init'>Initial Spawn {init_spawn} </span></span>",
-                "generator_seed": f"{generator_seed:X}",
-                "species": species,
+                "generator_seed": generator_seed,
+                "species": pokemon.display_name(),
+                "sprite": get_sprite(pokemon, shiny, gender),
                 "shiny": shiny,
                 "square": square,
                 "alpha": alpha,
@@ -66,8 +68,8 @@ def generate_mmo_aggressive_path(group_seed,rolls,paths,max_spawns,true_spawns,
                 "pid": pid,
                 "ivs": ivs,
                 "ability": ability,
-                "nature": NATURES[nature],
-                "gender": gender,
+                "nature": natures(nature),
+                "gender": gender.value,
                 "rolls": rolls,
                 "dupes": [],
                 "chains": [],
@@ -91,16 +93,18 @@ def generate_mmo_aggressive_path(group_seed,rolls,paths,max_spawns,true_spawns,
                     path_id = get_path_id(fixed_seed, path[:step_num] + [spawn_on_step], path_num, path)
                     dupestore[fixed_seed] = path_id
 
-                    species,alpha,nomodspecies = get_species(encounters,encounter_slot)
-                    fixed_gender = is_fixed_gender(nomodspecies)
+                    pokemon, alpha = get_species(encounters, encounter_slot)
+                    fixed_gender = pokemon.is_fixed_gender()
                     guaranteed_ivs = get_guaranteed_ivs(alpha, isbonus)
                     ec,pid,ivs,ability,gender,nature,shiny,square = \
                         generate_from_seed(fixed_seed, rolls, guaranteed_ivs, fixed_gender)
+                    gender = pokemon.calculate_gender(gender)
 
                     storage[path_id] = {
                         "index": get_path_string(path[:step_num], spawn_on_step),
-                        "generator_seed": f"{generator_seed:X}",
-                        "species": species,
+                        "generator_seed": generator_seed,
+                        "species": pokemon.display_name(),
+                        "sprite": get_sprite(pokemon, shiny, gender),
                         "shiny": shiny,
                         "square": square,
                         "alpha": alpha,
@@ -108,8 +112,8 @@ def generate_mmo_aggressive_path(group_seed,rolls,paths,max_spawns,true_spawns,
                         "pid": pid,
                         "ivs": ivs,
                         "ability": ability,
-                        "nature": NATURES[nature],
-                        "gender": gender,
+                        "nature": natures(nature),
+                        "gender": gender.value,
                         "rolls": rolls,
                         "dupes": [],
                         "chains": [],
@@ -132,10 +136,9 @@ def generate_mmo_aggressive_path(group_seed,rolls,paths,max_spawns,true_spawns,
             respawn_rng = XOROSHIRO(respawn_rng.next())
     return storage
 
-# def get_init_path_id(seed, spawn):
-#     return f"{seed} + {spawn}"
-
-def get_path_id(seed, spawn, i, steps):
+def get_path_id(seed, spawn, i=None, steps=None):
+    if i is None and steps is None:
+        return f"{seed:X} + {spawn}"
     return f"{seed:X} + {spawn} + {i} + {steps}"
 
 def get_path_string(steps, final = None):
@@ -162,21 +165,13 @@ def get_bonus_seed(group_seed, path):
         respawn_rng = XOROSHIRO(respawn_rng.next())
     return (respawn_rng.next() - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
 
-def get_species(encounters,encounter_slot):
-    alpha = False
+def get_species(encounters, encounter_slot):
     encsum = 0
-
-    for species in encounters:
-        encsum += species['slot']
+    for slot in encounters:
+        encsum += slot['slot']
         if encounter_slot < encsum:
-            alpha = species['alpha']
-            slot = species['name']
-            nomodslot = slot
-            if alpha:
-                slot = "Alpha "+slot
-            return slot,alpha,nomodslot
-
-    return "", False
+            return pokedex.entry(slot['name']), slot['alpha']
+    return None, False
 
 def get_encounter_table(enc_pointer):
     if enc_pointer not in encmap:
@@ -252,27 +247,21 @@ def format_firstround_result(result,group_id,map_name,coords,max_spawns,chained)
     result["mapname"] = map_name
     result["coords"] = coords
     result["numspawns"] = max_spawns
-
-    basespecies, form = get_basespecies_form(result["species"])
-    result["sprite"] = get_sprite(basespecies, form, result["shiny"])
-    result["gender"] = get_gender_string(basespecies, result["gender"])
     
     if result["shiny"]:
         chained[result["index"]] = f"<span class='pla-results-firstpath'>First Round </span>{result['index']}"
         print(f"Chained: {chained}")
 
 def format_bonusround_result(result,path,epath,group_id,map_name,coords,true_spawns,max_spawns,chained):
-    result["index"] = get_path_display(result["index"], path, epath)
-    for du,dupe in enumerate(result["dupes"]):
-        result["dupes"][du] = f"Bonus {result['dupes'][du]} "
+    result["index"] = get_bonusround_path_display(result["index"], path, epath)
     result["group"] = group_id
     result["mapname"] = map_name
     result["coords"] = coords
     result["numspawns"] = max_spawns
-            
-    cutspecies, form = get_basespecies_form(result["species"])
-    result["sprite"] = get_sprite(cutspecies, form, result["shiny"])
-    result["gender"] = get_gender_string(cutspecies, result["gender"])
+    result["defaultroute"] = len(path) == sum(path)
+    
+    for i in range(len(result["dupes"])):
+        result["dupes"][i] = f"Bonus {result['dupes'][i]} "
 
     if result["shiny"]:
         chainstring = result["index"].rpartition("Bonus")[0]
@@ -368,10 +357,13 @@ def format_bonusround_result(result,path,epath,group_id,map_name,coords,true_spa
                             print(f"Pokesleft not <=0 or difference >= 2.")
         chained[result["index"].rpartition("Bonus")[0]] = result["index"]
 
-    if len(path) == sum(path):
-        result["defaultroute"] = True
-    else:
-        result["defaultroute"] = False
+def get_bonusround_path_display(index, path, epath):
+    path_string = '[' + ', '.join(f"D{v}" for v in path) + ']'
+    epath_string = "[Clear Round]" if epath == [] else f"<span class='pla-results-revisit'> Revisit {epath} </span>"
+    return (
+        f"<span class='pla-results-firstpath'>First Round Path: {path_string}</span>"
+        f" + {epath_string} + <span class='pla-results-bonus'> Bonus {index}"
+    )
 
 def get_bonusround(paths,group_id,rolls,group_seed,map_name,coords,
                     true_spawns,bonus_spawns,max_spawns,encounters,encsum,chained):
@@ -397,8 +389,8 @@ def get_bonusround(paths,group_id,rolls,group_seed,map_name,coords,
             else:
                 continue
             
-            for index in results:
-                format_bonusround_result(results[index],path,epath,group_id,map_name,coords,true_spawns,max_spawns,chained)
+            for result in results.values():
+                format_bonusround_result(result,path,epath,group_id,map_name,coords,true_spawns,max_spawns,chained)
             
             outbreaks[f"Bonus{path_num} {path} {ext_num} {epath}"] = results
 
@@ -439,13 +431,13 @@ def get_map_mmos(reader, map_index, rolls, inmap):
     return outbreaks
 
 def get_mmo(reader, group_id, map_index, rolls, inmap):
-    species_num = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4 + 0x90*group_id + 0xb80*map_index:X}", 2)
-    if species_num == 0:
+    species_index = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4 + 0x90*group_id + 0xb80*map_index:X}", 2)
+    if species_index == 0:
         return None, None
     
     map_name = get_map_name(reader, map_index)
     
-    print(f"Species Group: {SPECIES[species_num]}")
+    print(f"Species Group: {pokedex.entry_by_index(species_index).display_name()}")
     frencounter = get_encounter_pointer(reader,group_id,map_index,False)
     
     brencounter = get_encounter_pointer(reader,group_id,map_index,True)
@@ -470,17 +462,16 @@ def mmo_from_seed(group_id,rolls,group_seed,map_name,coords,frencounter,brencoun
                                                         encounters,encsum,dupestore,chained,False)
     bonusround = None
     
-    for index in firstround:
-        if index not in ('index','description'):
-            format_firstround_result(firstround[str(index)],group_id,map_name,coords,max_spawns,chained)
+    for result in firstround.values():
+        format_firstround_result(result, group_id, map_name, coords, max_spawns, chained)
     
     if has_bonus:
         bonus_spawns = max_spawns + 4
         bonusround_paths = get_bonus_paths(max_spawns)
         encounters,encsum = get_encounter_table(brencounter)
         
-        species,_,_ = get_species(encounters,1)
-        print(f"Bonus Round Species: {species}")
+        pokemon, alpha = get_species(encounters, 1)
+        print(f"Bonus Round Species: {'Alpha ' if alpha else ''}{pokemon.display_name()}")
 
         bonusround = get_bonusround(bonusround_paths,group_id,rolls,group_seed,map_name,coords,br_spawns,bonus_spawns,max_spawns,encounters,encsum,chained)
         print(f"Group {group_id} Bonus Complete!")

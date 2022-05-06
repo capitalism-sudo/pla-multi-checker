@@ -2554,7 +2554,7 @@
   "0x4418CAFB9AE0F8F7": [
     {
       "slot": 100,
-      "name": "MimeJr.",
+      "name": "Mime Jr.",
       "alpha": false,
       "level": [
         60,
@@ -2564,7 +2564,7 @@
     },
     {
       "slot": 1,
-      "name": "MimeJr.",
+      "name": "Mime Jr.",
       "alpha": true,
       "level": [
         75,
@@ -2574,7 +2574,7 @@
     },
     {
       "slot": 10,
-      "name": "Mr.Mime",
+      "name": "Mr. Mime",
       "alpha": false,
       "level": [
         62,
@@ -2584,7 +2584,7 @@
     },
     {
       "slot": 1,
-      "name": "Mr.Mime",
+      "name": "Mr. Mime",
       "alpha": true,
       "level": [
         77,
@@ -2596,7 +2596,7 @@
   "0x1F293212F14023D3": [
     {
       "slot": 100,
-      "name": "Mr.Mime",
+      "name": "Mr. Mime",
       "alpha": false,
       "level": [
         62,
@@ -2606,7 +2606,7 @@
     },
     {
       "slot": 1,
-      "name": "Mr.Mime",
+      "name": "Mr. Mime",
       "alpha": true,
       "level": [
         77,
@@ -2618,7 +2618,7 @@
   "0x1F293112F1402220": [
     {
       "slot": 100,
-      "name": "MimeJr.",
+      "name": "Mime Jr.",
       "alpha": true,
       "level": [
         75,
@@ -2630,7 +2630,7 @@
   "0x1F293412F1402739": [
     {
       "slot": 100,
-      "name": "Mr.Mime",
+      "name": "Mr. Mime",
       "alpha": true,
       "level": [
         77,

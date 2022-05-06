@@ -1,7 +1,8 @@
 import json
 from app import RESOURCE_PATH
 from pla.core import generate_from_seed
-from pla.data import SPECIES, NATURES
+from pla.core.util import get_sprite
+from pla.data import pokedex, natures
 from pla.rng import XOROSHIRO
 
 
@@ -75,46 +76,30 @@ def check_alpha_from_seed(group_seed,rolls,isalpha,set_gender,pfilter):
         main_rng.next()
         main_rng = XOROSHIRO(main_rng.next())
 
-
     if adv <= 50000:
-        results = {
+        pokemon, alpha = get_pokemon_alpha(pfilter["species"], encslotmax, encsum)
+        species = pokemon.display_name() if pokemon is not None else ''
+        sprite = get_sprite(pokemon, shiny) if pokemon is not None else 'c_0.png'
+
+        return [{
             "rolls": rolls,
             "adv": adv,
             "ivs": ivs,
             "gender": gender,
-            "nature": NATURES[nature],
-            "sprite": get_sprite(pfilter["species"], encslotmax, encsum),
-            "species": pfilter["species"]
-            }
-    else:
-        results = {
-            "rolls": rolls,
-            "adv": adv,
-            "ivs": [0,0,0,0,0,0],
-            "gender": -1,
-            "nature": "N/A",
-            "sprite": "c_0.png",
-            "species": "Not Found Within 50,000 advances"
-            }
+            "nature": natures(nature),
+            "sprite": sprite,
+            "species": species,
+            "shiny": shiny,
+            "square": square,
+            "alpha": alpha
+        }]
+     
+    return []
 
-    return results
-
-def get_sprite(species_name, encslotmax, encsum):
-    form = ''
-    if encslotmax == 0 or encsum == 0:
-        cutspecies = "Egg"
-    elif "Alpha" in species_name and "-" in species_name:
-        cutspecies = species_name.rpartition('Alpha')[2]
-        form = species_name.rpartition('-')[2]
-        cutspecies = cutspecies.rpartition('-')[0]     
-    elif "Alpha" in species_name:
-        cutspecies = species_name.rpartition('Alpha')[2]
-    elif "-" in species_name:
-        cutspecies = species_name.rpartition('-')[0]
-        form = species_name.rpartition('-')[2]
-    elif species_name != "":
-        cutspecies = species_name
+def get_pokemon_alpha(species, encslotmax, encsum):
+    if species == "" or encslotmax == 0 or encsum == 0:
+        return None, False
+    if species[0:5] == "Alpha":
+        return pokedex.entry(species[5:].strip()), True
     else:
-        cutspecies = "Egg"
-    
-    return f"c_{SPECIES.index(cutspecies)}" + f"{f'-{form}' if len(form) != 0 else ''}s.png"
+        return pokedex.entry(species), False
