@@ -5,6 +5,54 @@ export const DEFAULT_MAP = "obsidianfieldlands";
 export const MESSAGE_INFO = "info";
 export const MESSAGE_ERROR = "error";
 
+// Preference Data Version
+export const PREFERENCES_VERSION = 1;
+
+// Page initialisation
+export function initializeApp(page) {
+  checkPreferencesVersion();
+
+  if (page !== "settings") {
+    checkForResearch();
+  }
+}
+
+// Preferences versioning - allows us to clear local storage if a breaking upgrade has happened
+function checkPreferencesVersion() {
+  let prefsVersion = readIntFromStorage("pla-prefs-version", -1);
+
+  if (prefsVersion < PREFERENCES_VERSION) {
+    // save the research string
+    const researchString = localStorage.getItem("pla-research");
+
+    localStorage.clear();
+    saveIntToStorage("pla-prefs-version", PREFERENCES_VERSION);
+
+    if (researchString) {
+      localStorage.setItem("pla-research", researchString);
+    }
+
+    showMessage(
+      MESSAGE_INFO,
+      "PLA Multi Checker was recently updated, and we had to clear your old preferences to be compatible with the new version - don't worry, your research levels are still saved."
+    );
+  }
+}
+
+function checkForResearch() {
+  // save the research string
+  const researchString = localStorage.getItem("pla-research");
+
+  if (!researchString) {
+    showMessage(
+      MESSAGE_INFO,
+      "It looks like you haven't set the Pokédex research levels you've reached in the game. We need this information to work out your shiny odds. Please go to the 'Settings' page to fill it in. You don't have to fill in everything, but the more detail you give the more accurate your results will be."
+    );
+    return false;
+  }
+}
+
+// Messages
 export function showMessage(type, message) {
   const messages = document.querySelector("[data-pla-messages]");
   if (!messages) {
@@ -59,11 +107,9 @@ export function doSearch(
   displayFunction,
   activationButton = null
 ) {
-  console.log("loading research");
   const researchString = localStorage.getItem("pla-research");
 
   if (!researchString) {
-    console.log("In !researchString");
     showMessage(
       MESSAGE_ERROR,
       "You haven't set the Pokedex research levels you've reached. This information is needed to work out your shiny odds. Please go to the 'Settings' page and fill in this information."

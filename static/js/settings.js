@@ -3,8 +3,8 @@ import {
   MESSAGE_INFO,
   showMessage,
   showModalMessage,
-  clearMessages,
   clearModalMessages,
+  initializeApp,
 } from "./modules/common.mjs";
 
 // valid PLA save file sizes
@@ -23,6 +23,11 @@ let hisuidex = [];
 const researchRows = new Map();
 const researchRadios = new Map();
 
+initializeApp("settings");
+loadPreferences();
+setupPreferenceSaving();
+loadPokedex();
+
 // Save and load user preferences
 function loadPreferences() {
   // Here for future proofing - not currently used
@@ -39,7 +44,7 @@ function loadPokedex() {
     .then((res) => {
       hisuidex = res.hisuidex;
 
-      initialisePage();
+      initializePage();
     })
     .catch((error) => {
       showMessage(
@@ -49,15 +54,11 @@ function loadPokedex() {
     });
 }
 
-loadPreferences();
-setupPreferenceSaving();
-loadPokedex();
-
 // The function that actually wires up the page
-function initialisePage() {
+function initializePage() {
   // create the table for for each pokemon in the hisui dex
   hisuidex.forEach((pokemon) => createPokemonRow(pokemon));
-  researchTable.addEventListener("change", saveResearch)
+  researchTable.addEventListener("change", saveResearch);
 
   // the button that sets all research to base level
   document

@@ -1,21 +1,14 @@
 import {
-  DEFAULT_MAP,
   MESSAGE_ERROR,
-  MESSAGE_INFO,
   showMessage,
-  showModalMessage,
-  clearMessages,
-  clearModalMessages,
   doSearch,
   showNoResultsFound,
-  saveIntToStorage,
-  readIntFromStorage,
   saveBoolToStorage,
   readBoolFromStorage,
-  setupExpandables,
   showPokemonIVs,
   showPokemonInformation,
   showPokemonHiddenInformation,
+  initializeApp,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -57,6 +50,7 @@ checkMMOsButton.addEventListener("click", checkMMOs);
 checkOutbreaksButton.addEventListener("click", checkOutbreaks);
 checkMapsButton.addEventListener("click", readMaps);
 
+initializeApp("mmos");
 loadPreferences();
 setupPreferenceSaving();
 readMaps();

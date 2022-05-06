@@ -3,20 +3,16 @@ import {
   MESSAGE_ERROR,
   MESSAGE_INFO,
   showMessage,
-  showModalMessage,
   clearMessages,
-  clearModalMessages,
   doSearch,
   showNoResultsFound,
-  saveIntToStorage,
-  readIntFromStorage,
   saveBoolToStorage,
   readBoolFromStorage,
-  setupExpandables,
   showPokemonIVs,
   showPokemonInformation,
   showPokemonHiddenInformation,
   replaceWithSpinnerUntilRestore,
+  initializeApp,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -51,6 +47,7 @@ const createDistortionsButton = document.getElementById(
 checkDistortionsButton.addEventListener("click", checkDistortions);
 createDistortionsButton.addEventListener("click", createDistortion);
 
+initializeApp("distortions");
 loadPreferences();
 setupPreferenceSaving();
 setMap();
@@ -177,7 +174,13 @@ function showMapInfo({ locations, spawns }) {
 }
 
 function checkDistortions() {
-  doSearch("/api/read-distortions", results, getOptions(), showFilteredResults, checkDistortionsButton);
+  doSearch(
+    "/api/read-distortions",
+    results,
+    getOptions(),
+    showFilteredResults,
+    checkDistortionsButton
+  );
 }
 
 function showFilteredResults() {

@@ -1,21 +1,13 @@
 import {
-  DEFAULT_MAP,
-  MESSAGE_ERROR,
-  MESSAGE_INFO,
-  showMessage,
-  showModalMessage,
-  clearMessages,
-  clearModalMessages,
   doSearch,
   showNoResultsFound,
   saveIntToStorage,
   readIntFromStorage,
   saveBoolToStorage,
   readBoolFromStorage,
-  setupExpandables,
   showPokemonIVs,
   showPokemonInformation,
-  showPokemonHiddenInformation,
+  initializeApp,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -47,6 +39,7 @@ distMultiCheckbox.addEventListener("change", setFilter);
 const checkMMOsButton = document.getElementById("pla-button-checkmmos");
 checkMMOsButton.addEventListener("click", checkMMOs);
 
+initializeApp("seeds");
 loadPreferences();
 setupPreferenceSaving();
 

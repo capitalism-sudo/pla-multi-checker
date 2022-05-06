@@ -16,6 +16,7 @@ import {
   showPokemonIVs,
   showPokemonInformation,
   showPokemonHiddenInformation,
+  initializeApp,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -45,6 +46,7 @@ mmoSpeciesText.addEventListener("input", setFilter);
 const checkMultiButton = document.getElementById("pla-button-checkmultiseed");
 checkMultiButton.addEventListener("click", checkMultiSeed);
 
+initializeApp("multiseed");
 loadPreferences();
 setupPreferenceSaving();
 setupExpandables();

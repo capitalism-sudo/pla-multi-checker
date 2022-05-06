@@ -1,11 +1,4 @@
 import {
-  DEFAULT_MAP,
-  MESSAGE_ERROR,
-  MESSAGE_INFO,
-  showMessage,
-  showModalMessage,
-  clearMessages,
-  clearModalMessages,
   doSearch,
   showNoResultsFound,
   saveIntToStorage,
@@ -16,6 +9,7 @@ import {
   showPokemonIVs,
   showPokemonInformation,
   showPokemonGender,
+  initializeApp,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -42,6 +36,7 @@ dayNight.addEventListener("change", setSpawners);
 const checkAlphaAdvButton = document.getElementById("pla-button-checkalphaadv");
 checkAlphaAdvButton.addEventListener("click", checkAlphaAdv);
 
+initializeApp("spawns");
 loadPreferences();
 setupPreferenceSaving();
 setupExpandables();

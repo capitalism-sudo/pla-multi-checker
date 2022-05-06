@@ -1,21 +1,12 @@
 import {
-  DEFAULT_MAP,
-  MESSAGE_ERROR,
-  MESSAGE_INFO,
-  showMessage,
-  showModalMessage,
-  clearMessages,
-  clearModalMessages,
   doSearch,
   showNoResultsFound,
-  saveIntToStorage,
-  readIntFromStorage,
   saveBoolToStorage,
   readBoolFromStorage,
-  setupExpandables,
   showPokemonIVs,
   showPokemonInformation,
   showPokemonHiddenInformation,
+  initializeApp,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -44,6 +35,7 @@ mmoSpeciesText.addEventListener("input", setFilter);
 const checkMultiButton = document.getElementById("pla-button-checkmulti");
 checkMultiButton.addEventListener("click", checkMulti);
 
+initializeApp("multis");
 loadPreferences();
 setupPreferenceSaving();
 
