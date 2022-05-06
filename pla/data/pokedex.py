@@ -63,8 +63,8 @@ class Pokedex():
         self._dex: dict[str, dict[int, DexEntry]] = {}
         self._dex['national'] = {}
 
-        with open(RESOURCE_PATH + 'resources/pokemon-species.json') as pokemon_species_file:
-            species_data = json.load(pokemon_species_file)
+        with open(RESOURCE_PATH + 'resources/pokedex.json') as pokedex_file:
+            species_data = json.load(pokedex_file)
             for entry_data in species_data:
                 entry = DexEntry(entry_data['id'],
                                 entry_data['index'],

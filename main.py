@@ -203,108 +203,11 @@ def read_savefile():
     
     return { 'error': 'There was a problem reading your save' }
 
-# existing version of api calls, preserved in case used by external applications
-@app.route('/read-mmos', methods=['POST'])
-def read_mmos_old():
-    #results = pla.get_all_map_mmos(reader, request.json['rolls'], request.json['inmap'])
-    results = pla.get_all_map_mmos(reader, request.json['rolls'], False)
-    return { "mmo_spawns": flatten_all_map_mmo_results(results, config.get('FILTER_ON_SERVER', False)) }
-
-@app.route('/read-one-map', methods=['POST'])
-def read_one_map_old():
-    #results = pla.get_map_mmos(reader,request.json['mapname'],request.json['rolls'], request.json['inmap'])
-    results = pla.get_map_mmos(reader,request.json['mapname'],request.json['rolls'], False)
-    return { "mmo_spawn": flatten_map_mmo_results(results, config.get('FILTER_ON_SERVER', False)) }
-
-@app.route('/read-normals', methods=['POST'])
-def read_normals_old():
-    #results = pla.read_normal_outbreaks(reader,request.json['rolls'],request.json['inmap'])
-    results = pla.get_all_outbreaks(reader,request.json['rolls'],False)
-    return { "normal_spawns": flatten_normal_outbreaks(results, config.get('FILTER_ON_SERVER', False)) }
-
-@app.route('/read-maps', methods=['GET'])
-def read_maps_old():
-    results = pla.get_all_map_names(reader)
-    outbreaks = pla.get_all_outbreak_names(reader,False)
-    return { "maps": results, "outbreaks": outbreaks }
-
-@app.route('/read-distortions', methods=['POST'])
-def read_distortions_old():
-    results = pla.check_all_distortions(reader,
-                                        request.json['map_name'],
-                                        request.json['rolls'])
-    return { "distortion_spawns": results }
-
-@app.route('/create-distortion', methods=['POST'])
-def create_distortion_old():
-    pla.create_distortion(reader)
-    return "Distortion Created"
-
-@app.route('/map-info', methods=['POST'])
-def get_map_info_old():
-    locations = pla.get_distortion_locations(request.json['map_name'])
-    spawns = pla.get_distortion_spawns(request.json['map_name'])
-    return { "locations": locations, "spawns": spawns }
-
-@app.route('/check-mmoseed', methods=['POST'])
-def get_from_seed_old():
-    try:
-        group_seed = int(request.json['seed'])
-    except ValueError:
-        # Return an error when error handling implemented
-        # return { "error": "You need to input a number for the seed" }
-        return { "mmo_spawns": [] }
-    results = pla.check_from_seed(group_seed,
-                                  request.json['rolls'],
-                                  request.json['frencounter'],
-                                  request.json['brencounter'],
-                                  request.json['isbonus'],
-                                  request.json['frspawns'],
-                                  request.json['brspawns'])
-    return { "mmo_spawns": flatten_map_mmo_results(results, config.get('FILTER_ON_SERVER', False)) }
-
-@app.route('/check-alphaseed', methods=['POST'])
-def get_alpha_from_seed_old():
-    try:
-        group_seed = int(request.json['seed'])
-    except ValueError:
-        # Return an error when error handling implemented
-        # return { "error": "You need to input a number for the seed" }
-        return { "alpha_spawns": [] }
-    results = pla.check_alpha_from_seed(group_seed,
-                                        request.json['rolls'],
-                                        request.json['isalpha'],
-                                        request.json['setgender'],
-                                        request.json['filter'])
-    return { "alpha_spawns": results }
-
-@app.route('/check-multi-spawn', methods=['POST'])
-def check_multispawner_old():
-    results = pla.check_multi_spawner(reader,
-                                      request.json['rolls'],
-                                      request.json['group_id'],
-                                      request.json['maxalive'],
-                                      request.json['maxdepth'],
-                                      request.json['isnight'])
-    return { "multi_spawns": results }
-
-@app.route('/check-multi-seed', methods=['POST'])
-def check_multiseed_old():
-    try:
-        group_seed = int(request.json['seed'])
-    except ValueError:
-        # Return an error when error handling implemented
-        # return { "error": "You need to input a number for the seed" }
-        return { "multi_spawns": {} }
-    results = pla.check_multi_spawner_seed(group_seed,
-                                           request.json['rolls'],
-                                           request.json['group_id'],
-                                           request.json['maxalive'],
-                                           request.json['maxdepth'],
-                                           request.json['isnight'])
-    return { "multi_spawns": results}
-
-
+# Legacy routes used by bots
+import app.legacy as legacy
+app.add_url_rule('/check-mmoseed', view_func=legacy.legacy_get_from_seed)
+app.add_url_rule('/check-alphaseed', view_func=legacy.legacy_get_alpha_from_seed)
+app.add_url_rule('/check-multi-seed', view_func=legacy.legacy_check_multiseed)
 
 if __name__ == '__main__':
     app.run(host="localhost", port=8100, debug=True)
