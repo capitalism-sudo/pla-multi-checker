@@ -196,7 +196,7 @@ function showMaps({ maps, outbreaks }) {
 
   let validMaps = 0;
   maps.forEach((location, index) => {
-    if (location != "None") {
+    if (location != null) {
       validMaps++;
 
       let mapSelectItem = document.createElement("option");
