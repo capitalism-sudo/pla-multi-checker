@@ -493,10 +493,12 @@ def get_mmo(reader, map_index, group_id, research, inmap, rolls_override = None,
     
     if map_name is None:
         map_name = get_map_name(reader, map_index)
-   
+
+    has_bonus = get_encounter_table(mmoinfo['br_encounter'])[0] is not None
+
     group_seed = get_gen_seed_to_group_seed(reader,group_id) if inmap else mmoinfo['group_seed']
     return mmo_from_seed(group_id, research, group_seed, map_name, mmoinfo['coords'],
-                         mmoinfo['fr_encounter'], mmoinfo['br_encounter'], mmoinfo['has_bonus'],
+                         mmoinfo['fr_encounter'], mmoinfo['br_encounter'], has_bonus,
                          mmoinfo['fr_spawns'], mmoinfo['br_spawns'], rolls_override)
                            
 def mmo_from_seed(group_id,research,group_seed,map_name,coords,frencounter,brencounter,has_bonus,max_spawns,br_spawns,rolls_override=None):
