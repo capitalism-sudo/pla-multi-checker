@@ -775,7 +775,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "0",
-    "form_name": "",
+    "form_name": "A",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -785,7 +785,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "1",
-    "form_name": "1",
+    "form_name": "B",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -795,7 +795,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "2",
-    "form_name": "2",
+    "form_name": "C",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -805,7 +805,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "3",
-    "form_name": "3",
+    "form_name": "D",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -815,7 +815,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "4",
-    "form_name": "4",
+    "form_name": "E",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -825,7 +825,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "5",
-    "form_name": "5",
+    "form_name": "F",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -835,7 +835,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "6",
-    "form_name": "6",
+    "form_name": "G",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -845,7 +845,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "7",
-    "form_name": "7",
+    "form_name": "H",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -855,7 +855,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "8",
-    "form_name": "8",
+    "form_name": "I",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -865,7 +865,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "9",
-    "form_name": "9",
+    "form_name": "J",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -875,7 +875,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "10",
-    "form_name": "10",
+    "form_name": "K",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -885,7 +885,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "11",
-    "form_name": "11",
+    "form_name": "L",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -895,7 +895,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "12",
-    "form_name": "12",
+    "form_name": "M",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -905,7 +905,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "13",
-    "form_name": "13",
+    "form_name": "N",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -915,7 +915,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "14",
-    "form_name": "14",
+    "form_name": "O",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -925,7 +925,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "15",
-    "form_name": "15",
+    "form_name": "P",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -935,7 +935,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "16",
-    "form_name": "16",
+    "form_name": "Q",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -945,7 +945,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "17",
-    "form_name": "17",
+    "form_name": "R",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -955,7 +955,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "18",
-    "form_name": "18",
+    "form_name": "S",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -965,7 +965,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "19",
-    "form_name": "19",
+    "form_name": "T",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -975,7 +975,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "20",
-    "form_name": "20",
+    "form_name": "U",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -985,7 +985,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "21",
-    "form_name": "21",
+    "form_name": "V",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -995,7 +995,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "22",
-    "form_name": "22",
+    "form_name": "W",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -1005,7 +1005,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "23",
-    "form_name": "23",
+    "form_name": "X",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -1015,7 +1015,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "24",
-    "form_name": "24",
+    "form_name": "Y",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -1025,7 +1025,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "25",
-    "form_name": "25",
+    "form_name": "Z",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -1035,7 +1035,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "26",
-    "form_name": "26",
+    "form_name": "!",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },
@@ -1045,7 +1045,7 @@
     "dex_national": 201,
     "species": "Unown",
     "form_id": "27",
-    "form_name": "27",
+    "form_name": "?",
     "gender_ratio": 255,
     "gender_dimorphic": false
   },

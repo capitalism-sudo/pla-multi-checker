@@ -152,20 +152,6 @@ def get_guaranteed_ivs(alpha, isbonus):
         return 3
     return 0
 
-def get_bonus_seed(group_seed, path):
-    main_rng = XOROSHIRO(group_seed)
-    for _ in range(4):
-        main_rng.next()
-        main_rng.next()
-    group_seed = main_rng.next()
-    respawn_rng = XOROSHIRO(group_seed)
-    for step in path:
-        for _ in range(0,step):
-            respawn_rng.next()
-            respawn_rng.next()
-        respawn_rng = XOROSHIRO(respawn_rng.next())
-    return (respawn_rng.next() - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
-
 def get_species(encounters, encounter_slot):
     encsum = 0
     for slot in encounters:
@@ -182,38 +168,100 @@ def get_encounter_table(enc_pointer):
     encsum = sum(e['slot'] for e in encounters)
     return encounters, encsum
 
-def get_encounter_pointer(reader, group_id, map_index, bonus):
+def get_map_name(reader, map_index):
+    map_id = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
+                                     f"{0x1d4 + 0xb80*map_index - 0x24:X}", 2)
+    return mapnamevals.get(f"{map_id:X}", None)
+
+def get_all_map_names(reader):
+    """gets all map names"""
+    return [get_map_name(reader, map_index) for map_index in range(MAX_MAPS)]
+
+def get_all_map_mmo_info(reader):
+    res = {}
+    for map_index in range(MAX_MAPS):
+        map_name = get_map_name(reader, map_index)
+        if map_name is not None:
+            res[map_name] = get_map_mmo_info(reader, map_index, map_name)
+    return res
+
+def get_map_mmo_info(reader, map_index, map_name=None):
+    res = []
+    for group_id in range(MAX_MMOS):
+        mmoinfo = get_mmo_info(reader, map_index, group_id)
+        
+        if mmoinfo['species_index'] != 0:
+            mmoinfo['pokemon'] = pokedex.entry_by_index(mmoinfo['species_index'])
+            
+            if map_name is not None:
+                mmoinfo['map_name'] = map_name
+            res.append(mmoinfo)
+
+    return res
+
+def get_mmo_info(reader, map_index, group_id):
+    data = reader.read_pointer(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1c0 + 0xb80*map_index + 0x90*group_id:X}", 0x78)
+    return {
+        'map_index': map_index,
+        'group_id': group_id,
+        'species_index': int.from_bytes(data[0x14:0x14+2], 'little'),
+        'fr_encounter': f"0x{int.from_bytes(data[0x38:0x38+8], 'little'):X}",
+        'fr_spawns': int.from_bytes(data[0x60:0x60+4], 'little'),  
+        'has_bonus': int.from_bytes(data[0x2c:0x2c+1], 'little') == 1,
+        'br_encounter': f"0x{int.from_bytes(data[0x40:0x40+8], 'little'):X}",
+        'br_spawns': int.from_bytes(data[0x74:0x74+4], 'little'),
+        'coords': struct.unpack('fff', data[0x0:0x0+12]),
+        'group_seed': int.from_bytes(data[0x58:0x58+8], 'little'),
+        'num_spawned': int.from_bytes(data[0x64:0x64:4], 'little')
+    }
+
+def get_seed_spawned(reader, map_index, group_id):
+    data = reader.read_pointer(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x218 + 0xb80*map_index + 0x90*group_id:X}", 0x10)
+    return {
+        'seed': int.from_bytes(data[0:8], 'little'),
+        'num_spawned': int.from_bytes(data[12:16, 'little'])
+    }
+
+# These methods could potentially go it is almost as fast to read all at the same time as to read one,
+# And faster to real them all at the same time than to read two seperately
+def get_encounter_pointer(reader, map_index, group_id, bonus):
     offset = 0x2c if bonus else 0x24
     enc_pointer = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
-                                              f"{0x1d4 + 0x90*group_id + 0xb80*map_index + offset:X}", 8)
+                                              f"{0x1d4 + 0xb80*map_index + 0x90*group_id + offset:X}", 8)
     return f"0x{enc_pointer:X}"
 
-def get_group_seed(reader, group_id, map_index):
+def get_group_seed(reader, map_index, group_id):
     return reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
-                                         f"{0x1d4 + 0x90*group_id + 0xb80*map_index + 0x44:X}", 8)
+                                         f"{0x1d4 + 0xb80*map_index + 0x90*group_id + 0x44:X}", 8)
 
 def get_gen_seed_to_group_seed(reader,group_id):
     gen_seed = reader.read_pointer_int(f"[[[[[[main+42EEEE8]+78]+" \
                                        f"{0xD48 + 0x8*group_id:X}]+58]+38]+478]+20", 8)
     return (gen_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
 
-def get_max_spawns(reader, group_id, map_index, isbonus):
+def get_max_spawns(reader, map_index, group_id, isbonus):
     offset = 0x60 if isbonus else 0x4c
     return reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
-                                             f"{0x1d4 + 0x90*group_id + 0xb80*map_index + offset:X}", 4)
+                                             f"{0x1d4 + 0xb80*map_index + 0x90*group_id + offset:X}", 4)
 
-def get_map_name(reader, map_index):
-    map_id = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
-                                     f"{0x1d4 + 0xb80*map_index - 0x24:X}", 2)
-    return mapnamevals.get(f"{map_id:X}", "None")
-
-def get_all_map_names(reader):
-    """gets all map names"""
-    return [get_map_name(reader, map_index) for map_index in range(MAX_MAPS)]
-
-def get_bonus_flag(reader, group_id, map_index):
+def get_bonus_flag(reader, map_index, group_id):
     return reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
-                                   f"{0x1d4 + 0x90*group_id + 0xb80*map_index + 0x18:X}", 1) == 1
+                                   f"{0x1d4 + 0xb80*map_index + 0x90*group_id + 0x18:X}", 1) == 1
+
+def get_group_coordinates(reader, map_index, group_id):
+    """reads coordinates of mmo group"""
+    coords = struct.unpack('fff', reader.read_pointer(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
+                                                      f"{0x1d4 + 0xb80*map_index + 0x90*group_id - 0x14:X}", 12))
+    coordinates = {
+        "x":coords[0],
+        "y":coords[1],
+        "z":coords[2]
+    }
+    return coordinates
+
+def get_num_spawned(reader, map_index, group_id):
+    return reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4 + 0xb80*map_index + 0x90*group_id + 0x64:X}", 4)
+# End possible deletions
 
 def get_nonbonus_paths(max_spawns):
     return nonbonuspaths[str(max_spawns)]
@@ -221,16 +269,19 @@ def get_nonbonus_paths(max_spawns):
 def get_bonus_paths(max_spawns):
     return allpaths[str(max_spawns)]
 
-def get_group_coordinates(reader, group_id, map_index):
-    """reads coordinates of mmo group"""
-    coords = struct.unpack('fff', reader.read_pointer(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+" \
-                                                      f"{0x1d4 + 0x90*group_id + 0xb80*map_index - 0x14:X}", 12))
-    coordinates = {
-        "x":coords[0],
-        "y":coords[1],
-        "z":coords[2]
-    }
-    return coordinates
+def get_bonus_seed(group_seed, path):
+    main_rng = XOROSHIRO(group_seed)
+    for _ in range(4):
+        main_rng.next()
+        main_rng.next()
+    group_seed = main_rng.next()
+    respawn_rng = XOROSHIRO(group_seed)
+    for step in path:
+        for _ in range(0,step):
+            respawn_rng.next()
+            respawn_rng.next()
+        respawn_rng = XOROSHIRO(respawn_rng.next())
+    return (respawn_rng.next() - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
 
 def get_extra_path_seed(group_seed,path):
     """Gets the seed for an extra path"""
@@ -406,7 +457,7 @@ def get_all_map_mmos(reader, research, inmap, rolls_override = None):
 
     for map_index in range(MAX_MAPS):
         map_name = get_map_name(reader, map_index)
-        if map_name != "None":
+        if map_name is not None:
             print(f"Map {map_name} starting now...")
             results[map_name] = get_map_mmos(reader, map_index, research, inmap, rolls_override)
             print(f"Map {map_name} complete!")
@@ -415,12 +466,15 @@ def get_all_map_mmos(reader, research, inmap, rolls_override = None):
     print(f"Task done at {endtime}, Took {endtime - starttime}")
     return results
 
-def get_map_mmos(reader, map_index, research, inmap, rolls_override = None):
-    #pylint: disable=too-many-branches,too-many-locals,too-many-arguments
+def get_map_mmos(reader, map_index, research, inmap, rolls_override = None, map_name = None):
     """reads a single map's MMOs"""
     outbreaks = {}
+
+    if map_name is None:
+        map_name = get_map_name(reader, map_index)
+
     for group_id in range(MAX_MMOS):
-        firstround, bonusround = get_mmo(reader, group_id, map_index, research, inmap, rolls_override)
+        firstround, bonusround = get_mmo(reader, map_index, group_id, research, inmap, rolls_override, map_name)
         has_bonus = bonusround is not None
 
         if firstround is not None:
@@ -430,26 +484,22 @@ def get_map_mmos(reader, map_index, research, inmap, rolls_override = None):
             
     return outbreaks
 
-def get_mmo(reader, group_id, map_index, research, inmap, rolls_override = None):
-    species_index = reader.read_pointer_int(f"[[[[[[main+42BA6B0]+2B0]+58]+18]+{0x1d4 + 0x90*group_id + 0xb80*map_index:X}", 2)
-    if species_index == 0:
-        return None, None
-    
-    map_name = get_map_name(reader, map_index)
-    
-    print(f"Species Group: {pokedex.entry_by_index(species_index).display_name()}")
-    frencounter = get_encounter_pointer(reader,group_id,map_index,False)
-    
-    brencounter = get_encounter_pointer(reader,group_id,map_index,True)
-    bonus_enctable,_ = get_encounter_table(brencounter)
-    has_bonus = bonus_enctable is not None
-    br_spawns = get_max_spawns(reader,group_id,map_index,True)
-    
-    coords = get_group_coordinates(reader,group_id,map_index)
-    group_seed = get_gen_seed_to_group_seed(reader,group_id) if inmap else get_group_seed(reader,group_id,map_index)
-    fr_spawns = get_max_spawns(reader,group_id,map_index,False)
+def get_mmo(reader, map_index, group_id, research, inmap, rolls_override = None, map_name = None):
+    mmoinfo = get_mmo_info(reader, map_index, group_id)
 
-    return mmo_from_seed(group_id,research,group_seed,map_name,coords,frencounter,brencounter,has_bonus,fr_spawns,br_spawns,rolls_override)
+    if mmoinfo['species_index'] == 0:
+        return None, None
+    print(f"Species Group: {pokedex.entry_by_index(mmoinfo['species_index']).display_name()}")
+    
+    if map_name is None:
+        map_name = get_map_name(reader, map_index)
+
+    has_bonus = get_encounter_table(mmoinfo['br_encounter'])[0] is not None
+
+    group_seed = get_gen_seed_to_group_seed(reader,group_id) if inmap else mmoinfo['group_seed']
+    return mmo_from_seed(group_id, research, group_seed, map_name, mmoinfo['coords'],
+                         mmoinfo['fr_encounter'], mmoinfo['br_encounter'], has_bonus,
+                         mmoinfo['fr_spawns'], mmoinfo['br_spawns'], rolls_override)
                            
 def mmo_from_seed(group_id,research,group_seed,map_name,coords,frencounter,brencounter,has_bonus,max_spawns,br_spawns,rolls_override=None):
     chained = {}
@@ -459,7 +509,7 @@ def mmo_from_seed(group_id,research,group_seed,map_name,coords,frencounter,brenc
     dupestore = {}
     true_spawns = max_spawns + 3
     firstround = generate_mmo_aggressive_path(group_seed,research,paths,max_spawns,true_spawns,
-                                                        encounters,encsum,dupestore,chained,False,rolls_override)
+                                              encounters,encsum,dupestore,chained,False,rolls_override)
     bonusround = None
     
     for result in firstround.values():
