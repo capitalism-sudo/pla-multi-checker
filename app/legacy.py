@@ -56,4 +56,12 @@ def legacy_check_multiseed():
                                            request.json['maxdepth'],
                                            request.json['isnight'],
                                            request.json['rolls'])
-    return { "multi_spawns": results}
+
+    results_dict = {}
+    for i, res in enumerate(results):
+        res['adv'] = len(res['path'])
+        if len(res['path']) == 0:
+            res['path'] = 'Initial Spawn'
+            results_dict[i] = res
+    
+    return { "multi_spawns": results_dict }
