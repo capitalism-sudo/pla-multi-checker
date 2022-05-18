@@ -171,7 +171,7 @@ function showFilteredResults() {
 
   if (filteredResults.length > 0) {
     resultsArea.innerHTML =
-      "<h3><section class='pla-section-results' flow>D = Despawn. Despawn Multiple Pokemon by either Multibattles (for aggressive) or Scaring (for skittish) pokemon.</section></h3>";
+      "<section><h3>D = Despawn. Despawn Multiple Pokemon by either Multibattles (for aggressive) or Scaring (for skittish) pokemon.</h3></section>";
     filteredResults.forEach((result) => showResult(result));
   } else {
     showNoResultsFound();
@@ -181,21 +181,20 @@ function showFilteredResults() {
 function showResult(result) {
   const resultContainer = resultTemplate.content.cloneNode(true);
 
+  const advances = result.path.length;
   let pathdisplay = "Path To Target: &nbsp;";
-  console.log(result.path);
-  if (result.path.toString().includes("Initial")) {
-    pathdisplay += "<input type='checkbox'>&nbsp;" + result.path;
-  } else {
-    Array.from(result.path).forEach((step) => {
-      pathdisplay +=
-        "<input type='checkbox'>&nbsp;D" + step + "</input> &emsp;";
-    });
-  }
+
+  pathdisplay +=
+    advances == 0
+      ? "<input type='checkbox'>&nbsp; Initial Spawn"
+      : result.path
+          .map((step) => `<input type='checkbox'>&nbsp;D${step}`)
+          .join(" &emsp;");
 
   resultContainer.querySelector("[data-pla-results-location]").innerHTML =
     pathdisplay;
-  resultContainer.querySelector("[data-pla-results-adv]").innerText =
-    result.adv;
+  resultContainer.querySelector("[data-pla-results-adv]").textContent =
+    advances;
 
   showPokemonInformation(resultContainer, result);
   showPokemonHiddenInformation(resultContainer, result);
