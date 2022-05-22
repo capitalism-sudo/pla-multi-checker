@@ -151,7 +151,10 @@ export function doSearch(
       if (restoreButton) restoreButton();
       displayFunction();
     })
-    .catch((error) => showResultsError(error));
+    .catch((error) => {
+      if (restoreButton) restoreButton();
+      showResultsError(error);
+    });
 
   return true;
 }
