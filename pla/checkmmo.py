@@ -1,7 +1,6 @@
 import json
 import struct
 from datetime import datetime
-from tokenize import group
 from app import RESOURCE_PATH
 from pla.core import BASE_ROLLS_MMOS, generate_from_seed, get_rolls, get_sprite
 from pla.data import pokedex, natures
