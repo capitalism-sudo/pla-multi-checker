@@ -8,26 +8,69 @@ encounter_table = json.load(open(RESOURCE_PATH + "resources/multi-es.json"))
 
 SPAWNER_PTR = "[[main+42a6ee0]+330]"
 
-def multi(group_seed, research, group_id, maxspawns, maxdepth, rolls_override = None):
+def multi(group_seed, research, group_id, maxspawns, minspawns, maxdepth, initspawns, is_variable, rolls_override = None, maxalive_seed = 0):
     rng = XOROSHIRO(group_seed)
     spawns = []
     
     encounters, encsum = precompute(research, group_id, rolls_override)
     
     # init spawns
-    for i in range(maxspawns):
+    if  not is_variable:
+        roundspawns = maxspawns
+        initspawns = maxspawns
+        initnextspawns = initspawns
+    else:
+        #seed = (maxalive_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
+        #_,roundspawns = get_current_spawns(seed, maxspawns, minspawns)
+        maxalive_seed,initnextspawns = get_current_spawns(maxalive_seed, maxspawns, minspawns)
+        roundspawns = initspawns
+        #print(f"Seed: {seed:X}")
+        print(f"Maxalive Seed: {maxalive_seed:X}")
+    
+    print(f"Initial Round Spawns: {roundspawns}")
+    for i in range(roundspawns):
         res = generate_spawn2(rng, encounters, encsum, [])
+        res["nextspawns"] = initnextspawns
         spawns.append(res)
     
+    roundspawns = initnextspawns
     current = [spawns[-1]]
-    for _ in range(maxdepth):
+    for adv in range(maxdepth):
         last = current
         current = []
+
+        if not is_variable:
+            roundspawns = maxspawns
+            currspawns = maxspawns
+            delta = 0
+        else:
+            currspawns = roundspawns
+            maxalive_seed,roundspawns = get_current_spawns(maxalive_seed, maxspawns, minspawns)
+            delta = roundspawns - currspawns
+            print(f"Delta: {delta}")
+            for pkmn in last:
+                rng.reseed(pkmn['nextseed'])
+                for i in range(delta):
+                    res = generate_spawn2(rng, encounters, encsum, pkmn['path'] + [i+1])
+                    res["nextspawns"] = roundspawns
+                    current.append(res)
+                    spawns.append(res)
+            if delta <= 0:
+                delta = 0
+
+        print(f"Round spawns for Advance {adv+1}: {currspawns}")
+        print(f"Next Round Spawns: {roundspawns}")
+        print(f"Next Maxalive Seed: {maxalive_seed:X}")
         
         for pkm in last:
             rng.reseed(pkm['nextseed'])
-            for i in range(maxspawns):
+            if delta != 0:
+                rng.next()
+                rng.next()
+                rng.reseed(*rng.seed)
+            for i in range(delta,currspawns):
                 res = generate_spawn2(rng, encounters, encsum, pkm['path'] + [i+1])
+                res["nextspawns"] = roundspawns
                 current.append(res)
                 spawns.append(res)
     
@@ -95,20 +138,37 @@ def precompute(research, group_id, rolls_override = None):
         
     return cache, encsum
 
-def check_multi_spawner(reader, research, group_id, maxspawns, maxdepth, isnight, rolls_override = None):
+def get_current_spawns(seed,maxalive,minalive):
+    rng = XOROSHIRO(seed)
+    delta = maxalive - minalive
+    roundalive = minalive + rng.rand(delta+1)
+    #print(f"Seed after generating Round: {rng.next():X}")
+    #rng.reseed(rng.next())
+
+    return rng.next(),roundalive
+
+def check_multi_spawner(reader, research, group_id, maxspawns, maxdepth, isnight, minspawns, initspawns, is_variable, rolls_override = None):
     spawner_pointer = f"{SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x20:X}"
     print(f"Spawner Pointer: {spawner_pointer}")
 
     generator_seed = reader.read_pointer_int(spawner_pointer, 8)
     group_seed = (generator_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
 
-    return check_multi_spawner_seed(group_seed, research, group_id, maxspawns, maxdepth, isnight, rolls_override)
+    minspawns = 2
 
-def check_multi_spawner_seed(group_seed, research, group_id, maxspawns, maxdepth, isnight, rolls_override = None):
+    maxalive_seed = reader.read_pointer_int(f"{SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x400:X}",8)
+    #maxalive_seed = reader.read_pointer_int(f"{SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x20 - 0x50:X}",8)
+    #maxalive_seed = (maxalive_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
+    print(f"Maxalive Seed Pointer: {SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x400:X}")
+    #print(f"Maxalive Seed Pointer: {SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x20 - 0x50:X}")
+
+    return check_multi_spawner_seed(group_seed, research, group_id, maxspawns, minspawns, maxdepth, isnight, initspawns, is_variable, rolls_override, maxalive_seed)
+
+def check_multi_spawner_seed(group_seed, research, group_id, maxspawns, minspawns, maxdepth, isnight, initspawns, is_variable, rolls_override = None, maxalive_seed = 0):
     if isnight and encounter_table.get(f"{group_id}"+"n") is not None:
         print("Night check is ok")
         group_id = f"{group_id}" + "n"
         print(f"Group ID: {group_id}")
     
-    return multi(group_seed, research, group_id, maxspawns, maxdepth, rolls_override)
+    return multi(group_seed, research, group_id, maxspawns, minspawns, maxdepth, initspawns, is_variable, rolls_override, maxalive_seed)
     

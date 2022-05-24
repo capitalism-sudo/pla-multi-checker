@@ -24,9 +24,32 @@
             </select>
         </div>
 		
+		<div class="pla-control-spaced">
+			<label for="isvariable">Variable Spawner:</label>
+			<input type="checkbox" id="isvariable">
+        </div>
+		
 		<div class="pla-control">
-			<label for="maxAlive">Number of Spawns:</label>
+			<label for="minAlive">Min Number of Spawns:</label>
+			<select id="minAlive">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+			</select>
+		</div>
+		
+		<div class="pla-control">
+			<label for="maxAlive">Max Number of Spawns:</label>
 			<select id="maxAlive">
+				<option value="2">2</option>
+				<option value="3">3</option>
+			</select>
+		</div>
+		
+		<div class="pla-control">
+			<label for="initspawns">Number of Initial Spawns:</label>
+			<select id="initspawns">
+				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
 			</select>
@@ -67,6 +90,11 @@
             <label for="mmoSpeciesFilter">Species Filter:</label>
             <input type="text" id="mmoSpeciesFilter">
         </div>
+		
+		<div class="pla-control">
+            <label for="ecFilter">EC Filter:</label>
+            <input type="text" id="ecFilter">
+        </div>
     </section>
 {% endblock %}
 
@@ -88,6 +116,7 @@
             </ul>
 			<ul class="pla-results-ul">
 				<li><span class="pla-results-label">Advances:</span> <span data-pla-results-adv></span></li>
+				<li><span class="pla-results-label">Next Round Spawns:</span> <span data-pla-results-nextroundspawns></span></li>
 			</ul>
 			<!--<button type="button" class="collapsible">See Duplicate Paths</button>
 			<div class="content">-->

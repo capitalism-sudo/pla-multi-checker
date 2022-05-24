@@ -13,6 +13,9 @@ const resultTemplate = document.querySelector("[data-pla-results-template]");
 const resultsArea = document.querySelector("[data-pla-results]");
 
 // options
+const minAlive = document.getElementById("minAlive");
+const isVariable = document.getElementById("isvariable");
+const initSpawns = document.getElementById("initspawns");
 const maxDepth = document.getElementById("maxDepth");
 const maxAlive = document.getElementById("maxAlive");
 const groupID = document.getElementById("groupID");
@@ -25,11 +28,13 @@ const distShinyOrAlphaCheckbox = document.getElementById(
 const distShinyCheckbox = document.getElementById("mmoShinyFilter");
 const distAlphaCheckbox = document.getElementById("mmoAlphaFilter");
 const mmoSpeciesText = document.getElementById("mmoSpeciesFilter");
+const ecFilter = document.getElementById("ecFilter");
 
 distShinyOrAlphaCheckbox.addEventListener("change", setFilter);
 distShinyCheckbox.addEventListener("change", setFilter);
 distAlphaCheckbox.addEventListener("change", setFilter);
 mmoSpeciesText.addEventListener("input", setFilter);
+ecFilter.addEventListener("input", setFilter);
 
 // actions
 const checkMultiButton = document.getElementById("pla-button-checkmulti");
@@ -113,7 +118,8 @@ function filter(
   shinyOrAlphaFilter,
   shinyFilter,
   alphaFilter,
-  speciesFilter
+  speciesFilter,
+  ECFilter
 ) {
   if (shinyOrAlphaFilter && !(result.shiny || result.alpha)) {
     return false;
@@ -133,6 +139,13 @@ function filter(
   ) {
     return false;
   }
+  
+  if (
+    ECFilter.length != 0 &&
+    !result.ec.toString(16).includes(ECFilter.toLowerCase())
+  ) {
+    return false;
+  }
 
   return true;
 }
@@ -143,6 +156,9 @@ function getOptions() {
     group_id: parseInt(groupID.value),
     maxalive: parseInt(maxAlive.value),
     isnight: nightCheck.checked,
+	minalive: parseInt(minAlive.value),
+	initspawns: parseInt(initSpawns.value),
+	isvariable: isVariable.checked,
     //	inmap: inmapCheck.checked
   };
 }
@@ -164,9 +180,10 @@ function showFilteredResults() {
   let shinyFilter = distShinyCheckbox.checked;
   let alphaFilter = distAlphaCheckbox.checked;
   let speciesFilter = mmoSpeciesText.value;
+  let ECFilter = ecFilter.value;
 
   const filteredResults = results.filter((result) =>
-    filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, speciesFilter)
+    filter(result, shinyOrAlphaFilter, shinyFilter, alphaFilter, speciesFilter, ECFilter)
   );
 
   if (filteredResults.length > 0) {
@@ -195,6 +212,8 @@ function showResult(result) {
     pathdisplay;
   resultContainer.querySelector("[data-pla-results-adv]").textContent =
     advances;
+  resultContainer.querySelector("[data-pla-results-nextroundspawns]").textContent =
+    result.nextspawns;
 
   showPokemonInformation(resultContainer, result);
   showPokemonHiddenInformation(resultContainer, result);

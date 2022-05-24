@@ -140,12 +140,20 @@ def get_alpha_from_seed():
 
 @app.route('/api/check-multi-spawn', methods=['POST'])
 def check_multispawner():
+    if not request.json['isvariable']:
+        minspawns = request.json['maxalive']
+    else:
+        minspawns = request.json['minalive']
+    
     results = pla.check_multi_spawner(reader,
                                       request.json['research'],
                                       request.json['group_id'],
                                       request.json['maxalive'],
                                       request.json['maxdepth'],
-                                      request.json['isnight'])
+                                      request.json['isnight'],
+                                      minspawns,
+                                      request.json['initspawns'],
+                                      request.json['isvariable'])
     return { "results": flatten_multi(results, config.get('FILTER_ON_SERVER', False)) }
 
 @app.route('/api/check-multi-seed', methods=['POST'])
