@@ -25,7 +25,7 @@ def all_mmo_pokemon():
     return set([m['name'] for b in mmo.values() for m in b])
 
 # functions for manipulating data returned by search functions
-def flatten_all_map_mmo_results(results, filter_results=True, filter_function=is_shiny):
+def flatten_all_mmo_results(results, filter_results=True, filter_function=is_shiny):
     res = []
 
     for map_results in results.values():

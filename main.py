@@ -8,7 +8,7 @@ import pla
 from pla.core import get_sprite, teleport_to_spawn
 from pla.data import hisuidex
 from pla.saves import read_research, rolls_from_research
-from pla.data.data_utils import flatten_all_map_mmo_results, flatten_map_mmo_results, flatten_normal_outbreaks, flatten_multi
+from pla.data.data_utils import flatten_all_mmo_results, flatten_map_mmo_results, flatten_normal_outbreaks, flatten_multi
 
 mimetypes.add_type('application/javascript', '.js')
 mimetypes.add_type('application/javascript', '.mjs')
@@ -67,12 +67,12 @@ def settings():
 # API ROUTES
 @app.route('/api/read-mmos', methods=['POST'])
 def read_mmos():
-    results = pla.get_all_map_mmos(reader, request.json['research'], False)
-    return { "results": flatten_all_map_mmo_results(results, config.get('FILTER_ON_SERVER', False)) }
+    results = pla.get_all_mmos(reader, request.json['research'])
+    return { "results": flatten_all_mmo_results(results, config.get('FILTER_ON_SERVER', False)) }
 
 @app.route('/api/read-mmos-one-map', methods=['POST'])
 def read_one_map():
-    results = pla.get_map_mmos(reader,request.json['mapname'],request.json['research'], False)
+    results = pla.get_map_mmos(reader, request.json['mapname'], request.json['research'], request.json['inmap'])
     return { "results": flatten_map_mmo_results(results, config.get('FILTER_ON_SERVER', False)) }
 
 @app.route('/api/read-outbreaks', methods=['POST'])

@@ -18,7 +18,7 @@ const mapSpawnsArea = document.querySelector("[data-pla-info-spawns]");
 
 // options
 const mapSelect = document.getElementById("mapSelect");
-// const inmapCheck = document.getElementById("inmapcheck");
+const inMapCheckbox = document.getElementById("mmoInMap");
 
 // filters
 const distShinyOrAlphaCheckbox = document.getElementById(
@@ -60,6 +60,7 @@ const results = [];
 // Save and load user preferences
 function loadPreferences() {
   mapSelect.value = localStorage.getItem("mmo-mapSelect") ?? "0";
+  inMapCheckbox.checked = document.getElementById("mmoInMap", false);
   distAlphaCheckbox.checked = readBoolFromStorage("mmoAlphaFilter", false);
   distShinyCheckbox.checked = readBoolFromStorage("mmoShinyFilter", false);
   distShinyOrAlphaCheckbox.checked = readBoolFromStorage(
@@ -166,7 +167,7 @@ function filter(
 function getOptions() {
   return {
     mapname: parseInt(mapSelect.value),
-    //	inmap: inmapCheck.checked
+    inmap: inMapCheckbox.checked
   };
 }
 
@@ -369,10 +370,6 @@ function showResult(result) {
   resultContainer.querySelector(".pla-results-teleport").appendChild(button);
 
   resultsArea.appendChild(resultContainer);
-}
-
-function convertCoords(coordinates) {
-  return [coordinates[2] * -0.5, coordinates[0] * 0.5];
 }
 
 function teleportToSpawn(coords) {
