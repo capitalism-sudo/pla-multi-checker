@@ -27,13 +27,14 @@ def multi(group_seed, research, group_id, maxspawns, minspawns, maxdepth, initsp
         #print(f"Seed: {seed:X}")
         print(f"Maxalive Seed: {maxalive_seed:X}")
     
-    print(f"Initial Round Spawns: {roundspawns}")
+    print(f"Initial Round Spawns: {initnextspawns}")
     for i in range(roundspawns):
         res = generate_spawn2(rng, encounters, encsum, [])
         res["nextspawns"] = initnextspawns
         spawns.append(res)
     
     roundspawns = initnextspawns
+    currspawns = initspawns
     current = [spawns[-1]]
     for adv in range(maxdepth):
         last = current
@@ -44,7 +45,6 @@ def multi(group_seed, research, group_id, maxspawns, minspawns, maxdepth, initsp
             currspawns = maxspawns
             delta = 0
         else:
-            currspawns = roundspawns
             maxalive_seed,roundspawns = get_current_spawns(maxalive_seed, maxspawns, minspawns)
             delta = roundspawns - currspawns
             print(f"Delta: {delta}")
@@ -57,10 +57,11 @@ def multi(group_seed, research, group_id, maxspawns, minspawns, maxdepth, initsp
                     spawns.append(res)
             if delta <= 0:
                 delta = 0
+            currspawns = roundspawns
 
-        print(f"Round spawns for Advance {adv+1}: {currspawns}")
-        print(f"Next Round Spawns: {roundspawns}")
-        print(f"Next Maxalive Seed: {maxalive_seed:X}")
+        print(f"Round spawns for Advance {adv+1}: {roundspawns}")
+        #print(f"Next Round Spawns: {roundspawns}")
+        print(f"Maxalive Seed: {maxalive_seed:X}")
         
         for pkm in last:
             rng.reseed(pkm['nextseed'])
@@ -153,8 +154,6 @@ def check_multi_spawner(reader, research, group_id, maxspawns, maxdepth, isnight
 
     generator_seed = reader.read_pointer_int(spawner_pointer, 8)
     group_seed = (generator_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
-
-    minspawns = 2
 
     maxalive_seed = reader.read_pointer_int(f"{SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x400:X}",8)
     #maxalive_seed = reader.read_pointer_int(f"{SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x20 - 0x50:X}",8)

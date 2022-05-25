@@ -54,6 +54,72 @@
             }
 			
         ],
+		"47": [
+            {
+                "slot":100,
+                "species":"Ponyta",
+                "alpha":false
+            },
+            {
+                "slot":2,
+                "species":"Ponyta",
+                "alpha":true
+            },
+            {
+                "slot":100,
+                "species":"Bidoof",
+                "alpha":false
+            },
+            {
+                "slot":2,
+                "species":"Bidoof",
+                "alpha":true
+            }
+        ],
+		"51": [
+            {
+                "slot":100,
+                "species":"Ponyta",
+                "alpha":false
+            },
+            {
+                "slot":2,
+                "species":"Ponyta",
+                "alpha":true
+            },
+            {
+                "slot":100,
+                "species":"Bidoof",
+                "alpha":false
+            },
+            {
+                "slot":2,
+                "species":"Bidoof",
+                "alpha":true
+            }
+        ],
+		"52": [
+            {
+                "slot":100,
+                "species":"Ponyta",
+                "alpha":false
+            },
+            {
+                "slot":2,
+                "species":"Ponyta",
+                "alpha":true
+            },
+            {
+                "slot":100,
+                "species":"Bidoof",
+                "alpha":false
+            },
+            {
+                "slot":2,
+                "species":"Bidoof",
+                "alpha":true
+            }
+        ],
 		"25": [
             {
                 "slot":100,
