@@ -4,11 +4,30 @@
 
 {% block main %}
     <section class="pla-section-results">
-        <div data-pla-messages></div>
+    <div data-pla-messages></div>
+	
+    <div class="tab">
+		<button class="tablinks" id="defaultOpen" data-pla-tab-for="Results">Results</button>
+		<button class="tablinks" data-pla-tab-for="Maps">Variable Seed Tool</button>
+	</div>
+	
+	<div id="Results" class="tabcontent">
         <div class="pla-results" data-pla-results>
-            <p class="pla-results-message">Search to begin</p>
+            Search to begin
         </div>
-    </section>
+	</div>
+	</section>
+	
+	<section class="count-section-results">
+		<div id="Maps" class="tabcontent">
+			<section class="pla-section-spawnmap">
+				<h3>Count Seed:</h3>
+				<div class="count-results" data-count-results>
+					Search For Count Seed Info
+				</div>
+			</section>
+		</div>
+	</section>
 {% endblock %}
 
 {% block sidebar %}
@@ -67,7 +86,8 @@
         
         <div class="pla-control-actions">
             <button class="pla-button pla-button-action" id="pla-button-checkmulti">Check Multi Spawner</button>
-        </div>
+			<button class="pla-button pla-button-action" id="pla-button-checkcount">Check Count Seed</button>
+		</div>
     </section>
 
     <section>
@@ -146,6 +166,24 @@
             </div>
         </div>
     </template>
+	
+	<template data-pla-count-template>
+		<div class="count-results-item" data-pla-count-template>
+			<ul class="count-results-ul">
+				<li><span class="count-results-label">Count Seed:</span> <span data-count-results-seed></span></li>
+				<li><span class="count-results-label">Seed Spawned In:</span> <span data-count-results-spawns></span></li>
+				<li><span class="count-results-label">Current Spawned In:</span> <span data-count-results-currspawns></span></li>
+			</ul>
+			<ul class="count-results-ul">
+				<li><span class="count-results-label">First Count Seed:</span> <span data-count-results-firstseed></span></li>
+				<li><span class="count-results-label">First Count Seed Spawns:</span> <span data-count-results-first></span></li>
+			</ul>
+			<ul class="count-results-ul">
+				<li><span class="count-results-label">Second Count Seed:</span> <span data-count-results-secondseed></span></li>
+				<li><span class="count-results-label">Second Count Seed Spawns:</span> <span data-count-results-second></span></li>
+			</ul>
+		</div>
+	</template>
 {% endblock %}
 
 {% block script %}

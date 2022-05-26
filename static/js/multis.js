@@ -1,5 +1,6 @@
 import {
   doSearch,
+  doSearchTab,
   showNoResultsFound,
   saveBoolToStorage,
   readBoolFromStorage,
@@ -7,10 +8,13 @@ import {
   showPokemonInformation,
   showPokemonHiddenInformation,
   initializeApp,
+  setupExpandables,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
 const resultsArea = document.querySelector("[data-pla-results]");
+const countArea = document.querySelector("[data-count-results]");
+const countTemplate = document.querySelector("[data-pla-count-template]");
 
 // options
 const minAlive = document.getElementById("minAlive");
@@ -39,10 +43,16 @@ ecFilter.addEventListener("input", setFilter);
 // actions
 const checkMultiButton = document.getElementById("pla-button-checkmulti");
 checkMultiButton.addEventListener("click", checkMulti);
+const checkCountSeedButton = document.getElementById("pla-button-checkcount");
+checkCountSeedButton.addEventListener("click", checkCountSeed);
+
 
 initializeApp("multis");
 loadPreferences();
 setupPreferenceSaving();
+setupExpandables();
+setupTabs();
+document.getElementById("defaultOpen").click();
 
 const results = [];
 
@@ -75,6 +85,31 @@ function setupPreferenceSaving() {
   nightCheck.addEventListener("change", (e) =>
     saveBoolToStorage("nightCheck", e.target.checked)
   );
+}
+
+function setupTabs() {
+  document.querySelectorAll(".tablinks").forEach((element) => {
+    element.addEventListener("click", (event) =>
+      openTab(event, element.dataset.plaTabFor)
+    );
+  });
+}
+
+function openTab(evt, tabName) {
+  let i, tabcontent, tablinks;
+
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
 }
 
 function setFilter(event) {
@@ -172,6 +207,41 @@ function checkMulti() {
     checkMultiButton
   );
 }
+
+function checkCountSeed() {
+	doSearchTab(
+	"/api/check-count-seed",
+	results,
+	getOptions(),
+	showCountResults,
+	checkCountSeedButton
+	);
+}
+
+function showCountResults() {
+	countArea.innerHTML = "<section><h3> Count Seed Status:</h3></section>";
+	
+	const countContainer = countTemplate.content.cloneNode(true);
+	
+	results.forEach((result) => {
+	
+	countContainer.querySelector("[data-count-results-seed]").textContent = result.seed;
+	countContainer.querySelector("[data-count-results-spawns]").textContent = result.spawns;
+	countContainer.querySelector("[data-count-results-currspawns]").textContent = result.currspawns;
+	countContainer.querySelector("[data-count-results-first]").textContent = result.first;
+	countContainer.querySelector("[data-count-results-firstseed]").textContent = result.firstseed;
+	countContainer.querySelector("[data-count-results-second]").textContent = result.second;
+	countContainer.querySelector("[data-count-results-secondseed]").textContent = result.secondseed;
+	
+	console.log(result.seed)
+	console.log(result.spawns)
+	console.log(result.first)
+	console.log(result.second)
+	});
+	
+	countArea.appendChild(countContainer);
+}
+	
 
 function showFilteredResults() {
   validateFilters();

@@ -159,6 +159,7 @@ def check_multi_spawner(reader, research, group_id, maxspawns, maxdepth, isnight
     #maxalive_seed = reader.read_pointer_int(f"{SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x20 - 0x50:X}",8)
     #maxalive_seed = (maxalive_seed - 0x82A2B175229D6A5B) & 0xFFFFFFFFFFFFFFFF
     print(f"Maxalive Seed Pointer: {SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x400:X}")
+    print(f"Maxalive Seed (at start): {maxalive_seed:X}")
     #print(f"Maxalive Seed Pointer: {SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x20 - 0x50:X}")
 
     return check_multi_spawner_seed(group_seed, research, group_id, maxspawns, minspawns, maxdepth, isnight, initspawns, is_variable, rolls_override, maxalive_seed)
@@ -170,4 +171,29 @@ def check_multi_spawner_seed(group_seed, research, group_id, maxspawns, minspawn
         print(f"Group ID: {group_id}")
     
     return multi(group_seed, research, group_id, maxspawns, minspawns, maxdepth, initspawns, is_variable, rolls_override, maxalive_seed)
+
+def check_count_seed_info(reader,group_id,maxspawns,minspawns):
+
+    max_seed = reader.read_pointer_int(f"{SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x400:X}",8)
+    currspawns = reader.read_pointer_int(f"{SPAWNER_PTR}+{0x70 + group_id*0x440 + 0x20 - 0x48:X}",1)
+
+    firstseed,first = get_current_spawns(max_seed,maxspawns,minspawns)
+    secondseed,second = get_current_spawns(firstseed,maxspawns,minspawns)
+    #seed,first = get_current_spawns(seed,maxspawns,minspawns)
+    #seed,second = get_current_spawns(seed,maxspawns,minspawns)
+
+    spawns = first
+    results = {
+        "seed":f"{max_seed:X}",
+        "spawns":spawns,
+        "firstseed":f"{firstseed:X}",
+        "secondseed":f"{secondseed:X}",
+        "currspawns":currspawns,
+        "first":first,
+        "second":second
+    }
+
+    print(results)
+
+    return results
     

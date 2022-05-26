@@ -757,6 +757,138 @@ section.pla-section-expandable {
   color: red;
 }
 
+
+.count-results {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--spacing3);
+  min-height: 60vh;
+}
+
+.count-results-message {
+  text-align: center;
+  max-width: 80ch;
+  padding-bottom: 5vh;
+  margin: auto;
+}
+
+.count-results-item {
+  border-radius: var(--corner-roundness2);
+  padding: var(--spacing1) var(--spacing3) var(--spacing2);
+  box-shadow: var(--shadow-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing0);
+  background-color: var(--surface1);
+}
+
+.count-results-ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  gap: 3ch;
+}
+
+.count-results-heading {
+  margin-bottom: var(--spacing1);
+  justify-content: space-between;
+}
+
+.count-results-ul:not(.count-results-heading) {
+  margin-left: var(--spacing3);
+}
+
+.count-results-ul li:not(:first-child) {
+  margin-left: var(--spacing3);
+}
+
+.count-result-true {
+  text-transform: capitalize;
+  color: var(--brand);
+  font-weight: bold;
+}
+
+.count-result-false {
+  text-transform: capitalize;
+  color: var(--text2);
+}
+
+.count-male {
+  color: blue;
+  font-weight: bold;
+}
+
+.count-female {
+  color: pink;
+  font-weight: bold;
+}
+
+.count-results-firstpath {
+  color: var(--brand);
+  font-weight: bold;
+}
+
+.count-results-revisit {
+  color: var(--color-revisit);
+  font-weight: bold;
+}
+
+.count-results-bonus {
+  color: var(--color-bonus);
+  font-weight: bold;
+}
+
+.count-results-init {
+  color: var(--color-init);
+  font-weight: bold;
+}
+
+.count-results-species {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.count-results-label {
+  display: inline-block;
+  min-width: 7ch;
+}
+
+/* IVs */
+.count-results-ivs-container {
+  display: flex;
+  margin-left: var(--spacing3);
+}
+
+.count-results-ivs {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.count-results-ivs li {
+  display: inline-block;
+}
+
+.count-results-ivs li:not(:first-child)::before {
+  font-weight: normal;
+  color: var(--text1);
+  content: " / ";
+  margin-left: 0.1rem;
+}
+
+.count-iv-minus {
+  font-weight: bold;
+  color: var(--brand);
+}
+
+.count-iv-plus {
+  font-weight: bold;
+  color: red;
+}
 /* Settings */
 #pla-research-filter {
   width: clamp(50%, 40ch, 90%);

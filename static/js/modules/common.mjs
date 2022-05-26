@@ -159,6 +159,63 @@ export function doSearch(
   return true;
 }
 
+export function doSearchTab(
+  apiRoute,
+  results,
+  options,
+  displayFunction,
+  activationButton = null
+) {
+  const researchString = localStorage.getItem("pla-research");
+
+  if (!researchString) {
+    showMessage(
+      MESSAGE_ERROR,
+      "You haven't set the Pokedex research levels you've reached. This information is needed to work out your shiny odds. Please go to the 'Settings' page and fill in this information."
+    );
+    return false;
+  }
+
+  options["research"] = JSON.parse(researchString);
+
+  // if that's all valid, set the page state to fetching results
+  results.length = 0;
+  
+  let restoreButton = null;
+  // if the activation button was provided, disable it to prevent hammering the api
+  if (activationButton) {
+    restoreButton = disableUntilRestore(activationButton);
+  }
+
+  // and do the fetch
+  fetch(apiRoute, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(options),
+  })
+    .then((response) => response.json())
+    .then((res) => {
+      results.length = 0;
+
+      // shows an error if one has been returned
+      if (res.hasOwnProperty("error")) {
+        showMessage(MESSAGE_ERROR, res.error);
+      } else if (res.hasOwnProperty("results")) {
+        console.log(res);
+        results.push(...res.results);
+      }
+
+      if (restoreButton) restoreButton();
+      displayFunction();
+    })
+    .catch((error) => {
+      if (restoreButton) restoreButton();
+      showResultsError(error);
+    });
+
+  return true;
+}
+
 function showFetchingResults() {
   clearMessages();
 

@@ -183,6 +183,20 @@ def pokemon():
             ]
         }
 
+@app.route('/api/check-count-seed', methods=['POST'])
+def check_countseed():
+
+    results = []
+
+    result = pla.check_count_seed_info(reader,
+                                        request.json['group_id'],
+                                        request.json['maxalive'],
+                                        request.json['minalive'])
+    
+    results.append(result)
+
+    return {"results": results}
+
 @app.route('/api/read-research', methods=['POST'])
 def read_savefile():
     if request.method == 'POST':
