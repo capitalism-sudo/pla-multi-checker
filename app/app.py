@@ -8,7 +8,7 @@ class AppMode(Enum):
 _resources = {
     AppMode.WEB: '/home/cappy/pla-multi-checker-web/',
     AppMode.LOCAL: './static/',
-    AppMode.DEV: './static/'
+    AppMode.DEV: '../static/'
 }
 
 APP_MODE = AppMode.LOCAL

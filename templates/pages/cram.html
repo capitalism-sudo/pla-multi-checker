@@ -1,0 +1,194 @@
+{% extends "base/base-sidebar.html" %}
+
+{% block title %}Fun Tools{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block main %}
+	<div class="tab">
+		<button class="reslinks" id="defaultresOpen" data-pla-tab-for="Results">Results</button>
+		<button class="reslinks" data-pla-tab-for="Seedfinder">SWSH Seed Finder</button>
+	</div>
+	
+	<div id="Results" class="tabcontentres">
+	<section class="swsh-section-results">
+		<div data-pla-messages></div>
+		<div class="swsh-results" data-swsh-results>
+			<p class="swsh-results-message">This tool was created by Cappy, with help from Anubis, Kurt, Lincoln, Zyro and Santacrab420 for code and other assistance.</p>
+		</div>
+	</section>
+	</div>
+	
+	<div id="Seedfinder" class="tabcontentres">
+	<section class="pla-section-results">
+		<div data-pla-messages></div>
+		<div class="pla-results" data-pla-results>
+			<div class="info">
+        <a>Record 128 Motions (Press Right Stick on Summary)</a><br>
+		
+        <a>You will be 128 advances from this state after recording motions</a><p>
+		
+		<a>Motions:</a><input style="width: 95%;" type="text" id="motions" maxlength=128 value=""><br>
+		
+        <button class="swsh-button swsh-button-action" id="addmotion0">(0) Physical</button>
+		<button class="swsh-button swsh-button-action" id="addmotion1">(1) Special</button><br>
+		
+        <a id="count">000</a><a>/128</a><br>
+        <button class="swsh-button swsh-button-action" id="findseed">Find Seed!</button><br>
+        <!--<span class="data-swsh-results">[S0]: </span><span data-s0></span><br>
+        <span class="data-swsh-results">[S1]: </span><span data-s1></span>-->
+		<div class="swsh-control">
+			<label for="data-s0">State[0]:</label>
+			<input id="data-s0">
+		</div>
+		
+		<div class="swsh-control">
+			<label for="data-s1">State[1]:</label>
+			<input id="data-s1">
+		</div>
+		<button class="swsh-button swsh-button-action" id="updatewithstate">Update Sidebar With States</button>
+		</div>
+		</div>
+	</section>
+	
+		<section class="pla-section-expandable">
+			<button type="button" class="pla-button expandable-control">Seed Updater</button>
+		
+			<div class="expandable">
+				<a>Record Motions and input starting advance and max advances to get updated State and Advances:</a>
+				<div class="swsh-control">
+					<input id="seedupdate">
+				</div>
+				
+				<div class="swsh-control">
+					<label for="startingadvance">Initial Advance:</label>
+					<input id="startingadvance">
+				</div>
+				
+				<div class="swsh-control">
+					<label for="maxadvance">Max Advance:</label>
+					<input id="maxadvance">
+				</div>
+			
+			
+				<button class="swsh-button swsh-button-action" id="updateseed">Find Updated State</button>
+				
+				<div class="swsh-results-item">
+					<ul class="pla-results-ul">
+						<li><span class="pla-results-label">Number of Results: </span> <span data-seed-count></span></li>
+						<li><span class="pla-results-label">Advances: </span> <span data-seed-adv></span></li>
+					</ul>
+					
+					<ul class="pla-results-ul">
+						<li><span class="pla-results-label">State[0]: </span> <span data-updated-s0></span></li>
+						<li><span class="pla-results-label">State[0]: </span> <span data-updated-s1></span></li>
+					</ul>
+				</div>
+				
+				<button class="swsh-button swsh-button-action" id="updatesidebarstate">Update Sidebar With States</button>
+			</div>
+		</section>
+		
+		Credit for algorithm! <br>
+		<a href="https://github.com/niart120/Project_Xe">Project Xe</a>
+	</section>
+	</div>
+		
+{% endblock %}
+
+{% block sidebar %}
+	<section class="swsh-section-options">
+	
+		<div class="tab">
+			<button class="tablinks" id="defaultOpen" data-swsh-tab-for="Cram">Cram-o-Matic</button>
+			<button class="tablinks" data-swsh-tab-for="Lotto">Lottery</button>
+		</div>
+		
+		<div class="swsh-control">
+			<label for="inputseed0">State[0]:</label>
+			<input id="inputseed0" placeholder="Input State[0]">
+		</div>
+		
+		<div class="swsh-control">
+			<label for="inputseed1">State[1]:</label>
+			<input id="inputseed1" placeholder="Input State[1]">
+		</div>
+
+		<div class="swsh-control">
+			<label for="npccount">NPC Count:</label>
+			<input type="number" id="npccount" placeholder="Input Number of NPCs">
+		</div>
+
+		<div id="Cram" class="tabcontent">
+			<div class="swsh-control-spaced">
+				<label for="sportorsafari">Sport or Safari Ball?</label>
+				<input type="checkbox" id="sportorsafari">
+			</div>
+
+			<div class="swsh-control-spaced">
+				<label for="bonuscount">Bonus Items?</label>
+				<input type="checkbox" id="bonuscount">
+			</div>
+
+
+			<div class="swsh-control-actions">
+				<button class="swsh-button swsh-button-action" id="swsh-button-checkcram">Find Menu Advance for Cram-o-Matic</button>
+			</div>
+		</div>
+		
+		<div id="Lotto" class="tabcontent">
+			<div class="swsh-control">
+				<label for="tid">TIDs to Search For: (Separate with comma)</label>
+				<input id="tid" placeholder="Input TID to Search For (comma separated)">
+			</div>
+			<div class="swsh-control-actions">
+				<button class="swsh-button swsh-button-action" id="swsh-button-checklotto">Find Menu Advance for Lottery</button>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
+
+{% block templates %}
+	
+	<template data-swsh-results-cram-template>
+		<div class="swsh-results-item" data-swsh-results-cram-template>
+			<ul class="swsh-results-heading swsh-results-ul">
+				<li class="swsh-results-ball" data-swsh-results-ball>Results:</li>
+			</ul>
+			
+			<ul class="swsh-results-ul">
+				<li><span class="swsh-results-label">Sport or Safari:</span> <span data-swsh-results-issportsafari></span></li>
+			</ul>
+			<ul class="swsh-results-ul">
+				<li><span class="swsh-results-label">Bonus Count:</span> <span data-swsh-results-isbonuscount></span></li>
+			</ul>
+			<ul class="swsh-results-ul">
+				<li><span class="swsh-results-label">Advances:</span> <span data-swsh-results-adv></span></li>
+				<li><span class="swsh-results-label">Advances after Closing Menu:</span> <span data-swsh-results-menuadv></span></li>
+			</ul>
+		</div>
+	</template>
+	
+	<template data-swsh-results-lotto-template>
+		<div class="swsh-results-item" data-swsh-results-lotto-template>
+			<ul class="swsh-results-heading swsh-results-ul">
+				<li class="swsh-results-ball" data-swsh-results-ball>Results:</li>
+			</ul>
+			
+			<ul class="swsh-results-ul">
+				<li><span class="swsh-results-label">Advances:</span> <span data-swsh-results-adv></span></li>
+				<li><span class="swsh-results-label">Advances after Closing Menu:</span> <span data-swsh-results-menuadv></span></li>
+			</ul>
+			<ul class="swsh-results-ul">
+				<li><span class="swsh-results-label">Lotto ID:</span> <span data-swsh-results-lotto></span></li>
+			</ul>
+		</div>
+	</template>
+
+{% endblock %}
+
+{% block script %}
+	<script type="module" src="{{ url_for('static', filename='js/cram.js') }}"></script>
+{% endblock %}

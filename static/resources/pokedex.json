@@ -10,6 +10,36 @@
     "gender_dimorphic": false
   },
   {
+    "id": "Caterpie",
+    "index": 10,
+    "dex_national": 10,
+    "species": "Caterpie",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Rattata",
+    "index": 19,
+    "dex_national": 19,
+    "species": "Rattata",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Raticate",
+    "index": 20,
+    "dex_national": 20,
+    "species": "Raticate",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
     "id": "Pikachu",
     "index": 25,
     "dex_national": 25,
@@ -110,6 +140,36 @@
     "gender_dimorphic": false
   },
   {
+    "id": "Oddish",
+    "index": 43,
+    "dex_national": 43,
+    "species": "Oddish",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Gloom",
+    "index": 44,
+    "dex_national": 44,
+    "species": "Gloom",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Vileplume",
+    "index": 45,
+    "dex_national": 45,
+    "species": "Vileplume",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
     "id": "Paras",
     "index": 46,
     "dex_national": 46,
@@ -130,6 +190,26 @@
     "gender_dimorphic": false
   },
   {
+    "id": "Venonat",
+    "index": 48,
+    "dex_national": 48,
+    "species": "Venonat",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Venomoth",
+    "index": 49,
+    "dex_national": 49,
+    "species": "Venomoth",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
     "id": "Psyduck",
     "index": 54,
     "dex_national": 54,
@@ -144,6 +224,26 @@
     "index": 55,
     "dex_national": 55,
     "species": "Golduck",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Mankey",
+    "index": 56,
+    "dex_national": 56,
+    "species": "Mankey",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Primeape",
+    "index": 57,
+    "dex_national": 57,
+    "species": "Primeape",
     "form_id": "0",
     "form_name": "",
     "gender_ratio": 127,
@@ -260,6 +360,36 @@
     "gender_dimorphic": false
   },
   {
+    "id": "Bellsprout",
+    "index": 69,
+    "dex_national": 69,
+    "species": "Bellsprout",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 63,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Weepinbell",
+    "index": 70,
+    "dex_national": 70,
+    "species": "Weepinbell",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 63,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Victreebel",
+    "index": 71,
+    "dex_national": 71,
+    "species": "Victreebel",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 63,
+    "gender_dimorphic": false
+  },
+  {
     "id": "Tentacool",
     "index": 72,
     "dex_national": 72,
@@ -350,6 +480,26 @@
     "gender_dimorphic": false
   },
   {
+    "id": "Farfetch'd",
+    "index": 83,
+    "dex_national": 83,
+    "species": "Farfetch'd",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Doduo",
+    "index": 84,
+    "dex_national": 84,
+    "species": "Doduo",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
     "id": "Gastly",
     "index": 92,
     "dex_national": 92,
@@ -384,6 +534,26 @@
     "index": 95,
     "dex_national": 95,
     "species": "Onix",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Krabby",
+    "index": 98,
+    "dex_national": 98,
+    "species": "Krabby",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Kingler",
+    "index": 99,
+    "dex_national": 99,
+    "species": "Kingler",
     "form_id": "0",
     "form_name": "",
     "gender_ratio": 127,
@@ -530,13 +700,23 @@
     "gender_dimorphic": false
   },
   {
+    "id": "Tauros",
+    "index": 128,
+    "dex_national": 128,
+    "species": "Tauros",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 63,
+    "gender_dimorphic": false
+  },
+  {
     "id": "Magikarp",
     "index": 129,
     "dex_national": 129,
     "species": "Magikarp",
     "form_id": "0",
     "form_name": "",
-    "gender_ratio": 127,
+    "gender_ratio": 0,
     "gender_dimorphic": false
   },
   {
@@ -650,6 +830,36 @@
     "gender_dimorphic": false
   },
   {
+    "id": "Sentret",
+    "index": 161,
+    "dex_national": 161,
+    "species": "Sentret",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Furret",
+    "index": 162,
+    "dex_national": 162,
+    "species": "Furret",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Hoothoot",
+    "index": 163,
+    "dex_national": 163,
+    "species": "Hoothoot",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
     "id": "Crobat",
     "index": 169,
     "dex_national": 169,
@@ -690,13 +900,23 @@
     "gender_dimorphic": false
   },
   {
+    "id": "Natu",
+    "index": 177,
+    "dex_national": 177,
+    "species": "Natu",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 31,
+    "gender_dimorphic": false
+  },
+  {
     "id": "Togetic",
     "index": 176,
     "dex_national": 176,
     "species": "Togetic",
     "form_id": "0",
     "form_name": "",
-    "gender_ratio": 31,
+    "gender_ratio": 127,
     "gender_dimorphic": false
   },
   {
@@ -1200,6 +1420,16 @@
     "gender_dimorphic": false
   },
   {
+    "id": "Houndoom",
+    "index": 229,
+    "dex_national": 229,
+    "species": "Houndoom",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
     "id": "Porygon2",
     "index": 233,
     "dex_national": 233,
@@ -1214,6 +1444,16 @@
     "index": 234,
     "dex_national": 234,
     "species": "Stantler",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Tyrogue",
+    "index": 236,
+    "dex_national": 236,
+    "species": "Tyrogue",
     "form_id": "0",
     "form_name": "",
     "gender_ratio": 127,
@@ -1237,6 +1477,16 @@
     "form_id": "0",
     "form_name": "",
     "gender_ratio": 63,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Miltank",
+    "index": 241,
+    "dex_national": 241,
+    "species": "Miltank",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 254,
     "gender_dimorphic": false
   },
   {
@@ -1300,6 +1550,26 @@
     "gender_dimorphic": false
   },
   {
+    "id": "Wingull",
+    "index": 278,
+    "dex_national": 278,
+    "species": "Wingull",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Pelipper",
+    "index": 279,
+    "dex_national": 279,
+    "species": "Pelipper",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
     "id": "Ralts",
     "index": 280,
     "dex_national": 280,
@@ -1350,6 +1620,36 @@
     "gender_dimorphic": false
   },
   {
+    "id": "Cacnea",
+    "index": 331,
+    "dex_national": 331,
+    "species": "Cacnea",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Cacturn",
+    "index": 332,
+    "dex_national": 332,
+    "species": "Cacturn",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Swablu",
+    "index": 333,
+    "dex_national": 333,
+    "species": "Swablu",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
     "id": "Barboach",
     "index": 339,
     "dex_national": 339,
@@ -1364,6 +1664,26 @@
     "index": 340,
     "dex_national": 340,
     "species": "Whiscash",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Corphish",
+    "index": 341,
+    "dex_national": 341,
+    "species": "Corphish",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Crawdaunt",
+    "index": 342,
+    "dex_national": 342,
+    "species": "Crawdaunt",
     "form_id": "0",
     "form_name": "",
     "gender_ratio": 127,
@@ -1394,6 +1714,16 @@
     "index": 358,
     "dex_national": 358,
     "species": "Chimecho",
+    "form_id": "0",
+    "form_name": "",
+    "gender_ratio": 127,
+    "gender_dimorphic": false
+  },
+  {
+    "id": "Absol",
+    "index": 359,
+    "dex_national": 359,
+    "species": "Absol",
     "form_id": "0",
     "form_name": "",
     "gender_ratio": 127,

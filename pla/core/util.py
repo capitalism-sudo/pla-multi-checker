@@ -9,3 +9,8 @@ def get_sprite(pokemon: DexEntry, shiny: bool = False, gender: Union[Gender, Non
     shiny_flag = 's' if shiny else ''
     return f"c_{pokemon.dex_number()}{form_flag}{gender_flag}{shiny_flag}.png"
     
+def get_bdsp_sprite(species, shiny: bool = False):
+    form_flag = ''
+    gender_flag = ''
+    shiny_flag = 's' if shiny else ''
+    return f"c_{species}{form_flag}{gender_flag}{shiny_flag}.png"

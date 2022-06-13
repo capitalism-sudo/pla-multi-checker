@@ -226,7 +226,7 @@ function showCountResults() {
 	results.forEach((result) => {
 	
 	countContainer.querySelector("[data-count-results-seed]").textContent = result.seed;
-	countContainer.querySelector("[data-count-results-spawns]").textContent = result.spawns;
+	//countContainer.querySelector("[data-count-results-spawns]").textContent = result.spawns;
 	countContainer.querySelector("[data-count-results-currspawns]").textContent = result.currspawns;
 	countContainer.querySelector("[data-count-results-first]").textContent = result.first;
 	countContainer.querySelector("[data-count-results-firstseed]").textContent = result.firstseed;

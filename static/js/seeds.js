@@ -175,6 +175,8 @@ function checkMMOs() {
 
 function showFilteredResults() {
   validateFilters();
+  
+  console.log(results);
 
   let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
   let shinyFilter = distShinyCheckbox.checked;
@@ -192,6 +194,9 @@ function showFilteredResults() {
       multiFilter
     )
   );
+  
+  console.log("Filtered Results:");
+  console.log(filteredResults);
 
   if (filteredResults.length > 0) {
     resultsArea.innerHTML =

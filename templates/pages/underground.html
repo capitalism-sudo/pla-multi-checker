@@ -1,0 +1,198 @@
+{% extends "base/base-sidebar.html" %}
+
+{% block title %}Underground Seed Checker{% endblock %}
+
+{% block head %}
+	<script type="module" src="static/js/jquery.min.mjs"></script>
+	<script type="module">
+	</script>
+{% endblock %}
+
+{% block main %}
+<section class="pla-section-results">
+        <div data-pla-messages></div>
+        <div class="pla-results" data-pla-results>
+            <p class="pla-results-message">Search to begin</p>
+        </div>
+    </section>
+{% endblock %}
+
+{% block sidebar %}
+    <section class="pla-section-options">
+		<div class="pla-control">
+            <label for="inputs0">S0</label>
+            <input id="inputs0" placeholder="Input S[0]">
+        </div>
+		
+		<div class="pla-control">
+            <label for="inputs1">S1</label>
+            <input id="inputs1" placeholder="Input S[0]">
+        </div>
+		
+		<div class="pla-control">
+            <label for="inputs2">S2</label>
+            <input id="inputs2" placeholder="Input S[0]">
+        </div>
+		
+		<div class="pla-control">
+            <label for="inputs3">S3</label>
+            <input id="inputs3" placeholder="Input S[0]">
+        </div>
+		
+		<div class="pla-control">
+            <label for="advances">Number of Advances</label>
+            <input type="number" id="advances" placeholder="Advances">
+        </div>
+		
+		<div class="pla-control">
+            <label for="version">Game Version:</label>
+            <select id="version">
+                <option value="1">Shining Pearl</option>
+				<option value="2">Brilliant Diamond</option>
+			</select>
+		</div>
+		
+        <div class="pla-control">
+            <label for="storyflags">Story Flags:</label>
+            <select id="storyflags">
+                <option value="1">Underground Unlocked</option>
+                <option value="2">Strength Obtained</option>
+                <option value="3">Defog Obtained</option>
+                <option value="4">7 Badges</option>
+                <option value="5">Waterfall Obtained</option>
+				<option value="6">National Dex Obtained</option>
+            </select>
+        </div>
+		
+		<div class="pla-control">
+			<label for="roomid">Room:</label>
+			<select id="roomid">
+				<option value="2">Spacious Cave</option>
+				<option value="3">Glassland Cave</option>
+				<option value="4">Fountainspring Cave</option>
+				<option value="5">Rocky Cave</option>
+				<option value="6">Volcanic Cave</option>
+				<option value="7">Swampy Cave</option>
+				<option value="8">Dazzling Cave</option>
+				<option value="9">Whiteout Cave</option>
+				<option value="10">Icy Cave</option>
+				<option value="11">Riverbank Cave</option>
+				<option value="12">Sandsear Cave</option>
+				<option value="13">Stillwater Cavern</option>
+				<option value="14">Sunlit Cavern</option>
+				<option value="15">Big Bluff Cavern</option>
+				<option value="16">Stargleam Cavern</option>
+				<option value="17">Glacial Cavern</option>
+				<option value="18">Bogsunk Cavern</option>
+				<option value="19">Typhlo Cavern</option>
+			</select>
+		</div>
+		
+		<div class="pla-control-spaced">
+			<label for="diglett">Diglett Activated?</label>
+			<input type="checkbox" id="diglett">
+		</div>
+		
+		<!--<div class="pla-control">
+			<label for="selectfilter">Select Filter:</label>
+			<select id="selectfilter">
+				<option value="is_shiny">Shiny Only</option>
+				<option value="is_square_shiny">Square Shiny Only</option>
+				<option value="is_alpha">Alpha Only</option>
+				<option value="is_perfect">6IV Only</option>
+				<option value="has_5ivs">5+IV Only</option>
+				<option value="no_attack">0 Attack IV Only</option>
+				<option value="has_no_attack_5iv_over_30">0 Attack IV, 5IV 30+ Only</option>
+				<option value="has_no_attack_5iv">0 Atk, 5IV Only</option>
+				<option value="no_speed">0 Speed IV Only</option>
+				<option value="has_no_speed_5iv_over_30">0 Speed IV, 5 IV 30+ Only</option>
+				<option value="has_no_speed_5iv">0 Speed IV, 5IV Only</option>
+				<option value="has_6iv_over_30">6 IVs 30+ Only</option>
+				<option value="has_5iv_over_30">5 IVs 30+ Only</option>
+				<option value="has_no_speed_no_attack">0 Speed and 0 Attack IV Only</option>
+				<option value="has_no_speed_no_attack_4iv_over_30">0 Speed and 0 Attack IV, 4IV 30+ Only</option>
+				<option value="has_no_speed_no_attack_4iv">0 Speed and 0 Attack IV, 4IV Only</option>
+			</select>
+		</div>-->
+        
+        <div class="pla-control-actions">
+            <button class="pla-button pla-button-action" id="pla-button-checkug">Check Underground</button>
+        </div>
+    </section>
+
+	<section>
+        <!--<div class="pla-control-spaced">
+            <label for="mmoShinyFilter">Shiny or Alpha</label>
+            <input type="checkbox" id="mmoShinyOrAlphaFilter">
+        </div>-->
+		
+
+        <div class="pla-control-spaced">
+            <label for="mmoShinyFilter">Filter Results: Shiny Only</label>
+            <input type="checkbox" id="mmoShinyFilter">
+        </div>
+
+        <!--<div class="pla-control-spaced">
+            <label for="mmoAlphaFilter">Filter Results: Alpha Only</label>
+            <input type="checkbox" id="mmoAlphaFilter">
+        </div>-->
+        
+        <div class="pla-control">
+            <label for="mmoSpeciesFilter">Species Filter:</label>
+            <input type="text" id="mmoSpeciesFilter">
+        </div>
+    </section>
+{% endblock %}
+
+{% block templates %}
+    <template data-pla-results-template>
+	<details>
+	<summary>Advance: <span data-pla-results-advances></span> Shiny: <span data-pla-results-shine></span> <span data-pla-results-spawn></span></summary>
+        <div class="pla-results-item" data-pla-results-template>
+            <ul class="pla-results-heading pla-results-ul">
+                <li class="pla-results-sprite" data-pla-results-sprite></li>
+                <li class="pla-results-species" data-pla-results-species></li>
+            </ul>
+
+            <ul class="pla-results-ul">
+                <li><span class="pla-results-label">Shiny:</span> <span class="float -left" data-pla-results-shinysprite><span class="float -right" data-pla-results-shiny></span></span></li>
+            </ul>
+            
+			<ul class="pla-results-ul">
+				<li><span class="pla-results-label">Advances:</span> <span data-pla-results-adv></span></li>
+			</ul>
+
+            <ul class="pla-results-ul">
+                <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
+                <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>
+            </ul>
+			
+			<ul class="pla-results-ul">
+                <li><span class="pla-results-label">Ability:</span> <span data-pla-results-ability></span></li>
+                <li><span class="pla-results-label">Egg Move:</span> <span data-pla-results-egg></span></li>
+            </ul>
+
+            <ul class="pla-results-ul">
+                <li><span class="pla-results-label">EC:</span> <span data-pla-results-ec></span></li>
+                <li><span class="pla-results-label">PID:</span> <span data-pla-results-pid></span></li>
+            </ul>
+
+            <div class="pla-results-ivs-container">
+                <span class="pla-results-label">IVs:</span>
+                <ul class="pla-results-ivs">
+                    <li class="pla-results-ivs-hp" data-pla-results-ivs-hp></li>
+                    <li class="pla-results-ivs-att" data-pla-results-ivs-att></li>
+                    <li class="pla-results-ivs-def" data-pla-results-ivs-def></li>
+                    <li class="pla-results-ivs-spa" data-pla-results-ivs-spa></li>
+                    <li class="pla-results-ivs-spd" data-pla-results-ivs-spd></li>
+                    <li class="pla-results-ivs-spe" data-pla-results-ivs-spe></li>
+                </ul>
+            </div>
+         </div>
+		 </details>
+		 </template>
+{% endblock %}
+
+{% block script %}
+    <script type="module" src="{{ url_for('static', filename='js/underground.js') }}"></script>
+{% endblock %}

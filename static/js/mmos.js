@@ -55,7 +55,7 @@ loadPreferences();
 setupPreferenceSaving();
 readMaps();
 
-const results = [];
+cosnt results = [];
 
 // Save and load user preferences
 function loadPreferences() {

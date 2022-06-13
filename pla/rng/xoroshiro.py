@@ -60,3 +60,104 @@ class XOROSHIRO:
         while res >= maximum:
             res = self.next() & mask
         return res
+
+    def quickrand1(self,mask): # 0~mask rand(mask + 1)
+        return self.next() & mask
+
+    def quickrand2(self,max,mask): # 0~max-1 rand(max)
+        res = self.next() & mask
+        while res >= max:
+            res = self.next() & mask
+        return res
+
+    def rand_count(self, N = uintmask):
+        mask = XOROSHIRO.get_mask(N)
+        res = self.next() & mask
+        count = 1
+        while res >= N:
+            res = self.next() & mask
+            count += 1
+        return res, count
+
+    @staticmethod
+    def find_seeds(ec,pid):
+        solver = z3.Solver()
+        start_s0 = z3.BitVecs('start_s0', 64)[0]
+
+        sym_s0 = start_s0
+        sym_s1 = 0x82A2B175229D6A5B
+
+        # EC call
+        result = ec
+        sym_s0, sym_s1, condition = sym_xoroshiro128plus(sym_s0, sym_s1, result)
+        solver.add(condition)
+
+        # Blank call
+        sym_s0, sym_s1 = sym_xoroshiro128plusadvance(sym_s0, sym_s1)
+
+        # PID call
+        result = pid
+        sym_s0, sym_s1, condition = sym_xoroshiro128plus(sym_s0, sym_s1, result)
+        solver.add(condition)
+        
+        models = get_models(solver)
+        return [ model[start_s0].as_long() for model in models ]
+
+    @staticmethod
+    def find_seeds_arceus(ec,pid,rolls):
+        solver = z3.Solver()
+        start_s0 = z3.BitVecs('start_s0', 64)[0]
+
+        sym_s0 = start_s0
+        sym_s1 = 0x82A2B175229D6A5B
+
+        # EC call
+        result = ec
+        sym_s0, sym_s1, condition = sym_xoroshiro128plus(sym_s0, sym_s1, result)
+        solver.add(condition)
+
+        # SIDTID call
+        sym_s0, sym_s1 = sym_xoroshiro128plusadvance(sym_s0, sym_s1)
+
+        # Initial PID rolls
+        for _ in range(rolls-1):
+            sym_s0, sym_s1, condition = sym_xoroshiro128plus(sym_s0, sym_s1, result)
+
+        # PID call
+        result = pid
+        sym_s0, sym_s1, condition = sym_xoroshiro128plus(sym_s0, sym_s1, result)
+        solver.add(condition)
+        
+        models = get_models(solver)
+        return [ model[start_s0].as_long() for model in models ]
+
+def sym_xoroshiro128plus(sym_s0, sym_s1, result):
+    sym_r = (sym_s0 + sym_s1) & 0xFFFFFFFFFFFFFFFF  
+    condition = (sym_r & 0xFFFFFFFF) == result
+
+    sym_s0, sym_s1 = sym_xoroshiro128plusadvance(sym_s0, sym_s1)
+
+    return sym_s0, sym_s1, condition
+
+def sym_xoroshiro128plusadvance(sym_s0, sym_s1):
+    s0 = sym_s0
+    s1 = sym_s1
+    
+    s1 ^= s0
+    sym_s0 = z3.RotateLeft(s0, 24) ^ s1 ^ (s1 << 16)
+    sym_s1 = z3.RotateLeft(s1, 37)
+
+    return sym_s0, sym_s1
+
+def get_models(s):
+    result = []
+    while s.check() == z3.sat:
+        m = s.model()
+        result.append(m)
+        
+        # Constraint that makes current answer invalid
+        d = m[0]
+        c = d()
+        s.add(c != m[d])
+
+    return result

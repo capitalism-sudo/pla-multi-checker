@@ -496,6 +496,9 @@ def get_mmo(reader, map_index, group_id, research, inmap, rolls_override = None,
 
     has_bonus = get_encounter_table(mmoinfo['br_encounter'])[0] is not None
 
+    print(f"Group Seed: {mmoinfo['group_seed']}")
+    print(f"FR Spawns: {mmoinfo['fr_spawns']} BR Spawns: {mmoinfo['br_spawns']}")
+
     return mmo_from_seed(group_id, research, mmoinfo['group_seed'], map_name, mmoinfo['coords'],
                          mmoinfo['fr_encounter'], mmoinfo['br_encounter'], has_bonus,
                          mmoinfo['fr_spawns'], mmoinfo['br_spawns'], inmap, rolls_override)
