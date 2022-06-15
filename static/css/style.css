@@ -324,6 +324,10 @@ section {
   align-items: center;
 }
 
+.pla-control-ivs {
+  align-items: center;
+}
+
 .pla-control-actions {
   display: flex;
   flex-direction: column;

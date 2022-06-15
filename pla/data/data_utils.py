@@ -1,5 +1,35 @@
 import json
-from pla.filters import is_shiny
+from pla.filters import *
+from bdsp.filters import *
+
+filter_commands = {
+    "is_shiny": is_shiny,
+    "is_square": is_square,
+    "is_alpha": is_alpha,
+    "is_perfect": is_perfect,
+    "has_5ivs": has_5ivs,
+    "is_square_shiny": is_square_shiny,
+    "no_attack": no_attack,
+    "has_no_attack_5iv": has_no_attack_5iv,
+    "has_6iv_over_30": has_6iv_over_30,
+    "has_5iv_over_30": has_5iv_over_30,
+    "has_no_attack_5iv_over_30": has_no_attack_5iv_over_30,
+    "no_speed": no_speed,
+    "has_no_speed_5iv_over_30": has_no_speed_5iv_over_30,
+    "has_no_speed_5iv": has_no_speed_5iv,
+    "has_no_speed_no_attack_4iv_over_30": has_no_speed_no_attack_4iv_over_30,
+    "has_no_speed_no_attack_4iv": has_no_speed_no_attack_4iv,
+    "has_no_speed_no_attack": has_no_speed_no_attack,
+    "has_3ivs": has_3ivs,
+    "has_4ivs": has_4ivs,
+    "has_1ivs": has_1ivs,
+    "has_2ivs": has_2ivs,
+    "has_2iv_over_30": has_2iv_over_30,
+    "has_3iv_over_30": has_3iv_over_30,
+    "has_4iv_over_30": has_4iv_over_30,
+    "is_rare": is_rare,
+    "no_filter": no_filter
+}
 
 # These are utility functions for understanding PLA data that are not generally used in the app
 map_names = ['AlabasterIcelands', 'CobaltCoastlands', 'CoronetHighlands', 'CrimsonMirelands', 'ObsidianFieldlands']

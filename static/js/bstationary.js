@@ -28,31 +28,40 @@ const inputS1 = document.getElementById("inputs1");
 const inputS2 = document.getElementById("inputs2");
 const inputS3 = document.getElementById("inputs3");
 const advances = document.getElementById("advances");
-const gameVer = document.getElementById("version");
-const storyFlag = document.getElementById("storyflags");
-const roomID = document.getElementById("roomid");
-const diglettMode = document.getElementById("diglett");
 const minAdv = document.getElementById("minadvances");
+const delay = document.getElementById("delay");
+const setIVs = document.getElementById("3iv");
+const fixedGender = document.getElementById("fixedgender");
+
+//IVs
+
+const minHP = document.getElementById("minhp");
+const minATK = document.getElementById("minatk");
+const minDEF = document.getElementById("mindef");
+const minSPA = document.getElementById("minspa");
+const minSPD = document.getElementById("minspd");
+const minSPE = document.getElementById("minspe");
+
+const maxHP = document.getElementById("maxhp");
+const maxATK = document.getElementById("maxatk");
+const maxDEF = document.getElementById("maxdef");
+const maxSPA = document.getElementById("maxspa");
+const maxSPD = document.getElementById("maxspd");
+const maxSPE = document.getElementById("maxspe");
 
 // filters
 const distSelectFilter = document.getElementById("selectfilter");
-/*const distShinyOrAlphaCheckbox = document.getElementById(
-  "mmoShinyOrAlphaFilter"
-);*/
 const distShinyCheckbox = document.getElementById("mmoShinyFilter");
-//const distAlphaCheckbox = document.getElementById("mmoAlphaFilter");
-const mmoSpeciesText = document.getElementById("mmoSpeciesFilter");
-const advanceText = document.getElementById("advanceFilter");
+const natureSelect = document.getElementById("naturefilter");
+const genderRatio = document.getElementById("genderratio");
 
-//distShinyOrAlphaCheckbox.addEventListener("change", setFilter);
 distShinyCheckbox.addEventListener("change", setFilter);
-//distAlphaCheckbox.addEventListener("change", setFilter);
-mmoSpeciesText.addEventListener("input", setFilter);
-advanceText.addEventListener("input", setFilter);
+natureSelect.addEventListener("change", setFilter);
+genderRatio.addEventListener("change", setFilter);
 
 // actions
-const checkUGButton = document.getElementById("pla-button-checkug");
-checkUGButton.addEventListener("click", checkUnderground);
+const checkStatButton = document.getElementById("pla-button-checkstat");
+checkStatButton.addEventListener("click", checkStationary);
 
 loadPreferences();
 setupPreferenceSaving();
@@ -66,27 +75,31 @@ const results = [];
 // Save and load user preferences
 function loadPreferences() {
   distShinyCheckbox.checked = readBoolFromStorage("mmoShinyFilter", false);
-  advances.value = localStorage.getItem("advances") ?? "0";
-  minAdv.value = localStorage.getItem("minadvances") ?? "0";
-  storyFlag.value = localStorage.getItem("storyflags") ?? "6";
-  gameVer.value = localStorage.getItem("version") ?? "1";
+  advances.value = 10000;
+  minAdv.value = 0;
+  minHP.value = 0;
+  minATK.value = 0;
+  minDEF.value = 0;
+  minSPA.value = 0;
+  minSPD.value = 0;
+  minSPE.value = 0;
+  
+  maxHP.value = 31;
+  maxATK.value = 31;
+  maxDEF.value = 31;
+  maxSPA.value = 31;
+  maxSPD.value = 31;
+  maxSPE.value = 31;
+  
+  delay.value = 84;
+  
+  natureSelect.value = "any";
+  
 }
 
 function setupPreferenceSaving() {
-  advances.addEventListener("change", (e) =>
-    localStorage.setItem("advances", e.target.value)
-  );
-  minAdv.addEventListener("change", (e) =>
-    localStorage.setItem("minadvances", e.target.value)
-  );
   distShinyCheckbox.addEventListener("change", (e) =>
     saveBoolToStorage("mmoShinyFilter", e.target.checked)
-  );
-  storyFlag.addEventListener("change", (e) =>
-    localStorage.setItem("storyflags", e.target.value)
-  );
-  gameVer.addEventListener("change", (e) =>
-	localStorage.setItem("version", e.target.value)
   );
 }
 
@@ -117,9 +130,6 @@ function openTab(evt, tabName) {
 
 function setFilter(event) {
   if (event.target.checked) {
-    if (event.target == distShinyCheckbox) {
-      //distShinyOrAlphaCheckbox.checked = false;
-    }
   }
 
   showFilteredResults();
@@ -131,30 +141,34 @@ function validateFilters() {
 function filter(
   result,
   shinyFilter,
-  speciesFilter,
-  advanceFilter
+  natureFilter,
 ) {
 
-  console.log("advancefilter");
-  console.log(advanceFilter);
   
   if (shinyFilter && !result.shiny) {
     return false;
   }
 
-  if (
+  /*if (
     speciesFilter.length != 0 &&
     !result.species.toLowerCase().includes(speciesFilter.toLowerCase())
   ) {
     return false;
-  }
+  }*/
   
   if (
+	natureFilter != "any" &&
+	result.nature.toLowerCase() != natureFilter.toLowerCase()
+	) {
+		return false;
+	}
+  
+  /*if (
 	advanceFilter.length != 0 &&
 	result.advances != parseInt(advanceFilter)
   ) {
 	  return false;
-  }
+  }*/
 
   return true;
 }
@@ -165,44 +179,41 @@ function getOptions() {
 	s1: inputS1.value,
 	s2: inputS2.value,
 	s3: inputS3.value,
-    advances: parseInt(advances.value),
-    story: parseInt(storyFlag.value),
-    version: parseInt(gameVer.value),
-    diglett: diglettMode.checked,
-	room: parseInt(roomID.value),
-	filter: distSelectFilter.value,
-	minadv: parseInt(minAdv.value),
-    //	inmap: inmapCheck.checked
+	fixed_ivs: setIVs.checked,
+	set_gender: fixedGender.checked,
+	filter: {
+		maxadv: parseInt(advances.value),
+		minadv: parseInt(minAdv.value),
+		minivs: [minHP.value, minATK.value, minDEF.value, minSPA.value, minSPD.value, minSPE.value],
+		maxivs: [maxHP.value, maxATK.value, maxDEF.value, maxSPA.value, maxSPD.value, maxSPE.value],
+	},
+	species: 0,
+	command: distSelectFilter.value,
+	delay: parseInt(delay.value),
   };
 }
 
-function checkUnderground() {
+function checkStationary() {
   doSearch(
-    "/api/check-underground",
+    "/api/check-bdsp-stationary",
     results,
     getOptions(),
     showFilteredResults,
-    checkUGButton
+    checkStatButton
   );
 }
 
 function showFilteredResults() {
   //validateFilters();
   
-  //let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
   let shinyFilter = distShinyCheckbox.checked;
-  //let alphaFilter = distAlphaCheckbox.checked;
-  let speciesFilter = mmoSpeciesText.value;
-  //let defaultFilter = distDefaultCheckbox.checked;
-  //let multiFilter = distMultiCheckbox.checked;
-  let advanceFilter = advanceText.value;
+  let natureFilter = natureSelect.value;
 
   const filteredResults = results.filter((result) =>
     filter(
       result,
       shinyFilter,
-      speciesFilter,
-	  advanceFilter
+      natureFilter
     )
   );
 
@@ -221,16 +232,6 @@ function showFilteredResults() {
 
 function showResult(result) {
   const resultContainer = resultTemplate.content.cloneNode(true);
-  
-  let sprite = document.createElement("img");
-  sprite.src = "static/img/spritebig/" + result.sprite;
-  resultContainer.querySelector(".pla-results-sprite").appendChild(sprite);
-  
-  resultContainer.querySelector("[data-pla-results-species]").innerHTML =
-    result.species;
-
-  resultContainer.querySelector("[data-pla-results-spawn]").textContent =
-	result.spawn;
 	
   let resultShiny = resultContainer.querySelector("[data-pla-results-shiny]");
   let sparkle = "";
@@ -243,7 +244,11 @@ function showResult(result) {
   sparklesprite.style.cssText =
     "pull-left;display:inline-block;margin-left:0px;";
 	
-  if (result.shiny) {
+  if (result.shiny && result.square) {
+	sparklesprite.src = "static/img/square.png";
+	sparkle = "Square Shiny!";
+  }
+  else if (result.shiny) {
     sparklesprite.src = "static/img/shiny.png";
     sparkle = "Shiny!";
   } else {
@@ -255,19 +260,35 @@ function showResult(result) {
   resultShiny.textContent = sparkle;
   resultShiny.classList.toggle("pla-result-true", result.shiny);
   resultShiny.classList.toggle("pla-result-false", !result.shiny);
+  
+  let totalAdvance = result.adv;
 
   resultContainer.querySelector("[data-pla-results-adv]").textContent =
-    result.advances;
+    totalAdvance;
   resultContainer.querySelector("[data-pla-results-nature]").textContent =
     result.nature;
 	
   let gender = 'male';
-  if (result.gender == 1){
-	  gender = 'female';
-  }
-  else if (result.gender == 2){
-	  gender = 'genderless';
-  }
+  
+  if (
+	fixedGender.checked &&
+	result.gender == -1
+	){
+		if (parseInt(genderRatio.value) == 0){
+			gender = 'male';
+		}
+		else if (parseInt(genderRatio.value) == 254){
+			gender = 'female';
+		}
+		else {
+			gender = 'genderless';
+		}
+	}
+  else if (
+	result.gender < parseInt(genderRatio.value)
+	){
+		gender = 'female';
+	}
   
   const genderStrings = {
   male: "Male <i class='fa-solid fa-mars' style='color:blue'/>",
@@ -280,8 +301,6 @@ function showResult(result) {
 
   resultContainer.querySelector("[data-pla-results-ability]").textContent =
     result.ability;
-  resultContainer.querySelector("[data-pla-results-egg]").textContent =
-    result.eggmove;
 	
   showPokemonIVs(resultContainer, result);
   showPokemonHiddenInformation(resultContainer, result);

@@ -40,7 +40,12 @@
         </div>
 		
 		<div class="pla-control">
-            <label for="advances">Number of Advances</label>
+            <label for="minadvances">Starting Advance:</label>
+            <input type="number" id="minadvances" placeholder="Advances">
+        </div>
+		
+		<div class="pla-control">
+            <label for="advances">Advances to Search:</label>
             <input type="number" id="advances" placeholder="Advances">
         </div>
 		
@@ -93,27 +98,34 @@
 			<input type="checkbox" id="diglett">
 		</div>
 		
-		<!--<div class="pla-control">
+		<div class="pla-control">
 			<label for="selectfilter">Select Filter:</label>
 			<select id="selectfilter">
+				<option value="no_filter">No Filter</option>
 				<option value="is_shiny">Shiny Only</option>
-				<option value="is_square_shiny">Square Shiny Only</option>
-				<option value="is_alpha">Alpha Only</option>
-				<option value="is_perfect">6IV Only</option>
+				<option value="is_rare">Rare Slot Only</option>
+				<option value="has_1ivs">1+IV Only</option>
+				<option value="has_2ivs">2+IV Only</option>
+				<option value="has_3ivs">3+IV Only</option>
+				<option value="has_4ivs">4+IV Only</option>
 				<option value="has_5ivs">5+IV Only</option>
+				<option value="is_perfect">6IV Only</option>
+				<option value="has_2iv_over_30">2 IVs 30+ Only</option>
+				<option value="has_3iv_over_30">3 IVs 30+ Only</option>
+				<option value="has_4iv_over_30">4 IVs 30+ Only</option>
+				<option value="has_5iv_over_30">5 IVs 30+ Only</option>
+				<option value="has_6iv_over_30">6 IVs 30+ Only</option>
 				<option value="no_attack">0 Attack IV Only</option>
 				<option value="has_no_attack_5iv_over_30">0 Attack IV, 5IV 30+ Only</option>
 				<option value="has_no_attack_5iv">0 Atk, 5IV Only</option>
 				<option value="no_speed">0 Speed IV Only</option>
 				<option value="has_no_speed_5iv_over_30">0 Speed IV, 5 IV 30+ Only</option>
 				<option value="has_no_speed_5iv">0 Speed IV, 5IV Only</option>
-				<option value="has_6iv_over_30">6 IVs 30+ Only</option>
-				<option value="has_5iv_over_30">5 IVs 30+ Only</option>
 				<option value="has_no_speed_no_attack">0 Speed and 0 Attack IV Only</option>
 				<option value="has_no_speed_no_attack_4iv_over_30">0 Speed and 0 Attack IV, 4IV 30+ Only</option>
 				<option value="has_no_speed_no_attack_4iv">0 Speed and 0 Attack IV, 4IV Only</option>
 			</select>
-		</div>-->
+		</div>
         
         <div class="pla-control-actions">
             <button class="pla-button pla-button-action" id="pla-button-checkug">Check Underground</button>
@@ -141,17 +153,23 @@
             <label for="mmoSpeciesFilter">Species Filter:</label>
             <input type="text" id="mmoSpeciesFilter">
         </div>
+		
+		<div class="pla-control">
+            <label for="advanceFilter">Advance Filter:</label>
+            <input type="text" id="advanceFilter">
+        </div>
     </section>
 {% endblock %}
 
 {% block templates %}
     <template data-pla-results-template>
-	<details>
-	<summary>Advance: <span data-pla-results-advances></span> Shiny: <span data-pla-results-shine></span> <span data-pla-results-spawn></span></summary>
+	<!--<details>
+	<summary>Advance: <span data-pla-results-advances></span> Shiny: <span data-pla-results-shine></span> <span data-pla-results-spawn></span></summary>-->
         <div class="pla-results-item" data-pla-results-template>
             <ul class="pla-results-heading pla-results-ul">
                 <li class="pla-results-sprite" data-pla-results-sprite></li>
                 <li class="pla-results-species" data-pla-results-species></li>
+				<li></li>
             </ul>
 
             <ul class="pla-results-ul">
@@ -160,6 +178,8 @@
             
 			<ul class="pla-results-ul">
 				<li><span class="pla-results-label">Advances:</span> <span data-pla-results-adv></span></li>
+				<li><span class="pla-results-label">Spawn: </span> <span data-pla-results-spawn></span></li>
+
 			</ul>
 
             <ul class="pla-results-ul">
@@ -173,8 +193,8 @@
             </ul>
 
             <ul class="pla-results-ul">
-                <li><span class="pla-results-label">EC:</span> <span data-pla-results-ec></span></li>
                 <li><span class="pla-results-label">PID:</span> <span data-pla-results-pid></span></li>
+				<li><span class="pla-results-label">EC:</span> <span data-pla-results-ec></span></li>
             </ul>
 
             <div class="pla-results-ivs-container">
@@ -189,7 +209,6 @@
                 </ul>
             </div>
          </div>
-		 </details>
 		 </template>
 {% endblock %}
 

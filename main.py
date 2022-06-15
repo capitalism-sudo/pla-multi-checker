@@ -3,13 +3,14 @@ import json
 import mimetypes
 
 from flask import Flask, render_template, request
+from bdsp.filters.filters import *
 from nxreader import NXReader
 import pla
 from pla.core import get_sprite, teleport_to_spawn
 from pla.data import hisuidex
 from pla.saves import read_research, rolls_from_research
-from pla.data.data_utils import flatten_all_mmo_results, flatten_map_mmo_results, flatten_normal_outbreaks, flatten_multi
-from bdsp.data.data_utils import flatten_ug
+from pla.data.data_utils import flatten_all_mmo_results, flatten_map_mmo_results, flatten_normal_outbreaks, flatten_multi, filter_commands
+from bdsp.data.data_utils import flatten_bdsp_stationary, flatten_ug
 import bdsp
 import swsh
 
@@ -73,6 +74,10 @@ def cram():
 @app.route("/underground")
 def ug():
     return render_template('pages/underground.html', title='Underground Checker')
+
+@app.route("/bdspstationary")
+def bdsp_stationary():
+    return render_template('pages/b_stationary.html', title='Stationary Checker')
 
 
 # API ROUTES
@@ -285,6 +290,8 @@ def update_swsh_seed():
 @app.route('/api/check-underground', methods=['POST'])
 def check_ug_seed():
 
+    filter_command = filter_commands.get(request.json['filter'], is_shiny)
+
     results = bdsp.check_ug_advance(request.json['s0'],
                                     request.json['s1'],
                                     request.json['s2'],
@@ -293,10 +300,26 @@ def check_ug_seed():
                                     request.json['room'],
                                     request.json['version'],
                                     request.json['advances'],
+                                    request.json['minadv'],
                                     request.json['diglett'])
 
-    return { "results": flatten_ug(results, config.get('FILTER_ON_SERVER', False)) }
+    return { "results": flatten_ug(results, config.get('FILTER_ON_SERVER', False), filter_command) }
 
+@app.route('/api/check-bdsp-stationary', methods=['POST'])
+def check_bdsp_stationary():
+
+    filter_command = filter_commands.get(request.json['command'], is_shiny)
+
+    states = [request.json['s0'], request.json['s1'], request.json['s2'], request.json['s3']]
+
+    results = bdsp.read_stationary_seed(states,
+                                        request.json['filter'],
+                                        request.json['fixed_ivs'],
+                                        request.json['set_gender'],
+                                        request.json['species'],
+                                        request.json['delay'])
+    
+    return { "results": flatten_bdsp_stationary(results, config.get('FILTER_ON_SERVER', False), filter_command) }
 
 # Legacy routes used by bots
 import app.legacy as legacy

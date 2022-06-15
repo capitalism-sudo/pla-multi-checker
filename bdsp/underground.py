@@ -9,6 +9,9 @@ from pla.core import get_bdsp_sprite
 with open(RESOURCE_PATH + "resources/text_species_en.txt",encoding="utf-8") as text_species:
     SPECIES = text_species.read().split("\n")
 
+with open(RESOURCE_PATH + "resources/moves_en.txt",encoding="utf-8") as text_moves:
+    MOVES = text_moves.read().split("\n")
+
 def shiny_check(result):
     normal = result.regular_pokemon
     rare = result.rare_pokemon
@@ -22,7 +25,7 @@ def shiny_check(result):
     
     return False
 
-def check_ug_advance(s0,s1,s2,s3,story_flag,room,version,advances,diglett):
+def check_ug_advance(s0,s1,s2,s3,story_flag,room,version,advances,minadvances,diglett):
 
     filter = FilterPy(False, None, [0,0,0,0,0,0], [31,31,31,31,31,31], None, None, None, None, None)
     results = generate_results(advances, [int(s0,16),int(s1,16),int(s2,16),int(s3,16)], version, story_flag, room, filter, diglett)
@@ -33,39 +36,42 @@ def check_ug_advance(s0,s1,s2,s3,story_flag,room,version,advances,diglett):
         norm = result.regular_pokemon
         rare = result.rare_pokemon
         advance = result.advance
-        for z, mon in enumerate(norm):
-            monster = {
-                "ec": f"{mon.ec:X}",
-                "pid": f"{mon.pid:X}",
-                "ivs": mon.ivs,
-                "nature": natures(mon.nature),
-                "ability": mon.ability,
-                "gender": mon.gender,
-                "species": SPECIES[mon.species],
-                "eggmove": mon.egg_move,
-                "shiny": mon.shiny,
-                "sprite": get_bdsp_sprite(mon.species, mon.shiny),
-                "spawn": f"Spawn {z+1}",
-                "advances": advance
-            }
-            full.append(monster)
-        if rare is not None:
-            monster = {
-                "ec": f"{rare.ec:X}",
-                "pid": f"{rare.pid:X}",
-                "ivs": rare.ivs,
-                "nature": natures(rare.nature),
-                "ability": rare.ability,
-                "gender": rare.gender,
-                "species": SPECIES[rare.species],
-                "eggmove": rare.egg_move,
-                "shiny": rare.shiny,
-                "sprite": get_bdsp_sprite(rare.species, rare.shiny),
-                "spawn": "Rare",
-                "advances": advance
-            }
-            full.append(monster)
-        final[str(i)] = full
+        if advance >= minadvances:
+            for z, mon in enumerate(norm):
+                monster = {
+                    "ec": f"{mon.ec:X}",
+                    "pid": f"{mon.pid:X}",
+                    "ivs": mon.ivs,
+                    "nature": natures(mon.nature),
+                    "ability": mon.ability,
+                    "gender": mon.gender,
+                    "species": SPECIES[mon.species],
+                    "eggmove": MOVES[mon.egg_move] if mon.egg_move is not None else "None",
+                    "shiny": mon.shiny,
+                    "sprite": get_bdsp_sprite(mon.species, mon.shiny),
+                    "spawn": f"Spawn {z+1}",
+                    "advances": advance,
+                    "rarespawn": False
+                }
+                full.append(monster)
+            if rare is not None:
+                monster = {
+                    "ec": f"{rare.ec:X}",
+                    "pid": f"{rare.pid:X}",
+                    "ivs": rare.ivs,
+                    "nature": natures(rare.nature),
+                    "ability": rare.ability,
+                    "gender": rare.gender,
+                    "species": SPECIES[rare.species],
+                    "eggmove": MOVES[rare.egg_move] if rare.egg_move is not None else "None",
+                    "shiny": rare.shiny,
+                    "sprite": get_bdsp_sprite(rare.species, rare.shiny),
+                    "spawn": "Rare",
+                    "advances": advance,
+                    "rarespawn": True
+                }
+                full.append(monster)
+            final[str(i)] = full
 
     return final
 
