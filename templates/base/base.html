@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
-    <title>PLA {% block title %}Multi Checker{% endblock %}</title>
+    <title>{% if bdsp %}BDSP {% elif swsh %}SWSH {% else %}PLA {% endif %}{% block title %}Multi Checker{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
@@ -67,7 +67,13 @@
 
 <body{% block bodyclass %}{% endblock %}>
     <header class="pla-header space-between">
-        <h1 class="pla-heading"><span class="pla-heading-highlight">PLA</span> {{ self.title() }}</h1>
+        {%if bdsp %}
+		<h1 class="pla-heading"><span class="pla-heading-highlight">BDSP</span> {{ self.title() }}</h1>
+		{% elif swsh %}
+		<h1 class="pla-heading"><span class="pla-heading-highlight">SWSH</span> {{ self.title() }}</h1>
+		{% else %}
+		<h1 class="pla-heading"><span class="pla-heading-highlight">PLA</span> {{ self.title() }}</h1>
+		{% endif %}
 
         <button class="theme-toggle" id="theme-toggle" title="Toggles light and dark mode" aria-live="light">
             <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
@@ -89,8 +95,10 @@
         </button>
     </header>
 
-    {% if web %}
-    {% include 'nav/nav-web.html' %}
+    {% if bdsp %}
+    {% include 'nav/nav-bdsp.html' %}
+	{% elif swsh %}
+	{% include 'nav/nav-swsh.html' %}
     {% else %}
     {% include 'nav/nav-python.html' %}
     {% endif %}

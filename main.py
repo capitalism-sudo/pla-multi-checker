@@ -69,15 +69,15 @@ def settings():
 
 @app.route("/cram")
 def cram():
-    return render_template('pages/cram.html', title='Fun Tools')
+    return render_template('pages/cram.html', title='Fun Tools', swsh="true")
 
 @app.route("/underground")
 def ug():
-    return render_template('pages/underground.html', title='Underground Checker')
+    return render_template('pages/underground.html', title='Underground Checker', bdsp="true")
 
 @app.route("/bdspstationary")
 def bdsp_stationary():
-    return render_template('pages/b_stationary.html', title='Stationary Checker')
+    return render_template('pages/b_stationary.html', title='Stationary Checker', bdsp="true")
 
 
 # API ROUTES
