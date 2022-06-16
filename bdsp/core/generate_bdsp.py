@@ -1,4 +1,5 @@
-from pla.rng import Xorshift,XOROSHIRO,XOROSHIRO_BDSP
+from pla.rng import Xorshift,XOROSHIRO_BDSP
+from .daycare import Daycare
 
 def generate_stationary(rng:Xorshift, fixed_gender=False, guaranteed_ivs=0):
 
@@ -139,3 +140,84 @@ def generate_tid(rng: Xorshift):
     g8tid = sidtid % 1000000
 
     return tid,sid,tsv,g8tid
+
+def generate_egg(rng: Xorshift, info: Daycare):
+
+    if info.is_nido_volbeat():
+        rng.alt_next()
+    
+    #genderatio stuff
+
+
+    #nature
+
+    nature = rng.alt_rand(25)
+
+    if info.get_everstone_count() == 2:
+        nature = info.get_parent_item(rng.alt_rand(2))
+    elif info.get_parent_item(0) == 1:
+        nature = info.get_parent_nature(0)
+    elif info.get_parent_item(1) == 1:
+        nature = info.get_parent_nature(1)
+
+    #ability
+    
+    parentAbility = info.get_parent_ability(0 if info.is_ditto(1) else 1)
+    ability = rng.alt_rand(100)
+
+    if parentAbility == 2:
+        if ability < 20:
+            ability = 0
+        elif ability < 40:
+            ability = 1
+        else:
+            ability = 2
+    elif parentAbility == 1:
+        ability = 0 if ability < 20 else 1
+    else:
+        ability = 0 if ability < 80 else 1
+
+    #ivs
+    
+    ivs = [-1,-1,-1,-1,-1,-1]
+
+    inherit = info.get_inherit()
+
+    for _ in range(inherit):
+        index = rng.alt_next(6)
+        while ivs[index] != -1:
+            index = rng.alt_next(6)
+        p_inherit = rng_alt_next(2)
+        ivs[index] = info.get_parent_iv(index, p_inherit)
+    
+    for i in range(6):
+        if ivs[i] == -1:
+            ivs[i] = rng.alt_rand(32)
+
+    ec = rng.alt_next()
+
+    pid = 0
+    shinyval = 0
+
+    for i in range(info.get_pidrolls):
+        pid = rng.alt_next()
+        tid = info.get_tid()
+        sid = info.get_sid()
+
+        shinyval = ((pid >> 16) ^ (sid & 0xFFFF) \
+            ^ (pid & 0xFFFF) ^ (tid & 0xFFFF))
+
+        if shinyval < 0x10:
+            break
+    
+    if shinyval == 0 and pid != 0:
+        square = True
+        shiny = True
+    elif shinyval < 0x10 and pid != 0:
+        shiny = True
+        square = False
+    else:
+        shiny = False
+        square = False
+
+    return nature, ability, ivs, ec, pid, shiny, square
