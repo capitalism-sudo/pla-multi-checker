@@ -72,6 +72,12 @@ class Xorshift:
     def alt_rand(self, maximum):
         return self.alt_next() % maximum
     
+    def advance(self,adv):
+        for _ in range(adv):
+            self.alt_next()
+
+        return self
+    
     def __str__(self):
         return f"S[0]: {self.seed[0]:08X}  S[1]: {self.seed[1]:08X}  S[2]: {self.seed[2]:08X}  S[3]: {self.seed[3]:08X}"
 

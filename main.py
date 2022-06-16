@@ -79,6 +79,14 @@ def ug():
 def bdsp_stationary():
     return render_template('pages/b_stationary.html', title='Stationary Checker', bdsp="true")
 
+@app.route("/bdspwild")
+def bwild():
+    return render_template('pages/b_wild.html', title='Wild Checker', bdsp="true")
+
+@app.route("/bdsproamer")
+def broamer():
+    return render_template('pages/b_roamer.html', title='Roamer Checker', bdsp="true")
+
 
 # API ROUTES
 @app.route('/api/read-mmos', methods=['POST'])
@@ -318,6 +326,35 @@ def check_bdsp_stationary():
                                         request.json['set_gender'],
                                         request.json['species'],
                                         request.json['delay'])
+    
+    return { "results": flatten_bdsp_stationary(results, config.get('FILTER_ON_SERVER', False), filter_command) }
+
+@app.route('/api/check-bdsp-wild', methods=['POST'])
+def check_bdsp_wild():
+
+    filter_command = filter_commands.get(request.json['command'], is_shiny)
+
+    states = [request.json['s0'], request.json['s1'], request.json['s2'], request.json['s3']]
+
+    results = bdsp.read_wild_seed(states,
+                                request.json['filter'],
+                                request.json['set_gender'],
+                                request.json['delay'])
+    
+    return { "results": flatten_bdsp_stationary(results, config.get('FILTER_ON_SERVER', False), filter_command) }
+
+@app.route('/api/check-bdsp-roamer', methods=['POST'])
+def check_bdsp_roamer():
+
+    filter_command = filter_commands.get(request.json['command'], is_shiny)
+
+    states = [request.json['s0'], request.json['s1'], request.json['s2'], request.json['s3']]
+
+    results = bdsp.read_roamer_seed(states,
+                                    request.json['filter'],
+                                    request.json['fixed_ivs'],
+                                    request.json['set_gender'],
+                                    request.json['delay'])
     
     return { "results": flatten_bdsp_stationary(results, config.get('FILTER_ON_SERVER', False), filter_command) }
 
