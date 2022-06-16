@@ -87,6 +87,10 @@ def bwild():
 def broamer():
     return render_template('pages/b_roamer.html', title='Roamer Checker', bdsp="true")
 
+@app.route("/bdspegg")
+def begg():
+    return render_template('pages/b_egg.html', title='Egg Checker', bdsp="true")
+
 
 # API ROUTES
 @app.route('/api/read-mmos', methods=['POST'])
@@ -355,6 +359,20 @@ def check_bdsp_roamer():
                                     request.json['fixed_ivs'],
                                     request.json['set_gender'],
                                     request.json['delay'])
+    
+    return { "results": flatten_bdsp_stationary(results, config.get('FILTER_ON_SERVER', False), filter_command) }
+
+@app.route('/api/check-bdsp-egg', methods=['POST'])
+def check_bdsp_egg():
+
+    filter_command = filter_commands.get(request.json['command'], is_shiny)
+
+    states = [request.json['s0'], request.json['s1'], request.json['s2'], request.json['s3']]
+
+    results = bdsp.read_egg_seed(states,
+                            request.json['filter'],
+                            request.json['daycare'],
+                            request.json['delay'])
     
     return { "results": flatten_bdsp_stationary(results, config.get('FILTER_ON_SERVER', False), filter_command) }
 

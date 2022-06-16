@@ -167,6 +167,24 @@ class XOROSHIRO_BDSP:
     ulongmask = 2 ** 64 - 1
     uintmask = 2 ** 32 - 1
 
+    @staticmethod
+    def splitmix(seed, state):
+        seed += state
+        seed = 0xBF58476D1CE4E5B9 * (seed ^ (seed >> 30))
+        seed = 0x94D049BB133111EB * (seed ^ (seed >> 27))
+
+        return seed ^ (seed >> 31)
+
+    """
+    def __init__(self,seed):
+
+        s0 = XOROSHIRO_BDSP.splitmix(seed, 0x9E3779B97F4A7C15)
+        s1 = XOROSHIRO_BDSP.splitmix(seed, 0x3C6EF372FE94F82A)
+
+        self.seed = [s0, s1]
+    """
+
+    
     def __init__(self, seed):
 
         
@@ -178,23 +196,13 @@ class XOROSHIRO_BDSP:
 
         s0 = ((s0 ^ (s0 >> 27)) * 0x94D049BB133111EB) & XOROSHIRO_BDSP.ulongmask
         s1 = ((s1 ^ (s1 >> 27)) * 0x94D049BB133111EB) & XOROSHIRO_BDSP.ulongmask
-
         
-        """
-        s0 = (seed - 0x61C8864680B583EB)
-        s1 = (seed + 0x3C6EF372FE94F82A)
-
-        s0 = ((s0 ^ (s0 >> 30)) * 0xBF58476D1CE4E5B9)
-        s1 = ((s1 ^ (s1 >> 30)) * 0xBF58476D1CE4E5B9)
-
-        s0 = ((s0 ^ (s0 >> 27)) * 0x94D049BB133111EB)
-        s1 = ((s1 ^ (s1 >> 27)) * 0x94D049BB133111EB)
-        """
 
         s0 = s0 ^ (s0 >> 31)
         s1 = s1 ^ (s1 >> 31)
         
         self.seed = [s0, s1]
+    
 
     @staticmethod
     def rotl(number, k):
@@ -216,3 +224,22 @@ class XOROSHIRO_BDSP:
     def next(self):
         result = self.next_u64()
         return result >> 32
+
+    @staticmethod
+    def getMask(x):
+        x -= 1
+        for i in range(6):
+            x |= x >> (1 << i)
+        return x
+
+    def rand(self, N = uintmask):
+        return self.next() % N
+    
+    """
+    def rand(self, N = uintmask):
+        mask = XOROSHIRO_BDSP.getMask(N)
+        res = self.next() & mask
+        while res >= N:
+            res = self.next() & mask
+        return res
+    """

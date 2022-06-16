@@ -1,5 +1,6 @@
 from pla.rng import Xorshift,XOROSHIRO_BDSP
 from .daycare import Daycare
+from pla.data import natures
 
 def generate_stationary(rng:Xorshift, fixed_gender=False, guaranteed_ivs=0):
 
@@ -143,18 +144,46 @@ def generate_tid(rng: Xorshift):
 
 def generate_egg(rng: Xorshift, info: Daycare):
 
+    seed = rng.alt_next()
+    displayseed = seed
+    
+    if (seed & 0x80000000):
+        seed |= 0xffffffff00000000
+
+    egg_rng = XOROSHIRO_BDSP(seed)
+
+
     if info.is_nido_volbeat():
-        rng.alt_next()
+        egg_rng.next()
+    
     
     #genderatio stuff
+
+    ratio = info.get_gender_ratio()
+
+
+    if ratio == 255:
+        gender = 2
+    elif ratio == 254:
+        gender = 1
+    elif ratio == 0:
+        gender = 0
+    else:
+        gender_rand = egg_rng.rand(252) + 1
+        if gender_rand < ratio:
+            gender = 1
+        else:
+            gender = 0
 
 
     #nature
 
-    nature = rng.alt_rand(25)
+    nature = egg_rng.rand(25)
+    nature = natures(nature)
+
 
     if info.get_everstone_count() == 2:
-        nature = info.get_parent_item(rng.alt_rand(2))
+        nature = info.get_parent_item(egg_rng.rand(2))
     elif info.get_parent_item(0) == 1:
         nature = info.get_parent_nature(0)
     elif info.get_parent_item(1) == 1:
@@ -163,7 +192,7 @@ def generate_egg(rng: Xorshift, info: Daycare):
     #ability
     
     parentAbility = info.get_parent_ability(0 if info.is_ditto(1) else 1)
-    ability = rng.alt_rand(100)
+    ability = egg_rng.rand(100)
 
     if parentAbility == 2:
         if ability < 20:
@@ -183,24 +212,25 @@ def generate_egg(rng: Xorshift, info: Daycare):
 
     inherit = info.get_inherit()
 
-    for _ in range(inherit):
-        index = rng.alt_next(6)
+    for _ in range(0,inherit):
+        index = egg_rng.rand(6)
         while ivs[index] != -1:
-            index = rng.alt_next(6)
-        p_inherit = rng_alt_next(2)
+            index =  egg_rng.rand(6)
+        p_inherit =  egg_rng.rand(2)
         ivs[index] = info.get_parent_iv(index, p_inherit)
     
     for i in range(6):
+        iv = egg_rng.rand(32)
         if ivs[i] == -1:
-            ivs[i] = rng.alt_rand(32)
+            ivs[i] = iv
 
-    ec = rng.alt_next()
+    ec = egg_rng.next()
 
     pid = 0
     shinyval = 0
 
-    for i in range(info.get_pidrolls):
-        pid = rng.alt_next()
+    for i in range(info.get_pidrolls()):
+        pid = egg_rng.rand(0xffffffff)
         tid = info.get_tid()
         sid = info.get_sid()
 
@@ -220,4 +250,4 @@ def generate_egg(rng: Xorshift, info: Daycare):
         shiny = False
         square = False
 
-    return nature, ability, ivs, ec, pid, shiny, square
+    return nature, ability, ivs, ec, pid, shiny, square, gender, displayseed

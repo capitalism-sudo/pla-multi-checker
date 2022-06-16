@@ -1,3 +1,5 @@
+from pla.data import natures
+
 class Daycare:
 
     def __init__(self, 
@@ -17,7 +19,8 @@ class Daycare:
                 a_ability,
                 b_ability,
                 a_ditto: bool,
-                b_ditto: bool):
+                b_ditto: bool,
+                gender_ratio):
 
         self.oval = oval_charm
         self.shiny = shiny_charm
@@ -36,6 +39,7 @@ class Daycare:
         self.b_ability = b_ability
         self.a_ditto = a_ditto
         self.b_ditto = b_ditto
+        self.gender = gender_ratio
 
     def is_ditto(self, parent):
         if parent == 0:
@@ -69,9 +73,9 @@ class Daycare:
     def get_pidrolls(self):
         pidrolls = 0
 
-        if self.has_shiny_charm:
+        if self.has_shiny_charm():
             pidrolls += 2
-        if self.is_masuda:
+        if self.is_masuda():
             pidrolls += 6
 
         return pidrolls
@@ -124,3 +128,6 @@ class Daycare:
     
     def get_sid(self):
         return self.sid
+
+    def get_gender_ratio(self):
+        return self.gender
