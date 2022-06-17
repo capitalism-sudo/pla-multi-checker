@@ -91,6 +91,10 @@ def broamer():
 def begg():
     return render_template('pages/b_egg.html', title='Egg Checker', bdsp="true")
 
+@app.route("/bdsptid")
+def btid():
+    return render_template('pages/b_tid.html', title='TID Checker', bdsp="true")
+
 
 # API ROUTES
 @app.route('/api/read-mmos', methods=['POST'])
@@ -375,6 +379,17 @@ def check_bdsp_egg():
                             request.json['delay'])
     
     return { "results": flatten_bdsp_stationary(results, config.get('FILTER_ON_SERVER', False), filter_command) }
+
+@app.route('/api/check-bdsp-tid', methods=['POST'])
+def check_bdsp_tid():
+
+    states = [request.json['s0'], request.json['s1'], request.json['s2'], request.json['s3']]
+
+    results = bdsp.read_tid_seed(states,
+                                request.json['filter'],
+                                request.json['ids'])
+    
+    return { "results": flatten_bdsp_stationary(results, False) }
 
 # Legacy routes used by bots
 import app.legacy as legacy

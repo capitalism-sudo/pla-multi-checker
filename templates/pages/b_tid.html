@@ -1,0 +1,122 @@
+{% extends "base/base-sidebar.html" %}
+
+{% block title %}Stationary Checker{% endblock %}
+
+{% block head %}
+	<script type="module" src="static/js/jquery.min.mjs"></script>
+	<script type="module">
+	</script>
+{% endblock %}
+
+{% block main %}
+
+	<div class="tab">
+			<button class="tablinks" id="defaultOpen" data-pla-tab-for="Results">Results</button>
+			<button class="tablinks" data-pla-tab-for="Timer">TID/SID Timer</button>
+	</div>
+		
+	<div id="Results" class="tabcontent">
+	
+	<section class="pla-section-results">
+        <div data-pla-messages></div>
+        <div class="pla-results" data-pla-results>
+            <p class="pla-results-message">Search to begin</p>
+        </div>
+    </section>
+	
+	</div>
+	
+	<div id="Timer" class="tabcontent">
+	
+	<section class="swsh-section-results">
+		<div data-swsh-messages></div>
+		<div class="swsh-results" data-swsh-results>
+		<ul class="swsh-results-ul">
+		<li><span class="pla-results-label">S[0]:</span><input style="width: 200px;" type="text" id="time-s0" maxlength=16 value=""></li>
+		<li><span class="pla-results-label">S[1]:</span><input style="width: 200px;" type="text" id="time-s1" maxlength=16 value=""></li>
+		</ul>
+		<ul class="swsh-results-ul">
+		<li><span class="pla-results-label">Timestamp:</span><input style="width: 200px;" type="text" id="ts" value=""></li>
+		<li><span class="pla-results-label">Target Advance:</span><input style="width: 100px;" type="number" id="tadv" maxlength=16 value=""></li>
+		</ul>
+		<ul class="swsh-results-ul">
+		<li><span class="pla-results-label">Advances: </span><span id="time-adv">0</span></li>
+        <li><span class="pla-results-label">Current Timestamp: </span><span id="time-curr">0</span></li>
+        <li><span class="pla-results-label">Time Until Next Advance: </span><span id="tuna">0</span></li>
+        <li><span class="pla-results-label">Time Until Target Advance: </span><span id="tuta">0</span></li>
+		</ul>
+    <br>
+    <button class="pla-button pla-button-action" id="pla-button-starttime">Generate</button>
+		</div>
+	
+	</section>
+	
+	</div>
+{% endblock %}
+
+{% block sidebar %}
+    <section class="pla-section-options">
+		<div class="pla-control">
+            <label for="inputs0">S0</label>
+            <input id="inputs0" placeholder="Input S[0]">
+        </div>
+		
+		<div class="pla-control">
+            <label for="inputs1">S1</label>
+            <input id="inputs1" placeholder="Input S[1]">
+        </div>
+		
+		<div class="pla-control">
+            <label for="inputs2">S2</label>
+            <input id="inputs2" placeholder="Input S[2]">
+        </div>
+		
+		<div class="pla-control">
+            <label for="inputs3">S3</label>
+            <input id="inputs3" placeholder="Input S[3]">
+        </div>
+		
+		<div class="pla-control">
+            <label for="minadvances">Starting Advance:</label>
+            <input type="number" id="minadvances" placeholder="Advances">
+        </div>
+		
+		<div class="pla-control">
+            <label for="advances">Max Advance:</label>
+            <input type="number" id="advances" placeholder="Advances">
+        </div>		
+		
+		<div class="pla-control">
+            <label for="tidfilter">G8TID to Search For:</label>
+            <textarea id="tidfilter" cols="2" rows="1" style="height: 60px;" placeholder="Comma separated TIDs"></textarea>
+        </div>
+        
+        <div class="pla-control-actions">
+            <button class="pla-button pla-button-action" id="pla-button-checktid">Check TID</button>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block templates %}
+    <template data-pla-results-template>
+	<!--<details>
+	<summary>Advance: <span data-pla-results-advances></span> Shiny: <span data-pla-results-shine></span> <span data-pla-results-spawn></span></summary>-->
+        <div class="pla-results-item" data-pla-results-template>
+            
+			<ul class="pla-results-ul">
+				<li><span class="pla-results-label">Advances:</span> <span data-pla-results-adv></span></li>
+				<li><span class="pla-results-label">G8TID:</span> <span data-pla-results-g8tid></span></li>			
+				<li><span class="pla-results-label">TID:</span><span data-pla-results-tid></span></li>
+                <li><span class="pla-results-label">SID:</span> <span data-pla-results-sid></span></li>
+                <li><span class="pla-results-label">TSV:</span> <span data-pla-results-tsv></span></li>
+            </ul>
+
+ 
+         </div>
+		 </template>
+{% endblock %}
+
+{% block script %}
+    <script type="module" src="{{ url_for('static', filename='js/btid.js') }}"></script>
+{% endblock %}
