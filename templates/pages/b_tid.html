@@ -1,6 +1,6 @@
 {% extends "base/base-sidebar.html" %}
 
-{% block title %}Stationary Checker{% endblock %}
+{% block title %}TID Checker{% endblock %}
 
 {% block head %}
 	<script type="module" src="static/js/jquery.min.mjs"></script>
@@ -84,10 +84,21 @@
 		<div class="pla-control">
             <label for="advances">Max Advance:</label>
             <input type="number" id="advances" placeholder="Advances">
-        </div>		
+        </div>
 		
 		<div class="pla-control">
-            <label for="tidfilter">G8TID to Search For:</label>
+			<label for="idfilter">Filter On:</label>
+			<select id="idfilter">
+				<option value="-1">None</option>
+				<option value="0">G8TID</option>
+				<option value="1">TID</option>
+				<option value="2">SID</option>
+				<option value="3">TSV</option>
+			</select>
+		</div>
+		
+		<div class="pla-control">
+            <label for="tidfilter">IDs to Search For:</label>
             <textarea id="tidfilter" cols="2" rows="1" style="height: 60px;" placeholder="Comma separated TIDs"></textarea>
         </div>
         

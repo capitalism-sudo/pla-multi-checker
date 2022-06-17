@@ -1,26 +1,25 @@
 from .core import generate_tid
 from pla.rng import Xorshift
 
+filtertype = {
+    "-1": None,
+    "0": "g8tid",
+    "1": "tid",
+    "2": "sid",
+    "3": "tsv"
+}
+def check_match(filter_type, result, ids):
 
-def check_match(filter, result, ids):
-
-    if filter['tid']:
-        if result['tid'] not in ids:
-            return False
-    
-    if filter['g8tid']:
-        if result['g8tid'] not in ids:
-            return False
-    
-    if filter['sid']:
-        if result['sid'] not in ids:
-            return False
+    if filter_type is not None:
+        return result[filter_type] in ids
     
     return True
 
 def read_tid_seed(states, filter, ids):
 
     result = {}
+
+    filter_type = filtertype[filter['idfilter']]
 
     if len(ids) != 0:
         ids = ids.split(',')
@@ -48,10 +47,7 @@ def read_tid_seed(states, filter, ids):
             "adv": i + filter['minadv']
         }
 
-        if len(ids) != 0:
-            if check_match(filter, info, ids):
-                result[i] = info
-        else:
+        if check_match(filter_type, info, ids):
             result[i] = info
         
         rng.alt_next()

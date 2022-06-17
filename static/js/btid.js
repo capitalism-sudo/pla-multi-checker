@@ -34,6 +34,7 @@ const inputS3 = document.getElementById("inputs3");
 const advances = document.getElementById("advances");
 const minAdv = document.getElementById("minadvances");
 const tidFilter = document.getElementById("tidfilter");
+const idFilter = document.getElementById("idfilter");
 
 //timer options
 const timeS0 = document.getElementById("time-s0");
@@ -164,9 +165,7 @@ function getOptions() {
 	filter: {
 		maxadv: parseInt(advances.value),
 		minadv: parseInt(minAdv.value),
-		tid: false,
-		sid: false,
-		g8tid: true,
+		idfilter: idFilter.value,
 	},
 	ids: tidFilter.value,
   };
