@@ -17,6 +17,7 @@ import {
   showPokemonInformation,
   showPokemonHiddenInformation,
   initializeApp,
+  setupIVBox,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -67,6 +68,7 @@ loadPreferences();
 setupPreferenceSaving();
 setupExpandables();
 //setupTabs();
+setupIVBox();
 
 const results = [];
 

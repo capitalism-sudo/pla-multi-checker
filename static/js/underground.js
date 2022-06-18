@@ -17,6 +17,8 @@ import {
   showPokemonInformation,
   showPokemonHiddenInformation,
   initializeApp,
+  setupIVBox,
+  getSelectValues,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -34,8 +36,25 @@ const roomID = document.getElementById("roomid");
 const diglettMode = document.getElementById("diglett");
 const minAdv = document.getElementById("minadvances");
 
+//IVs
+
+const minHP = document.getElementById("minhp");
+const minATK = document.getElementById("minatk");
+const minDEF = document.getElementById("mindef");
+const minSPA = document.getElementById("minspa");
+const minSPD = document.getElementById("minspd");
+const minSPE = document.getElementById("minspe");
+
+const maxHP = document.getElementById("maxhp");
+const maxATK = document.getElementById("maxatk");
+const maxDEF = document.getElementById("maxdef");
+const maxSPA = document.getElementById("maxspa");
+const maxSPD = document.getElementById("maxspd");
+const maxSPE = document.getElementById("maxspe");
+
 // filters
 const distSelectFilter = document.getElementById("selectfilter");
+const natureSelect = document.getElementById("naturefilter");
 /*const distShinyOrAlphaCheckbox = document.getElementById(
   "mmoShinyOrAlphaFilter"
 );*/
@@ -58,6 +77,7 @@ loadPreferences();
 setupPreferenceSaving();
 setupExpandables();
 //setupTabs();
+setupIVBox();
 
 const results = [];
 
@@ -70,6 +90,23 @@ function loadPreferences() {
   minAdv.value = localStorage.getItem("minadvances") ?? "0";
   storyFlag.value = localStorage.getItem("storyflags") ?? "6";
   gameVer.value = localStorage.getItem("version") ?? "1";
+  
+  minAdv.value = 0;
+  minHP.value = 0;
+  minATK.value = 0;
+  minDEF.value = 0;
+  minSPA.value = 0;
+  minSPD.value = 0;
+  minSPE.value = 0;
+  
+  maxHP.value = 31;
+  maxATK.value = 31;
+  maxDEF.value = 31;
+  maxSPA.value = 31;
+  maxSPD.value = 31;
+  maxSPE.value = 31;
+  
+  natureSelect.value = "any";
 }
 
 function setupPreferenceSaving() {
@@ -115,6 +152,17 @@ function openTab(evt, tabName) {
   evt.currentTarget.className += " active";
 }*/
 
+$(function() {
+	$(".chosen-select").chosen({
+		no_results_text: "Oops, nothing found!",
+		inherit_select_classes: true
+	});
+	
+	$('#naturefilter').chosen().change(setFilter);
+	
+	$('#slotfilter').chosen().change(setFilter);
+});
+
 function setFilter(event) {
   if (event.target.checked) {
     if (event.target == distShinyCheckbox) {
@@ -132,7 +180,8 @@ function filter(
   result,
   shinyFilter,
   speciesFilter,
-  advanceFilter
+  advanceFilter,
+  natureFilter,
 ) {
 
   console.log("advancefilter");
@@ -155,6 +204,13 @@ function filter(
   ) {
 	  return false;
   }
+  
+  if (
+		!natureFilter.includes("any") &&
+		!natureFilter.includes(result.nature.toLowerCase())
+		) {
+			return false;
+		}
 
   return true;
 }
@@ -172,6 +228,10 @@ function getOptions() {
 	room: parseInt(roomID.value),
 	filter: distSelectFilter.value,
 	minadv: parseInt(minAdv.value),
+	ivs: {
+		minivs: [minHP.value, minATK.value, minDEF.value, minSPA.value, minSPD.value, minSPE.value],
+		maxivs: [maxHP.value, maxATK.value, maxDEF.value, maxSPA.value, maxSPD.value, maxSPE.value],
+	},
     //	inmap: inmapCheck.checked
   };
 }
@@ -196,13 +256,15 @@ function showFilteredResults() {
   //let defaultFilter = distDefaultCheckbox.checked;
   //let multiFilter = distMultiCheckbox.checked;
   let advanceFilter = advanceText.value;
+  let natureFilter = getSelectValues(natureSelect);
 
   const filteredResults = results.filter((result) =>
     filter(
       result,
       shinyFilter,
       speciesFilter,
-	  advanceFilter
+	  advanceFilter,
+	  natureFilter
     )
   );
 

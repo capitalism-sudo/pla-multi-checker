@@ -17,6 +17,8 @@ import {
   showPokemonInformation,
   showPokemonHiddenInformation,
   initializeApp,
+  setupIVBox,
+  setivVal,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -67,6 +69,7 @@ loadPreferences();
 setupPreferenceSaving();
 setupExpandables();
 //setupTabs();
+setupIVBox();
 
 $(function() {
 	$(".chosen-select").chosen({

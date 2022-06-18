@@ -557,3 +557,26 @@ export function getSelectValues(select) {
 	
 	return res;
 }
+
+export function setupIVBox() {
+	document.querySelectorAll(".ivbox").forEach((element) => {
+		element.addEventListener("click", (event) =>
+			setivVal(event, element)
+		);
+	});
+}
+
+export function setivVal(evt, elementName) {
+	if (event.ctrlKey && event.shiftKey) {
+		elementName.value = 30;
+	}
+	else if (event.ctrlKey) {
+		elementName.value = 31;
+	}
+	else if (event.shiftKey) {
+		elementName.value = 0;
+	}
+	else {
+		elementName.value = 0;
+	}
+}

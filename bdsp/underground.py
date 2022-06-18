@@ -5,6 +5,7 @@ from .bdsp_ug_generator_py import generate_results, FilterPy
 from app import RESOURCE_PATH
 from pla.data import natures
 from pla.core import get_bdsp_sprite
+from bdsp.filters import compare_all_ivs
 
 with open(RESOURCE_PATH + "resources/text_species_en.txt",encoding="utf-8") as text_species:
     SPECIES = text_species.read().split("\n")
@@ -25,7 +26,7 @@ def shiny_check(result):
     
     return False
 
-def check_ug_advance(s0,s1,s2,s3,story_flag,room,version,advances,minadvances,diglett):
+def check_ug_advance(s0,s1,s2,s3,story_flag,room,version,advances,minadvances,diglett,ivfilter):
 
     filter = FilterPy(False, None, [0,0,0,0,0,0], [31,31,31,31,31,31], None, None, None, None, None)
     results = generate_results(advances, [int(s0,16),int(s1,16),int(s2,16),int(s3,16)], version, story_flag, room, filter, diglett)
@@ -53,7 +54,8 @@ def check_ug_advance(s0,s1,s2,s3,story_flag,room,version,advances,minadvances,di
                     "advances": advance,
                     "rarespawn": False
                 }
-                full.append(monster)
+                if compare_all_ivs(ivfilter['minivs'], ivfilter['maxivs'], monster['ivs']):
+                    full.append(monster)
             if rare is not None:
                 monster = {
                     "ec": f"{rare.ec:X}",
@@ -70,7 +72,8 @@ def check_ug_advance(s0,s1,s2,s3,story_flag,room,version,advances,minadvances,di
                     "advances": advance,
                     "rarespawn": True
                 }
-                full.append(monster)
+                if compare_all_ivs(ivfilter['minivs'], ivfilter['maxivs'], monster['ivs']):
+                    full.append(monster)
             final[str(i)] = full
 
     return final

@@ -317,7 +317,8 @@ def check_ug_seed():
                                     request.json['version'],
                                     request.json['advances'],
                                     request.json['minadv'],
-                                    request.json['diglett'])
+                                    request.json['diglett'],
+                                    request.json['ivs'])
 
     return { "results": flatten_ug(results, config.get('FILTER_ON_SERVER', False), filter_command) }
 

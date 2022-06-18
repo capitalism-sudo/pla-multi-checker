@@ -18,6 +18,8 @@ import {
   showPokemonHiddenInformation,
   initializeApp,
   getSelectValues,
+  setupIVBox,
+  setivVal,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -157,23 +159,6 @@ function setupTabs() {
       openTab(event, element.dataset.plaTabFor)
     );
   });
-}
-
-function setupIVBox() {
-	document.querySelectorAll(".ivbox").forEach((element) => {
-		element.addEventListener("click", (event) =>
-			setivVal(event, element)
-		);
-	});
-}
-
-function setivVal(evt, elementName) {
-	if (event.ctrlKey) {
-		elementName.value = 31;
-	}
-	else if (event.shiftKey) {
-		elementName.value = 0;
-	}
 }
 		
 
