@@ -183,7 +183,7 @@ def generate_egg(rng: Xorshift, info: Daycare):
 
 
     if info.get_everstone_count() == 2:
-        nature = info.get_parent_item(egg_rng.rand(2))
+        nature = info.get_parent_nature(egg_rng.rand(2))
     elif info.get_parent_item(0) == 1:
         nature = info.get_parent_nature(0)
     elif info.get_parent_item(1) == 1:

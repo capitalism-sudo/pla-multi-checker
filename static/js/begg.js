@@ -17,6 +17,7 @@ import {
   showPokemonInformation,
   showPokemonHiddenInformation,
   initializeApp,
+  getSelectValues,
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -95,12 +96,29 @@ loadPreferences();
 setupPreferenceSaving();
 setupExpandables();
 setupTabs();
+setupIVBox();
 document.getElementById("defaultOpen").click();
 
 
 const results = [];
 
 // Setup tabs
+
+$(function() {
+	$(".chosen-select").chosen({
+		no_results_text: "Oops, nothing found!",
+		inherit_select_classes: true
+	});
+	
+	$(".chosen-select-single").chosen({
+		width: "75%",
+		inherit_select_classes: true
+	});
+	
+	$('#naturefilter').chosen().change(setFilter);
+	
+	$('#slotfilter').chosen().change(setFilter);
+});
 
 // Save and load user preferences
 function loadPreferences() {
@@ -140,6 +158,24 @@ function setupTabs() {
     );
   });
 }
+
+function setupIVBox() {
+	document.querySelectorAll(".ivbox").forEach((element) => {
+		element.addEventListener("click", (event) =>
+			setivVal(event, element)
+		);
+	});
+}
+
+function setivVal(evt, elementName) {
+	if (event.ctrlKey) {
+		elementName.value = 31;
+	}
+	else if (event.shiftKey) {
+		elementName.value = 0;
+	}
+}
+		
 
 function openTab(evt, tabName) {
   let i, tabcontent, tablinks;
@@ -187,11 +223,11 @@ function filter(
   }*/
   
   if (
-	natureFilter != "any" &&
-	result.nature.toLowerCase() != natureFilter.toLowerCase()
-	) {
-		return false;
-	}
+		!natureFilter.includes("any") &&
+		!natureFilter.includes(result.nature.toLowerCase())
+		) {
+			return false;
+		}
   
   /*if (
 	advanceFilter.length != 0 &&
@@ -255,7 +291,7 @@ function showFilteredResults() {
   //validateFilters();
   
   let shinyFilter = distShinyCheckbox.checked;
-  let natureFilter = natureSelect.value;
+  let natureFilter = getSelectValues(natureSelect);
 
   const filteredResults = results.filter((result) =>
     filter(

@@ -68,6 +68,17 @@ setupPreferenceSaving();
 setupExpandables();
 //setupTabs();
 
+$(function() {
+	$(".chosen-select").chosen({
+		no_results_text: "Oops, nothing found!",
+		inherit_select_classes: true
+	});
+	
+	$('#naturefilter').chosen().change(setFilter);
+	
+	$('#slotfilter').chosen().change(setFilter);
+});
+
 const results = [];
 
 // Setup tabs
@@ -157,12 +168,11 @@ function filter(
   }*/
   
   if (
-	natureFilter != "any" &&
-	result.nature.toLowerCase() != natureFilter.toLowerCase()
-	) {
-		return false;
-	}
-  
+		!natureFilter.includes("any") &&
+		!natureFilter.includes(result.nature.toLowerCase())
+		) {
+			return false;
+		}
   /*if (
 	advanceFilter.length != 0 &&
 	result.advances != parseInt(advanceFilter)
@@ -193,6 +203,22 @@ function getOptions() {
   };
 }
 
+function getSelectValues(select) {
+	var res = []
+	var options = select && select.options;
+	var opt;
+	
+	for (var i=0, iLen=options.length; i<iLen; i++) {
+		opt = options[i];
+		
+		if (opt.selected) {
+			res.push(opt.value || opt.text);
+		}
+	}
+	
+	return res;
+}
+
 function checkRoamer() {
   doSearch(
     "/api/check-bdsp-roamer",
@@ -207,7 +233,7 @@ function showFilteredResults() {
   //validateFilters();
   
   let shinyFilter = distShinyCheckbox.checked;
-  let natureFilter = natureSelect.value;
+  let natureFilter = getSelectValues(natureSelect);
 
   const filteredResults = results.filter((result) =>
     filter(

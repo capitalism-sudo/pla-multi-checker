@@ -94,12 +94,12 @@
 			
 			<label>Min IVs:</label>
 			<div class="pla-control-spaced">
-				<input type="number" id="minhp" placeholder="HP" size="2" min="0" max="31"> <input type="number" id="minatk" placeholder="ATK" size="2" min="0" max="31"> <input type="number" id="mindef" placeholder="DEF" size="2" min="0" max="31"><input type="number" id="minspa" placeholder="SpA" size="2" min="0" max="31"> <input type="number" id="minspd" placeholder="SpD" size="2" min="0" max="31"> <input type="number" id="minspe" placeholder="Spe" size="2" min="0" max="31">
+				<input type="number" id="minhp" placeholder="HP" size="2" min="0" max="31" class="ivbox"> <input type="number" id="minatk" placeholder="ATK" size="2" min="0" max="31" class="ivbox"> <input type="number" id="mindef" placeholder="DEF" size="2" min="0" max="31" class="ivbox"><input type="number" id="minspa" placeholder="SpA" size="2" min="0" max="31" class="ivbox"> <input type="number" id="minspd" placeholder="SpD" size="2" min="0" max="31" class="ivbox"> <input type="number" id="minspe" placeholder="Spe" size="2" min="0" max="31" class="ivbox">
 			</div>
 
 			<label>Max IVs:</label>
 			<div class="pla-control-spaced">
-				<input type="number" id="maxhp" placeholder="HP" size="2" min="0" max="31"> <input type="number" id="maxatk" placeholder="ATK" size="2" min="0" max="31"> <input type="number" id="maxdef" placeholder="DEF" size="2" min="0" max="31"><input type="number" id="maxspa" placeholder="SpA" size="2" min="0" max="31"> <input type="number" id="maxspd" placeholder="SpD" size="2" min="0" max="31"> <input type="number" id="maxspe" placeholder="Spe" size="2" min="0" max="31">
+				<input type="number" id="maxhp" placeholder="HP" size="2" min="0" max="31" class="ivbox"> <input type="number" id="maxatk" placeholder="ATK" size="2" min="0" max="31" class="ivbox"> <input type="number" id="maxdef" placeholder="DEF" size="2" min="0" max="31" class="ivbox"><input type="number" id="maxspa" placeholder="SpA" size="2" min="0" max="31" class="ivbox"> <input type="number" id="maxspd" placeholder="SpD" size="2" min="0" max="31" class="ivbox"> <input type="number" id="maxspe" placeholder="Spe" size="2" min="0" max="31" class="ivbox">
 			</div>
 			
 			</div>
@@ -119,37 +119,37 @@
 			
 			<label>Male Parent IVs:</label>
 			<div class="pla-control-spaced">
-				<input type="number" id="a_hp" placeholder="HP" size="2" min="0" max="31"> <input type="number" id="a_atk" placeholder="ATK" size="2" min="0" max="31"> <input type="number" id="a_def" placeholder="DEF" size="2" min="0" max="31"><input type="number" id="a_spa" placeholder="SpA" size="2" min="0" max="31"> <input type="number" id="a_spd" placeholder="SpD" size="2" min="0" max="31"> <input type="number" id="a_spe" placeholder="Spe" size="2" min="0" max="31">
+				<input type="number" id="a_hp" placeholder="HP" size="2" min="0" max="31" class="ivbox"> <input type="number" id="a_atk" placeholder="ATK" size="2" min="0" max="31" class="ivbox"> <input type="number" id="a_def" placeholder="DEF" size="2" min="0" max="31" class="ivbox"><input type="number" id="a_spa" placeholder="SpA" size="2" min="0" max="31" class="ivbox"> <input type="number" id="a_spd" placeholder="SpD" size="2" min="0" max="31" class="ivbox"> <input type="number" id="a_spe" placeholder="Spe" size="2" min="0" max="31" class="ivbox">
 			</div>
 			
 			<div class="pla-control">
 			<label for="a_nature">Nature: </label>
-			<select id="a_nature">
-				<option value="hardy">Hardy</option>
-				<option value="lonely">Lonely</option>
-				<option value="brave">Brave</option>
-				<option value="adamant">Adamant</option>
-				<option value="naughty">Naughty</option>
-				<option value="bold">Bold</option>
-				<option value="docile">Docile</option>
-				<option value="relaxed">Relaxed</option>
-				<option value="impish">Impish</option>
-				<option value="lax">Lax</option>
-				<option value="timid">Timid</option>
-				<option value="hasty">Hasty</option>
-				<option value="serious">Serious</option>
-				<option value="jolly">Jolly</option>
-				<option value="naive">Naive</option>
-				<option value="modest">Modest</option>
-				<option value="mild">Mild</option>
-				<option value="quiet">Quiet</option>
-				<option value="bashful">Bashful</option>
-				<option value="rash">Rash</option>
-				<option value="calm">Calm</option>
-				<option value="gentle">Gentle</option>
-				<option value="sassy">Sassy</option>
-				<option value="careful">Careful</option>
-				<option value="quirky">Quirky</option>
+			<select id="a_nature" class="chosen-select-single">
+				<option value="Hardy">Hardy</option>
+				<option value="Lonely">Lonely</option>
+				<option value="Brave">Brave</option>
+				<option value="Adamant">Adamant</option>
+				<option value="Naughty">Naughty</option>
+				<option value="Bold">Bold</option>
+				<option value="Docile">Docile</option>
+				<option value="Relaxed">Relaxed</option>
+				<option value="Impish">Impish</option>
+				<option value="Lax">Lax</option>
+				<option value="Timid">Timid</option>
+				<option value="Hasty">Hasty</option>
+				<option value="Serious">Serious</option>
+				<option value="Jolly">Jolly</option>
+				<option value="Naive">Naive</option>
+				<option value="Modest">Modest</option>
+				<option value="Mild">Mild</option>
+				<option value="Quiet">Quiet</option>
+				<option value="Bashful">Bashful</option>
+				<option value="Rash">Rash</option>
+				<option value="Calm">Calm</option>
+				<option value="Gentle">Gentle</option>
+				<option value="Sassy">Sassy</option>
+				<option value="Careful">Careful</option>
+				<option value="Quirky">Quirky</option>
 			</select>
 			</div>
 			
@@ -169,37 +169,37 @@
 			<p><p>
 			<label>Female Parent IVs:</label>
 			<div class="pla-control-spaced">
-				<input type="number" id="b_hp" placeholder="HP" size="2" min="0" max="31"> <input type="number" id="b_atk" placeholder="ATK" size="2" min="0" max="31"> <input type="number" id="b_def" placeholder="DEF" size="2" min="0" max="31"><input type="number" id="b_spa" placeholder="SpA" size="2" min="0" max="31"> <input type="number" id="b_spd" placeholder="SpD" size="2" min="0" max="31"> <input type="number" id="b_spe" placeholder="Spe" size="2" min="0" max="31">
+				<input type="number" id="b_hp" placeholder="HP" size="2" min="0" max="31" class="ivbox"> <input type="number" id="b_atk" placeholder="ATK" size="2" min="0" max="31" class="ivbox"> <input type="number" id="b_def" placeholder="DEF" size="2" min="0" max="31" class="ivbox"><input type="number" id="b_spa" placeholder="SpA" size="2" min="0" max="31" class="ivbox"> <input type="number" id="b_spd" placeholder="SpD" size="2" min="0" max="31" class="ivbox"> <input type="number" id="b_spe" placeholder="Spe" size="2" min="0" max="31" class="ivbox">
 			</div>
 			
 			<div class="pla-control">
 			<label for="b_nature">Nature: </label>
-			<select id="b_nature">
-				<option value="hardy">Hardy</option>
-				<option value="lonely">Lonely</option>
-				<option value="brave">Brave</option>
-				<option value="adamant">Adamant</option>
-				<option value="naughty">Naughty</option>
-				<option value="bold">Bold</option>
-				<option value="docile">Docile</option>
-				<option value="relaxed">Relaxed</option>
-				<option value="impish">Impish</option>
-				<option value="lax">Lax</option>
-				<option value="timid">Timid</option>
-				<option value="hasty">Hasty</option>
-				<option value="serious">Serious</option>
-				<option value="jolly">Jolly</option>
-				<option value="naive">Naive</option>
-				<option value="modest">Modest</option>
-				<option value="mild">Mild</option>
-				<option value="quiet">Quiet</option>
-				<option value="bashful">Bashful</option>
-				<option value="rash">Rash</option>
-				<option value="calm">Calm</option>
-				<option value="gentle">Gentle</option>
-				<option value="sassy">Sassy</option>
-				<option value="careful">Careful</option>
-				<option value="quirky">Quirky</option>
+			<select id="b_nature" class="chosen-select-single">
+				<option value="Hardy">Hardy</option>
+				<option value="Lonely">Lonely</option>
+				<option value="Brave">Brave</option>
+				<option value="Adamant">Adamant</option>
+				<option value="Naughty">Naughty</option>
+				<option value="Bold">Bold</option>
+				<option value="Docile">Docile</option>
+				<option value="Relaxed">Relaxed</option>
+				<option value="Impish">Impish</option>
+				<option value="Lax">Lax</option>
+				<option value="Timid">Timid</option>
+				<option value="Hasty">Hasty</option>
+				<option value="Serious">Serious</option>
+				<option value="Jolly">Jolly</option>
+				<option value="Naive">Naive</option>
+				<option value="Modest">Modest</option>
+				<option value="Mild">Mild</option>
+				<option value="Quiet">Quiet</option>
+				<option value="Bashful">Bashful</option>
+				<option value="Rash">Rash</option>
+				<option value="Calm">Calm</option>
+				<option value="Gentle">Gentle</option>
+				<option value="Sassy">Sassy</option>
+				<option value="Careful">Careful</option>
+				<option value="Quirky">Quirky</option>
 			</select>
 			</div>
 			
@@ -220,7 +220,7 @@
 			<div class="pla-control">
 			<label for="genderratio">Gender Ratio:</label>
 			<select id="genderratio">
-				<option value="31">1 &#9792; : 7 &#9794;</option>
+				<option value="31" class="ivbox">1 &#9792; : 7 &#9794;</option>
 				<option value="63">1 &#9792; : 4 &#9794;</option>
 				<option value="127">1 &#9792; : 1 &#9794;</option>
 				<option value="191">3 &#9792; : 1 &#9794;</option>
@@ -266,7 +266,7 @@
         
         <div class="pla-control">
 			<label for="naturefilter">Filter Results: Nature:</label>
-			<select id="naturefilter">
+			<select id="naturefilter" class="chosen-select" multiple>
 				<option value="any">Any</option>
 				<option value="hardy">Hardy</option>
 				<option value="lonely">Lonely</option>
