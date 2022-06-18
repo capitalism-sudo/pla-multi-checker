@@ -351,6 +351,14 @@ select {
   border-radius: var(--corner-roundness1);
 }
 
+.select {
+  color: var(--text1);
+  background-color: var(--surface3);
+  padding: var(--spacing1) var(--spacing2);
+  border: 2px solid var(--surface3);
+  border-radius: var(--corner-roundness1);
+}
+
 [color-scheme="light"] input[type="text"],
 [color-scheme="light"] input[type="number"],
 [color-scheme="light"] select {

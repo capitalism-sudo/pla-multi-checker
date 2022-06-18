@@ -6,6 +6,9 @@
 	<script type="module" src="static/js/jquery.min.mjs"></script>
 	<script type="module">
 	</script>
+	<script type="module" src="static/js/chosen.jquery.min.mjs"></script>
+	<script type="module">
+	</script>
 {% endblock %}
 
 {% block main %}
@@ -109,10 +112,8 @@
             <label for="mmoAlphaFilter">Filter Results: Alpha Only</label>
             <input type="checkbox" id="mmoAlphaFilter">
         </div>-->
-        
-        <div class="pla-control">
 			<label for="naturefilter">Filter Results: Nature:</label>
-			<select id="naturefilter">
+			<select id="naturefilter" multiple class="chosen-select">
 				<option value="any">Any</option>
 				<option value="hardy">Hardy</option>
 				<option value="lonely">Lonely</option>
@@ -140,7 +141,23 @@
 				<option value="careful">Careful</option>
 				<option value="quirky">Quirky</option>
 			</select>
-		</div>
+			
+		<label for="slotfilter">Filter Results: Encounter Slot:</label>
+		<select id="slotfilter" multiple class="chosen-select">
+			<option value="any">Any</option>
+			<option value=0>0</option>
+			<option value=1>1</option>
+			<option value=2>2</option>
+			<option value=3>3</option>
+			<option value=4>4</option>
+			<option value=5>5</option>
+			<option value=6>6</option>
+			<option value=7>7</option>
+			<option value=8>8</option>
+			<option value=9>9</option>
+			<option value=10>10</option>
+			<option value=11>11</option>
+		</select>
 		
 		<div class="pla-control">
 			<label for="genderratio">Gender Ratio</label>

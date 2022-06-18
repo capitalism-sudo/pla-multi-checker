@@ -54,9 +54,10 @@ const distSelectFilter = document.getElementById("selectfilter");
 const distShinyCheckbox = document.getElementById("mmoShinyFilter");
 const natureSelect = document.getElementById("naturefilter");
 const genderRatio = document.getElementById("genderratio");
+const slotSelect = document.getElementById("slotfilter");
 
 distShinyCheckbox.addEventListener("change", setFilter);
-natureSelect.addEventListener("change", setFilter);
+//natureSelect.addEventListener("change", setFilter);
 genderRatio.addEventListener("change", setFilter);
 
 // actions
@@ -73,6 +74,18 @@ const results = [];
 // Setup tabs
 
 // Save and load user preferences
+
+$(function() {
+	$(".chosen-select").chosen({
+		no_results_text: "Oops, nothing found!",
+		inherit_select_classes: true
+	});
+	
+	$('#naturefilter').chosen().change(setFilter);
+	
+	$('#slotfilter').chosen().change(setFilter);
+});
+
 function loadPreferences() {
   distShinyCheckbox.checked = readBoolFromStorage("mmoShinyFilter", false);
   advances.value = 10000;
@@ -94,6 +107,7 @@ function loadPreferences() {
   delay.value = 1;
   
   natureSelect.value = "any";
+  slotSelect.value = "any";
   
 }
 
@@ -142,6 +156,7 @@ function filter(
   result,
   shinyFilter,
   natureFilter,
+  slotFilter,
 ) {
 
   
@@ -156,12 +171,19 @@ function filter(
     return false;
   }*/
   
-  if (
-	natureFilter != "any" &&
-	result.nature.toLowerCase() != natureFilter.toLowerCase()
-	) {
-		return false;
-	}
+	if (
+		!natureFilter.includes("any") &&
+		!natureFilter.includes(result.nature.toLowerCase())
+		) {
+			return false;
+		}
+
+	if (
+		!slotFilter.includes("any") &&
+		!slotFilter.includes(result.slot.toString())
+		) {
+			return false;
+		}
   
   /*if (
 	advanceFilter.length != 0 &&
@@ -171,6 +193,22 @@ function filter(
   }*/
 
   return true;
+}
+
+function getSelectValues(select) {
+	var res = []
+	var options = select && select.options;
+	var opt;
+	
+	for (var i=0, iLen=options.length; i<iLen; i++) {
+		opt = options[i];
+		
+		if (opt.selected) {
+			res.push(opt.value || opt.text);
+		}
+	}
+	
+	return res;
 }
 
 function getOptions() {
@@ -207,13 +245,17 @@ function showFilteredResults() {
   //validateFilters();
   
   let shinyFilter = distShinyCheckbox.checked;
-  let natureFilter = natureSelect.value;
+  let natureFilter = getSelectValues(natureSelect);
+  let slotFilter = getSelectValues(slotSelect);
+  
+  console.log(slotFilter);
 
   const filteredResults = results.filter((result) =>
     filter(
       result,
       shinyFilter,
-      natureFilter
+      natureFilter,
+	  slotFilter
     )
   );
 
