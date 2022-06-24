@@ -49,6 +49,8 @@ const bDitto = document.getElementById("b_ditto");
 const aItem = document.getElementById("a_item");
 const bItem = document.getElementById("b_item");
 const genderRatio = document.getElementById("genderratio");
+const aAbility = document.getElementById("a_ability");
+const bAbility = document.getElementById("b_ability");
 
 //IVs
 
@@ -84,6 +86,7 @@ const b_SPE = document.getElementById("b_spe");
 const distSelectFilter = document.getElementById("selectfilter");
 const distShinyCheckbox = document.getElementById("mmoShinyFilter");
 const natureSelect = document.getElementById("naturefilter");
+const abilitySelect = document.getElementById("abilityfilter");
 //const genderRatio = document.getElementById("genderratio");
 
 distShinyCheckbox.addEventListener("change", setFilter);
@@ -120,6 +123,8 @@ $(function() {
 	$('#naturefilter').chosen().change(setFilter);
 	
 	$('#slotfilter').chosen().change(setFilter);
+	
+	$('#abilityfilter').chosen().change(setFilter);
 });
 
 // Save and load user preferences
@@ -144,6 +149,7 @@ function loadPreferences() {
   delay.value = 0;
   
   natureSelect.value = "any";
+  abilitySelect.value = "any";
   
 }
 
@@ -193,6 +199,7 @@ function filter(
   result,
   shinyFilter,
   natureFilter,
+  abilityFilter,
 ) {
 
   
@@ -210,6 +217,13 @@ function filter(
   if (
 		!natureFilter.includes("any") &&
 		!natureFilter.includes(result.nature.toLowerCase())
+		) {
+			return false;
+		}
+  
+  if (
+		!abilityFilter.includes("any") &&
+		!abilityFilter.includes(result.ability.toString())
 		) {
 			return false;
 		}
@@ -250,8 +264,8 @@ function getOptions() {
 		nido_volbeat: false,
 		a_nature: aNature.value,
 		b_nature: bNature.value,
-		a_ability: 0,
-		b_ability: 1,
+		a_ability: parseInt(aAbility.value),
+		b_ability: parseInt(bAbility.value),
 		a_ditto: aDitto.checked,
 		b_ditto: bDitto.checked,
 		gender_ratio: parseInt(genderRatio.value),
@@ -277,12 +291,14 @@ function showFilteredResults() {
   
   let shinyFilter = distShinyCheckbox.checked;
   let natureFilter = getSelectValues(natureSelect);
+  let abilityFilter = getSelectValues(abilitySelect);
 
   const filteredResults = results.filter((result) =>
     filter(
       result,
       shinyFilter,
-      natureFilter
+      natureFilter,
+	  abilityFilter
     )
   );
 
@@ -357,8 +373,20 @@ function showResult(result) {
   resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
     genderStrings[gender];
 
+  let ability = 0;
+  
+  if (result.ability == "2") {
+	  ability = "HA";
+  }
+  else if (result.ability == "1") {
+	  ability = "2";
+  }
+  else{
+	  ability = "1";
+  }
+  
   resultContainer.querySelector("[data-pla-results-ability]").textContent =
-    result.ability;
+    ability;
 	
   showPokemonIVs(resultContainer, result);
   showPokemonHiddenInformation(resultContainer, result);

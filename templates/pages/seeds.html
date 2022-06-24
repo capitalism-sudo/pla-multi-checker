@@ -16,23 +16,19 @@
 	<script>
 	$(document).ready(function(e){
 		function get_json_data(id, parent_id) {
-			console.log(id.substr(0, 1).toUpperCase() + id.substr(1))
 			var html_code = '';
 			$.getJSON('static/resources/seedhashes.json', function(data) {
-				console.log(id)
 				html_code += '<option value="">Select Species</option>';
 				$.each(data, function(key, value) {
-					console.log("Value.parent_id");
-					console.log(value.parent_id);
 					if (value.parent_id == parent_id) {
 						html_code += '<option value="' + value.hash + '">' + value.species + '</option>';
 					}
 				});
 				$('#' + id).html(html_code);
+				$('#' + id).trigger("chosen:updated");
 			});
 		}
 		get_json_data('frpokemon',0);
-		console.log("finished frpokemon")
 
 		$(document).on('change', '#frpokemon', function() {
 			var brand_id = $(this).val();
@@ -41,7 +37,7 @@
 			} else {
 				$('#brpokemon').html('<option value="">Select Second Round Species</option>');
 			}
-		});
+		})
 
 		$(document).on('change', '#normalcheckbox', function() {
 			var outbreaktype = $(this).prop('checked');
@@ -59,6 +55,29 @@
 			}
 			$('#frspawns').html(html_code2);
 		});
+		
+	$(function() {
+	$(".chosen-select").chosen({
+		no_results_text: "Oops, nothing found!",
+		inherit_select_classes: true
+	});
+	
+	$(".chosen-select-single").chosen({
+		width: "75%",
+		inherit_select_classes: true
+		
+	});
+		
+	/*$('#frpokemon').chosen().change(function() {
+		var brand_id = $(this).val();
+			if (brand_id != '') {
+				get_json_data('brpokemon', brand_id);
+			} else {
+				$('#brpokemon').html('<option value="">Select Second Round Species</option>');
+			}
+		});*/
+		
+	});
 	});
 	</script>
 {% endblock %}
@@ -86,7 +105,7 @@
 
         <div class="pla-control">
             <label for="frpokemon">First Round Pokemon</label>
-            <select name="frpokemon" id="frpokemon" class="form-control">
+            <select name="frpokemon" id="frpokemon" class="form-control chosen-select-single">
                 <option value="">Select Pokemon</option>
             </select>
         </div>
@@ -106,7 +125,7 @@
 
         <div class="pla-control" data-pla-bonus-round>
             <label for="brpokemon">Bonus Round Pokemon</label>
-            <select name="brpokemon" id="brpokemon" class="form-control">
+            <select name="brpokemon" id="brpokemon" class="form-control chosen-select-single">
                 <option value="">Select Pokemon</option>
             </select>
         </div>
@@ -116,6 +135,28 @@
             <label for="inmapcheck">In Area: (Not Currently Functional)</label>
             <input type="checkbox" id="inmapcheck">
         </div>-->
+		
+		<div class="pla-control">
+			<label for="selectfilter">Select Filter:</label>
+			<select id="selectfilter">
+				<option value="is_shiny">Shiny Only</option>
+				<option value="is_square_shiny">Square Shiny Only</option>
+				<option value="is_alpha">Alpha Only</option>
+				<option value="is_perfect">6IV Only</option>
+				<option value="has_5ivs">5+IV Only</option>
+				<option value="no_attack">0 Attack IV Only</option>
+				<option value="has_no_attack_5iv_over_30">0 Attack IV, 5IV 30+ Only</option>
+				<option value="has_no_attack_5iv">0 Atk, 5IV Only</option>
+				<option value="no_speed">0 Speed IV Only</option>
+				<option value="has_no_speed_5iv_over_30">0 Speed IV, 5 IV 30+ Only</option>
+				<option value="has_no_speed_5iv">0 Speed IV, 5IV Only</option>
+				<option value="has_6iv_over_30">6 IVs 30+ Only</option>
+				<option value="has_5iv_over_30">5 IVs 30+ Only</option>
+				<option value="has_no_speed_no_attack">0 Speed and 0 Attack IV Only</option>
+				<option value="has_no_speed_no_attack_4iv_over_30">0 Speed and 0 Attack IV, 4IV 30+ Only</option>
+				<option value="has_no_speed_no_attack_4iv">0 Speed and 0 Attack IV, 4IV Only</option>
+			</select>
+		</div>
 
         <div class="pla-control-actions">
             <button class="pla-button pla-button-action" id="pla-button-checkmmos">Check MMO Seed</button>
@@ -123,28 +164,28 @@
     </section>
 
     <section>
-        <div class="pla-control-spaced">
+        <!--<div class="pla-control-spaced">
             <label for="mmoShinyFilter">Shiny or Alpha</label>
             <input type="checkbox" id="mmoShinyOrAlphaFilter">
-        </div>
+        </div>-->
 
         <div class="pla-control-spaced">
-            <label for="mmoShinyFilter">Shiny Only</label>
+            <label for="mmoShinyFilter">Results Filter: Shiny Only</label>
             <input type="checkbox" id="mmoShinyFilter">
         </div>
 
         <div class="pla-control-spaced">
-            <label for="mmoAlphaFilter">Alpha Only</label>
+            <label for="mmoAlphaFilter">Results Filter: Alpha Only</label>
             <input type="checkbox" id="mmoAlphaFilter">
         </div>
 
         <div class="pla-control-spaced">
-            <label for="mmoDefaultRouteFilter">Show Default Paths Only</label>
+            <label for="mmoDefaultRouteFilter">Results Filter: Show Default Paths Only</label>
             <input type="checkbox" id="mmoDefaultRouteFilter">
         </div>
 		
 		<div class="pla-control-spaced">
-            <label for="mmoDefaultRouteFilter">Show Multiple Shiny Paths Only</label>
+            <label for="mmoDefaultRouteFilter">Results Filter: Show Multiple Shiny Paths Only</label>
             <input type="checkbox" id="mmoMultiFilter">
         </div>
     </section>

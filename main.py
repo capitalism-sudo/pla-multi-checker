@@ -10,7 +10,7 @@ from pla.core import get_sprite, teleport_to_spawn
 from pla.data import hisuidex
 from pla.saves import read_research, rolls_from_research
 from pla.data.data_utils import flatten_all_mmo_results, flatten_map_mmo_results, flatten_normal_outbreaks, flatten_multi, filter_commands
-from bdsp.data.data_utils import flatten_bdsp_stationary, flatten_ug
+from bdsp.data.data_utils import flatten_bdsp_stationary, flatten_ug, flatten_ug_test
 import bdsp
 import swsh
 
@@ -318,9 +318,30 @@ def check_ug_seed():
                                     request.json['advances'],
                                     request.json['minadv'],
                                     request.json['diglett'],
-                                    request.json['ivs'])
+                                    request.json['ivs'],
+                                    request.json['delay'])
 
     return { "results": flatten_ug(results, config.get('FILTER_ON_SERVER', False), filter_command) }
+
+@app.route('/api/check-underground-test', methods=['POST'])
+def check_ug_seed_test():
+
+    filter_command = filter_commands.get(request.json['filter'], is_shiny)
+
+    results = bdsp.check_ug_advance(request.json['s0'],
+                                    request.json['s1'],
+                                    request.json['s2'],
+                                    request.json['s3'],
+                                    request.json['story'],
+                                    request.json['room'],
+                                    request.json['version'],
+                                    request.json['advances'],
+                                    request.json['minadv'],
+                                    request.json['diglett'],
+                                    request.json['ivs'],
+                                    request.json['delay'])
+
+    return { "results": flatten_ug_test(results, config.get('FILTER_ON_SERVER', False), filter_command) }
 
 @app.route('/api/check-bdsp-stationary', methods=['POST'])
 def check_bdsp_stationary():

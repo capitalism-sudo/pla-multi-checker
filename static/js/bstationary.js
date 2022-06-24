@@ -55,14 +55,25 @@ const distSelectFilter = document.getElementById("selectfilter");
 const distShinyCheckbox = document.getElementById("mmoShinyFilter");
 const natureSelect = document.getElementById("naturefilter");
 const genderRatio = document.getElementById("genderratio");
+const genderSelect = document.getElementById("genderfilter");
 
 distShinyCheckbox.addEventListener("change", setFilter);
 natureSelect.addEventListener("change", setFilter);
 genderRatio.addEventListener("change", setFilter);
+genderSelect.addEventListener("change", setFilter);
 
 // actions
 const checkStatButton = document.getElementById("pla-button-checkstat");
 checkStatButton.addEventListener("click", checkStationary);
+fixedGender.addEventListener("change", function() {
+	if (genderSelect.disabled){
+		genderSelect.disabled = false;
+	}
+	else {
+		genderSelect.disabled = true;
+		genderSelect.value = 50;
+	}
+});
 
 loadPreferences();
 setupPreferenceSaving();
@@ -96,6 +107,7 @@ function loadPreferences() {
   delay.value = 84;
   
   natureSelect.value = "any";
+  genderSelect.value = 50;
   
 }
 
@@ -155,7 +167,10 @@ function filter(
   result,
   shinyFilter,
   natureFilter,
+  genderFilter,
 ) {
+	
+	let gr = parseInt(genderRatio.value);
 
   
   if (shinyFilter && !result.shiny) {
@@ -176,6 +191,24 @@ function filter(
 			return false;
 		}
   
+  if (
+		genderFilter != 50
+	) {
+		console.log("Filter is not any, checking:");
+		if (
+		genderFilter == 0 &&
+		!(result.gender > gr)
+		){
+			console.log("Gender Result not male, male filter selected");
+		return false;
+		}
+		else if ( genderFilter == 1 && !(result.gender < gr)) {
+			console.log("Gender Result not female, female filter selected");
+			return false;
+		}
+	}
+	
+
   /*if (
 	advanceFilter.length != 0 &&
 	result.advances != parseInt(advanceFilter)
@@ -237,12 +270,14 @@ function showFilteredResults() {
   
   let shinyFilter = distShinyCheckbox.checked;
   let natureFilter = getSelectValues(natureSelect);
+  let genderfilter = genderSelect.value;
 
   const filteredResults = results.filter((result) =>
     filter(
       result,
       shinyFilter,
-      natureFilter
+      natureFilter,
+	  genderfilter
     )
   );
 
@@ -318,6 +353,7 @@ function showResult(result) {
 	){
 		gender = 'female';
 	}
+	
   
   const genderStrings = {
   male: "Male <i class='fa-solid fa-mars' style='color:blue'/>",

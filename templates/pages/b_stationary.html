@@ -142,6 +142,13 @@
 			</select>
 		</div>
 		
+		<label for="genderfilter">Filter Results: Gender:</label>
+		<select id="genderfilter">
+			<option value=50>Any</option>
+			<option value=0>Male</option>
+			<option value=1>Female</option>
+		</select>
+		
 		<div class="pla-control">
 			<label for="genderratio">Gender Ratio</label>
 			<select id="genderratio">
@@ -174,9 +181,11 @@
                 <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
                 <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>			
                 <li><span class="pla-results-label">Ability:</span> <span data-pla-results-ability></span></li>
-                <li><span class="pla-results-label">PID:</span> <span data-pla-results-pid></span></li>
+                </ul>
+				<ul class="pla-results-ul">
+				<li><span class="pla-results-label">PID:</span> <span data-pla-results-pid></span></li>
 				<li><span class="pla-results-label">EC:</span> <span data-pla-results-ec></span></li>
-            </ul>
+				</ul>
 
             <div class="pla-results-ivs-container">
                 <span class="pla-results-label">IVs:</span>

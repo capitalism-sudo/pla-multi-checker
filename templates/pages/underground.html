@@ -50,6 +50,11 @@
         </div>
 		
 		<div class="pla-control">
+            <label for="delay">Delay:</label>
+            <input type="number" id="delay" placeholder="Advances">
+        </div>
+		
+		<div class="pla-control">
             <label for="version">Game Version:</label>
             <select id="version">
                 <option value="1">Shining Pearl</option>
@@ -125,6 +130,9 @@
         <div class="pla-control-actions">
             <button class="pla-button pla-button-action" id="pla-button-checkug">Check Underground</button>
         </div>
+		<!--<div class="pla-control-actions">
+            <button class="pla-button pla-button-action" id="pla-button-checkug-test">Check Underground Test</button>
+        </div>-->
     </section>
 
 	<section>
@@ -153,6 +161,14 @@
             <label for="advanceFilter">Advance Filter:</label>
             <input type="text" id="advanceFilter">
         </div>
+		
+		<label for="genderfilter">Filter Results: Gender:</label>
+		<select id="genderfilter">
+			<option value=50>Any</option>
+			<option value=0>Male</option>
+			<option value=1>Female</option>
+			<option value=2>Genderless</option>
+		</select>
 		
 		<div class="pla-control">
 			<label for="naturefilter">Filter Results: Nature:</label>
@@ -190,8 +206,6 @@
 
 {% block templates %}
     <template data-pla-results-template>
-	<!--<details>
-	<summary>Advance: <span data-pla-results-advances></span> Shiny: <span data-pla-results-shine></span> <span data-pla-results-spawn></span></summary>-->
         <div class="pla-results-item" data-pla-results-template>
             <ul class="pla-results-heading pla-results-ul">
                 <li class="pla-results-sprite" data-pla-results-sprite></li>
@@ -237,6 +251,60 @@
             </div>
          </div>
 		 </template>
+		 
+	<template id="data-swsh-results-template" data-swsh-results-template>
+		<details>
+		<summary>Advance: <span data-swsh-results-adv></span></summary>
+			<div class="pla-results-item" data-swsh-results-template>
+			<template data-inner-results-template>
+        <div class="pla-results-item" data-inner-results-template>
+            <ul class="pla-results-heading pla-results-ul">
+                <li class="pla-results-sprite" data-pla-results-sprite></li>
+                <li class="pla-results-species" data-pla-results-species></li>
+				<li></li>
+            </ul>
+
+            <ul class="pla-results-ul">
+                <li><span class="pla-results-label">Shiny:</span> <span class="float -left" data-pla-results-shinysprite><span class="float -right" data-pla-results-shiny></span></span></li>
+            </ul>
+            
+			<ul class="pla-results-ul">
+				<li><span class="pla-results-label">Advances:</span> <span data-pla-results-adv></span></li>
+				<li><span class="pla-results-label">Spawn: </span> <span data-pla-results-spawn></span></li>
+
+			</ul>
+
+            <ul class="pla-results-ul">
+                <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
+                <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>
+            </ul>
+			
+			<ul class="pla-results-ul">
+                <li><span class="pla-results-label">Ability:</span> <span data-pla-results-ability></span></li>
+                <li><span class="pla-results-label">Egg Move:</span> <span data-pla-results-egg></span></li>
+            </ul>
+
+            <ul class="pla-results-ul">
+                <li><span class="pla-results-label">PID:</span> <span data-pla-results-pid></span></li>
+				<li><span class="pla-results-label">EC:</span> <span data-pla-results-ec></span></li>
+            </ul>
+
+            <div class="pla-results-ivs-container">
+                <span class="pla-results-label">IVs:</span>
+                <ul class="pla-results-ivs">
+                    <li class="pla-results-ivs-hp" data-pla-results-ivs-hp></li>
+                    <li class="pla-results-ivs-att" data-pla-results-ivs-att></li>
+                    <li class="pla-results-ivs-def" data-pla-results-ivs-def></li>
+                    <li class="pla-results-ivs-spa" data-pla-results-ivs-spa></li>
+                    <li class="pla-results-ivs-spd" data-pla-results-ivs-spd></li>
+                    <li class="pla-results-ivs-spe" data-pla-results-ivs-spe></li>
+                </ul>
+            </div>
+         </div>
+		 </template>
+			</div>
+		</details>
+	</template>
 {% endblock %}
 
 {% block script %}

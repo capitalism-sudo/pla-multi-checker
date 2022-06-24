@@ -53,3 +53,38 @@ def flatten_bdsp_stationary_advance(results, filter_results, filter_function):
         return [results]
     else:
         return []
+
+def flatten_ug_test(results, filter_result = True, filter_function = is_shiny):
+    res = []
+    #print("Printing Results for flatten_ug")
+    #print(results)
+   # print()
+    #print()
+    print(f"filter_result: {filter_result}")
+    print(f"filter_function: {filter_function}")
+
+    for value in results.values():
+        res.extend(flatten_ug_advance_test(value, filter_result, filter_function))
+
+    return res
+
+def flatten_ug_advance_test(results, filter_result, filter_function):
+
+    res = []
+
+    print(results)
+
+    for _,value in enumerate(results):
+        res.extend(flatten_ug_advance_advance_test(value, filter_result, filter_function))
+
+    print()
+    print(res)
+
+    return [res]
+
+def flatten_ug_advance_advance_test(results, filter_result, filter_function):
+
+    print(f"Next Layer: {results}")
+    print()
+
+    return [results]

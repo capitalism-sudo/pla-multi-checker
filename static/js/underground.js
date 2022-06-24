@@ -22,6 +22,7 @@ import {
 } from "./modules/common.mjs";
 
 const resultTemplate = document.querySelector("[data-pla-results-template]");
+const wrapperTemplate = document.querySelector("[data-swsh-results-template]");
 const resultsArea = document.querySelector("[data-pla-results]");
 
 // options
@@ -35,6 +36,7 @@ const storyFlag = document.getElementById("storyflags");
 const roomID = document.getElementById("roomid");
 const diglettMode = document.getElementById("diglett");
 const minAdv = document.getElementById("minadvances");
+const Delay = document.getElementById("delay");
 
 //IVs
 
@@ -62,16 +64,18 @@ const distShinyCheckbox = document.getElementById("mmoShinyFilter");
 //const distAlphaCheckbox = document.getElementById("mmoAlphaFilter");
 const mmoSpeciesText = document.getElementById("mmoSpeciesFilter");
 const advanceText = document.getElementById("advanceFilter");
+const genderSelect = document.getElementById("genderfilter");
 
-//distShinyOrAlphaCheckbox.addEventListener("change", setFilter);
 distShinyCheckbox.addEventListener("change", setFilter);
-//distAlphaCheckbox.addEventListener("change", setFilter);
 mmoSpeciesText.addEventListener("input", setFilter);
 advanceText.addEventListener("input", setFilter);
+genderSelect.addEventListener("change", setFilter);
 
 // actions
 const checkUGButton = document.getElementById("pla-button-checkug");
 checkUGButton.addEventListener("click", checkUnderground);
+//const checkUGButtonTest = document.getElementById("pla-button-checkug-test");
+//checkUGButtonTest.addEventListener("click", checkUndergroundTest);
 
 loadPreferences();
 setupPreferenceSaving();
@@ -86,8 +90,8 @@ const results = [];
 // Save and load user preferences
 function loadPreferences() {
   distShinyCheckbox.checked = readBoolFromStorage("mmoShinyFilter", false);
-  advances.value = localStorage.getItem("advances") ?? "0";
-  minAdv.value = localStorage.getItem("minadvances") ?? "0";
+  advances.value = 10000;
+  minAdv.value = 0;
   storyFlag.value = localStorage.getItem("storyflags") ?? "6";
   gameVer.value = localStorage.getItem("version") ?? "1";
   
@@ -107,6 +111,8 @@ function loadPreferences() {
   maxSPE.value = 31;
   
   natureSelect.value = "any";
+  genderSelect.value = 50;
+  Delay.value = 20;
 }
 
 function setupPreferenceSaving() {
@@ -182,6 +188,7 @@ function filter(
   speciesFilter,
   advanceFilter,
   natureFilter,
+  genderFilter,
 ) {
 
   console.log("advancefilter");
@@ -211,6 +218,26 @@ function filter(
 		) {
 			return false;
 		}
+		
+  if (
+		genderFilter != 50
+	) {
+		console.log("Filter is not any, checking:");
+		if (
+		genderFilter == 0 &&
+		!(result.gender == 0)
+		){
+			console.log("Gender Result not male, male filter selected");
+		return false;
+		}
+		else if ( genderFilter == 1 && !(result.gender == 1)) {
+			console.log("Gender Result not female, female filter selected");
+			return false;
+		}
+		else if ( genderFilter == 2 && !(result.gender == 2)) {
+			return false;
+		}
+	}
 
   return true;
 }
@@ -232,6 +259,7 @@ function getOptions() {
 		minivs: [minHP.value, minATK.value, minDEF.value, minSPA.value, minSPD.value, minSPE.value],
 		maxivs: [maxHP.value, maxATK.value, maxDEF.value, maxSPA.value, maxSPD.value, maxSPE.value],
 	},
+	delay: parseInt(Delay.value),
     //	inmap: inmapCheck.checked
   };
 }
@@ -242,6 +270,16 @@ function checkUnderground() {
     results,
     getOptions(),
     showFilteredResults,
+    checkUGButton
+  );
+}
+
+function checkUndergroundTest() {
+  doSearch(
+    "/api/check-underground-test",
+    results,
+    getOptions(),
+    showFilteredResultsTest,
     checkUGButton
   );
 }
@@ -257,6 +295,7 @@ function showFilteredResults() {
   //let multiFilter = distMultiCheckbox.checked;
   let advanceFilter = advanceText.value;
   let natureFilter = getSelectValues(natureSelect);
+  let genderFilter = parseInt(genderSelect.value);
 
   const filteredResults = results.filter((result) =>
     filter(
@@ -264,7 +303,8 @@ function showFilteredResults() {
       shinyFilter,
       speciesFilter,
 	  advanceFilter,
-	  natureFilter
+	  natureFilter,
+	  genderFilter
     )
   );
 
@@ -349,4 +389,134 @@ function showResult(result) {
   showPokemonHiddenInformation(resultContainer, result);
 
   resultsArea.appendChild(resultContainer);
+}
+
+
+function showFilteredResultsTest() {
+  /*//validateFilters();
+  
+  //let shinyOrAlphaFilter = distShinyOrAlphaCheckbox.checked;
+  let shinyFilter = distShinyCheckbox.checked;
+  //let alphaFilter = distAlphaCheckbox.checked;
+  let speciesFilter = mmoSpeciesText.value;
+  //let defaultFilter = distDefaultCheckbox.checked;
+  //let multiFilter = distMultiCheckbox.checked;
+  let advanceFilter = advanceText.value;
+  let natureFilter = getSelectValues(natureSelect);
+  let genderFilter = parseInt(genderSelect.value);
+
+  const filteredResults = results.filter((result) =>
+    filter(
+      result,
+      shinyFilter,
+      speciesFilter,
+	  advanceFilter,
+	  natureFilter,
+	  genderFilter
+    )
+  );
+
+  console.log("Filtered Results:");
+  console.log(filteredResults);*/
+  
+  const filteredResults = results;
+  
+  if (filteredResults.length > 0) {
+    resultsArea.innerHTML =
+      "<section><h3>D = Despawn. Despawn Multiple Pokemon by either Multibattles (for aggressive) or Scaring (for skittish) pokemon.</h3></section>";
+    filteredResults.forEach((result) => showResultTest(result));
+  } else {
+    showNoResultsFound();
+  }
+}
+
+function showResultTest(results) {
+  const wrapperContainer = wrapperTemplate.content.cloneNode(true);
+  
+  wrapperContainer.querySelector("[data-swsh-results-adv]").textContent =
+	results[0].advances;
+  
+  const check = wrapperContainer.querySelector("[data-inner-results-template]");
+  setupExpandables();
+  	
+  results.forEach((result) => {
+
+	  const resultContainer = check.content.cloneNode(true);
+
+	  
+	  let sprite = document.createElement("img");
+	  sprite.src = "static/img/spritebig/" + result.sprite;
+	  resultContainer.querySelector(".pla-results-sprite").appendChild(sprite);
+	  
+	  resultContainer.querySelector("[data-pla-results-species]").innerHTML =
+		result.species;
+
+	  resultContainer.querySelector("[data-pla-results-spawn]").textContent =
+		result.spawn;
+		
+	  let resultShiny = resultContainer.querySelector("[data-pla-results-shiny]");
+	  let sparkle = "";
+	  let sparklesprite = document.createElement("img");
+	  sparklesprite.className = "pla-results-sparklesprite";
+	  sparklesprite.src =
+		"data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
+	  sparklesprite.height = "10";
+	  sparklesprite.width = "10";
+	  sparklesprite.style.cssText =
+		"pull-left;display:inline-block;margin-left:0px;";
+		
+	  if (result.shiny) {
+		sparklesprite.src = "static/img/shiny.png";
+		sparkle = "Shiny!";
+	  } else {
+		sparkle = "Not Shiny";
+	  }
+	  resultContainer
+		.querySelector("[data-pla-results-shinysprite]")
+		.appendChild(sparklesprite);
+	  resultShiny.textContent = sparkle;
+	  resultShiny.classList.toggle("pla-result-true", result.shiny);
+	  resultShiny.classList.toggle("pla-result-false", !result.shiny);
+
+	  resultContainer.querySelector("[data-pla-results-adv]").textContent =
+		result.advances;
+	  resultContainer.querySelector("[data-pla-results-nature]").textContent =
+		result.nature;
+		
+	  let gender = 'male';
+	  if (result.gender == 1){
+		  gender = 'female';
+	  }
+	  else if (result.gender == 2){
+		  gender = 'genderless';
+	  }
+	  
+	  const genderStrings = {
+	  male: "Male <i class='fa-solid fa-mars' style='color:blue'/>",
+	  female: "Female <i class='fa-solid fa-venus' style='color:pink'/>",
+	  genderless: "Genderless <i class='fa-solid fa-genderless'/>",
+	  };
+
+	 const wtf = wrapperContainer.firstElementChild
+	 console.log(wtf);
+	 const help = wtf.firstElementChild
+	 	 console.log("help", help);
+
+	  resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
+		genderStrings[gender];
+
+	  resultContainer.querySelector("[data-pla-results-ability]").textContent =
+		result.ability;
+	  resultContainer.querySelector("[data-pla-results-egg]").textContent =
+		result.eggmove;
+		
+	  showPokemonIVs(resultContainer, result);
+	  showPokemonHiddenInformation(resultContainer, result);
+	  
+	  wrapperContainer.insertBefore(resultContainer, help)
+	  //wrapperContainer.append(resultContainer);
+	  
+  });
+  resultsArea.appendChild(wrapperContainer);
+  setupExpandables();
 }

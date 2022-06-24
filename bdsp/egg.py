@@ -9,6 +9,10 @@ def read_egg_seed(states, filter, daycare_info, delay):
 
     daycare = Daycare(**daycare_info)
 
+    parentAbility = daycare.get_parent_ability(0 if daycare.is_ditto(1) else 1)
+
+    print(f"Parent Ability: {parentAbility}")
+
     result = {}
 
     for i in range(4):

@@ -57,14 +57,26 @@ const distShinyCheckbox = document.getElementById("mmoShinyFilter");
 const natureSelect = document.getElementById("naturefilter");
 const genderRatio = document.getElementById("genderratio");
 const slotSelect = document.getElementById("slotfilter");
+const genderSelect = document.getElementById("genderfilter");
 
 distShinyCheckbox.addEventListener("change", setFilter);
 //natureSelect.addEventListener("change", setFilter);
 genderRatio.addEventListener("change", setFilter);
+genderSelect.addEventListener("change", setFilter);
 
 // actions
 const checkWildButton = document.getElementById("pla-button-checkwild");
 checkWildButton.addEventListener("click", checkWild);
+
+fixedGender.addEventListener("change", function() {
+	if (genderSelect.disabled){
+		genderSelect.disabled = false;
+	}
+	else {
+		genderSelect.disabled = true;
+		genderSelect.value = 50;
+	}
+});
 
 loadPreferences();
 setupPreferenceSaving();
@@ -111,6 +123,7 @@ function loadPreferences() {
   
   natureSelect.value = "any";
   slotSelect.value = "any";
+  genderSelect.value = 50;
   
 }
 
@@ -160,8 +173,10 @@ function filter(
   shinyFilter,
   natureFilter,
   slotFilter,
+  genderFilter,
 ) {
 
+  let gr = parseInt(genderRatio.value);
   
   if (shinyFilter && !result.shiny) {
     return false;
@@ -187,6 +202,30 @@ function filter(
 		) {
 			return false;
 		}
+	
+	console.log("Gender Ratio:");
+	console.log(gr);
+	console.log("Filter:");
+	console.log(genderFilter);
+	console.log("Result:");
+	console.log(result.gender);
+	
+	if (
+		genderFilter != 50
+	) {
+		console.log("Filter is not any, checking:");
+		if (
+		genderFilter == 0 &&
+		!(result.gender > gr)
+		){
+			console.log("Gender Result not male, male filter selected");
+		return false;
+		}
+		else if ( genderFilter == 1 && !(result.gender < gr)) {
+			console.log("Gender Result not female, female filter selected");
+			return false;
+		}
+	}
   
   /*if (
 	advanceFilter.length != 0 &&
@@ -250,6 +289,7 @@ function showFilteredResults() {
   let shinyFilter = distShinyCheckbox.checked;
   let natureFilter = getSelectValues(natureSelect);
   let slotFilter = getSelectValues(slotSelect);
+  let genderFilter = genderSelect.value;
   
   console.log(slotFilter);
 
@@ -258,7 +298,8 @@ function showFilteredResults() {
       result,
       shinyFilter,
       natureFilter,
-	  slotFilter
+	  slotFilter,
+	  genderFilter
     )
   );
 
