@@ -1,5 +1,95 @@
+from sre_parse import State
 import z3
+from .xoroshiro import *
 
+class OverworldState:
+    natures = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
+    genders = ['♂','♀','-']
+
+    def __init__(self):
+        self.advance = 0
+        self.full_seed = 0
+        self.fixed_seed = 0
+        self.is_static = True
+        self.mark = None
+        self.brilliant = False
+        self.hide_ability = False
+        self.slot_rand = 100
+        self.level = 0
+        self.nature = 0
+        self.ability = 0
+        self.ec = 0
+        self.pid = 0
+        self.xor = 0
+        self.ivs = [32]*6
+        self.gender = 2
+        self.height = -1
+        self.weight = -1
+        
+    def __str__(self):
+        if self.is_static:
+            return f"{self.advance} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {str(self.ability)+' ' if not self.hide_ability else ''}{self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark} {self.height}/{self.weight}"
+        else:
+            return f"{self.advance} {self.level} {self.slot_rand} {'Brilliant! ' if self.brilliant else ''}{self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {str(self.ability)+' ' if not self.hide_ability else ''}{self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark} {self.height}/{self.weight}"
+    
+    @property
+    def headings(self):
+        sizes = [100]
+        headings = ["Advance"]
+        if not self.is_static:
+            headings += ["Level","Slot Rand","Aura"]
+            sizes += [80,80,80]
+        headings += ["EC","PID","Shiny","Nature"]
+        sizes += [100,100,60,60]
+        if not self.hide_ability:
+            headings += ["Ability"]
+            sizes += [60]
+        headings += ["Gender","IVs","Mark","Height","Weight"]
+        sizes += [60,100,60,60,60]
+        return [headings,sizes]
+    
+    @property
+    def row(self):
+        row = [self.advance]
+        if not self.is_static:
+            row += [self.level,self.slot_rand,self.brilliant]
+        row += [f"{self.ec:08X}",f"{self.pid:08X}",'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star'),self.natures[self.nature]]
+        if not self.hide_ability:
+            row += [self.ability]
+        row += [self.genders[self.gender],'/'.join(str(iv) for iv in self.ivs),self.mark,self.height,self.weight]
+        return row
+
+
+def sym_xoroshiro128plus(sym_s0, sym_s1, result):
+    sym_r = (sym_s0 + sym_s1) & 0xFFFFFFFFFFFFFFFF  
+    condition = (sym_r & 0xFFFFFFFF) == result
+
+    sym_s0, sym_s1 = sym_xoroshiro128plusadvance(sym_s0, sym_s1)
+
+    return sym_s0, sym_s1, condition
+
+def sym_xoroshiro128plusadvance(sym_s0, sym_s1):
+    s0 = sym_s0
+    s1 = sym_s1
+    
+    s1 ^= s0
+    sym_s0 = z3.RotateLeft(s0, 24) ^ s1 ^ (s1 << 16)
+    sym_s1 = z3.RotateLeft(s1, 37)
+
+    return sym_s0, sym_s1
+
+def get_models(s):
+    result = []
+    while s.check() == z3.sat:
+        m = s.model()
+        result.append(m)
+        
+        # Constraint that makes current answer invalid
+        d = m[0]
+        c = d()
+        s.add(c != m[d])
+
+    return result
 
 class Filter:
     nature_list = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
@@ -28,10 +118,10 @@ class Filter:
                     return False
         return True
     
-    def compare_brilliant(self,state):
+    def compare_brilliant(self,state: OverworldState):
         return state.brilliant or not self.brilliant
     
-    def compare_fixed(self,state):
+    def compare_fixed(self,state: OverworldState):
         if self.shininess == 0 and state.xor == 0:
             return False
             
@@ -40,22 +130,22 @@ class Filter:
             
         return self.compare_ivs(state)
     
-    def compare_slot(self,state):
+    def compare_slot(self,state: OverworldState):
         return self.slot_min <= state.slot_rand <= self.slot_max if self.slot_min != None else True
     
-    def compare_mark(self,state):
+    def compare_mark(self,state: OverworldState):
         return state.mark in self.marks if self.marks != None else True
     
     def compare_shiny(self,shiny):
         return shiny if self.shininess != None else True
     
-    def compare_ability(self,state):
+    def compare_ability(self,state: OverworldState):
         return state.ability in self.abilities if self.abilities != None else True
     
-    def compare_nature(self,state):
+    def compare_nature(self,state: OverworldState):
         return state.nature in self.natures if self.natures != None else True
     
-    def compare_gender(self,state):
+    def compare_gender(self, state: OverworldState):
         return not ((not self.gender is None) and self.gender != state.gender)
 
 class LCRNG:
@@ -113,7 +203,7 @@ class LCRNG:
 class OverworldRNG:
     personality_marks = ["Rowdy","AbsentMinded","Jittery","Excited","Charismatic","Calmness","Intense","ZonedOut","Joyful","Angry","Smiley","Teary","Upbeat","Peeved","Intellectual","Ferocious","Crafty","Scowling","Kindly","Flustered","PumpedUp","ZeroEnergy","Prideful","Unsure","Humble","Thorny","Vigor","Slump"]
     
-    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,forced_ability=False,flawless_ivs=0,is_shiny_locked=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter(),egg_move_count=0,kos=0,cute_charm=None):
+    def __init__(self,seed=0,tid=0,sid=0,shiny_charm=False,mark_charm=False,weather_active=False,is_fishing=False,is_static=False,forced_ability=False,flawless_ivs=0,is_shiny_locked=False,min_level=0,max_level=0,diff_held_item=False,filter=Filter(),egg_move_count=0,kos=0,cute_charm=None, set_gender=False, is_hidden=False):
         self.rng = XOROSHIRO(seed & 0xFFFFFFFFFFFFFFFF, seed >> 64)
         self.advance = 0
         self.tid = tid
@@ -132,8 +222,9 @@ class OverworldRNG:
         self.egg_move_count = egg_move_count
         self.brilliant_thresh,self.brilliant_rolls = OverworldRNG.calculate_brilliant_info(kos)
         self.cute_charm = cute_charm
-        self.is_hidden = False
+        self.is_hidden = is_hidden
         self.filter = filter
+        self.set_gender = set_gender
     
     @property
     def tsv(self):
@@ -198,7 +289,7 @@ class OverworldRNG:
             shiny = False
         if not self.filter.compare_shiny(shiny):
             return
-        if state.gender == 2:
+        if state.gender == 2 and not self.set_gender:
             state.gender = 1 if go.rand(2) == 0 else 0
         if not self.filter.compare_gender(state):
             return
@@ -723,92 +814,3 @@ class Raid(FrameGenerator):
                         result.append([seed,-iv_count])
         return result
         
-
-class OverworldState:
-    natures = ["Hardy","Lonely","Brave","Adamant","Naughty","Bold","Docile","Relaxed","Impish","Lax","Timid","Hasty","Serious","Jolly","Naive","Modest","Mild","Quiet","Bashful","Rash","Calm","Gentle","Sassy","Careful","Quirky"]
-    genders = ['♂','♀','-']
-
-    def __init__(self):
-        self.advance = 0
-        self.full_seed = 0
-        self.fixed_seed = 0
-        self.is_static = True
-        self.mark = None
-        self.brilliant = False
-        self.hide_ability = False
-        self.slot_rand = 100
-        self.level = 0
-        self.nature = 0
-        self.ability = 0
-        self.ec = 0
-        self.pid = 0
-        self.xor = 0
-        self.ivs = [32]*6
-        self.gender = 2
-        self.height = -1
-        self.weight = -1
-        
-    def __str__(self):
-        if self.is_static:
-            return f"{self.advance} {self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {str(self.ability)+' ' if not self.hide_ability else ''}{self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark} {self.height}/{self.weight}"
-        else:
-            return f"{self.advance} {self.level} {self.slot_rand} {'Brilliant! ' if self.brilliant else ''}{self.ec:08X} {self.pid:08X} {'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star')} {self.natures[self.nature]} {str(self.ability)+' ' if not self.hide_ability else ''}{self.genders[self.gender]} {'/'.join(str(iv) for iv in self.ivs)} {self.mark} {self.height}/{self.weight}"
-    
-    @property
-    def headings(self):
-        sizes = [100]
-        headings = ["Advance"]
-        if not self.is_static:
-            headings += ["Level","Slot Rand","Aura"]
-            sizes += [80,80,80]
-        headings += ["EC","PID","Shiny","Nature"]
-        sizes += [100,100,60,60]
-        if not self.hide_ability:
-            headings += ["Ability"]
-            sizes += [60]
-        headings += ["Gender","IVs","Mark","Height","Weight"]
-        sizes += [60,100,60,60,60]
-        return [headings,sizes]
-    
-    @property
-    def row(self):
-        row = [self.advance]
-        if not self.is_static:
-            row += [self.level,self.slot_rand,self.brilliant]
-        row += [f"{self.ec:08X}",f"{self.pid:08X}",'No' if self.xor >= 16 else ('Square' if self.xor == 0 else 'Star'),self.natures[self.nature]]
-        if not self.hide_ability:
-            row += [self.ability]
-        row += [self.genders[self.gender],'/'.join(str(iv) for iv in self.ivs),self.mark,self.height,self.weight]
-        return row
-
-
-def sym_xoroshiro128plus(sym_s0, sym_s1, result):
-    sym_r = (sym_s0 + sym_s1) & 0xFFFFFFFFFFFFFFFF  
-    condition = (sym_r & 0xFFFFFFFF) == result
-
-    sym_s0, sym_s1 = sym_xoroshiro128plusadvance(sym_s0, sym_s1)
-
-    return sym_s0, sym_s1, condition
-
-def sym_xoroshiro128plusadvance(sym_s0, sym_s1):
-    s0 = sym_s0
-    s1 = sym_s1
-    
-    s1 ^= s0
-    sym_s0 = z3.RotateLeft(s0, 24) ^ s1 ^ (s1 << 16)
-    sym_s1 = z3.RotateLeft(s1, 37)
-
-    return sym_s0, sym_s1
-
-def get_models(s):
-    result = []
-    while s.check() == z3.sat:
-        m = s.model()
-        result.append(m)
-        
-        # Constraint that makes current answer invalid
-        d = m[0]
-        c = d()
-        s.add(c != m[d])
-
-    return result

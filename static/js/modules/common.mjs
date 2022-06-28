@@ -350,6 +350,17 @@ export function showNoResultsFound() {
   }
 }
 
+export function showNoResultsFoundSWSH() {
+  const resultsArea = document.querySelector("[data-swsh-results]");
+  if (resultsArea) {
+    resultsArea.innerHTML = "";
+    const message = document.createElement("p");
+    message.classList.add("swsh-results-message");
+    message.textContent = "No results found";
+    resultsArea.appendChild(message);
+  }
+}
+
 // Preference Saving / Loading
 export function saveIntToStorage(id, value) {
   localStorage.setItem(id, value);

@@ -95,3 +95,19 @@ def flatten_multi(results, filter_results=True, filter_function=is_shiny):
         return list(filter(filter_function, results))
     else:
         return results
+
+def flatten_overworld(results, filter_results=True, filter_function=is_shiny):
+
+    res = []
+
+    for result in results.values():
+        res.extend(flatten_overworld_advance(result, filter_results, filter_function))
+
+    return res
+
+def flatten_overworld_advance(results, filter_results, filter_function):
+
+    print(f"Results: {results}")
+    print()
+
+    return [results]
