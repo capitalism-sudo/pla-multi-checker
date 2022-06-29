@@ -15,6 +15,7 @@ class OverworldState:
         self.brilliant = False
         self.hide_ability = False
         self.slot_rand = 100
+        self.egg_move = None
         self.level = 0
         self.nature = 0
         self.ability = 0
@@ -309,7 +310,7 @@ class OverworldRNG:
         if state.brilliant:
             brilliant_ivs = go.rand(2)|2
             if self.egg_move_count > 1:
-                go.rand(self.egg_move_count)
+                state.egg_move = go.rand(self.egg_move_count)
 
         state.fixed_seed = go.nextuint()
         

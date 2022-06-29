@@ -155,6 +155,7 @@ def check_overworld_seed(states, filter: Filter, owoptions, initadv, maxadv, inf
     for i in range(0,maxadv-initadv):
         result = predict.generate()
         if result is not None:
+            species = get_species_name(info,result)
             res[i] = {
                 "ability": result.ability,
                 "advances": result.advance,
@@ -174,7 +175,8 @@ def check_overworld_seed(states, filter: Filter, owoptions, initadv, maxadv, inf
                 "shiny": True if result.xor <= 16 else False,
                 "square": True if result.xor == 0 else False,
                 "sprite": get_sprite(info, result),
-                "species": get_species_name(info, result)
+                "species": species,
+                "eggmove": "None" if result.egg_move is None or len(personal.get(species, None).get("Egg_Moves", None)) < result.egg_move else personal.get(species, "None").get("Egg_Moves", "None")[result.egg_move]
             }
     
 

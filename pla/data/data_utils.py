@@ -107,7 +107,5 @@ def flatten_overworld(results, filter_results=True, filter_function=is_shiny):
 
 def flatten_overworld_advance(results, filter_results, filter_function):
 
-    print(f"Results: {results}")
-    print()
 
     return [results]

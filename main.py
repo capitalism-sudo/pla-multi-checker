@@ -459,8 +459,6 @@ def check_ow():
 
     results = swsh.check_overworld_seed(states, filters, request.json['options'], request.json['initadv'], request.json['maxadv'], request.json['info'])
 
-    print(results)
-
     #return { "results":  [results] }
     return { "results": flatten_overworld(results, False)}
 

@@ -674,6 +674,8 @@ function showResult(result) {
 
   resultContainer.querySelector("[data-pla-results-ability]").textContent =
     result.ability;
+  resultContainer.querySelector("[data-pla-results-egg]").textContent =
+	result.eggmove;
 	
   showPokemonIVs(resultContainer, result);
   showPokemonHiddenInformation(resultContainer, result);
