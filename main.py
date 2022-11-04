@@ -308,6 +308,8 @@ def update_swsh_seed():
 
     return { "results": results }
 
+
+'''
 @app.route('/api/check-underground', methods=['POST'])
 def check_ug_seed():
 
@@ -347,6 +349,7 @@ def check_ug_seed_test():
                                     request.json['delay'])
 
     return { "results": flatten_ug_test(results, config.get('FILTER_ON_SERVER', False), filter_command) }
+'''
 
 @app.route('/api/check-bdsp-stationary', methods=['POST'])
 def check_bdsp_stationary():

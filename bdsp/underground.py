@@ -1,3 +1,4 @@
+'''
 import json
 import struct
 import sys
@@ -84,3 +85,4 @@ if __name__ == "__main__":
 
     #10000, 0x0cf67c48, 0x52b2e5cd, 0x1dbfee6b, 0xf212d747, 2, 6, 2, False
 """
+'''
