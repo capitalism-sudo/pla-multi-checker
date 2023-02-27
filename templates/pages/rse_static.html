@@ -1,0 +1,207 @@
+{% extends "base/base-sidebar.html" %}
+
+{% block title %}Static Checker{% endblock %}
+
+{% block head %}
+	<script type="module" src="static/js/jquery.min.mjs"></script>
+	<script type="module">
+	</script>
+{% endblock %}
+
+{% block main %}
+<section class="pla-section-results">
+        <div data-pla-messages></div>
+        <div class="pla-results" data-pla-results>
+            <p class="pla-results-message">Search to begin</p>
+        </div>
+    </section>
+{% endblock %}
+
+{% block sidebar %}
+    <section class="pla-section-options">
+		<div class="pla-control">
+            <label for="tid">TID:</label>
+            <input id="tid" placeholder="Input TID">
+        </div>
+		
+		<div class="pla-control">
+            <label for="sid">SID:</label>
+            <input id="sid" placeholder="Input SID">
+        </div>
+
+        <div class="pla-control">
+			<label for="method">Method:</label>
+			<select id="method">
+				<option value=1>1</option>
+				<option value=2>2</option>
+				<option value=4>4</option>
+			</select>
+		</div>
+		
+		<div class="pla-control">
+            <label for="seed">Seed:</label>
+            <input id="seed" placeholder="Input Seed">
+        </div>
+		
+		<div class="pla-control">
+            <label for="minadvances">Starting Advance:</label>
+            <input type="number" id="minadvances" placeholder="Advances">
+        </div>
+		
+		<div class="pla-control">
+            <label for="advances">Max Advance:</label>
+            <input type="number" id="advances" placeholder="Advances">
+        </div>		
+		
+        <div class="pla-control">
+            <label for="delay">Delay:</label>
+            <input type="number" id="delay" placeholder="Delay">
+        </div>
+
+		<div class="pla-control-spaced">
+			<label for="fixedgender">Fixed Gender?</label>
+			<input type="checkbox" id="fixedgender">
+		</div>
+		
+		<button type="button" class="pla-button expandable-control">Advanced Options</button>
+			<div class="expandable">
+			
+			<label>Min IVs:</label>
+			<div class="pla-control-spaced">
+				<input type="number" id="minhp" placeholder="HP" size="2" min="0" max="31" class="ivbox"> <input type="number" id="minatk" placeholder="ATK" size="2" min="0" max="31" class="ivbox"> <input type="number" id="mindef" placeholder="DEF" size="2" min="0" max="31" class="ivbox"><input type="number" id="minspa" placeholder="SpA" size="2" min="0" max="31" class="ivbox"> <input type="number" id="minspd" placeholder="SpD" size="2" min="0" max="31" class="ivbox"> <input type="number" id="minspe" placeholder="Spe" size="2" min="0" max="31" class="ivbox">
+			</div>
+
+			<label>Max IVs:</label>
+			<div class="pla-control-spaced">
+				<input type="number" id="maxhp" placeholder="HP" size="2" min="0" max="31" class="ivbox"> <input type="number" id="maxatk" placeholder="ATK" size="2" min="0" max="31" class="ivbox"> <input type="number" id="maxdef" placeholder="DEF" size="2" min="0" max="31" class="ivbox"><input type="number" id="maxspa" placeholder="SpA" size="2" min="0" max="31" class="ivbox"> <input type="number" id="maxspd" placeholder="SpD" size="2" min="0" max="31" class="ivbox"> <input type="number" id="maxspe" placeholder="Spe" size="2" min="0" max="31" class="ivbox">
+			</div>
+			
+			</div>
+		
+		<div class="pla-control">
+			<label for="selectfilter">Select Filter:</label>
+			<select id="selectfilter">
+				<option value="no_filter">No Filter</option>
+				<option value="is_shiny">Shiny Only</option>
+				<option value="is_square">Square Shiny Only</option>
+			</select>
+		</div>
+        
+        <div class="pla-control-actions">
+            <button class="pla-button pla-button-action" id="pla-button-checkstat">Check Stationary</button>
+        </div>
+    </section>
+
+	<section>
+        <!--<div class="pla-control-spaced">
+            <label for="mmoShinyFilter">Shiny or Alpha</label>
+            <input type="checkbox" id="mmoShinyOrAlphaFilter">
+        </div>-->
+		
+
+        <div class="pla-control-spaced">
+            <label for="mmoShinyFilter">Filter Results: Shiny Only</label>
+            <input type="checkbox" id="mmoShinyFilter">
+        </div>
+
+        <!--<div class="pla-control-spaced">
+            <label for="mmoAlphaFilter">Filter Results: Alpha Only</label>
+            <input type="checkbox" id="mmoAlphaFilter">
+        </div>-->
+        
+        <div class="pla-control">
+			<label for="naturefilter">Filter Results: Nature:</label>
+			<select id="naturefilter" class="chosen-select" multiple>
+				<option value="any">Any</option>
+				<option value="hardy">Hardy</option>
+				<option value="lonely">Lonely</option>
+				<option value="brave">Brave</option>
+				<option value="adamant">Adamant</option>
+				<option value="naughty">Naughty</option>
+				<option value="bold">Bold</option>
+				<option value="docile">Docile</option>
+				<option value="relaxed">Relaxed</option>
+				<option value="impish">Impish</option>
+				<option value="lax">Lax</option>
+				<option value="timid">Timid</option>
+				<option value="hasty">Hasty</option>
+				<option value="serious">Serious</option>
+				<option value="jolly">Jolly</option>
+				<option value="naive">Naive</option>
+				<option value="modest">Modest</option>
+				<option value="mild">Mild</option>
+				<option value="quiet">Quiet</option>
+				<option value="bashful">Bashful</option>
+				<option value="rash">Rash</option>
+				<option value="calm">Calm</option>
+				<option value="gentle">Gentle</option>
+				<option value="sassy">Sassy</option>
+				<option value="careful">Careful</option>
+				<option value="quirky">Quirky</option>
+			</select>
+		</div>
+		
+		<label for="genderfilter">Filter Results: Gender:</label>
+		<select id="genderfilter">
+			<option value=50>Any</option>
+			<option value=0>Male</option>
+			<option value=1>Female</option>
+		</select>
+		
+		<div class="pla-control">
+			<label for="genderratio">Gender Ratio</label>
+			<select id="genderratio">
+				<option value="31" class="ivbox">1 &#9792; : 7 &#9794;</option>
+				<option value="63">1 &#9792; : 4 &#9794;</option>
+				<option value="127">1 &#9792; : 1 &#9794;</option>
+				<option value="191">3 &#9792; : 1 &#9794;</option>
+				<option value="0"> &#9794; Only</option>
+				<option value="254"> &#9792; Only</option>
+			</select>
+		</div>
+		
+    </section>
+{% endblock %}
+
+{% block templates %}
+    <template data-pla-results-template>
+	<!--<details>
+	<summary>Advance: <span data-pla-results-advances></span> Shiny: <span data-pla-results-shine></span> <span data-pla-results-spawn></span></summary>-->
+        <div class="pla-results-item" data-pla-results-template>
+            <ul class="pla-results-heading pla-results-ul">
+                <li class="pla-results-sprite" data-pla-results-sprite></li>
+                <li class="pla-results-species" data-pla-results-species></li>
+				<li></li>
+            </ul>
+            
+			<ul class="pla-results-ul">
+				<li><span class="pla-results-label">Advances:</span> <span data-pla-results-adv></span></li>
+				<li><span class="pla-results-label">Shiny:</span> <span class="float -left" data-pla-results-shinysprite><span class="float -right" data-pla-results-shiny></span></span></li>
+                <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
+                <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>			
+                <li><span class="pla-results-label">Ability:</span> <span data-pla-results-ability></span></li>
+                <li><span class="pla-results-label">HP Type:</span> <span data-pla-results-hptype></span></li>
+                <li><span class="pla-results-label">HP Power:</span> <span data-pla-results-hppow></span></li>
+                </ul>
+				<ul class="pla-results-ul">
+				<li><span class="pla-results-label">PID:</span> <span data-pla-results-pid></span></li>
+				</ul>
+
+            <div class="pla-results-ivs-container">
+                <span class="pla-results-label">IVs:</span>
+                <ul class="pla-results-ivs">
+                    <li class="pla-results-ivs-hp" data-pla-results-ivs-hp></li>
+                    <li class="pla-results-ivs-att" data-pla-results-ivs-att></li>
+                    <li class="pla-results-ivs-def" data-pla-results-ivs-def></li>
+                    <li class="pla-results-ivs-spa" data-pla-results-ivs-spa></li>
+                    <li class="pla-results-ivs-spd" data-pla-results-ivs-spd></li>
+                    <li class="pla-results-ivs-spe" data-pla-results-ivs-spe></li>
+                </ul>
+            </div>
+         </div>
+		 </template>
+{% endblock %}
+
+{% block script %}
+    <script type="module" src="{{ url_for('static', filename='js/rse_static.js') }}"></script>
+{% endblock %}

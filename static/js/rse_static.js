@@ -1,0 +1,377 @@
+import {
+    DEFAULT_MAP,
+    MESSAGE_ERROR,
+    MESSAGE_INFO,
+    showMessage,
+    showModalMessage,
+    clearMessages,
+    clearModalMessages,
+    doSearch,
+    showNoResultsFound,
+    saveIntToStorage,
+    readIntFromStorage,
+    saveBoolToStorage,
+    readBoolFromStorage,
+    setupExpandables,
+    showPokemonIVs,
+    showPokemonInformation,
+    showPokemonHiddenInformation,
+    initializeApp,
+    setupIVBox,
+  } from "./modules/common.mjs";
+  
+  const resultTemplate = document.querySelector("[data-pla-results-template]");
+  const resultsArea = document.querySelector("[data-pla-results]");
+  
+  // options
+  const tid = document.getElementById("tid");
+  const sid = document.getElementById("sid");
+  const seed = document.getElementById("seed");
+  const method = document.getElementById("method");
+  const advances = document.getElementById("advances");
+  const minAdv = document.getElementById("minadvances");
+  const delay = document.getElementById("delay");
+  const fixedGender = document.getElementById("fixedgender");
+  
+  //IVs
+  
+  const minHP = document.getElementById("minhp");
+  const minATK = document.getElementById("minatk");
+  const minDEF = document.getElementById("mindef");
+  const minSPA = document.getElementById("minspa");
+  const minSPD = document.getElementById("minspd");
+  const minSPE = document.getElementById("minspe");
+  
+  const maxHP = document.getElementById("maxhp");
+  const maxATK = document.getElementById("maxatk");
+  const maxDEF = document.getElementById("maxdef");
+  const maxSPA = document.getElementById("maxspa");
+  const maxSPD = document.getElementById("maxspd");
+  const maxSPE = document.getElementById("maxspe");
+  
+  // filters
+  const distSelectFilter = document.getElementById("selectfilter");
+  const distShinyCheckbox = document.getElementById("mmoShinyFilter");
+  const natureSelect = document.getElementById("naturefilter");
+  const genderRatio = document.getElementById("genderratio");
+  const genderSelect = document.getElementById("genderfilter");
+  
+  distShinyCheckbox.addEventListener("change", setFilter);
+  natureSelect.addEventListener("change", setFilter);
+  genderRatio.addEventListener("change", setFilter);
+  genderSelect.addEventListener("change", setFilter);
+  
+  // actions
+  const checkStatButton = document.getElementById("pla-button-checkstat");
+  checkStatButton.addEventListener("click", checkStatic);
+  fixedGender.addEventListener("change", function() {
+      if (genderSelect.disabled){
+          genderSelect.disabled = false;
+      }
+      else {
+          genderSelect.disabled = true;
+          genderSelect.value = 50;
+      }
+  });
+  
+  loadPreferences();
+  setupPreferenceSaving();
+  setupExpandables();
+  //setupTabs();
+  setupIVBox();
+  
+  const results = [];
+  
+  // Setup tabs
+  
+  // Save and load user preferences
+  function loadPreferences() {
+    distShinyCheckbox.checked = readBoolFromStorage("mmoShinyFilter", false);
+    advances.value = 10000;
+    minAdv.value = 0;
+    minHP.value = 0;
+    minATK.value = 0;
+    minDEF.value = 0;
+    minSPA.value = 0;
+    minSPD.value = 0;
+    minSPE.value = 0;
+    
+    maxHP.value = 31;
+    maxATK.value = 31;
+    maxDEF.value = 31;
+    maxSPA.value = 31;
+    maxSPD.value = 31;
+    maxSPE.value = 31;
+    
+    delay.value = 0;
+    seed.value = 0;
+    
+    natureSelect.value = "any";
+    genderSelect.value = 50;
+    
+  }
+  
+  function setupPreferenceSaving() {
+    distShinyCheckbox.addEventListener("change", (e) =>
+      saveBoolToStorage("mmoShinyFilter", e.target.checked)
+    );
+  }
+  
+  $(function() {
+      $(".chosen-select").chosen({
+          no_results_text: "Oops, nothing found!",
+          inherit_select_classes: true
+      });
+      
+      $('#naturefilter').chosen().change(setFilter);
+      
+      $('#slotfilter').chosen().change(setFilter);
+  });
+  
+  /*function setupTabs() {
+    document.querySelectorAll(".tablinks").forEach((element) => {
+      element.addEventListener("click", (event) =>
+        openTab(event, element.dataset.plaTabFor)
+      );
+    });
+  }
+  
+  function openTab(evt, tabName) {
+    let i, tabcontent, tablinks;
+  
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+  
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+  
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }*/
+  
+  function setFilter(event) {
+    if (event.target.checked) {
+    }
+  
+    showFilteredResults();
+  }
+  
+  function validateFilters() {
+  }
+  
+  function filter(
+    result,
+    shinyFilter,
+    natureFilter,
+    genderFilter,
+  ) {
+      
+      let gr = parseInt(genderRatio.value);
+  
+    
+    if (shinyFilter && !result.shiny) {
+      return false;
+    }
+  
+    /*if (
+      speciesFilter.length != 0 &&
+      !result.species.toLowerCase().includes(speciesFilter.toLowerCase())
+    ) {
+      return false;
+    }*/
+    
+    if (
+          !natureFilter.includes("any") &&
+          !natureFilter.includes(result.nature.toLowerCase())
+          ) {
+              return false;
+          }
+    
+    if (
+          genderFilter != 50
+      ) {
+          console.log("Filter is not any, checking:");
+          if (
+          genderFilter == 0 &&
+          !(result.gender > gr)
+          ){
+              console.log("Gender Result not male, male filter selected");
+          return false;
+          }
+          else if ( genderFilter == 1 && !(result.gender < gr)) {
+              console.log("Gender Result not female, female filter selected");
+              return false;
+          }
+      }
+      
+  
+    /*if (
+      advanceFilter.length != 0 &&
+      result.advances != parseInt(advanceFilter)
+    ) {
+        return false;
+    }*/
+  
+    return true;
+  }
+  
+  function getSelectValues(select) {
+      var res = []
+      var options = select && select.options;
+      var opt;
+      
+      for (var i=0, iLen=options.length; i<iLen; i++) {
+          opt = options[i];
+          
+          if (opt.selected) {
+              res.push(opt.value || opt.text);
+          }
+      }
+      
+      return res;
+  }
+  
+  function getOptions() {
+    return {
+      tid: tid.value,
+      sid: sid.value,
+      seed: seed.value,
+      method: method.value,
+      set_gender: fixedGender.checked,
+      filter: {
+          maxadv: parseInt(advances.value),
+          minadv: parseInt(minAdv.value),
+          minivs: [minHP.value, minATK.value, minDEF.value, minSPA.value, minSPD.value, minSPE.value],
+          maxivs: [maxHP.value, maxATK.value, maxDEF.value, maxSPA.value, maxSPD.value, maxSPE.value],
+      },
+      species: 0,
+      command: distSelectFilter.value,
+      delay: parseInt(delay.value),
+    };
+  }
+  
+  function checkStatic() {
+    doSearch(
+      "/api/check-gen3-static",
+      results,
+      getOptions(),
+      showFilteredResults,
+      checkStatButton
+    );
+  }
+  
+  function showFilteredResults() {
+    //validateFilters();
+    
+    let shinyFilter = distShinyCheckbox.checked;
+    let natureFilter = getSelectValues(natureSelect);
+    let genderfilter = genderSelect.value;
+  
+    const filteredResults = results.filter((result) =>
+      filter(
+        result,
+        shinyFilter,
+        natureFilter,
+        genderfilter
+      )
+    );
+  
+    console.log("Filtered Results:");
+    console.log(filteredResults);
+    
+    if (filteredResults.length > 0) {
+      filteredResults.forEach((result) => showResult(result));
+    } else {
+      showNoResultsFound();
+    }
+  }
+  
+  
+  function showResult(result) {
+    const resultContainer = resultTemplate.content.cloneNode(true);
+      
+    let resultShiny = resultContainer.querySelector("[data-pla-results-shiny]");
+    let sparkle = "";
+    let sparklesprite = document.createElement("img");
+    sparklesprite.className = "pla-results-sparklesprite";
+    sparklesprite.src =
+      "data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
+    sparklesprite.height = "10";
+    sparklesprite.width = "10";
+    sparklesprite.style.cssText =
+      "pull-left;display:inline-block;margin-left:0px;";
+      
+    if (result.shiny && result.square) {
+      sparklesprite.src = "static/img/square.png";
+      sparkle = "Square Shiny!";
+    }
+    else if (result.shiny) {
+      sparklesprite.src = "static/img/shiny.png";
+      sparkle = "Shiny!";
+    } else {
+      sparkle = "Not Shiny";
+    }
+    resultContainer
+      .querySelector("[data-pla-results-shinysprite]")
+      .appendChild(sparklesprite);
+    resultShiny.textContent = sparkle;
+    resultShiny.classList.toggle("pla-result-true", result.shiny);
+    resultShiny.classList.toggle("pla-result-false", !result.shiny);
+    
+    let totalAdvance = result.adv;
+  
+    resultContainer.querySelector("[data-pla-results-adv]").textContent =
+      totalAdvance;
+    resultContainer.querySelector("[data-pla-results-nature]").textContent =
+      result.nature;
+      
+    let gender = 'male';
+    
+    if (
+      fixedGender.checked
+      ){
+          if (parseInt(genderRatio.value) == 0){
+              gender = 'male';
+          }
+          else if (parseInt(genderRatio.value) == 254){
+              gender = 'female';
+          }
+          else {
+              gender = 'genderless';
+          }
+      }
+    else if (
+      result.gender < parseInt(genderRatio.value)
+      ){
+          gender = 'female';
+      }
+      
+    
+    const genderStrings = {
+    male: "Male <i class='fa-solid fa-mars' style='color:blue'/>",
+    female: "Female <i class='fa-solid fa-venus' style='color:pink'/>",
+    genderless: "Genderless <i class='fa-solid fa-genderless'/>",
+    };
+  
+    resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
+      genderStrings[gender];
+  
+    resultContainer.querySelector("[data-pla-results-ability]").textContent =
+      result.ability;
+    
+    resultContainer.querySelector("[data-pla-results-hptype").textContent =
+      result.hidden;
+    
+    resultContainer.querySelector("[data-pla-results-hppow").textContent =
+      result.power;
+      
+    showPokemonIVs(resultContainer, result);
+    showPokemonHiddenInformation(resultContainer, result);
+  
+    resultsArea.appendChild(resultContainer);
+  }
+  

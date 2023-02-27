@@ -14,6 +14,7 @@ from bdsp.data.data_utils import flatten_bdsp_stationary, flatten_ug, flatten_ug
 from pla.rng import Filter
 import bdsp
 import swsh
+import gen3
 
 mimetypes.add_type('application/javascript', '.js')
 mimetypes.add_type('application/javascript', '.mjs')
@@ -38,7 +39,7 @@ else:
 
 @app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template('index.html', home='true')
 
 @app.route("/mmos")
 def mmo_checker():
@@ -98,7 +99,15 @@ def btid():
 
 @app.route("/overworld")
 def owrng():
-    return render_template('pages/overworld.html', title='Overworld Checker', swsh="true")   
+    return render_template('pages/overworld.html', title='Overworld Checker', swsh="true")
+
+@app.route("/g3static")
+def g3static():
+    return render_template('pages/rse_static.html', title='RSE Static Checker', g3="true") 
+
+@app.route("/g3wild")
+def g3wild():
+    return render_template('pages/rse_wild.html', title='RSE Static Checker', g3="true")
 
 
 # API ROUTES
@@ -350,6 +359,59 @@ def check_ug_seed_test():
 
     return { "results": flatten_ug_test(results, config.get('FILTER_ON_SERVER', False), filter_command) }
 '''
+@app.route('/api/check-gen3-static', methods=['POST'])
+def check_gen3_static():
+
+    filter_command = filter_commands.get(request.json['command'], is_shiny)
+
+    results = gen3.check_statics(request.json['tid'],
+                                 request.json['sid'],
+                                 request.json['filter'],
+                                 request.json['delay'],
+                                 request.json['method'],
+                                 request.json['seed'])
+    
+    return { "results": flatten_bdsp_stationary(results, config.get('FILTER_ON_SERVER', False), filter_command) }
+
+@app.route('/api/g3-check-wilds', methods=['POST'])
+def check_g3_wilds():
+
+    filter_command = filter_commands.get(request.json['command'], is_shiny)
+
+    results = gen3.check_wilds(request.json['tid'],
+                               request.json['sid'],
+                               request.json['filter'],
+                               request.json['delay'],
+                               request.json['method'],
+                               request.json['lead'],
+                               request.json['info'],
+                               request.json['safari'],
+                               request.json['rock'],
+                               request.json['syncnature'],
+                               request.json['seed'])
+    
+    return { "results": flatten_bdsp_stationary(results, config.get('FILTER_ON_SERVER', False), filter_command) }
+
+@app.route('/api/g3-pop-location', methods=['POST'])
+def g3_pop_location():
+
+    results = gen3.populate_routes(request.json['version'], request.json['type'])
+
+    return { "results": results}
+
+@app.route('/api/g3-pop-species', methods=['POST'])
+def g3_pop_species():
+
+    results = gen3.populate_species(request.json['version'],request.json['type'],request.json['location'])
+
+    return { "results": results}
+
+@app.route('/api/g3-autofill', methods=['POST'])
+def g3_autofill():
+
+    results = gen3.autofill(request.json['version'],request.json['type'],request.json['location'],request.json['species'])
+
+    return { "results": results}
 
 @app.route('/api/check-bdsp-stationary', methods=['POST'])
 def check_bdsp_stationary():

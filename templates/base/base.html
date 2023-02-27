@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark light">
-    <title>{% if bdsp %}BDSP {% elif swsh %}SWSH {% else %}PLA {% endif %}{% block title %}Multi Checker{% endblock %}</title>
+    <title>{% if bdsp %}BDSP {% elif swsh %}SWSH {% elif g3 %}Gen3 {%elif home %}Cappy {% else %}PLA {% endif %}{% block title %}Web RNG Tools{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
@@ -78,6 +78,10 @@
 		<h1 class="pla-heading"><span class="pla-heading-highlight">BDSP</span> {{ self.title() }}</h1>
 		{% elif swsh %}
 		<h1 class="pla-heading"><span class="pla-heading-highlight">SWSH</span> {{ self.title() }}</h1>
+        {% elif g3 %}
+		<h1 class="pla-heading"><span class="pla-heading-highlight">GEN3</span> {{ self.title() }}</h1>
+        {% elif home %}
+		<h1 class="pla-heading"><span class="pla-heading-highlight">CAPPY'S</span> {{ self.title() }}</h1>
 		{% else %}
 		<h1 class="pla-heading"><span class="pla-heading-highlight">PLA</span> {{ self.title() }}</h1>
 		{% endif %}
@@ -106,6 +110,10 @@
     {% include 'nav/nav-bdsp.html' %}
 	{% elif swsh %}
 	{% include 'nav/nav-swsh.html' %}
+    {% elif g3 %}
+	{% include 'nav/nav-g3.html' %}
+    {% elif home %}
+	{% include 'nav/nav-home.html' %}
     {% else %}
     {% include 'nav/nav-python.html' %}
     {% endif %}
