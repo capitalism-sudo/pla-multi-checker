@@ -60,9 +60,7 @@ import {
   const natureSelect = document.getElementById("naturefilter");
   const genderSelect = document.getElementById("genderfilter");
   const SlotSelect = document.getElementById("slotfilter");
-  const distShinyCheckbox = document.getElementById("mmoShinyFilter");
-  const ratio = document.getElementById("genderratio");
-  
+  const distShinyCheckbox = document.getElementById("mmoShinyFilter");  
   
   //pokemon parsing
   const gameVer = document.getElementById("version");
@@ -92,7 +90,6 @@ import {
   natureSelect.addEventListener("change", setFilter);
   genderSelect.addEventListener("change", setFilter);
   distShinyCheckbox.addEventListener("change", setFilter);
-  ratio.addEventListener("change", setFilter);
 
   lead.addEventListener("change", populateLeads);
   gameVer.addEventListener("change", populateGame)
@@ -286,51 +283,32 @@ import {
     if (
           genderFilter != 50
       ) {
-          let gr = parseInt(ratio.value);
           console.log("Filter is not any, checking:");
+          console.log("Filer is: ", genderFilter);
           if (
           genderFilter == 0 &&
-          !(result.gender > gr)
+          !(result.gender == "Male")
           ){
               console.log("Gender Result not male, male filter selected");
           return false;
           }
-          else if ( genderFilter == 1 && !(result.gender < gr)) {
+          else if ( genderFilter == 1 && !(result.gender == "Female")) {
               console.log("Gender Result not female, female filter selected");
               return false;
           }
-      }
-    /*  
-      if (markFilter.includes("AnyMark")){
-          personalityMarks.forEach((mark) => {
-              markFilter.push(mark);
-          });
-          markFilter.push("Weather");
-          markFilter.push("Time");
-          markFilter.push("Uncommon");
-          markFilter.push("Rare");
-          markFilter.push("Fishing");
-      }
-      else if (markFilter.includes("AnyPersonality")){
-          personalityMarks.forEach((mark) => {
-              markFilter.push(mark);
-          });
-      }
-      
-      console.log("Filtering: Markfilter:", markFilter);
-      if (
-          !markFilter.includes("any") &&
-          !markFilter.includes(result.mark)
-          ) {
+          else if ( genderFilter == 2 && !(result.gender == "Genderless")){
+              console.log("Gender Result not genderless, genderless filter selected")
               return false;
           }
-    */
+      }
+    
         if (
             !slotFilter.includes("any") &&
             !slotFilter.includes(result.slot.toString())
         ) {
             return false;
         }
+
     return true;
   }
   
@@ -688,23 +666,15 @@ import {
       result.level;
     resultContainer.querySelector("[data-pla-results-nature]").textContent =
       result.nature;
-      
-    let gender = 'male';
-    if (result.gender < parseInt(ratio.value)){
-        gender = 'female';
-    }
-    else if (result.gender == 2){
-        gender = 'genderless';
-    }
     
     const genderStrings = {
-    male: "Male <i class='fa-solid fa-mars' style='color:blue'/>",
-    female: "Female <i class='fa-solid fa-venus' style='color:pink'/>",
-    genderless: "Genderless <i class='fa-solid fa-genderless'/>",
+    Male: "Male <i class='fa-solid fa-mars' style='color:blue'/>",
+    Female: "Female <i class='fa-solid fa-venus' style='color:pink'/>",
+    Genderless: "Genderless <i class='fa-solid fa-genderless'/>",
     };
   
     resultContainer.querySelector("[data-pla-results-gender]").innerHTML =
-      genderStrings[gender];
+      genderStrings[result.gender];
   
     resultContainer.querySelector("[data-pla-results-ability]").textContent =
       result.ability;

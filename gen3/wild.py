@@ -1,5 +1,6 @@
 import numpy as np
-from numba_pokemon_prngs.lcrng import PokeRNGDiv
+from numba_pokemon_prngs.lcrng import PokeRNGDiv, PokeRNGMod
+from numba_pokemon_prngs.data.personal import PERSONAL_INFO_E, PersonalInfo3
 import json
 
 #imports from main.py
@@ -8,24 +9,13 @@ from gen3.core import *
 from gen3.filters import compare_all_ivs
 from gen3.data import natures, pktype, getSlotRanges, calcCharm, setLevel,get_bdsp_sprite
 
+nature_rand = PokeRNGMod.const_rand(25)
+
 with open(RESOURCE_PATH + "resources/text_species_en.txt",encoding="utf-8") as text_species:
     SPECIES = text_species.read().split("\n")
 
-encounters = json.load(open("./static/resources/gen3/e_encounter.json"))
-
-species = []
-table = None
-
-for _,l in enumerate(encounters["encounters"]):
-    if l["map"] == "MAP_ROUTE101":
-        table = l
-        break
-
-for _,s in enumerate(table["land_mons"]["mons"]):
-    if s["species"].replace("SPECIES_", '').title() not in species:
-        species.append(s["species"].replace("SPECIES_", '').title())
-
-print(species)
+with open(RESOURCE_PATH + "resources/abilities_en.txt",encoding="utf-8") as text_abilities:
+    ABILITY = text_abilities.read().split("\n")
 
 enctypetomap = {
     "Grass":"land_mons",
@@ -123,7 +113,7 @@ def check_wilds(tid,sid,filter,delay,method,lead,encounter,rseSafari,rock,leadop
 
     seed = int(seed,16)
 
-    init = PokeRNGDiv(seed)
+    init = PokeRNGMod(seed)
     init.advance(filter['minadv']+delay)
 
     cuteCharmFlag = False
@@ -131,12 +121,12 @@ def check_wilds(tid,sid,filter,delay,method,lead,encounter,rseSafari,rock,leadop
 
     for i in range(0,filter['maxadv']+1):
 
-        rng = PokeRNGDiv(init.seed)
+        rng = PokeRNGMod(init.seed)
 
         if encounter['type'] == "RockSmash":
             if rseSafari or not rock:
                 rng.next()
-            rockenccheck = rng.next_u16() % 2880
+            rockenccheck = rng.next_rand(2880)
             if (rockenccheck) >= (table[type]['encounter_rate'] * 16):
                 init.next()
                 continue
@@ -175,7 +165,7 @@ def check_wilds(tid,sid,filter,delay,method,lead,encounter,rseSafari,rock,leadop
             species = "Egg"
         
         if lead == "None":
-            nature = natures(rng.next_u16() % 25)
+            nature = natures(nature_rand(rng))
         elif lead == "Synch":
             if (rng.next_u16() & 1) == 0:
                 #sync nature
@@ -183,11 +173,11 @@ def check_wilds(tid,sid,filter,delay,method,lead,encounter,rseSafari,rock,leadop
                 sync = True
             else:
                 #sync failed
-                nature = natures(rng.next_u16() % 25)
+                nature = natures(nature_rand(rng))
         else:
             #covers Cute Charm
-            cuteCharmFlag = (rng.next_u16() % 3) > 0
-            nature = natures(rng.next_u16() % 25)
+            cuteCharmFlag = (rng.next_rand(3)) > 0
+            nature = natures(nature_rand(rng))
 
             #now search for PID that matches hunt nature
             '''
@@ -202,17 +192,23 @@ def check_wilds(tid,sid,filter,delay,method,lead,encounter,rseSafari,rock,leadop
         low = rng.next_u16()
         high = rng.next_u16()
         pid = setPID(high,low)
-        testnature = natures(pid%25)
-        testcalccharm = calcCharm(leadopt,pid)
         while (natures(pid % 25) != nature) or (cuteCharmFlag and not calcCharm(leadopt,pid)):
-            testnature = natures(pid%25)
-            testcalccharm = calcCharm(leadopt,pid)
             low = rng.next_u16()
             high = rng.next_u16()
             pid = setPID(high,low)
         
-        ability = pid & 1
-        gender = pid & 255
+        #ability = pid & 1
+        gender_roll = pid & 255
+        abil_roll = pid & 1
+        pkmn : PersonalInfo3 = PERSONAL_INFO_E[SPECIES.index(species)]
+        ability = ABILITY[pkmn.ability_1 if abil_roll == 0 else pkmn.ability_2] + f" ({abil_roll})"
+
+        if pkmn.gender_ratio == 255:
+            gender = "Genderless"
+        else:
+            gender = "Female" if gender_roll < pkmn.gender_ratio else "Male"
+        #print(f"Species: {species} Gender Ratio: {pkmn.gender_ratio}")
+
         shiny,square = setShiny(tsv,high^low)
 
         if method == 1:

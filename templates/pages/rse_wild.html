@@ -205,19 +205,8 @@
 			<option value=50>Any</option>
 			<option value=0>Male</option>
 			<option value=1>Female</option>
+			<option value=2>Genderless</option>
 		</select>
-		
-		<div class="pla-control">
-			<label for="genderratio">Gender Ratio</label>
-			<select id="genderratio">
-				<option value="31" class="ivbox">1 &#9792; : 7 &#9794;</option>
-				<option value="63">1 &#9792; : 4 &#9794;</option>
-				<option value="127">1 &#9792; : 1 &#9794;</option>
-				<option value="191">3 &#9792; : 1 &#9794;</option>
-				<option value="0"> &#9794; Only</option>
-				<option value="254"> &#9792; Only</option>
-			</select>
-		</div>
 		
     </section>
 {% endblock %}
@@ -239,6 +228,8 @@
                 <li><span class="pla-results-label">Level:</span> <span data-pla-results-level></span></li>
 				<li><span class="pla-results-label">Shiny:</span> <span class="float -left" data-pla-results-shinysprite><span class="float -right" data-pla-results-shiny></span></span></li>
                 <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
+			</ul>
+			<ul class="pla-results-ul">
                 <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>			
                 <li><span class="pla-results-label">Ability:</span> <span data-pla-results-ability></span></li>
                 <li><span class="pla-results-label">HP Type:</span> <span data-pla-results-hptype></span></li>
