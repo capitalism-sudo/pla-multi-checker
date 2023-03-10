@@ -60,9 +60,7 @@ import {
   const natureSelect = document.getElementById("naturefilter");
   const genderSelect = document.getElementById("genderfilter");
   const SlotSelect = document.getElementById("slotfilter");
-  const distShinyCheckbox = document.getElementById("mmoShinyFilter");
-  const ratio = document.getElementById("genderratio");
-  
+  const distShinyCheckbox = document.getElementById("mmoShinyFilter");  
   
   //pokemon parsing
   const gameVer = document.getElementById("version");
@@ -92,7 +90,6 @@ import {
   natureSelect.addEventListener("change", setFilter);
   genderSelect.addEventListener("change", setFilter);
   distShinyCheckbox.addEventListener("change", setFilter);
-  ratio.addEventListener("change", setFilter);
 
   lead.addEventListener("change", populateLeads);
   gameVer.addEventListener("change", populateGame)
@@ -111,40 +108,34 @@ import {
   var Safari = false;
   var rock = false;
 
-  var synclead = '<option value="Hardy">Hardy</option>'+
-  '<option value="Lonely">Lonely</option>'+
-  '<option value="Brave">Brave</option>'+
-  '<option value="Adamant">Adamant</option>'+
-  '<option value="Naughty">Naughty</option>'+
-  '<option value="Bold">Bold</option>'+
-  '<option value="Docile">Docile</option>'+
-  '<option value="Relaxed">Relaxed</option>'+
-  '<option value="Impish">Impish</option>'+
-  '<option value="Lax">Lax</option>'+
-  '<option value="Timid">Timid</option>'+
-  '<option value="Hasty">Hasty</option>'+
-  '<option value="Serious">Serious</option>'+
-  '<option value="Jolly">Jolly</option>'+
-  '<option value="Naive">Naive</option>'+
-  '<option value="Modest">Modest</option>'+
-  '<option value="Mild">Mild</option>'+
-  '<option value="Quiet">Quiet</option>'+
-  '<option value="Bashful">Bashful</option>'+
-  '<option value="Rash">Rash</option>'+
-  '<option value="Calm">Calm</option>'+
-  '<option value="Gentle">Gentle</option>'+
-  '<option value="Sassy">Sassy</option>'+
-  '<option value="Careful">Careful</option>'+
-  '<option value="Quirky">Quirky</option>'
+  var synclead = '<option value=0>Hardy</option>'+
+  '<option value=1>Lonely</option>'+
+  '<option value=2>Brave</option>'+
+  '<option value=3>Adamant</option>'+
+  '<option value=4>Naughty</option>'+
+  '<option value=5>Bold</option>'+
+  '<option value=6>Docile</option>'+
+  '<option value=7>Relaxed</option>'+
+  '<option value=8>Impish</option>'+
+  '<option value=9>Lax</option>'+
+  '<option value=10>Timid</option>'+
+  '<option value=11>Hasty</option>'+
+  '<option value=12>Serious</option>'+
+  '<option value=13>Jolly</option>'+
+  '<option value=14>Naive</option>'+
+  '<option value=15>Modest</option>'+
+  '<option value=16>Mild</option>'+
+  '<option value=17>Quiet</option>'+
+  '<option value=18>Bashful</option>'+
+  '<option value=19>Rash</option>'+
+  '<option value=20>Calm</option>'+
+  '<option value=21>Gentle</option>'+
+  '<option value=22>Sassy</option>'+
+  '<option value=23>Careful</option>'+
+  '<option value=24>Quirky</option>'
   
-  var cutelead = '<option value="31f">&#9794; Lead, 12.5% &#9792; Target</option>'+
-  '<option value="31m">&#9792; Lead, 87.5% &#9794; Target</option>'+
-  '<option value="63f">&#9794; Lead, 25% &#9792; Target</option>'+
-  '<option value="63m">&#9792; Lead, 75% &#9794; Target</option>'+
-  '<option value="127f">&#9794; Lead, 50% &#9792; Target</option>'+
-  '<option value="127m">&#9792; Lead, 50% &#9794; Target</option>'+
-  '<option value="191f">&#9794; Lead, 75% &#9792; Target</option>'+
-  '<option value="191m">&#9792; Lead, 25% &#9794; Target</option>'+
+  var cutelead = '<option value=25>&#9794; Lead</option>'+
+  '<option value=26>&#9792; Lead</option>'+
   
   $(function() {
       $(".chosen-select").chosen({
@@ -286,18 +277,21 @@ import {
     if (
           genderFilter != 50
       ) {
-          let gr = parseInt(ratio.value);
           console.log("Filter is not any, checking:");
           if (
           genderFilter == 0 &&
-          !(result.gender > gr)
+          !(result.gender == 0)
           ){
               console.log("Gender Result not male, male filter selected");
           return false;
           }
-          else if ( genderFilter == 1 && !(result.gender < gr)) {
+          else if ( genderFilter == 1 && !(result.gender == 1)) {
               console.log("Gender Result not female, female filter selected");
               return false;
+          }
+          else if ( genderFilter == 2 && !(result.gender == 2)) {
+            console.log("Gender Result not genderless, genderless filter selected");
+            return false;
           }
       }
     /*  
@@ -326,8 +320,8 @@ import {
           }
     */
         if (
-            !slotFilter.includes("any") &&
-            !slotFilter.includes(result.slot.toString())
+            !(slotFilter == "any") &&
+            !(slotFilter == result.species)
         ) {
             return false;
         }
@@ -375,7 +369,7 @@ import {
       sid: secretID.value,
       method: parseInt(method.value),
       lead: lead.value,
-      syncnature: leadopt.value,
+      syncnature: parseInt(leadopt.value),
       filter: {
         minadv: parseInt(minAdv.value),
         maxadv: parseInt(maxAdv.value),
@@ -383,9 +377,9 @@ import {
           maxivs: [parseInt(maxHP.value), parseInt(maxATK.value), parseInt(maxDEF.value), parseInt(maxSPA.value), parseInt(maxSPD.value), parseInt(maxSPE.value)],
       },
       info: {
-          version: gameVer.value,
-          type: encType.value,
-          loc: encLoc.value,
+          version: parseInt(gameVer.value),
+          type: parseInt(encType.value),
+          loc: parseInt(encLoc.value),
           species: encSpecies.value,
       },
       safari:Safari,
@@ -411,31 +405,24 @@ import {
   }
 
   function populateGame(){
-    if (gameVer.value != "e"){
+    if (gameVer.value != 2){
         lead.value = "None";
         populateLeads();
         if (!lead.diabled){
             lead.disabled = true;
-        }
-        if ((gameVer.value == "fr") || (gameVer.value == "lg")){
-            rock = true;
-        }
-        else{
-            rock = false;
         }
     }
     else {
         if (lead.disabled){
             lead.disabled = false;
         }
-        rock = false;
     }
     populateLocation();
   }
   
   function populateLocation() {
       
-      var options = { type: encType.value, version: gameVer.value }
+      var options = { type: encType.value, version: parseInt(gameVer.value) }
       fetch("/api/g3-pop-location", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -446,7 +433,7 @@ import {
           console.log(res)
           var html_code = '';
           var species_code = '<option value="">Select Species</option>';
-          html_code += '<option value="MAP_ROUTE111">Select Location:</option>';
+          html_code += '<option value=0>Select Location:</option>';
           res.results.forEach((loc) => {
               html_code += '<option value="' + loc.rawloc + '">' + loc.location + '</option>';
           });
@@ -457,7 +444,7 @@ import {
   }
   
   function populateWeather() {
-      var options = { type: encType.value, loc: encLoc.value, version: gameVer.value }
+      var options = { type: parseInt(encType.value), loc: parseInt(encLoc.value), version: parseInt(gameVer.value) }
       fetch("/api/pop-weather", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -478,7 +465,7 @@ import {
   }
   
   function populateSpecies() {
-      var options = { type: encType.value, location: encLoc.value, version: gameVer.value }
+      var options = { type: parseInt(encType.value), location: parseInt(encLoc.value), version: parseInt(gameVer.value) }
       fetch("/api/g3-pop-species", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -487,7 +474,7 @@ import {
       .then((response) => response.json())
       .then((res) => {
           var html_code = '';
-          html_code += '<option value="">Select Species:</option>';
+          html_code += '<option value="any">Any Species:</option>';
           res.results.forEach((loc) => {
               html_code += '<option value="' + loc.raws + '">' + loc.species + '</option>';
           });
@@ -505,7 +492,7 @@ import {
   
   
   function populateOptions() {
-      var options = { type: encType.value, location: encLoc.value, version: gameVer.value, species: encSpecies.value }
+      var options = { type: parseInt(encType.value), location: parseInt(encLoc.value), version: parseInt(gameVer.value), species: encSpecies.value }
       fetch("/api/g3-autofill", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -524,6 +511,7 @@ import {
         // Set Values
         var values = res.results;
         console.log("Values:", values);
+        if (values != "any"){
         /*
         for (var i = 0; i < element.options.length; i++) {
             console.log("Element Value: ",element.options[i].value, "Eval: ",values.toString().indexOf(element.options[i].value));
@@ -543,6 +531,17 @@ import {
         var selectedItens = Array.from(element.selectedOptions).map(option => option.value);
 
         selectedItens.innerHTML = selectedItens;
+      }
+      else {
+        var element = SlotSelect
+        for (var i=1; i < element.options.length; i++){
+          element.options[i].selected = false;
+        }
+        element.options[0].selected = true;
+
+        var selectedItens = Array.from(element.selectedOptions).map(option => option.value);
+        selectedItens.innerHTML = selectedItens;
+      }
         $('#slotfilter').trigger("chosen:updated");
         showFilteredResults();
       })
@@ -558,7 +557,7 @@ import {
         }
     }
     else if (lead.value == "None"){
-        leadopt.innerHTML = '<option value="None">None</option>';
+        leadopt.innerHTML = '<option value=255>None</option>';
         if (!leadopt.disabled){
             leadopt.disabled = true;
         }
@@ -606,7 +605,7 @@ import {
   function showFilteredResults() {
     let natureFilter = getSelectValues(natureSelect);
     let shinyFilter = distShinyCheckbox.checked;
-    let slotFilter = getSelectValues(SlotSelect);
+    let slotFilter = encSpecies.value;
     let genderfilter = genderSelect.value;
 
     console.log("NatureFilter:", natureFilter);
@@ -678,8 +677,6 @@ import {
   
     resultContainer.querySelector("[data-pla-results-adv]").textContent =
       result.adv;
-    resultContainer.querySelector("[data-pla-results-slot]").textContent =
-      result.slot;
     resultContainer.querySelector("[data-pla-results-hptype]").textContent =
       result.hidden;
     resultContainer.querySelector("[data-pla-results-hppow]").textContent =
@@ -688,13 +685,14 @@ import {
       result.level;
     resultContainer.querySelector("[data-pla-results-nature]").textContent =
       result.nature;
-      
-    let gender = 'male';
-    if (result.gender < parseInt(ratio.value)){
-        gender = 'female';
+    
+    let gender = "male"
+    if (result.gender == 1){
+      gender = "female"
     }
-    else if (result.gender == 2){
-        gender = 'genderless';
+    else if (result.gender == 2)
+    {
+      gender = "genderless"
     }
     
     const genderStrings = {

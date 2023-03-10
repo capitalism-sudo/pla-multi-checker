@@ -50,7 +50,7 @@
 			<label for="method">Method:</label>
 			<select id="method">
 				<option value=1>H1</option>
-				<option value=2>H2</option>
+				<option value=3>H2</option>
 				<option value=4>H4</option>
 			</select>
 		</div>
@@ -58,11 +58,11 @@
         <div class="pla-control">
 			<label for="version">Game Version:</label>
 			<select id="version">
-				<option value="e">Emerald</option>
-				<option value="r">Ruby</option>
-				<option value="s">Sapphire</option>
-                <option value="fr">Fire Red</option>
-                <option value="lg">Leaf Green</option>
+				<option value=2>Emerald</option>
+				<option value=0>Ruby</option>
+				<option value=1>Sapphire</option>
+                <option value=3>Fire Red</option>
+                <option value=4>Leaf Green</option>
 			</select>
 		</div>
 
@@ -78,33 +78,33 @@
         <div class="pla-control">
 			<label for="leadopt">Lead Options:</label>
 			<select id="leadopt" disabled class="chosen-select">
-				<option value="None">None</option>
+				<option value=255>None</option>
 			</select>
 		</div>
 
         <div class="pla-control">
 			<label for="type">Encounter Type:</label>
 			<select id="type">
-				<option value="Grass">Grass</option>
-				<option value="RockSmash">Rock Smash</option>
-				<option value="Surfing">Surfing</option>
-                <option value="OldRod">Old Rod</option>
-                <option value="GoodRod">Good Rod</option>
-                <option value="SuperRod">Super Rod</option>
+				<option value=0>Grass</option>
+				<option value=3>Rock Smash</option>
+				<option value=4>Surfing</option>
+                <option value=6>Old Rod</option>
+                <option value=7>Good Rod</option>
+                <option value=8>Super Rod</option>
 			</select>
 		</div>
 
         <div class="pla-control">
 			<label for="location">Location:</label>
 			<select id="location">
-				<option value="Grass">Select Location:</option>
+				<option value=0>Select Location:</option>
 			</select>
 		</div>
 
         <div class="pla-control">
 			<label for="species">Species:</label>
 			<select id="species">
-				<option value="Grass">Select Species:</option>
+				<option value=0>Select Species:</option>
 			</select>
 		</div>
 		
@@ -205,19 +205,8 @@
 			<option value=50>Any</option>
 			<option value=0>Male</option>
 			<option value=1>Female</option>
+			<option value=2>Genderless</option>
 		</select>
-		
-		<div class="pla-control">
-			<label for="genderratio">Gender Ratio</label>
-			<select id="genderratio">
-				<option value="31" class="ivbox">1 &#9792; : 7 &#9794;</option>
-				<option value="63">1 &#9792; : 4 &#9794;</option>
-				<option value="127">1 &#9792; : 1 &#9794;</option>
-				<option value="191">3 &#9792; : 1 &#9794;</option>
-				<option value="0"> &#9794; Only</option>
-				<option value="254"> &#9792; Only</option>
-			</select>
-		</div>
 		
     </section>
 {% endblock %}
@@ -235,10 +224,11 @@
             
 			<ul class="pla-results-ul">
 				<li><span class="pla-results-label">Advances:</span> <span data-pla-results-adv></span></li>
-				<li><span class="pla-results-label">Slot:</span> <span data-pla-results-slot></span></li>
                 <li><span class="pla-results-label">Level:</span> <span data-pla-results-level></span></li>
 				<li><span class="pla-results-label">Shiny:</span> <span class="float -left" data-pla-results-shinysprite><span class="float -right" data-pla-results-shiny></span></span></li>
                 <li><span class="pla-results-label">Nature:</span> <span data-pla-results-nature></span></li>
+			</ul>
+			<ul class="pla-results-ul">
                 <li><span class="pla-results-label">Gender:</span> <span data-pla-results-gender></span></li>			
                 <li><span class="pla-results-label">Ability:</span> <span data-pla-results-ability></span></li>
                 <li><span class="pla-results-label">HP Type:</span> <span data-pla-results-hptype></span></li>
