@@ -383,10 +383,7 @@ def check_g3_wilds():
                                request.json['filter'],
                                request.json['delay'],
                                request.json['method'],
-                               request.json['lead'],
                                request.json['info'],
-                               request.json['safari'],
-                               request.json['rock'],
                                request.json['syncnature'],
                                request.json['seed'])
     
@@ -395,7 +392,7 @@ def check_g3_wilds():
 @app.route('/api/g3-pop-location', methods=['POST'])
 def g3_pop_location():
 
-    results = gen3.populate_routes(request.json['version'], request.json['type'])
+    results = gen3.populate_routes(request.json['version'])
 
     return { "results": results}
 

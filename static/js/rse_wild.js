@@ -1,27 +1,11 @@
 import {
-    doSearchSWSH,
-    DEFAULT_MAP,
-    MESSAGE_ERROR,
-    MESSAGE_INFO,
-    showMessage,
-    showModalMessage,
-    clearMessages,
-    clearModalMessages,
     doSearch,
-    showNoResultsFoundSWSH,
     showNoResultsFound,
-    saveIntToStorage,
-    readIntFromStorage,
-    saveBoolToStorage,
-    readBoolFromStorage,
     setupExpandables,
     showPokemonIVs,
-    showPokemonInformation,
     showPokemonHiddenInformation,
-    initializeApp,
     getSelectValues,
     setupIVBox,
-    setivVal,
   } from "./modules/common.mjs";
   
   const resultTemplate = document.querySelector("[data-pla-results-template]");
@@ -59,7 +43,6 @@ import {
   const distSelectFilter = document.getElementById("selectfilter");
   const natureSelect = document.getElementById("naturefilter");
   const genderSelect = document.getElementById("genderfilter");
-  const SlotSelect = document.getElementById("slotfilter");
   const distShinyCheckbox = document.getElementById("mmoShinyFilter");  
   
   //pokemon parsing
@@ -67,22 +50,11 @@ import {
   const encType = document.getElementById("type");
   const encLoc = document.getElementById("location");
   const encSpecies = document.getElementById("species");
-  const weatherActive = document.getElementById("weatheractive");
-  const KOs = document.getElementById("kos");
-  const minSlot = document.getElementById("minslot");
-  const maxSlot = document.getElementById("maxslot");
-  const minLevel = document.getElementById("minlevel");
-  const maxLevel = document.getElementById("maxlevel");
-  const emCount = document.getElementById("emcount");
-  const heldItem = document.getElementById("helditem");
-  const flawlessIVs = document.getElementById("flawlessivs");
-  const shinyLock = document.getElementById("shinylock");
-  const setGender = document.getElementById("setgender");
   
   
   encType.addEventListener("change", populateLocation);
   encLoc.addEventListener("change", populateSpecies);
-  encSpecies.addEventListener("change", populateOptions);
+  encSpecies.addEventListener("change", setFilter)
   
   const checkOwButton = document.getElementById("pla-button-checkwild");
   checkOwButton.addEventListener("click", checkOverworld);
@@ -97,8 +69,6 @@ import {
   loadPreferences();
   setupPreferenceSaving();
   setupExpandables();
-  setupTabs();
-  setupTabsRes();
   populateLocation();
   setupIVBox();
   populateGame();
@@ -174,7 +144,6 @@ import {
     secretID.value = localStorage.getItem("sid") ?? 0;
     natureSelect.value = "any";
     genderSelect.value = 50;
-    SlotSelect.value = "any";
     Delay.value = 0;
     seed.value = 0;
     
@@ -190,65 +159,6 @@ import {
     secretID.addEventListener("change", (e) =>
       localStorage.setItem("sid", e.target.value)
     );
-  }
-  
-  function setupTabs() {
-    document.querySelectorAll(".tablinks").forEach((element) => {
-      element.addEventListener("click", (event) =>
-        openTab(event, element.dataset.swshTabFor)
-      );
-    });
-  }
-  
-  function setupTabsRes() {
-    document.querySelectorAll(".reslinks").forEach((element) => {
-      element.addEventListener("click", (event) =>
-        openTabRes(event, element.dataset.plaTabFor)
-      );
-    });
-  }
-  
-  function openTab(evt, tabName) {
-    let i, tabcontent, tablinks;
-  
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-  
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-  
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
-  
-  function openTabRes(evt, tabName) {
-    let i, tabcontent, tablinks;
-  
-    tabcontent = document.getElementsByClassName("tabcontentres");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-  
-    tablinks = document.getElementsByClassName("reslinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-  
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
-  
-  function stringToBits(string) {
-      let bits = [];
-      let i = 0;
-      for (i=0; i < string.length; i++) {
-          bits.push(parseInt(string[i]));
-      }
-      return bits;
   }
   
   function setFilter(event) {
@@ -294,31 +204,6 @@ import {
             return false;
           }
       }
-    /*  
-      if (markFilter.includes("AnyMark")){
-          personalityMarks.forEach((mark) => {
-              markFilter.push(mark);
-          });
-          markFilter.push("Weather");
-          markFilter.push("Time");
-          markFilter.push("Uncommon");
-          markFilter.push("Rare");
-          markFilter.push("Fishing");
-      }
-      else if (markFilter.includes("AnyPersonality")){
-          personalityMarks.forEach((mark) => {
-              markFilter.push(mark);
-          });
-      }
-      
-      console.log("Filtering: Markfilter:", markFilter);
-      if (
-          !markFilter.includes("any") &&
-          !markFilter.includes(result.mark)
-          ) {
-              return false;
-          }
-    */
         if (
             !(slotFilter == "any") &&
             !(slotFilter == result.species)
@@ -328,37 +213,8 @@ import {
     return true;
   }
   
-  function addMotionPhys() {
-      addMotion("0");
-  }
-  
-  function addMotionSpec() {
-      addMotion("1");
-  }
-  
-  function addMotion(val) {
-      if (document.getElementById("motions").value.length < 128) {
-          document.getElementById("motions").value += val;
-          updateCount();
-      }
-  }
-  
   function updateCount() {
       document.getElementById("count").innerText = ("000"+document.getElementById("motions").value.length.toString(10)).slice(-3);
-  }
-  
-  function UpdateSidebar() {
-      
-      document.getElementById("inputseed0").value = document.querySelector("[data-updated-s0]").innerText;
-      document.getElementById("inputseed1").value = document.querySelector("[data-updated-s1]").innerText;
-      
-  }
-  
-  function UpdateState() {
-      
-      document.getElementById("inputseed0").value = document.getElementById("data-s0").value;
-      document.getElementById("inputseed1").value = document.getElementById("data-s1").value;
-      
   }
   
   function getOptions() {
@@ -388,21 +244,6 @@ import {
     };
   }
   
-  function getSeedOptions() {
-      return {
-          motions: stringToBits(motions.value),
-      };
-  }
-  
-  function getSeedUpdateOptions() {
-      return {
-          s0: document.getElementById("data-s0").value,
-          s1: document.getElementById("data-s1").value,
-          motions: motionsUpdate.value,
-          min: parseInt(startingAdvance.value),
-          max: parseInt(maxAdvance.value),
-      };
-  }
 
   function populateGame(){
     if (gameVer.value != 2){
@@ -443,27 +284,6 @@ import {
       })
   }
   
-  function populateWeather() {
-      var options = { type: parseInt(encType.value), loc: parseInt(encLoc.value), version: parseInt(gameVer.value) }
-      fetch("/api/pop-weather", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(options),
-    })
-      .then((response) => response.json())
-      .then((res) => {
-          var html_code = '';
-          var species_code = '<option value="">Select Species</option>';
-          html_code += '<option value="">Select Weather:</option>';
-          res.results.forEach((wea) => {
-              html_code += '<option value="' + wea + '">' + wea + '</option>';
-          });
-          encWeather.innerHTML = html_code;
-          encSpecies.innerHTML = species_code;
-          
-      })
-  }
-  
   function populateSpecies() {
       var options = { type: parseInt(encType.value), location: parseInt(encLoc.value), version: parseInt(gameVer.value) }
       fetch("/api/g3-pop-species", {
@@ -487,63 +307,6 @@ import {
           else {
             Safari = false;
           }
-      })
-  }
-  
-  
-  function populateOptions() {
-      var options = { type: parseInt(encType.value), location: parseInt(encLoc.value), version: parseInt(gameVer.value), species: encSpecies.value }
-      fetch("/api/g3-autofill", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(options),
-    })
-      .then((response) => response.json())
-      .then((res) => {
-          /*
-          res.results.forEach((slot) => {
-            SlotSelect.value += slot.toString();
-          });
-        console.log(getSelectValues(SlotSelect))
-        */
-        var element = SlotSelect
-
-        // Set Values
-        var values = res.results;
-        console.log("Values:", values);
-        if (values != "any"){
-        /*
-        for (var i = 0; i < element.options.length; i++) {
-            console.log("Element Value: ",element.options[i].value, "Eval: ",values.toString().indexOf(element.options[i].value));
-            element.options[i].selected = values.toString().indexOf(element.options[i].value) >= 0;
-        }*/
-        for (var i=0; i < element.options.length; i++){
-            element.options[i].selected = false;
-        }
-
-        for (var p = 0; p < values.length; p++){
-            element.options[values[p]+1].selected = true;
-        }
-
-        console.log(element.selectedOptions)
-
-        // Get Value
-        var selectedItens = Array.from(element.selectedOptions).map(option => option.value);
-
-        selectedItens.innerHTML = selectedItens;
-      }
-      else {
-        var element = SlotSelect
-        for (var i=1; i < element.options.length; i++){
-          element.options[i].selected = false;
-        }
-        element.options[0].selected = true;
-
-        var selectedItens = Array.from(element.selectedOptions).map(option => option.value);
-        selectedItens.innerHTML = selectedItens;
-      }
-        $('#slotfilter').trigger("chosen:updated");
-        showFilteredResults();
       })
   }
 
@@ -573,33 +336,6 @@ import {
   
   function checkOverworld() {
     doSearch("/api/g3-check-wilds", results, getOptions(), showFilteredResults, checkOwButton);
-  }
-  
-  function findSWSHSeed() {
-      
-      const options = getSeedOptions();
-      
-      fetch("/api/find-swsh-seed", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(options),
-    })
-      .then((response) => response.json())
-      .then((res) => showSeedInfo(res))
-  }
-  
-  function UpdateSeed() {
-      
-      const options = getSeedUpdateOptions();
-      
-      fetch("/api/update-swsh-seed", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(options),
-    })
-      .then((response) => response.json())
-      .then((res) => showSeedUpdateInfo(res))
-      .catch((error) => {});
   }
   
   function showFilteredResults() {
