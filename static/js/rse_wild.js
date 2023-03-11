@@ -213,10 +213,6 @@ import {
     return true;
   }
   
-  function updateCount() {
-      document.getElementById("count").innerText = ("000"+document.getElementById("motions").value.length.toString(10)).slice(-3);
-  }
-  
   function getOptions() {
     return {
       seed: seed.value,
@@ -324,6 +320,12 @@ import {
         if (!leadopt.disabled){
             leadopt.disabled = true;
         }
+    }
+    else if ((lead.value == "Pressure") || (lead.value == "Hustle") || (lead.value == "Vital Spirit")){
+      leadopt.innerHTML = '<option value=32>None</option>';
+      if (!leadopt.disabled){
+          leadopt.disabled = true;
+      }
     }
     else{
         leadopt.innerHTML = cutelead;
